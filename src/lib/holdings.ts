@@ -4,34 +4,19 @@
 // MOCK DATA — see /scripts/README.md). This file is read once at build/
 // request time and cached in memory, so every page/component that needs
 // holdings data goes through here rather than re-reading the file.
+//
+// NOTE: this file imports Node's `fs`, so it must only be imported from
+// server components / route handlers, never from a "use client" component.
+// Client components that need to filter/format holdings should import from
+// src/lib/search.ts and src/lib/types.ts instead.
 
 import { readFileSync } from "fs";
 import { join } from "path";
+import type { Holding, HoldingsData, GroupTotal } from "./types";
+import { filterHoldings } from "./search";
 
-export type Holding = {
-  id: string;
-  name: string;
-  ticker: string | null;
-  country: string;
-  region: string;
-  sector: string;
-  marketValueUSD: number;
-  ownershipPct: number;
-  portfolioPct: number;
-  isFTSE100: boolean;
-};
-
-export type HoldingsData = {
-  asOfDate: string;
-  isMockData: boolean;
-  dataLabel: string;
-  source: string;
-  currency: string;
-  totalPortfolioValueUSD: number;
-  companyCount: number;
-  generatedAt: string;
-  holdings: Holding[];
-};
+export type { Holding, HoldingsData, GroupTotal } from "./types";
+export { formatUSD } from "./search";
 
 let cached: HoldingsData | null = null;
 
@@ -44,28 +29,8 @@ export function getHoldingsData(): HoldingsData {
   return cached;
 }
 
-/** Simple case-insensitive substring search over company name and ticker. */
 export function searchHoldings(query: string, limit = 10): Holding[] {
-  const q = query.trim().toLowerCase();
-  if (!q) return [];
-  const { holdings } = getHoldingsData();
-
-  return holdings
-    .map((h) => {
-      const nameLower = h.name.toLowerCase();
-      const tickerLower = h.ticker?.toLowerCase() ?? "";
-      let score = -1;
-      if (nameLower === q || tickerLower === q) score = 100;
-      else if (nameLower.startsWith(q)) score = 80;
-      else if (tickerLower.startsWith(q)) score = 70;
-      else if (nameLower.includes(q)) score = 50;
-      else if (tickerLower.includes(q)) score = 40;
-      return { h, score };
-    })
-    .filter((x) => x.score > 0)
-    .sort((a, b) => b.score - a.score || b.h.marketValueUSD - a.h.marketValueUSD)
-    .slice(0, limit)
-    .map((x) => x.h);
+  return filterHoldings(getHoldingsData().holdings, query, limit);
 }
 
 export function getHoldingById(id: string): Holding | undefined {
@@ -76,9 +41,11 @@ export function getTopHoldings(n: number): Holding[] {
   return getHoldingsData().holdings.slice(0, n);
 }
 
-export type GroupTotal = { key: string; totalValueUSD: number; portfolioPct: number; count: number };
-
-function groupBy(holdings: Holding[], keyFn: (h: Holding) => string, total: number): GroupTotal[] {
+function groupBy(
+  holdings: Holding[],
+  keyFn: (h: Holding) => string,
+  total: number
+): GroupTotal[] {
   const map = new Map<string, { totalValueUSD: number; count: number }>();
   for (const h of holdings) {
     const key = keyFn(h);
@@ -124,10 +91,17 @@ export function getFTSE100Holdings(): Holding[] {
     .sort((a, b) => b.marketValueUSD - a.marketValueUSD);
 }
 
-/** Formats a USD value into a compact string, e.g. $38.4bn, $920m. */
-export function formatUSD(value: number): string {
-  if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}tn`;
-  if (value >= 1e9) return `$${(value / 1e9).toFixed(1)}bn`;
-  if (value >= 1e6) return `$${(value / 1e6).toFixed(0)}m`;
-  return `$${value.toLocaleString()}`;
+/** URL-friendly slug for a country name, e.g. "United Kingdom" -> "united-kingdom". */
+export function slugifyCountry(country: string): string {
+  return country.toLowerCase().replace(/\s+/g, "-");
+}
+
+/** Reverses slugifyCountry by matching against the countries actually present in the data. */
+export function unslugifyCountry(slug: string): string | undefined {
+  const countries = new Set(getHoldingsData().holdings.map((h) => h.country));
+  return Array.from(countries).find((c) => slugifyCountry(c) === slug);
+}
+
+export function listCountries(): string[] {
+  return groupByCountry().map((g) => g.key);
 }
