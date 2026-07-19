@@ -14,10 +14,35 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const title = "Graduate Analyst Terminal";
+const description =
+  "A free, web-based terminal for students — starting with the SWF Explorer, an interactive look at NBIM's published portfolio holdings.";
+
 export const metadata: Metadata = {
-  title: "Graduate Analyst Terminal",
-  description:
-    "A free, web-based terminal for students — starting with the SWF Explorer, an interactive look at NBIM's published portfolio holdings.",
+  title: {
+    default: title,
+    template: "%s · Graduate Analyst Terminal",
+  },
+  description,
+  keywords: [
+    "NBIM",
+    "Norges Bank Investment Management",
+    "sovereign wealth fund",
+    "Government Pension Fund Global",
+    "portfolio holdings",
+    "equity ownership",
+  ],
+  openGraph: {
+    title,
+    description,
+    type: "website",
+    siteName: title,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({

@@ -41,3 +41,13 @@ Every meaningful technical or scope decision gets logged here as it's made. Writ
 **Why:** `nvm` is the standard, safe way to install Node without needing admin/root access, and it lets you easily switch Node versions later if a project ever needs a different one.
 
 **What it means for the project:** Nothing you need to do — it's part of your dev environment now, not part of the deployed site. Vercel (where the site will eventually be hosted) manages its own Node version separately.
+
+---
+
+### 2026-07-20 — Left deployment for you to do manually
+
+**Decision:** Wrote `docs/DEPLOY.md` with step-by-step Vercel deploy instructions, but did not attempt to deploy the site myself.
+
+**Why:** `CLAUDE.md` explicitly says not to — deploying is the one step reserved for you, partly so the Vercel account is yours and under your control from the start.
+
+**What it means for the project:** The site is fully ready to deploy (build passes cleanly), but it isn't live anywhere yet. Follow `docs/DEPLOY.md` whenever you're ready — it takes about 10 minutes and doesn't require touching a terminal beyond a couple of `git push` commands.
