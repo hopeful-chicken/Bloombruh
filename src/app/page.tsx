@@ -1,65 +1,127 @@
-import Image from "next/image";
+import Link from "next/link";
+import { modules } from "@/lib/modules";
+import { getHoldingsData } from "@/lib/holdings";
 
 export default function Home() {
+  const { companyCount, isMockData } = getHoldingsData();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
+      {/* Hero */}
+      <section className="max-w-3xl">
+        <p className="font-mono text-xs uppercase tracking-widest text-accent">
+          Free · Web-based · Built for students
+        </p>
+        <h1 className="mt-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          Graduate Analyst Terminal
+        </h1>
+        <p className="mt-5 text-lg leading-relaxed text-muted">
+          A Bloomberg-lite for students who can&apos;t afford a Bloomberg
+          terminal. The first module: an interactive explorer of{" "}
+          <span className="text-foreground">NBIM&apos;s</span> (Norway&apos;s
+          $1.5tn+ sovereign wealth fund) published portfolio — what the
+          world&apos;s largest equity owner actually holds, searchable in
+          seconds.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link
+            href="/swf"
+            className="rounded bg-accent px-5 py-2.5 text-sm font-semibold text-black transition-opacity hover:opacity-90"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Open SWF Explorer →
+          </Link>
+          <span className="flex items-center gap-2 rounded border border-border px-4 py-2.5 font-mono text-sm text-muted">
+            {companyCount} holdings loaded
+            {isMockData && (
+              <span className="rounded-sm bg-accent/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
+                mock data
+              </span>
+            )}
+          </span>
         </div>
-      </main>
+      </section>
+
+      {/* Module cards */}
+      <section className="mt-16">
+        <h2 className="font-mono text-sm uppercase tracking-widest text-muted">
+          Modules
+        </h2>
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {modules.map((m) => {
+            const card = (
+              <div
+                className={[
+                  "flex h-full flex-col rounded-lg border p-5 transition-colors",
+                  m.status === "live"
+                    ? "border-border bg-surface hover:border-accent/60"
+                    : "border-border/60 bg-surface/40",
+                ].join(" ")}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="font-semibold text-foreground">{m.name}</h3>
+                  <span
+                    className={[
+                      "shrink-0 rounded-sm px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
+                      m.status === "live"
+                        ? "bg-positive/15 text-positive"
+                        : "bg-muted/15 text-muted",
+                    ].join(" ")}
+                  >
+                    {m.status === "live" ? "Live" : "Coming soon"}
+                  </span>
+                </div>
+                <p className="mt-1 text-sm font-medium text-accent/90">
+                  {m.tagline}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  {m.description}
+                </p>
+              </div>
+            );
+
+            return m.status === "live" ? (
+              <Link key={m.slug} href={m.slug} className="block h-full">
+                {card}
+              </Link>
+            ) : (
+              <div key={m.slug} className="h-full cursor-not-allowed">
+                {card}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* About */}
+      <section className="mt-16 max-w-3xl border-t border-border pt-10">
+        <h2 className="font-mono text-sm uppercase tracking-widest text-muted">
+          About this project
+        </h2>
+        <p className="mt-4 text-sm leading-relaxed text-muted">
+          Built by Adam, a UCL Economics student, as a long-term project to
+          learn by building and to demonstrate genuine interest in asset
+          management — particularly NBIM. It&apos;s free, independent, and
+          unaffiliated with Norges Bank Investment Management or any other
+          institution mentioned on this site.
+        </p>
+        <p className="mt-3 text-sm leading-relaxed text-muted">
+          Links:{" "}
+          <a
+            href="#"
+            className="underline decoration-dotted underline-offset-2 hover:text-accent"
+          >
+            LinkedIn
+          </a>{" "}
+          ·{" "}
+          <a
+            href="#"
+            className="underline decoration-dotted underline-offset-2 hover:text-accent"
+          >
+            GitHub
+          </a>
+          {/* EDITORIAL: Adam to add real links and, if he wants, a short personal note here */}
+        </p>
+      </section>
     </div>
   );
 }

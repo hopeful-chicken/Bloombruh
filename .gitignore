@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Claude Code local settings (personal, not shared)
 .claude/settings.local.json
+
+# raw downloaded data (can be large; processed output lives in /public/data instead)
+/data-raw/*
+!/data-raw/README.md
