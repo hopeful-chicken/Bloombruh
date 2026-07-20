@@ -148,3 +148,40 @@ theres nothing to do." This phase fills that gap.
       compiles) and `/pitch/SHEL` (graceful "Unavailable" everywhere,
       no crash).
 - [x] Update `PROGRESS.md` with a session summary. Commit.
+
+## Phase 11 — Rebrand to "Bloombruh", site-wide dark/light theme, split-view Pitch Builder
+
+You tested the deepened Pitch Builder and asked for three changes: stop
+gating the company data behind checkboxes ("just be able to see the metrics
+and financials as data... just like the data at the start of the website"),
+a clear split between "just look at the data" and "build my own report" (a
+two-pane layout once the student opts in), and a site-wide dark/light theme
+(blue accent in dark mode, green in light mode). You also asked to rename
+the project to **Bloombruh**.
+
+- [x] Theme system: swapped the dark accent from amber to blue, added a
+      `:root.light` palette (white background, green accent) in
+      `globals.css`; new dependency-free `ThemeToggle.tsx` (persists to
+      `localStorage`); a blocking script in `layout.tsx` applies the saved
+      theme before first paint (no flash of the wrong theme).
+- [x] Renamed the project to "Bloombruh" everywhere: nav, landing page,
+      footer, PDF export, `package.json`, and every doc (`README.md`,
+      `CLAUDE.md`, `docs/PROJECT_BRIEF.md`, `docs/MODULE_SPECS.md`,
+      `docs/DEPLOY.md`).
+- [x] New `DataDashboard.tsx`: every stat (key stats + all ~45 fundamentals/
+      valuation/growth/credit stats) plus the price chart and news, shown as
+      plain read-only cards, general → specific, zero checkboxes.
+- [x] Extracted shared `Stat.tsx` and `NewsList.tsx` components so Company
+      Profile, the dashboard, and the optional News report block all render
+      identically.
+- [x] Restructured `PitchWorkbench.tsx`: default view shows `DataDashboard`
+      full-width with a "Build your own report" CTA; choosing to build
+      splits the page into two panes (data dashboard sticky/scrollable on
+      one side, report builder — type picker, rating/target price, blocks,
+      PDF export — on the other). News stays visible in the dashboard and
+      is still addable as a block/appendix in the exported report.
+- [x] Verified `npm run build` passes with no TypeScript errors; fresh dev
+      server smoke-tested `/`, `/profile/AAPL`, `/pitch/AAPL`, `/pitch/SHEL`
+      — dashboard renders with no checkboxes, News section shows without
+      adding a block, split view works, theme toggle markup present.
+- [x] Updated `docs/DECISIONS.md`, `TASKS.md`, `PROGRESS.md`. Commit.

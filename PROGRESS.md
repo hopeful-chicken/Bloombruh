@@ -545,3 +545,62 @@ the one step left for you, and `docs/DEPLOY.md` walks you through it.
    country pages all update automatically — nothing else needs to change).
 
 ### Nothing broken — safe to continue from here.
+
+---
+
+## Session: Rebrand to "Bloombruh" + dark/light theme + split-view Pitch Builder (2026-07-20)
+
+You tried the deepened Pitch Builder and gave three pieces of feedback, all
+addressed this session:
+
+1. **"Just be able to see the metrics and financials as data, not something
+   to select"** — the company data now shows as a plain, always-visible
+   dashboard (`DataDashboard.tsx`): header, chart, key stats, context, about,
+   then every fundamentals/valuation/growth/credit stat (~45 in total),
+   grouped into labeled sections, then news — all read-only cards, no
+   checkboxes, ordered general-to-specific.
+2. **A clear split between "just look" and "build my own report."** The
+   Pitch Builder page now defaults to that full data dashboard plus a
+   "Build your own report →" button. Clicking it splits the page into two
+   panes: the data dashboard stays visible (scrollable) on the left, the
+   report builder (report type, rating, target price, blocks, PDF export)
+   is on the right. Nothing is lost switching back and forth — the report's
+   blocks/rating/target price live in the same component regardless of
+   which view is showing. News headlines are always visible in the
+   dashboard *and* can still be added as a block/appendix in the exported
+   report (so a student can quote or footnote them).
+3. **Site-wide dark/light theme.** A small toggle (top-right of the nav)
+   switches between dark (same terminal look, but blue accent instead of
+   amber) and light (white background, green accent). No new library —
+   it's a CSS class + `localStorage`, with a tiny script that applies the
+   saved theme before the page paints so there's no flash of the wrong
+   theme on reload.
+4. **Renamed the whole project to "Bloombruh"** — nav, landing page,
+   footer, PDF export, `package.json`, and every planning doc.
+
+### What changed under the hood
+- `src/app/globals.css` — new light theme palette; dark theme's accent
+  swapped amber → blue. Gain/loss colors (the red/green for price moves)
+  were deliberately left alone in both themes so "up"/"down" always mean
+  the same thing regardless of accent color.
+- New: `src/components/ThemeToggle.tsx`, `src/components/Stat.tsx` (shared
+  stat card, previously duplicated in three places), `src/components/pitch/
+  NewsList.tsx` (shared headline list), `src/components/pitch/
+  DataDashboard.tsx`.
+- `src/components/pitch/PitchWorkbench.tsx` — restructured around a
+  `showBuilder` boolean instead of one long scrolling page.
+- Verified: `npm run build` passes clean; fresh dev server smoke-tested `/`,
+  `/profile/AAPL`, `/pitch/AAPL` (default dashboard view has no checkboxes,
+  News shows without adding a block, split view renders both panes), and
+  `/pitch/SHEL` (non-US ticker — dashboard gracefully shows "Unavailable"
+  for SEC-only stats, no crash).
+
+### Known issues / things to check
+- The PDF export wasn't re-verified by actually clicking "Download PDF" in
+  a browser this session (only confirmed the code compiles and the accent
+  color/branding strings were updated) — worth a quick manual check next
+  time you're in the app.
+- Same placeholder LinkedIn/GitHub links as before — still marked with
+  `EDITORIAL` comments, still waiting on your real links.
+
+### Nothing broken — safe to continue from here.
