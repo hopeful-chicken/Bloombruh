@@ -16,6 +16,9 @@ import {
 import { formatUSD, formatPct } from "@/lib/format";
 import type { Rating } from "./PitchWorkbench";
 import type { Fundamentals } from "@/lib/secEdgar";
+import type { Block, StatEntry } from "@/lib/reportBlocks";
+import { parseLines } from "@/lib/reportBlocks";
+import { computeLbo, computeManda } from "@/lib/dealMath";
 
 export type PitchPdfProps = {
   symbol: string;
@@ -32,13 +35,8 @@ export type PitchPdfProps = {
   fundamentals: Fundamentals | null;
   rating: Rating;
   targetPrice: number | null;
-  thesis: string;
-  catalysts: string[];
-  risks: string[];
-  strengths: string[];
-  weaknesses: string[];
-  opportunities: string[];
-  threats: string[];
+  blocks: Block[];
+  availableStats: StatEntry[];
   generatedAt: string;
 };
 
@@ -189,6 +187,163 @@ function SwotBox({ label, items }: { label: string; items: string[] }) {
   );
 }
 
+function BulletList({ items }: { items: string[] }) {
+  if (items.length === 0) {
+    return <Text style={{ fontSize: 9, color: "#999999" }}>—</Text>;
+  }
+  return (
+    <>
+      {items.map((item, i) => (
+        <View key={i} style={styles.bullet}>
+          <Text style={styles.bulletDot}>•</Text>
+          <Text style={styles.bulletText}>{item}</Text>
+        </View>
+      ))}
+    </>
+  );
+}
+
+/** Renders one student-built block into the PDF, matching whatever type
+ * it is — this is what makes the report genuinely personalizable instead
+ * of a fixed template. */
+function BlockOutput({
+  block,
+  availableStats,
+}: {
+  block: Block;
+  availableStats: StatEntry[];
+}) {
+  const title = block.title || "Untitled";
+
+  if (block.type === "text") {
+    return (
+      <>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        <Text style={styles.paragraph}>{block.data.body.trim() || "(nothing written)"}</Text>
+      </>
+    );
+  }
+
+  if (block.type === "swot") {
+    return (
+      <>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        <View style={styles.swotGrid}>
+          <SwotBox label="Strengths" items={parseLines(block.data.strengths)} />
+          <SwotBox label="Weaknesses" items={parseLines(block.data.weaknesses)} />
+          <SwotBox label="Opportunities" items={parseLines(block.data.opportunities)} />
+          <SwotBox label="Threats" items={parseLines(block.data.threats)} />
+        </View>
+      </>
+    );
+  }
+
+  if (block.type === "list") {
+    return (
+      <>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        <BulletList items={parseLines(block.data.items)} />
+      </>
+    );
+  }
+
+  if (block.type === "stats") {
+    const rows = block.data.statKeys
+      .map((key) => availableStats.find((s) => s.key === key))
+      .filter((s): s is StatEntry => Boolean(s));
+    return (
+      <>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        <View style={[styles.card, styles.statsRow]}>
+          {rows.map((stat) => (
+            <Stat
+              key={stat.key}
+              label={stat.label}
+              value={stat.value ?? block.data.overrides[stat.key] ?? "Unavailable"}
+            />
+          ))}
+        </View>
+      </>
+    );
+  }
+
+  if (block.type === "comps") {
+    return (
+      <>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        {block.data.rows.length === 0 ? (
+          <Text style={{ fontSize: 9, color: "#999999" }}>—</Text>
+        ) : (
+          <View style={styles.card}>
+            {block.data.rows.map((row) => (
+              <Text key={row.symbol} style={{ fontSize: 9, marginBottom: 3 }}>
+                {row.symbol}
+                {row.error
+                  ? ` — ${row.error}`
+                  : ` — Price ${row.price !== null ? formatUSD(row.price) : "—"}, P/E ${
+                      row.peRatio !== null ? row.peRatio.toFixed(1) + "x" : "—"
+                    }, Revenue ${row.revenue !== null ? formatUSD(row.revenue) : "—"}, Net margin ${
+                      row.netMarginPct !== null ? formatPct(row.netMarginPct) : "—"
+                    }`}
+              </Text>
+            ))}
+          </View>
+        )}
+      </>
+    );
+  }
+
+  if (block.type === "lbo") {
+    const result = computeLbo(block.data);
+    return (
+      <>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        {result ? (
+          <View style={[styles.card, styles.statsRow]}>
+            <Stat label="Entry equity" value={formatUSD(result.entryEquity)} />
+            <Stat label="Exit equity" value={formatUSD(result.exitEquity)} />
+            <Stat label="MOIC" value={`${result.moic.toFixed(2)}x`} />
+            <Stat label="IRR" value={`${result.irrPct.toFixed(1)}%`} />
+          </View>
+        ) : (
+          <Text style={{ fontSize: 9, color: "#999999" }}>(incomplete inputs)</Text>
+        )}
+      </>
+    );
+  }
+
+  // manda
+  const result = computeManda(block.data);
+  return (
+    <>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      {result ? (
+        <View style={[styles.card, styles.statsRow]}>
+          <Stat label="Deal value" value={formatUSD(result.dealValue)} />
+          <Stat
+            label="Pro-forma EPS"
+            value={result.proFormaEps !== null ? `$${result.proFormaEps.toFixed(2)}` : "—"}
+          />
+          <Stat
+            label="Accretion / (dilution)"
+            value={
+              result.accretionDilutionPct !== null
+                ? formatPct(result.accretionDilutionPct)
+                : "—"
+            }
+          />
+          <Stat
+            label="Goodwill"
+            value={result.goodwill !== null ? formatUSD(result.goodwill) : "—"}
+          />
+        </View>
+      ) : (
+        <Text style={{ fontSize: 9, color: "#999999" }}>(incomplete inputs)</Text>
+      )}
+    </>
+  );
+}
+
 export default function PitchPdfDocument(props: PitchPdfProps) {
   const isUp = props.change >= 0;
   const impliedUpsidePct =
@@ -332,53 +487,11 @@ export default function PitchPdfDocument(props: PitchPdfProps) {
             </>
           )}
 
-          {/* Thesis */}
-          <Text style={styles.sectionTitle}>Thesis</Text>
-          <Text style={styles.paragraph}>
-            {props.thesis.trim() || "(no thesis written)"}
-          </Text>
-
-          {/* SWOT */}
-          {(props.strengths.length > 0 ||
-            props.weaknesses.length > 0 ||
-            props.opportunities.length > 0 ||
-            props.threats.length > 0) && (
-            <>
-              <Text style={styles.sectionTitle}>SWOT</Text>
-              <View style={styles.swotGrid}>
-                <SwotBox label="Strengths" items={props.strengths} />
-                <SwotBox label="Weaknesses" items={props.weaknesses} />
-                <SwotBox label="Opportunities" items={props.opportunities} />
-                <SwotBox label="Threats" items={props.threats} />
-              </View>
-            </>
-          )}
-
-          {/* Catalysts */}
-          {props.catalysts.length > 0 && (
-            <>
-              <Text style={styles.sectionTitle}>Catalysts</Text>
-              {props.catalysts.map((c, i) => (
-                <View key={i} style={styles.bullet}>
-                  <Text style={styles.bulletDot}>•</Text>
-                  <Text style={styles.bulletText}>{c}</Text>
-                </View>
-              ))}
-            </>
-          )}
-
-          {/* Risks */}
-          {props.risks.length > 0 && (
-            <>
-              <Text style={styles.sectionTitle}>Risks</Text>
-              {props.risks.map((r, i) => (
-                <View key={i} style={styles.bullet}>
-                  <Text style={styles.bulletDot}>•</Text>
-                  <Text style={styles.bulletText}>{r}</Text>
-                </View>
-              ))}
-            </>
-          )}
+          {/* Student-built report blocks — rendered generically in
+              whatever order the student assembled them in. */}
+          {props.blocks.map((block) => (
+            <BlockOutput key={block.id} block={block} availableStats={props.availableStats} />
+          ))}
         </View>
 
         {/* Footer */}

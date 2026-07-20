@@ -9,6 +9,14 @@ import {
   computeAnnualizedVolatility,
   describeVolatility,
 } from "@/lib/profileAnalysis";
+import {
+  computeCreditMetrics,
+  computeROIC,
+  computeCapitalAllocation,
+} from "@/lib/fundamentalsAnalysis";
+import { getBeta } from "@/lib/beta";
+import { formatUSD, formatPct } from "@/lib/format";
+import type { StatEntry } from "@/lib/reportBlocks";
 import PitchWorkbench from "@/components/pitch/PitchWorkbench";
 
 export default async function PitchBuilderPage({
@@ -53,6 +61,7 @@ export default async function PitchBuilderPage({
     symbol,
     description?.wikipediaUrl ?? null
   ).catch(() => []);
+  const betaResult = await getBeta(symbol).catch(() => null);
 
   const price = parseFloat(quote.close);
   const change = parseFloat(quote.change);
@@ -79,6 +88,167 @@ export default async function PitchBuilderPage({
     describeMomentum(price, movingAverage50, "50-day"),
     describeVolatility(annualizedVol),
   ].filter((n): n is string => Boolean(n));
+
+  // Every free/computable number the block-based report builder can offer
+  // as a "stat" — anything with a null value is shown as "Unavailable" in
+  // the builder, with an editable override for the student to fill in.
+  const creditMetrics = fundamentals ? computeCreditMetrics(fundamentals) : null;
+  const roicPct = fundamentals ? computeROIC(fundamentals) : null;
+  const capitalAllocation = fundamentals ? computeCapitalAllocation(fundamentals) : null;
+
+  const availableStats: StatEntry[] = [
+    { key: "price", label: "Price", value: formatUSD(price) },
+    { key: "week52High", label: "52-week high", value: formatUSD(week52High) },
+    { key: "week52Low", label: "52-week low", value: formatUSD(week52Low) },
+    {
+      key: "movingAverage50",
+      label: "50-day avg. price",
+      value: movingAverage50 !== null ? formatUSD(movingAverage50) : null,
+    },
+    {
+      key: "annualizedVol",
+      label: "Volatility (annualized)",
+      value: annualizedVol !== null ? formatPct(annualizedVol, 0) : null,
+    },
+    {
+      key: "beta",
+      label: "Beta (vs. S&P 500)",
+      value: betaResult ? betaResult.beta.toFixed(2) : null,
+    },
+    {
+      key: "revenue",
+      label: "Revenue (latest FY)",
+      value: fundamentals?.revenue !== null && fundamentals?.revenue !== undefined
+        ? formatUSD(fundamentals.revenue)
+        : null,
+    },
+    {
+      key: "revenueGrowth",
+      label: "Revenue growth (YoY)",
+      value:
+        fundamentals?.revenue !== null &&
+        fundamentals?.revenue !== undefined &&
+        fundamentals?.revenuePriorYear
+          ? formatPct(
+              ((fundamentals.revenue - fundamentals.revenuePriorYear) /
+                fundamentals.revenuePriorYear) *
+                100
+            )
+          : null,
+    },
+    {
+      key: "netIncome",
+      label: "Net income (latest FY)",
+      value: fundamentals?.netIncome !== null && fundamentals?.netIncome !== undefined
+        ? formatUSD(fundamentals.netIncome)
+        : null,
+    },
+    {
+      key: "grossMargin",
+      label: "Gross margin",
+      value:
+        fundamentals?.grossProfit !== null &&
+        fundamentals?.grossProfit !== undefined &&
+        fundamentals?.revenue
+          ? formatPct((fundamentals.grossProfit / fundamentals.revenue) * 100)
+          : null,
+    },
+    {
+      key: "operatingMargin",
+      label: "Operating margin",
+      value:
+        fundamentals?.operatingIncome !== null &&
+        fundamentals?.operatingIncome !== undefined &&
+        fundamentals?.revenue
+          ? formatPct((fundamentals.operatingIncome / fundamentals.revenue) * 100)
+          : null,
+    },
+    {
+      key: "epsDiluted",
+      label: "EPS (diluted)",
+      value:
+        fundamentals?.epsDiluted !== null && fundamentals?.epsDiluted !== undefined
+          ? `$${fundamentals.epsDiluted.toFixed(2)}`
+          : null,
+    },
+    {
+      key: "totalAssets",
+      label: "Total assets",
+      value:
+        fundamentals?.totalAssets !== null && fundamentals?.totalAssets !== undefined
+          ? formatUSD(fundamentals.totalAssets)
+          : null,
+    },
+    {
+      key: "totalDebt",
+      label: "Total debt",
+      value:
+        fundamentals?.totalDebt !== null && fundamentals?.totalDebt !== undefined
+          ? formatUSD(fundamentals.totalDebt)
+          : null,
+    },
+    {
+      key: "cash",
+      label: "Cash & equivalents",
+      value: fundamentals?.cash !== null && fundamentals?.cash !== undefined
+        ? formatUSD(fundamentals.cash)
+        : null,
+    },
+    {
+      key: "ebitda",
+      label: "EBITDA (op. income + D&A, est.)",
+      value: creditMetrics?.ebitda !== null && creditMetrics?.ebitda !== undefined
+        ? formatUSD(creditMetrics.ebitda)
+        : null,
+    },
+    {
+      key: "netDebtToEbitda",
+      label: "Net debt / EBITDA",
+      value:
+        creditMetrics?.netDebtToEbitda !== null && creditMetrics?.netDebtToEbitda !== undefined
+          ? `${creditMetrics.netDebtToEbitda.toFixed(1)}x`
+          : null,
+    },
+    {
+      key: "interestCoverage",
+      label: "Interest coverage (EBITDA / interest)",
+      value:
+        creditMetrics?.interestCoverage !== null && creditMetrics?.interestCoverage !== undefined
+          ? `${creditMetrics.interestCoverage.toFixed(1)}x`
+          : null,
+    },
+    {
+      key: "roic",
+      label: "ROIC (est., 21% tax rate)",
+      value: roicPct !== null ? formatPct(roicPct) : null,
+    },
+    {
+      key: "dividendsPaid",
+      label: "Dividends paid (latest FY)",
+      value:
+        capitalAllocation?.dividendsPaid !== null &&
+        capitalAllocation?.dividendsPaid !== undefined
+          ? formatUSD(capitalAllocation.dividendsPaid)
+          : null,
+    },
+    {
+      key: "buybacks",
+      label: "Share buybacks (latest FY)",
+      value:
+        capitalAllocation?.buybacks !== null && capitalAllocation?.buybacks !== undefined
+          ? formatUSD(capitalAllocation.buybacks)
+          : null,
+    },
+    {
+      key: "sharesOutstanding",
+      label: "Shares outstanding",
+      value:
+        fundamentals?.sharesOutstanding !== null &&
+        fundamentals?.sharesOutstanding !== undefined
+          ? fundamentals.sharesOutstanding.toLocaleString()
+          : null,
+    },
+  ];
 
   return (
     <div>
@@ -107,6 +277,7 @@ export default async function PitchBuilderPage({
         fundamentals={fundamentals}
         description={description}
         sourceLinks={sourceLinks}
+        availableStats={availableStats}
       />
     </div>
   );

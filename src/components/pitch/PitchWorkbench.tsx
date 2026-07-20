@@ -12,6 +12,14 @@ import { formatUSD, formatNumber, formatPct } from "@/lib/format";
 import PriceChart, { type ChartPoint } from "@/components/profile/PriceChart";
 import type { Fundamentals } from "@/lib/secEdgar";
 import type { CompanyDescription, SourceLink } from "@/lib/companyInfo";
+import ReportBuilder from "./ReportBuilder";
+import {
+  createTextBlock,
+  createSwotBlock,
+  createListBlock,
+  type Block,
+  type StatEntry,
+} from "@/lib/reportBlocks";
 
 // react-pdf's PDFDownloadLink touches browser-only APIs, so it's loaded
 // only in the browser (no server-side render) to avoid build/hydration
@@ -44,7 +52,26 @@ type Props = {
   fundamentals: Fundamentals | null;
   description: CompanyDescription | null;
   sourceLinks: SourceLink[];
+  availableStats: StatEntry[];
 };
+
+const REPORT_TYPES = [
+  { id: "equity-research", label: "Equity Research / Pitch", available: true },
+  { id: "ib-comps", label: "IB Comps", available: false },
+  { id: "manda", label: "M&A", available: false },
+  { id: "lbo", label: "LBO", available: false },
+] as const;
+
+/** Suggested starter blocks for the (only, for now) working report type —
+ * the student can remove, retitle, or add to any of these. */
+function suggestedEquityResearchBlocks(): Block[] {
+  return [
+    createTextBlock("Thesis"),
+    createSwotBlock("SWOT"),
+    createListBlock("Catalysts"),
+    createListBlock("Risks"),
+  ];
+}
 
 export default function PitchWorkbench(props: Props) {
   const { symbol, companyName, exchange, currency, price, change, percentChange } =
@@ -53,20 +80,21 @@ export default function PitchWorkbench(props: Props) {
 
   const [rating, setRating] = useState<Rating>("Hold");
   const [targetPrice, setTargetPrice] = useState("");
-  const [thesis, setThesis] = useState("");
-  const [catalysts, setCatalysts] = useState("");
-  const [risks, setRisks] = useState("");
-  const [strengths, setStrengths] = useState("");
-  const [weaknesses, setWeaknesses] = useState("");
-  const [opportunities, setOpportunities] = useState("");
-  const [threats, setThreats] = useState("");
+  const [reportType, setReportType] = useState<(typeof REPORT_TYPES)[number]["id"]>(
+    "equity-research"
+  );
+  const [blocks, setBlocks] = useState<Block[]>(() => suggestedEquityResearchBlocks());
 
-  const catalystLines = catalysts.split("\n").map((l) => l.trim()).filter(Boolean);
-  const riskLines = risks.split("\n").map((l) => l.trim()).filter(Boolean);
-  const strengthLines = strengths.split("\n").map((l) => l.trim()).filter(Boolean);
-  const weaknessLines = weaknesses.split("\n").map((l) => l.trim()).filter(Boolean);
-  const opportunityLines = opportunities.split("\n").map((l) => l.trim()).filter(Boolean);
-  const threatLines = threats.split("\n").map((l) => l.trim()).filter(Boolean);
+  const defaultEbitda =
+    props.fundamentals?.operatingIncome !== null &&
+    props.fundamentals?.operatingIncome !== undefined &&
+    props.fundamentals?.depreciationAmortization !== null &&
+    props.fundamentals?.depreciationAmortization !== undefined
+      ? String(
+          props.fundamentals.operatingIncome + props.fundamentals.depreciationAmortization
+        )
+      : "";
+
   const targetPriceNum = parseFloat(targetPrice);
   const impliedUpsidePct =
     Number.isFinite(targetPriceNum) && price > 0
@@ -242,132 +270,82 @@ export default function PitchWorkbench(props: Props) {
         </p>
       )}
 
-      {/* Pitch form */}
-      <div className="mt-10 rounded-lg border border-border bg-surface p-5">
+      {/* Report builder */}
+      <div className="mt-10">
         <h2 className="font-mono text-xs uppercase tracking-widest text-accent">
-          Your pitch
+          Build your report
         </h2>
 
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm">
-            <span className="mb-1 block text-muted">Rating</span>
-            <select
-              value={rating}
-              onChange={(e) => setRating(e.target.value as Rating)}
-              className="w-full rounded-md border border-border bg-background px-3 py-2 font-mono text-sm text-foreground focus:border-accent focus:outline-none"
+        {/* Report type — only Equity Research/Pitch is wired up so far;
+            the others are shown so the choice is visible, and will open
+            up as they're built. */}
+        <div className="mt-3 flex flex-wrap gap-2">
+          {REPORT_TYPES.map((rt) => (
+            <button
+              key={rt.id}
+              type="button"
+              disabled={!rt.available}
+              onClick={() => rt.available && setReportType(rt.id)}
+              title={rt.available ? undefined : "Coming soon"}
+              className={`rounded-md border px-3 py-1.5 text-xs ${
+                reportType === rt.id
+                  ? "border-accent bg-accent/10 text-accent"
+                  : "border-border text-muted"
+              } ${!rt.available ? "cursor-not-allowed opacity-40" : "hover:border-accent hover:text-accent"}`}
             >
-              <option value="Buy">Buy</option>
-              <option value="Hold">Hold</option>
-              <option value="Sell">Sell</option>
-            </select>
-          </label>
-
-          <label className="block text-sm">
-            <span className="mb-1 block text-muted">
-              Target price
-              {impliedUpsidePct !== null && (
-                <span
-                  className={`ml-2 font-mono text-xs ${
-                    impliedUpsidePct >= 0 ? "text-positive" : "text-negative"
-                  }`}
-                >
-                  ({formatPct(impliedUpsidePct)} implied)
-                </span>
-              )}
-            </span>
-            <input
-              type="number"
-              inputMode="decimal"
-              value={targetPrice}
-              onChange={(e) => setTargetPrice(e.target.value)}
-              placeholder={price.toFixed(2)}
-              className="w-full rounded-md border border-border bg-background px-3 py-2 font-mono text-sm text-foreground focus:border-accent focus:outline-none"
-            />
-          </label>
+              {rt.label}
+              {!rt.available && " (soon)"}
+            </button>
+          ))}
         </div>
 
-        <label className="mt-4 block text-sm">
-          <span className="mb-1 block text-muted">Thesis</span>
-          <textarea
-            value={thesis}
-            onChange={(e) => setThesis(e.target.value)}
-            rows={5}
-            placeholder="Why this rating? What's the core argument?"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
-          />
-        </label>
-
-        <div className="mt-6">
-          <span className="mb-2 block text-xs uppercase tracking-widest text-muted">
-            SWOT (your own read — one point per line)
-          </span>
+        <div className="mt-5 rounded-lg border border-border bg-surface p-5">
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block text-sm">
-              <span className="mb-1 block text-muted">Strengths</span>
-              <textarea
-                value={strengths}
-                onChange={(e) => setStrengths(e.target.value)}
-                rows={3}
-                placeholder={"Strong brand loyalty\nHigh margins"}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
-              />
+              <span className="mb-1 block text-muted">Rating</span>
+              <select
+                value={rating}
+                onChange={(e) => setRating(e.target.value as Rating)}
+                className="w-full rounded-md border border-border bg-background px-3 py-2 font-mono text-sm text-foreground focus:border-accent focus:outline-none"
+              >
+                <option value="Buy">Buy</option>
+                <option value="Hold">Hold</option>
+                <option value="Sell">Sell</option>
+              </select>
             </label>
+
             <label className="block text-sm">
-              <span className="mb-1 block text-muted">Weaknesses</span>
-              <textarea
-                value={weaknesses}
-                onChange={(e) => setWeaknesses(e.target.value)}
-                rows={3}
-                placeholder={"Reliant on one product line\nHigh customer concentration"}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
-              />
-            </label>
-            <label className="block text-sm">
-              <span className="mb-1 block text-muted">Opportunities</span>
-              <textarea
-                value={opportunities}
-                onChange={(e) => setOpportunities(e.target.value)}
-                rows={3}
-                placeholder={"New market expansion\nProduct diversification"}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
-              />
-            </label>
-            <label className="block text-sm">
-              <span className="mb-1 block text-muted">Threats</span>
-              <textarea
-                value={threats}
-                onChange={(e) => setThreats(e.target.value)}
-                rows={3}
-                placeholder={"New competitor\nRegulatory pressure"}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
+              <span className="mb-1 block text-muted">
+                Target price
+                {impliedUpsidePct !== null && (
+                  <span
+                    className={`ml-2 font-mono text-xs ${
+                      impliedUpsidePct >= 0 ? "text-positive" : "text-negative"
+                    }`}
+                  >
+                    ({formatPct(impliedUpsidePct)} implied)
+                  </span>
+                )}
+              </span>
+              <input
+                type="number"
+                inputMode="decimal"
+                value={targetPrice}
+                onChange={(e) => setTargetPrice(e.target.value)}
+                placeholder={price.toFixed(2)}
+                className="w-full rounded-md border border-border bg-background px-3 py-2 font-mono text-sm text-foreground focus:border-accent focus:outline-none"
               />
             </label>
           </div>
         </div>
 
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm">
-            <span className="mb-1 block text-muted">
-              Catalysts (one per line)
-            </span>
-            <textarea
-              value={catalysts}
-              onChange={(e) => setCatalysts(e.target.value)}
-              rows={4}
-              placeholder={"Earnings on [date]\nNew product launch"}
-              className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
-            />
-          </label>
-          <label className="block text-sm">
-            <span className="mb-1 block text-muted">Risks (one per line)</span>
-            <textarea
-              value={risks}
-              onChange={(e) => setRisks(e.target.value)}
-              rows={4}
-              placeholder={"Margin compression\nRegulatory risk"}
-              className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
-            />
-          </label>
+        <div className="mt-5">
+          <ReportBuilder
+            blocks={blocks}
+            onBlocksChange={setBlocks}
+            availableStats={props.availableStats}
+            defaultEbitda={defaultEbitda}
+          />
         </div>
 
         <div className="mt-5">
@@ -386,13 +364,8 @@ export default function PitchWorkbench(props: Props) {
             fundamentals={props.fundamentals}
             rating={rating}
             targetPrice={Number.isFinite(targetPriceNum) ? targetPriceNum : null}
-            thesis={thesis}
-            catalysts={catalystLines}
-            risks={riskLines}
-            strengths={strengthLines}
-            weaknesses={weaknessLines}
-            opportunities={opportunityLines}
-            threats={threatLines}
+            blocks={blocks}
+            availableStats={props.availableStats}
           />
         </div>
       </div>
