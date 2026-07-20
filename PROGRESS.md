@@ -4,6 +4,107 @@ This file is updated as work happens. Read top-to-bottom for the latest status. 
 
 ---
 
+## Session 5 — 2026-07-20 (Pitch Builder becomes a block-based report builder)
+
+### The short version
+
+This was the big one: Pitch Builder went from a fixed rating/thesis/
+catalysts/risks form to a **block-based report builder** — you now pick a
+report type, then build the report out of blocks you add, remove,
+reorder, and retitle yourself. Also added a proper analyst's toolkit
+underneath it, using only free data:
+
+1. **Deeper fundamentals** — `secEdgar.ts` now pulls multi-year history
+   (not just the latest year) and many more line items: operating income,
+   balance sheet items, D&A, capex, dividends/buybacks, interest expense,
+   shares outstanding.
+2. **Real computed analytics** — beta (an actual regression against the
+   S&P 500's ETF, SPY — not a looked-up number, since Twelve Data's free
+   tier doesn't give you beta), net debt/EBITDA, interest coverage, ROIC,
+   and a dividends+buybacks summary.
+3. **Peer comps table** — you type in peer tickers (same as a real analyst
+   picking a peer set — there's no free "give me the comps" endpoint
+   anywhere) and it builds a P/E, margins, and growth comparison table.
+4. **LBO and M&A calculators** — real IRR/MOIC math for a leveraged
+   buyout, and real accretion/dilution math for an M&A deal, both as
+   blocks you can drop into a report and edit the assumptions on.
+5. **The block builder itself** — report type picker (only "Equity
+   Research / Pitch" works so far; IB Comps/M&A/LBO are shown as
+   "(soon)" so it's honest about scope), block types: custom text, SWOT,
+   bullet list, a pick-your-own stat grid (anything not free shows
+   "Unavailable" with a box where you type your own number), comps table,
+   LBO calculator, M&A calculator. The PDF export renders whatever blocks
+   you've built, in your order, with your titles.
+
+`npm run build` passes cleanly. Smoke-tested a genuinely fresh dev server
+(not the one left running through all the edits) across `/`, `/pitch`,
+`/pitch/AAPL`, `/profile`, `/profile/AAPL` — all 200, no console errors.
+
+### What changed
+
+- `src/lib/secEdgar.ts` — extended to fetch full multi-year fundamentals
+  history and the additional line items listed above.
+- `src/lib/fundamentalsAnalysis.ts` (new) — credit metrics, ROIC, capital
+  allocation, all pure functions on top of the fundamentals data.
+- `src/lib/beta.ts` (new) — regresses a symbol's daily returns against
+  SPY's over the last year to compute beta.
+- `src/lib/comps.ts` (new) + `src/app/api/comps/route.ts` (new) — builds
+  the peer comps table server-side (API key stays hidden).
+- `src/lib/dealMath.ts` (new) — the LBO and M&A math, pure functions
+  shared by both the live block editors and the PDF export.
+- `src/lib/reportBlocks.ts` (new) — the block data model: types, factory
+  functions, and the `BLOCK_LIBRARY` that drives the "add a block" menu.
+- `src/components/pitch/blocks/` (new folder) — one editor component per
+  block type (text, SWOT, list, stats, comps, LBO, M&A) plus a shared
+  `BlockShell` for the move/remove/retitle chrome.
+- `src/components/pitch/ReportBuilder.tsx` (new) — orchestrates the list
+  of blocks and the "add a block" picker.
+- `src/components/pitch/PitchWorkbench.tsx` — replaced the fixed pitch
+  form with the report-type picker + `ReportBuilder`; still keeps
+  Rating/Target Price as fixed fields (those aren't really "blocks").
+- `src/components/pitch/PitchPdfDocument.tsx` — replaced the fixed
+  Thesis/SWOT/Catalysts/Risks sections with a generic `BlockOutput`
+  renderer that switches on block type, so the PDF always matches
+  whatever you built in the editor.
+- `src/app/pitch/[symbol]/page.tsx` — now computes beta, credit metrics,
+  ROIC, and capital allocation, and assembles a ~20-entry "available
+  stats" list that both the stat-grid block and the PDF pull from.
+
+### Action needed from you
+None — everything here runs on data sources you're already using (Twelve
+Data, SEC EDGAR) plus calculations this app does itself. No new API keys,
+no new costs.
+
+### Known issues / things to check
+- The LBO model uses a simplified flat debt-paydown percentage rather than
+  a full cash-sweep schedule — real but simplified math, worth knowing if
+  you show this to someone who's done a "real" LBO model.
+- Beta needs at least 30 shared trading dates of price history between the
+  ticker and SPY to compute — very newly-listed tickers will show
+  "Unavailable" rather than a shaky number from too little data.
+- I saw one `.trim()` browser error in the dev server log partway through
+  this session, traced to a stale hot-reload artifact from a browser tab
+  left open through many rapid file edits (not a real bug — confirmed by
+  code review and a clean fresh-server smoke test afterward with zero
+  errors). If you ever see something odd after a long edit session, a
+  hard refresh (or restarting the dev server) is the first thing to try.
+
+### Suggested next steps, in order
+1. **Try it**: `/pitch/AAPL`, add/remove/reorder a few blocks, try the LBO
+   and M&A calculators, build a peer comps table, download the PDF —
+   confirm it all looks and feels right to you.
+2. **Decide whether to open up the other report types** (IB Comps, M&A,
+   LBO) as their own guided flows with suggested starter blocks, now that
+   the underlying block system supports it — currently they're just
+   available as blocks inside Equity Research.
+3. Carried over from last session, still not started: AI grading of a
+   pitch (needs a paid LLM key + abuse protection since there's no login)
+   and a denser "equity research report" template.
+
+### Nothing broken — safe to continue from here.
+
+---
+
 ## Session 4 — 2026-07-20 (Pitch Builder round two: chart ranges, fancier PDF, company info, SWOT)
 
 ### The short version

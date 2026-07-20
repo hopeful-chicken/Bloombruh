@@ -87,3 +87,28 @@ investment pitch. See Phase 8.
 - [x] Verify `npm run build` passes and smoke-test both a US ticker (with
       fundamentals) and a non-US ticker (without).
 - [x] Update `PROGRESS.md`. Commit.
+
+## Phase 9 — Pitch Builder becomes a block-based report builder
+
+- [x] Extend `secEdgar.ts` to pull multi-year fundamentals history and
+      many more line items (balance sheet, D&A, capex, dividends/
+      buybacks, interest expense, shares outstanding).
+- [x] Build computed analytics on free data only: beta (`src/lib/beta.ts`,
+      real regression against SPY), credit metrics/ROIC/capital
+      allocation (`src/lib/fundamentalsAnalysis.ts`), and a peer comps
+      table (`src/lib/comps.ts` + `/api/comps`, student supplies peer
+      tickers).
+- [x] Build pure financial-modeling calculators: LBO returns (IRR/MOIC)
+      and M&A accretion/dilution (`src/lib/dealMath.ts`), documented
+      simplifying assumptions where real.
+- [x] Design and build the block-based report builder: report-type picker
+      (Equity Research live, others marked "(soon)"), addable/removable/
+      reorderable/retitlable blocks (text, SWOT, list, stat grid, comps,
+      LBO, M&A), "Unavailable" + editable override for any free-data gap.
+- [x] Update PDF export to render the block list generically, same math
+      functions as the live editors (single source of truth).
+- [x] Verify `npm run build` passes; smoke-test a fresh dev server across
+      `/`, `/pitch`, `/pitch/AAPL`, `/profile`, `/profile/AAPL` with no
+      console errors.
+- [x] Update planning docs (`MODULE_SPECS.md`, `DATA_SOURCES.md`,
+      `DECISIONS.md`) and `PROGRESS.md`. Commit.

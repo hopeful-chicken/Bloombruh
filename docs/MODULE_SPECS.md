@@ -40,24 +40,26 @@ Leave clearly-marked placeholders (`{/* EDITORIAL: Adam to review */}`) on any f
 - Every stat gracefully shows "—" rather than crashing if that field is missing from the API response.
 - Data freshness (quote/statistics cache windows) is documented in `DATA_SOURCES.md`, and the module footer/banner notes that quotes may be delayed.
 
-## 3. Pitch Builder (next up — supersedes the earlier "Analyst's Portfolio" idea)
+## 3. Pitch Builder (built — block-based report builder)
 
-Not Adam's own portfolio — a tool **any student** can use to research a company and build their own investment pitch, then export it as a polished PDF. This is the module that answers "isn't this just a copy of the data provider's website?" — the output is the user's own analysis and judgment, not a republished dataset. Modeled on the "stock pitch" exercise used in real IB/AM/HF interviews and case competitions.
+Not Adam's own portfolio — a tool **any student** can use to research a company and assemble their own investment report, then export it as a polished PDF. This is the module that answers "isn't this just a copy of the data provider's website?" — the output is the user's own analysis and judgment, not a republished dataset. Modeled on the "stock pitch" / comps / LBO / M&A exercises used in real IB/AM/HF interviews and case competitions.
 
 ### Core views
 
 1. **Ticker search** (`/pitch`) — same interaction as Company Profile's search, landing on a per-company workbench.
-2. **Workbench** (`/pitch/[symbol]`) — pulls in everything Company Profile shows (price, chart, computed momentum/volatility) *plus*, for US SEC-filing companies, real headline fundamentals (revenue, net income, gross profit, total assets, diluted EPS, YoY revenue growth) sourced from SEC EDGAR. Non-US tickers still work, just without the fundamentals panel.
-3. **Structured pitch form** (client-side, no login) — the user fills in: a rating (Buy/Hold/Sell), a target price, a written thesis, catalysts, and risks. This is deliberately a structured form, not a freeform rich-text/drag-and-drop editor — keeps v1 scoped and reliable.
-4. **Live preview + PDF export** — as the user fills the form, a preview of the assembled one-page pitch updates; a "Download PDF" button produces a clean, presentable document (company header, price history, key stats/fundamentals, and the user's own thesis/rating/target/catalysts/risks) they can actually use or submit somewhere.
+2. **Workbench** (`/pitch/[symbol]`) — pulls in everything Company Profile shows (price, chart, computed momentum/volatility) *plus*, for US SEC-filing companies, a much deeper fundamentals set sourced from SEC EDGAR (multi-year revenue/net income history, operating income, balance sheet items, D&A, capex, dividends/buybacks, interest expense, diluted EPS, shares outstanding), plus computed analytics: beta (regressed against SPY from real daily price history), credit metrics (net debt/EBITDA, interest coverage), ROIC, and a capital-allocation summary. Non-US tickers still work, just with fewer stats available.
+3. **Report type picker** — the user first chooses what they're building. Only **Equity Research / Pitch** is wired up; IB Comps, M&A, and LBO are shown as visible-but-disabled "(soon)" options so the intended scope is honest about what exists today. (The LBO and M&A *calculators* themselves are already available — as blocks inside the Equity Research report type — even though those aren't yet separate report types.)
+4. **Block-based report builder** — instead of one fixed form, the user assembles their report out of blocks they add, remove, reorder, and retitle. A sensible starter set (Thesis, SWOT, Catalysts, Risks) is pre-added but fully editable. Block types: custom text, SWOT, bullet list, a stat grid (pick any of the ~20 available metrics; anything unavailable for free shows "Unavailable" with an editable override field so the student can type in their own figure), a peer comps table (student enters peer tickers, since no free "give me the comps set" endpoint exists), an LBO returns calculator (entry/exit multiples, leverage, holding period, growth, paydown → IRR/MOIC), and an M&A accretion/dilution calculator (offer price, financing mix, synergies → pro-forma EPS impact, accretion/dilution %, goodwill, pro-forma leverage).
+5. **PDF export** — a "Download PDF" button renders the exact current block list (in the user's chosen order, with their titles and inputs) into a clean, presentable document, alongside the company header, price history, and rating/target price.
 
 ### Data notes
 
-See `DATA_SOURCES.md` for the SEC EDGAR integration. No accounts, no database — the whole tool runs client-side after the initial data fetch; the PDF *is* the save/export mechanism, so no persistence layer is needed for v1.
+See `DATA_SOURCES.md` for the SEC EDGAR integration and the beta/comps computation approach. No accounts, no database — the whole tool runs client-side after the initial data fetch; the PDF *is* the save/export mechanism, so no persistence layer is needed for v1.
 
 ### Acceptance criteria
 
-- Works end-to-end for both a US ticker (fundamentals shown) and a non-US ticker (fundamentals panel gracefully omitted, rest of the tool unaffected).
+- Works end-to-end for both a US ticker (fundamentals + all computed analytics shown) and a non-US ticker (fundamentals-dependent stats gracefully show "Unavailable", rest of the tool unaffected).
+- Blocks can be added, removed, reordered, and retitled without errors; each block type's editor and PDF rendering stay in sync (same underlying data, no duplicate state).
 - The generated PDF is legible and presentable — this needs to be something a student would actually want to attach to an application, not an obvious dev-tool dump.
 - Nothing requires a login or writes to a database.
 
