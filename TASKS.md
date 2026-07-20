@@ -112,3 +112,39 @@ investment pitch. See Phase 8.
       console errors.
 - [x] Update planning docs (`MODULE_SPECS.md`, `DATA_SOURCES.md`,
       `DECISIONS.md`) and `PROGRESS.md`. Commit.
+
+## Phase 10 — Deepen the data: full three-statement fundamentals, valuation multiples, growth/returns, qualitative lenses, chart block, news, all four report types
+
+Adam tested the block builder and said the underlying data was still
+insufficient — "at least the first part datas need to be there otherwise
+theres nothing to do." This phase fills that gap.
+
+- [x] Extend `secEdgar.ts`: operating cash flow, current assets/
+      liabilities, basic/diluted weighted-average shares; changed
+      operating income, D&A, and diluted EPS to multi-year history
+      (needed for EBITDA/EPS growth).
+- [x] New `src/lib/valuationAnalysis.ts`: market cap, enterprise value,
+      net debt, working capital, free cash flow, EBITDA, the core
+      multiples (P/E, EV/EBITDA, EV/EBIT, EV/Sales, P/B, FCF yield,
+      dividend yield), ROE/ROA, and growth rates (revenue/EBITDA/EPS) —
+      all null-safe, same convention as `fundamentalsAnalysis.ts`.
+- [x] New `src/lib/news.ts`: Google News RSS headlines (free, no key),
+      regex-parsed (no new XML dependency).
+- [x] New Chart block (`ChartBlockEditor.tsx` + PDF rendering): pick a
+      time series (price/revenue/net income/EBITDA) and line or bar type.
+- [x] New News block: viewer-only, shows fetched headlines with links.
+- [x] Added ~20 new stats to `availableStats` and a `group` field to the
+      block library so the "Add a block" menu is organized into Core /
+      Financials & valuation / four interview-lens sections.
+- [x] Opened up all four report types (Equity Research, IB Comps, M&A,
+      LBO) as selectable, each with its own suggested starter block set;
+      switching types confirms before replacing the current blocks.
+- [x] Added guided qualitative "lens" text blocks (Business & Moat, Bear
+      Case, Ownership, Deal Synergies, Leverage & Debt Maturities, etc.)
+      with placeholder prompts, not structured forms.
+- [x] Verified `npm run build` passes with no TypeScript errors; fresh
+      dev server smoke-tested `/pitch/AAPL` (new stats, chart with real
+      data, news with real headlines, all four report types, PDF export
+      compiles) and `/pitch/SHEL` (graceful "Unavailable" everywhere,
+      no crash).
+- [x] Update `PROGRESS.md` with a session summary. Commit.

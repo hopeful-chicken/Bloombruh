@@ -4,6 +4,92 @@ This file is updated as work happens. Read top-to-bottom for the latest status. 
 
 ---
 
+## Session 6 — 2026-07-20 (Deepened the data: full fundamentals, valuation, chart/news blocks, all 4 report types)
+
+### The short version
+
+You tested the block builder from last session and said the report
+*structure* was good but the *data* was still insufficient — "at least the
+first part datas need to be there otherwise theres nothing to do." This
+session was entirely about fixing that:
+
+1. **Full three-statement data** — added working capital, net debt,
+   shareholders' equity, operating cash flow, capex, free cash flow, and
+   basic/diluted shares outstanding to `secEdgar.ts`.
+2. **Valuation, growth, and returns math** (new `valuationAnalysis.ts`) —
+   market cap, enterprise value, and the multiples analysts actually quote:
+   P/E, EV/EBITDA, EV/EBIT, EV/Sales, P/B, FCF yield, dividend yield, plus
+   ROE, ROA, and revenue/EBITDA/EPS growth rates. ~23 new stats, all
+   `null`-safe (shows "Unavailable", never a guessed number).
+3. **Chart block** — pick price/revenue/net income/EBITDA history, line or
+   bar, live preview in the editor and an SVG chart in the PDF.
+4. **News block** — recent headlines via Google News' free RSS feed, with
+   working links, both in the editor and the PDF.
+5. **Qualitative "lens" text blocks** — guided free-text sections (Business
+   & Moat, Bear Case, Ownership & Shareholder Structure, Deal Terms &
+   Synergies, Leverage & Debt Maturities, etc.) for the four interview
+   contexts, each with a helpful placeholder prompt rather than a rigid
+   form — same style as the existing Thesis block.
+6. **All four report types opened up** — Equity Research, IB Comps, M&A,
+   and LBO are all now selectable (previously only Equity Research
+   worked), each with its own starter block set. Switching types asks for
+   confirmation since it replaces the current blocks.
+
+`npm run build` passes with no TypeScript errors. Smoke-tested a fresh dev
+server on `/pitch/AAPL` (all new stats show real numbers, chart renders
+with real price/fundamentals data, news block shows real headlines with
+working links, all four report types selectable) and `/pitch/SHEL` (every
+new SEC-dependent stat gracefully shows "Unavailable", no crash).
+
+### What changed
+
+- `src/lib/secEdgar.ts` — new concepts (operating cash flow, current
+  assets/liabilities, basic/diluted weighted-average shares); operating
+  income, D&A, and diluted EPS now keep full multi-year history (needed
+  for EBITDA/EPS growth).
+- `src/lib/valuationAnalysis.ts` (new) — the valuation/growth/returns math
+  described above, pure and null-safe.
+- `src/lib/news.ts` (new) — Google News RSS fetch + regex parse.
+- `src/lib/reportBlocks.ts` — two new block types (`chart`, `news`);
+  `BLOCK_LIBRARY` entries now carry a unique `id` (since several entries
+  can share a block `type`, e.g. many text presets) and a `group` for the
+  "Add a block" menu; new stat-key preset constants for the Financials/
+  Valuation/Growth/Credit stat-grid presets.
+- `src/components/pitch/blocks/ChartBlockEditor.tsx`,
+  `NewsBlockEditor.tsx` (new) — the two new block editors.
+- `src/components/pitch/blocks/TextBlockEditor.tsx` — supports a
+  placeholder prompt for the guided lens sections.
+- `src/components/pitch/ReportBuilder.tsx` — dispatches the two new block
+  types; "Add a block" menu now grouped into labeled sections.
+- `src/components/pitch/PitchWorkbench.tsx` — all four report types
+  clickable with per-type starter block sets; switching types confirms
+  first (destructive).
+- `src/components/pitch/PitchPdfDocument.tsx` — renders Chart blocks as an
+  inline SVG (line or bar) and News blocks as clickable links.
+- `src/app/pitch/[symbol]/page.tsx` — computes valuation metrics, fetches
+  news, builds the chart-series registry, and expands `availableStats`
+  from ~22 to ~45 entries.
+
+### What Adam should look at / decide
+
+- Nothing blocking — this is a pure data/feature deepening, no new
+  decisions needed. Worth spending a few minutes in the builder on a
+  ticker you know well (try switching between all four report types) to
+  see if the new stat coverage and starter sets feel right, or if any
+  particular metric/lens is still missing something you'd want.
+- The chart's SVG rendering in the PDF is hand-rolled (same technique as
+  the existing price sparkline) rather than a real charting library, to
+  avoid adding a new dependency — it's simple line/bar shapes, not
+  gridlines/axis labels. Fine for now; flag if it ever feels too plain.
+
+### Next up
+
+- Nothing specific queued — Phase 10 in `TASKS.md` is now complete.
+  Revisit `docs/PROJECT_BRIEF.md`'s module roadmap for what's next when
+  ready.
+
+---
+
 ## Session 5 — 2026-07-20 (Pitch Builder becomes a block-based report builder)
 
 ### The short version
