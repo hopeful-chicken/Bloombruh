@@ -1,10 +1,7 @@
 import Link from "next/link";
 import { modules } from "@/lib/modules";
-import { getHoldingsData } from "@/lib/holdings";
 
 export default function Home() {
-  const { companyCount, isMockData } = getHoldingsData();
-
   return (
     <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
       {/* Hero */}
@@ -17,27 +14,16 @@ export default function Home() {
         </h1>
         <p className="mt-5 text-lg leading-relaxed text-muted">
           A Bloomberg-lite for students who can&apos;t afford a Bloomberg
-          terminal. The first module: an interactive explorer of{" "}
-          <span className="text-foreground">NBIM&apos;s</span> (Norway&apos;s
-          $1.5tn+ sovereign wealth fund) published portfolio — what the
-          world&apos;s largest equity owner actually holds, searchable in
-          seconds.
+          terminal. Look up any public company, see its price, key
+          multiples, and a plain-English snapshot — free, in seconds.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
-            href="/swf"
+            href="/profile"
             className="rounded bg-accent px-5 py-2.5 text-sm font-semibold text-black transition-opacity hover:opacity-90"
           >
-            Open SWF Explorer →
+            Open Company Profile →
           </Link>
-          <span className="flex items-center gap-2 rounded border border-border px-4 py-2.5 font-mono text-sm text-muted">
-            {companyCount} holdings loaded
-            {isMockData && (
-              <span className="rounded-sm bg-accent/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
-                mock data
-              </span>
-            )}
-          </span>
         </div>
       </section>
 
@@ -99,10 +85,10 @@ export default function Home() {
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-muted">
           Built by Adam, a UCL Economics student, as a long-term project to
-          learn by building and to demonstrate genuine interest in asset
-          management — particularly NBIM. It&apos;s free, independent, and
-          unaffiliated with Norges Bank Investment Management or any other
-          institution mentioned on this site.
+          learn by building and to demonstrate genuine interest in markets
+          and asset management. It&apos;s free, independent, and
+          unaffiliated with any company, exchange, or institution mentioned
+          on this site.
         </p>
         <p className="mt-3 text-sm leading-relaxed text-muted">
           Links:{" "}

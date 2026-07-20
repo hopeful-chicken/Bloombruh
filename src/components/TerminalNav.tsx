@@ -2,7 +2,7 @@
 
 // Top navigation bar for the terminal shell.
 // Nice-to-have: pressing "/" anywhere focuses the global search box, which
-// jumps straight into the SWF Explorer's company search on Enter.
+// jumps straight into the Company Profile module on Enter.
 
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
@@ -35,7 +35,7 @@ export default function TerminalNav() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!query.trim()) return;
-    router.push(`/swf?q=${encodeURIComponent(query.trim())}`);
+    router.push(`/profile?q=${encodeURIComponent(query.trim())}`);
   }
 
   return (
@@ -87,7 +87,7 @@ export default function TerminalNav() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search a company…"
+              placeholder="Search a ticker…"
               className="w-full bg-transparent font-mono text-sm text-foreground placeholder:text-muted/60 focus:outline-none"
             />
           </div>

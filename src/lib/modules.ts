@@ -11,20 +11,20 @@ export type ModuleInfo = {
 
 export const modules: ModuleInfo[] = [
   {
-    name: "SWF Explorer",
-    slug: "/swf",
-    status: "live",
-    tagline: "NBIM's global portfolio, holding by holding",
-    description:
-      "Search NBIM's (Norway's sovereign wealth fund) published equity holdings, see stakes by company, country, and sector, and explore what the world's largest single equity owner actually holds.",
-  },
-  {
     name: "Company Profile",
     slug: "/profile",
-    status: "soon",
+    status: "live",
     tagline: "Ticker in, one-page profile out",
     description:
-      "A clean one-page company snapshot: price chart, basic multiples, and a plain-English description.",
+      "A clean one-page company snapshot: price chart, basic multiples, and a plain-English description — plus context on whether those multiples look cheap or expensive.",
+  },
+  {
+    name: "Analyst's Portfolio",
+    slug: "/portfolio",
+    status: "soon",
+    tagline: "A paper portfolio, published in the open",
+    description:
+      "The builder's own paper portfolio and published letters — a personal, transparent track record with the reasoning behind every position.",
   },
   {
     name: "Central Bank Room",
@@ -41,13 +41,5 @@ export const modules: ModuleInfo[] = [
     tagline: "Narrative vs numbers",
     description:
       "Mention velocity and sentiment plotted against earnings revisions and valuation — flagging where hype and fundamentals diverge.",
-  },
-  {
-    name: "Analyst's Portfolio",
-    slug: "/portfolio",
-    status: "soon",
-    tagline: "A paper portfolio, published in the open",
-    description:
-      "The builder's own paper portfolio and published letters — a personal, transparent track record.",
   },
 ];
