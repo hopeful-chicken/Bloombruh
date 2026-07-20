@@ -12,13 +12,25 @@ import { formatUSD, formatNumber, formatPct } from "@/lib/format";
 import PriceChart, { type ChartPoint } from "@/components/profile/PriceChart";
 import type { Fundamentals } from "@/lib/secEdgar";
 import type { CompanyDescription, SourceLink } from "@/lib/companyInfo";
+import type { NewsArticle } from "@/lib/news";
 import ReportBuilder from "./ReportBuilder";
 import {
   createTextBlock,
   createSwotBlock,
   createListBlock,
+  createStatsBlock,
+  createCompsBlock,
+  createLboBlock,
+  createMandaBlock,
+  createChartBlock,
+  createNewsBlock,
+  CORE_FINANCIAL_STAT_KEYS,
+  VALUATION_STAT_KEYS,
+  GROWTH_RETURNS_STAT_KEYS,
+  CREDIT_WACC_STAT_KEYS,
   type Block,
   type StatEntry,
+  type ChartSeriesOption,
 } from "@/lib/reportBlocks";
 
 // react-pdf's PDFDownloadLink touches browser-only APIs, so it's loaded
@@ -53,24 +65,87 @@ type Props = {
   description: CompanyDescription | null;
   sourceLinks: SourceLink[];
   availableStats: StatEntry[];
+  availableChartSeries: ChartSeriesOption[];
+  newsArticles: NewsArticle[];
 };
 
 const REPORT_TYPES = [
-  { id: "equity-research", label: "Equity Research / Pitch", available: true },
-  { id: "ib-comps", label: "IB Comps", available: false },
-  { id: "manda", label: "M&A", available: false },
-  { id: "lbo", label: "LBO", available: false },
+  { id: "equity-research", label: "Equity Research / Pitch" },
+  { id: "ib-comps", label: "IB Comps" },
+  { id: "manda", label: "M&A" },
+  { id: "lbo", label: "LBO" },
 ] as const;
 
-/** Suggested starter blocks for the (only, for now) working report type —
- * the student can remove, retitle, or add to any of these. */
-function suggestedEquityResearchBlocks(): Block[] {
-  return [
-    createTextBlock("Thesis"),
-    createSwotBlock("SWOT"),
-    createListBlock("Catalysts"),
-    createListBlock("Risks"),
-  ];
+type ReportTypeId = (typeof REPORT_TYPES)[number]["id"];
+
+/** Suggested starter blocks per report type — each gives the student a
+ * sensible skeleton for that interview "lens", which they can then remove,
+ * retitle, or add to freely. Keyed by report type id so switching types
+ * can rebuild the block list from scratch. */
+function suggestedBlocksFor(reportType: ReportTypeId, defaultEbitda: string): Block[] {
+  switch (reportType) {
+    case "equity-research":
+      return [
+        createTextBlock("Thesis"),
+        createStatsBlock("Core Financials", CORE_FINANCIAL_STAT_KEYS),
+        createTextBlock(
+          "Business & Moat",
+          "What does this company actually sell, and to whom? Break down revenue by product, geography, and customer type if you can find it. Then make the case for (or against) a durable moat — switching costs, network effects, scale, brand — and say clearly whether you think it holds up."
+        ),
+        createSwotBlock("SWOT"),
+        createTextBlock(
+          "Valuation & Catalysts",
+          "Value the company across at least two methods (e.g. a comps multiple and a DCF/FCF-yield check), then list the near-term catalysts that could move the stock and roughly when they'll happen."
+        ),
+        createTextBlock(
+          "Bear Case / What Would Prove You Wrong",
+          "Steelman the other side. What's the strongest argument against your thesis, and what specific data point or event would tell you that you were wrong?"
+        ),
+        createListBlock("Catalysts"),
+        createListBlock("Risks"),
+        createNewsBlock(),
+      ];
+    case "ib-comps":
+      return [
+        createTextBlock("Overview"),
+        createStatsBlock("Core Financials", CORE_FINANCIAL_STAT_KEYS),
+        createStatsBlock("Valuation Multiples", VALUATION_STAT_KEYS),
+        createCompsBlock(),
+        createStatsBlock("Credit Metrics & WACC Inputs", CREDIT_WACC_STAT_KEYS),
+        createTextBlock(
+          "Ownership & Shareholder Structure",
+          "Who owns this company — insiders, founders, index funds, activist investors? Note any concentrated stakes, dual-class shares, or recent large ownership changes."
+        ),
+      ];
+    case "manda":
+      return [
+        createTextBlock("Deal Rationale"),
+        createStatsBlock("Core Financials", CORE_FINANCIAL_STAT_KEYS),
+        createMandaBlock(),
+        createTextBlock(
+          "Deal Terms & Synergies",
+          "Lay out the deal: offer price and premium to the undisturbed share price, financing mix (cash/debt/stock), and the synergies being claimed — split cost vs. revenue synergies and note how credible each side is."
+        ),
+        createTextBlock(
+          "Integration & Regulatory Risk",
+          "What could go wrong operationally (culture clash, systems integration, key-employee attrition) or on the regulatory side (antitrust, foreign ownership rules)? How long might approval and integration realistically take?"
+        ),
+      ];
+    case "lbo":
+      return [
+        createTextBlock("Investment Thesis"),
+        createStatsBlock("Core Financials", CORE_FINANCIAL_STAT_KEYS),
+        createLboBlock("LBO returns", defaultEbitda),
+        createTextBlock(
+          "Leverage & Debt Maturities",
+          "How much existing leverage does the target carry, and when do those debt tranches mature? Note capex intensity and the tangible asset base available as collateral for new debt."
+        ),
+        createTextBlock(
+          "Exit Assumptions",
+          "State your assumed holding period, exit multiple, and exit route (strategic sale, sponsor-to-sponsor, IPO). Justify why the exit multiple you've chosen is reasonable relative to entry."
+        ),
+      ];
+  }
 }
 
 export default function PitchWorkbench(props: Props) {
@@ -80,10 +155,6 @@ export default function PitchWorkbench(props: Props) {
 
   const [rating, setRating] = useState<Rating>("Hold");
   const [targetPrice, setTargetPrice] = useState("");
-  const [reportType, setReportType] = useState<(typeof REPORT_TYPES)[number]["id"]>(
-    "equity-research"
-  );
-  const [blocks, setBlocks] = useState<Block[]>(() => suggestedEquityResearchBlocks());
 
   const defaultEbitda =
     props.fundamentals?.operatingIncome !== null &&
@@ -94,6 +165,26 @@ export default function PitchWorkbench(props: Props) {
           props.fundamentals.operatingIncome + props.fundamentals.depreciationAmortization
         )
       : "";
+
+  const [reportType, setReportType] = useState<ReportTypeId>("equity-research");
+  const [blocks, setBlocks] = useState<Block[]>(() =>
+    suggestedBlocksFor("equity-research", defaultEbitda)
+  );
+
+  /** Switching report type rebuilds the block list from that type's
+   * starter set — a destructive action, so confirm first since it
+   * discards whatever the student has already written. */
+  function handleReportTypeChange(next: ReportTypeId) {
+    if (next === reportType) return;
+    const proceed =
+      blocks.length === 0 ||
+      window.confirm(
+        "Switching report type replaces your current blocks with a new starter set. Continue?"
+      );
+    if (!proceed) return;
+    setReportType(next);
+    setBlocks(suggestedBlocksFor(next, defaultEbitda));
+  }
 
   const targetPriceNum = parseFloat(targetPrice);
   const impliedUpsidePct =
@@ -276,25 +367,22 @@ export default function PitchWorkbench(props: Props) {
           Build your report
         </h2>
 
-        {/* Report type — only Equity Research/Pitch is wired up so far;
-            the others are shown so the choice is visible, and will open
-            up as they're built. */}
+        {/* Report type — each has its own suggested starter block set,
+            covering the four common interview "lenses". Switching types
+            rebuilds the block list, so it asks for confirmation first. */}
         <div className="mt-3 flex flex-wrap gap-2">
           {REPORT_TYPES.map((rt) => (
             <button
               key={rt.id}
               type="button"
-              disabled={!rt.available}
-              onClick={() => rt.available && setReportType(rt.id)}
-              title={rt.available ? undefined : "Coming soon"}
+              onClick={() => handleReportTypeChange(rt.id)}
               className={`rounded-md border px-3 py-1.5 text-xs ${
                 reportType === rt.id
                   ? "border-accent bg-accent/10 text-accent"
-                  : "border-border text-muted"
-              } ${!rt.available ? "cursor-not-allowed opacity-40" : "hover:border-accent hover:text-accent"}`}
+                  : "border-border text-muted hover:border-accent hover:text-accent"
+              }`}
             >
               {rt.label}
-              {!rt.available && " (soon)"}
             </button>
           ))}
         </div>
@@ -344,6 +432,8 @@ export default function PitchWorkbench(props: Props) {
             blocks={blocks}
             onBlocksChange={setBlocks}
             availableStats={props.availableStats}
+            availableChartSeries={props.availableChartSeries}
+            newsArticles={props.newsArticles}
             defaultEbitda={defaultEbitda}
           />
         </div>
@@ -366,6 +456,8 @@ export default function PitchWorkbench(props: Props) {
             targetPrice={Number.isFinite(targetPriceNum) ? targetPriceNum : null}
             blocks={blocks}
             availableStats={props.availableStats}
+            chartSeries={props.availableChartSeries}
+            newsArticles={props.newsArticles}
           />
         </div>
       </div>

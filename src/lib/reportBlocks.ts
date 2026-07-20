@@ -13,7 +13,19 @@ export type StatEntry = {
   value: string | null;
 };
 
-export type TextBlockData = { body: string };
+/** One selectable time series (price, revenue, EBITDA, etc.) for the
+ * Chart block — computed server-side from price history or SEC EDGAR
+ * fundamentals history, same "registry" pattern as availableStats. */
+export type ChartSeriesPoint = { label: string; value: number };
+export type ChartSeriesOption = { key: string; label: string; points: ChartSeriesPoint[] };
+
+export type TextBlockData = {
+  body: string;
+  /** Grey prompt text shown when body is empty, for the guided "lens"
+   * sections (Business & Moat, Bear Case, etc.) — never modified after
+   * the block is created, just carried along with the block's data. */
+  placeholder?: string;
+};
 export type SwotBlockData = {
   strengths: string;
   weaknesses: string;
@@ -65,6 +77,16 @@ export type MandaBlockData = {
   synergiesPreTax: string;
 };
 
+export type ChartBlockData = {
+  seriesKey: string;
+  chartType: "line" | "bar";
+};
+
+/** No student-editable fields — content comes entirely from the news
+ * articles fetched once, server-side, for this company (see src/lib/news.ts)
+ * and passed down as a prop, the same way price/fundamentals data is. */
+export type NewsBlockData = Record<string, never>;
+
 export type BlockType =
   | "text"
   | "swot"
@@ -72,7 +94,21 @@ export type BlockType =
   | "stats"
   | "comps"
   | "lbo"
-  | "manda";
+  | "manda"
+  | "chart"
+  | "news";
+
+export const BLOCK_TYPE_LABELS: Record<BlockType, string> = {
+  text: "Text",
+  swot: "SWOT",
+  list: "Bullet list",
+  stats: "Stat grid",
+  comps: "Comps table",
+  lbo: "LBO calculator",
+  manda: "M&A calculator",
+  chart: "Chart",
+  news: "News",
+};
 
 export type BlockDataFor<T extends BlockType> = T extends "text"
   ? TextBlockData
@@ -86,7 +122,11 @@ export type BlockDataFor<T extends BlockType> = T extends "text"
           ? CompsBlockData
           : T extends "lbo"
             ? LboBlockData
-            : MandaBlockData;
+            : T extends "manda"
+              ? MandaBlockData
+              : T extends "chart"
+                ? ChartBlockData
+                : NewsBlockData;
 
 export type Block =
   | { id: string; type: "text"; title: string; data: TextBlockData }
@@ -95,7 +135,9 @@ export type Block =
   | { id: string; type: "stats"; title: string; data: StatsBlockData }
   | { id: string; type: "comps"; title: string; data: CompsBlockData }
   | { id: string; type: "lbo"; title: string; data: LboBlockData }
-  | { id: string; type: "manda"; title: string; data: MandaBlockData };
+  | { id: string; type: "manda"; title: string; data: MandaBlockData }
+  | { id: string; type: "chart"; title: string; data: ChartBlockData }
+  | { id: string; type: "news"; title: string; data: NewsBlockData };
 
 let idCounter = 0;
 export function newBlockId(): string {
@@ -114,8 +156,8 @@ export function parseLines(text: string): string[] {
 // default data, used both by the "suggested blocks" starter set and by
 // the "add block" menu.
 
-export function createTextBlock(title = "Custom section"): Block {
-  return { id: newBlockId(), type: "text", title, data: { body: "" } };
+export function createTextBlock(title = "Custom section", placeholder?: string): Block {
+  return { id: newBlockId(), type: "text", title, data: { body: "", placeholder } };
 }
 
 export function createSwotBlock(title = "SWOT"): Block {
@@ -199,52 +241,344 @@ export function createMandaBlock(title = "M&A accretion / dilution"): Block {
   };
 }
 
+export function createChartBlock(title = "Chart", seriesKey = "price"): Block {
+  return {
+    id: newBlockId(),
+    type: "chart",
+    title,
+    data: { seriesKey, chartType: "line" },
+  };
+}
+
+export function createNewsBlock(title = "In the news"): Block {
+  return { id: newBlockId(), type: "news", title, data: {} };
+}
+
+// Preset stat-key groups for the "Financials & valuation" library entries —
+// single source of truth shared between the block library below and the
+// per-report-type starter sets in PitchWorkbench.tsx. Keys must match the
+// `key`s produced in the `availableStats` registry built in
+// src/app/pitch/[symbol]/page.tsx.
+export const CORE_FINANCIAL_STAT_KEYS = [
+  "revenue",
+  "revenueGrowth",
+  "grossMargin",
+  "operatingMargin",
+  "ebitdaMargin",
+  "netMargin",
+  "netIncome",
+  "epsDiluted",
+  "epsGrowth",
+  "cash",
+  "totalDebt",
+  "netDebt",
+  "workingCapital",
+  "shareholdersEquity",
+  "operatingCashFlow",
+  "capex",
+  "freeCashFlow",
+  "sharesOutstandingBasic",
+  "sharesOutstandingDiluted",
+];
+
+export const VALUATION_STAT_KEYS = [
+  "price",
+  "marketCap",
+  "enterpriseValue",
+  "peRatio",
+  "evToEbitda",
+  "evToEbit",
+  "evToSales",
+  "priceToBook",
+  "fcfYield",
+  "dividendYield",
+];
+
+export const GROWTH_RETURNS_STAT_KEYS = [
+  "revenueGrowth",
+  "ebitdaGrowth",
+  "epsGrowth",
+  "roe",
+  "roic",
+  "roa",
+];
+
+export const CREDIT_WACC_STAT_KEYS = [
+  "beta",
+  "totalDebt",
+  "cash",
+  "netDebt",
+  "netDebtToEbitda",
+  "interestCoverage",
+];
+
+// Groups organize the (now fairly long) "Add a block" menu into labeled
+// sections that roughly match the four interview "lenses" Adam asked for,
+// plus a Core group and a Financials group everyone uses regardless of
+// report type. GROUP_ORDER fixes the display order (object key order
+// isn't guaranteed to match insertion order once minified/bundled).
+export const GROUP_ORDER = [
+  "Core",
+  "Financials & valuation",
+  "Equity research / AM lens",
+  "IB / general prep lens",
+  "M&A prep lens",
+  "LBO / PE prep lens",
+] as const;
+
 export const BLOCK_LIBRARY: {
+  id: string;
   type: BlockType;
   label: string;
   description: string;
+  group: (typeof GROUP_ORDER)[number];
   create: () => Block;
 }[] = [
+  // --- Core ---
   {
+    id: "text-custom",
     type: "text",
     label: "Custom text",
     description: "Free writing under a title you choose — thesis, notes, anything.",
+    group: "Core",
     create: () => createTextBlock(),
   },
   {
+    id: "swot",
     type: "swot",
     label: "SWOT",
     description: "Strengths, weaknesses, opportunities, threats — your own read.",
+    group: "Core",
     create: () => createSwotBlock(),
   },
   {
+    id: "list",
     type: "list",
     label: "Bullet list",
     description: "A titled list — catalysts, risks, anything one-point-per-line.",
+    group: "Core",
     create: () => createListBlock(),
   },
   {
-    type: "stats",
-    label: "Stat grid",
-    description: "Pick which numbers to show. Anything unavailable for free can be filled in by hand.",
-    create: () => createStatsBlock(),
+    id: "chart",
+    type: "chart",
+    label: "Chart",
+    description: "Plot price, revenue, net income, or EBITDA history as a line or bar chart.",
+    group: "Core",
+    create: () => createChartBlock(),
   },
   {
+    id: "news",
+    type: "news",
+    label: "In the news",
+    description: "Recent headlines about the company, with links to read more.",
+    group: "Core",
+    create: () => createNewsBlock(),
+  },
+  {
+    id: "stats-custom",
+    type: "stats",
+    label: "Custom stat grid",
+    description: "Pick any numbers yourself. Anything unavailable for free can be filled in by hand.",
+    group: "Core",
+    create: () => createStatsBlock(),
+  },
+
+  // --- Financials & valuation ---
+  {
+    id: "stats-core-financials",
+    type: "stats",
+    label: "Core financials",
+    description: "Revenue, margins, net income, EPS, balance sheet, and cash flow — the three statements.",
+    group: "Financials & valuation",
+    create: () => createStatsBlock("Core Financials", CORE_FINANCIAL_STAT_KEYS),
+  },
+  {
+    id: "stats-valuation",
+    type: "stats",
+    label: "Valuation multiples",
+    description: "Market cap, enterprise value, P/E, EV/EBITDA, EV/EBIT, EV/Sales, P/B, FCF yield, dividend yield.",
+    group: "Financials & valuation",
+    create: () => createStatsBlock("Valuation Multiples", VALUATION_STAT_KEYS),
+  },
+  {
+    id: "stats-growth-returns",
+    type: "stats",
+    label: "Growth & returns",
+    description: "Revenue/EBITDA/EPS growth, ROE, ROIC, ROA.",
+    group: "Financials & valuation",
+    create: () => createStatsBlock("Growth & Returns", GROWTH_RETURNS_STAT_KEYS),
+  },
+
+  // --- Equity research / AM lens ---
+  {
+    id: "text-business-moat",
+    type: "text",
+    label: "Business & moat",
+    description: "Revenue segmentation and whether the competitive moat is durable.",
+    group: "Equity research / AM lens",
+    create: () =>
+      createTextBlock(
+        "Business & Moat",
+        "What does this company actually sell, and to whom? Break down revenue by product, geography, and customer type if you can find it. Then make the case for (or against) a durable moat — switching costs, network effects, scale, brand — and say clearly whether you think it holds up."
+      ),
+  },
+  {
+    id: "text-industry-market",
+    type: "text",
+    label: "Industry & market share",
+    description: "Industry structure, market share, TAM, and growth runway.",
+    group: "Equity research / AM lens",
+    create: () =>
+      createTextBlock(
+        "Industry & Market Share",
+        "How is this industry structured — a few dominant players or many small ones? Estimate the company's market share and the total addressable market (TAM), and say how much growth runway is left."
+      ),
+  },
+  {
+    id: "text-management-capital",
+    type: "text",
+    label: "Management & capital allocation",
+    description: "Management quality and capital allocation track record.",
+    group: "Equity research / AM lens",
+    create: () =>
+      createTextBlock(
+        "Management & Capital Allocation",
+        "What's management's track record on capital allocation — reinvesting, paying dividends, buying back stock, or M&A? Any notable wins or mistakes? Use the dividends/buybacks data in the financials block above as a starting point."
+      ),
+  },
+  {
+    id: "text-variant-view",
+    type: "text",
+    label: "Variant view & estimates",
+    description: "Consensus vs. your own estimates, guidance, and where you differ.",
+    group: "Equity research / AM lens",
+    create: () =>
+      createTextBlock(
+        "Variant View & Estimates",
+        "Where do you differ from consensus? State your own revenue/earnings estimates alongside what the Street expects and management's own guidance, and explain the gap — this is your \"variant view.\""
+      ),
+  },
+  {
+    id: "text-valuation-catalysts",
+    type: "text",
+    label: "Valuation & catalysts",
+    description: "Valuation across methods, plus catalysts and timing.",
+    group: "Equity research / AM lens",
+    create: () =>
+      createTextBlock(
+        "Valuation & Catalysts",
+        "Value the company across at least two methods (e.g. a comps multiple and a DCF/FCF-yield check), then list the near-term catalysts that could move the stock and roughly when they'll happen."
+      ),
+  },
+  {
+    id: "text-bear-case",
+    type: "text",
+    label: "Bear case",
+    description: "The strongest case against your thesis, and what would prove you wrong.",
+    group: "Equity research / AM lens",
+    create: () =>
+      createTextBlock(
+        "Bear Case / What Would Prove You Wrong",
+        "Steelman the other side. What's the strongest argument against your thesis, and what specific data point or event would tell you that you were wrong?"
+      ),
+  },
+
+  // --- IB / general prep lens ---
+  {
+    id: "comps",
     type: "comps",
     label: "Comps table",
     description: "Enter peer tickers to build a multiples comparison table.",
+    group: "IB / general prep lens",
     create: () => createCompsBlock(),
   },
   {
-    type: "lbo",
-    label: "LBO calculator",
-    description: "Entry/exit EBITDA multiples, leverage, and holding period → IRR and MOIC.",
-    create: () => createLboBlock(),
+    id: "stats-credit-wacc",
+    type: "stats",
+    label: "Credit metrics & WACC inputs",
+    description: "Net debt/EBITDA, interest coverage, beta, and capital-structure basics for a WACC build.",
+    group: "IB / general prep lens",
+    create: () => createStatsBlock("Credit Metrics & WACC Inputs", CREDIT_WACC_STAT_KEYS),
   },
   {
+    id: "text-ownership",
+    type: "text",
+    label: "Ownership & shareholder structure",
+    description: "Who owns the company, and any notable concentration or structure.",
+    group: "IB / general prep lens",
+    create: () =>
+      createTextBlock(
+        "Ownership & Shareholder Structure",
+        "Who owns this company — insiders, founders, index funds, activist investors? Note any concentrated stakes, dual-class shares, or recent large ownership changes."
+      ),
+  },
+
+  // --- M&A prep lens ---
+  {
+    id: "manda",
     type: "manda",
     label: "M&A accretion/dilution",
     description: "Offer price, financing mix, and synergies → pro-forma EPS impact, goodwill, leverage.",
+    group: "M&A prep lens",
     create: () => createMandaBlock(),
+  },
+  {
+    id: "text-deal-synergies",
+    type: "text",
+    label: "Deal terms & synergies",
+    description: "Offer price, premium, financing mix, and how credible the synergies are.",
+    group: "M&A prep lens",
+    create: () =>
+      createTextBlock(
+        "Deal Terms & Synergies",
+        "Lay out the deal: offer price and premium to the undisturbed share price, financing mix (cash/debt/stock), and the synergies being claimed — split cost vs. revenue synergies and note how credible each side is."
+      ),
+  },
+  {
+    id: "text-integration-risk",
+    type: "text",
+    label: "Integration & regulatory risk",
+    description: "Operational integration risk and regulatory/antitrust considerations.",
+    group: "M&A prep lens",
+    create: () =>
+      createTextBlock(
+        "Integration & Regulatory Risk",
+        "What could go wrong operationally (culture clash, systems integration, key-employee attrition) or on the regulatory side (antitrust, foreign ownership rules)? How long might approval and integration realistically take?"
+      ),
+  },
+
+  // --- LBO / PE prep lens ---
+  {
+    id: "lbo",
+    type: "lbo",
+    label: "LBO calculator",
+    description: "Entry/exit EBITDA multiples, leverage, and holding period → IRR and MOIC.",
+    group: "LBO / PE prep lens",
+    create: () => createLboBlock(),
+  },
+  {
+    id: "text-leverage-debt",
+    type: "text",
+    label: "Leverage & debt maturities",
+    description: "Existing leverage, debt maturities, capex intensity, and collateral base.",
+    group: "LBO / PE prep lens",
+    create: () =>
+      createTextBlock(
+        "Leverage & Debt Maturities",
+        "How much existing leverage does the target carry, and when do those debt tranches mature? Note capex intensity and the tangible asset base available as collateral for new debt."
+      ),
+  },
+  {
+    id: "text-exit-assumptions",
+    type: "text",
+    label: "Exit assumptions",
+    description: "Holding period, exit multiple, and exit route.",
+    group: "LBO / PE prep lens",
+    create: () =>
+      createTextBlock(
+        "Exit Assumptions",
+        "State your assumed holding period, exit multiple, and exit route (strategic sale, sponsor-to-sponsor, IPO). Justify why the exit multiple you've chosen is reasonable relative to entry."
+      ),
   },
 ];

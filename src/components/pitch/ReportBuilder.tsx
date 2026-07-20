@@ -8,10 +8,13 @@
 
 import {
   BLOCK_LIBRARY,
-  createLboBlock,
+  BLOCK_TYPE_LABELS,
+  GROUP_ORDER,
   type Block,
   type StatEntry,
+  type ChartSeriesOption,
 } from "@/lib/reportBlocks";
+import type { NewsArticle } from "@/lib/news";
 import BlockShell from "./blocks/BlockShell";
 import TextBlockEditor from "./blocks/TextBlockEditor";
 import SwotBlockEditor from "./blocks/SwotBlockEditor";
@@ -20,16 +23,22 @@ import StatsBlockEditor from "./blocks/StatsBlockEditor";
 import CompsBlockEditor from "./blocks/CompsBlockEditor";
 import LboBlockEditor from "./blocks/LboBlockEditor";
 import MandaBlockEditor from "./blocks/MandaBlockEditor";
+import ChartBlockEditor from "./blocks/ChartBlockEditor";
+import NewsBlockEditor from "./blocks/NewsBlockEditor";
 
 export default function ReportBuilder({
   blocks,
   onBlocksChange,
   availableStats,
+  availableChartSeries,
+  newsArticles,
   defaultEbitda,
 }: {
   blocks: Block[];
   onBlocksChange: (blocks: Block[]) => void;
   availableStats: StatEntry[];
+  availableChartSeries: ChartSeriesOption[];
+  newsArticles: NewsArticle[];
   defaultEbitda: string;
 }) {
   function updateBlock(id: string, updater: (b: Block) => Block) {
@@ -49,9 +58,12 @@ export default function ReportBuilder({
     onBlocksChange(next);
   }
 
-  function addBlock(type: (typeof BLOCK_LIBRARY)[number]["type"]) {
-    const entry = BLOCK_LIBRARY.find((b) => b.type === type)!;
-    const block = type === "lbo" ? createLboBlock("LBO returns", defaultEbitda) : entry.create();
+  function addBlock(libraryId: string) {
+    const entry = BLOCK_LIBRARY.find((b) => b.id === libraryId)!;
+    let block = entry.create();
+    if (block.type === "lbo" && defaultEbitda) {
+      block = { ...block, data: { ...block.data, entryEbitda: defaultEbitda } };
+    }
     onBlocksChange([...blocks, block]);
   }
 
@@ -62,7 +74,7 @@ export default function ReportBuilder({
           <BlockShell
             key={block.id}
             title={block.title}
-            typeLabel={BLOCK_LIBRARY.find((b) => b.type === block.type)?.label ?? block.type}
+            typeLabel={BLOCK_TYPE_LABELS[block.type]}
             onTitleChange={(title) => updateBlock(block.id, (b) => ({ ...b, title }))}
             onMoveUp={() => moveBlock(block.id, -1)}
             onMoveDown={() => moveBlock(block.id, 1)}
@@ -113,6 +125,14 @@ export default function ReportBuilder({
                 onChange={(data) => updateBlock(block.id, (b) => ({ ...b, data } as Block))}
               />
             )}
+            {block.type === "chart" && (
+              <ChartBlockEditor
+                data={block.data}
+                availableSeries={availableChartSeries}
+                onChange={(data) => updateBlock(block.id, (b) => ({ ...b, data } as Block))}
+              />
+            )}
+            {block.type === "news" && <NewsBlockEditor articles={newsArticles} />}
           </BlockShell>
         ))}
       </div>
@@ -127,19 +147,30 @@ export default function ReportBuilder({
         <span className="mb-3 block text-xs uppercase tracking-widest text-muted">
           Add a block
         </span>
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {BLOCK_LIBRARY.map((entry) => (
-            <button
-              key={entry.type}
-              type="button"
-              onClick={() => addBlock(entry.type)}
-              className="rounded-md border border-border p-3 text-left text-xs hover:border-accent"
-            >
-              <span className="block font-semibold text-foreground">{entry.label}</span>
-              <span className="mt-1 block text-muted">{entry.description}</span>
-            </button>
-          ))}
-        </div>
+        {GROUP_ORDER.map((group) => {
+          const entries = BLOCK_LIBRARY.filter((entry) => entry.group === group);
+          if (entries.length === 0) return null;
+          return (
+            <div key={group} className="mb-4 last:mb-0">
+              <span className="mb-2 block text-[11px] font-semibold uppercase tracking-widest text-accent/80">
+                {group}
+              </span>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {entries.map((entry) => (
+                  <button
+                    key={entry.id}
+                    type="button"
+                    onClick={() => addBlock(entry.id)}
+                    className="rounded-md border border-border p-3 text-left text-xs hover:border-accent"
+                  >
+                    <span className="block font-semibold text-foreground">{entry.label}</span>
+                    <span className="mt-1 block text-muted">{entry.description}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

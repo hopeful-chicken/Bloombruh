@@ -14,9 +14,11 @@ import {
   computeROIC,
   computeCapitalAllocation,
 } from "@/lib/fundamentalsAnalysis";
+import { computeValuationMetrics, computeEbitdaHistory } from "@/lib/valuationAnalysis";
+import { getCompanyNews } from "@/lib/news";
 import { getBeta } from "@/lib/beta";
 import { formatUSD, formatPct } from "@/lib/format";
-import type { StatEntry } from "@/lib/reportBlocks";
+import type { StatEntry, ChartSeriesOption } from "@/lib/reportBlocks";
 import PitchWorkbench from "@/components/pitch/PitchWorkbench";
 
 export default async function PitchBuilderPage({
@@ -62,6 +64,7 @@ export default async function PitchBuilderPage({
     description?.wikipediaUrl ?? null
   ).catch(() => []);
   const betaResult = await getBeta(symbol).catch(() => null);
+  const newsArticles = await getCompanyNews(quote.name).catch(() => []);
 
   const price = parseFloat(quote.close);
   const change = parseFloat(quote.change);
@@ -95,6 +98,7 @@ export default async function PitchBuilderPage({
   const creditMetrics = fundamentals ? computeCreditMetrics(fundamentals) : null;
   const roicPct = fundamentals ? computeROIC(fundamentals) : null;
   const capitalAllocation = fundamentals ? computeCapitalAllocation(fundamentals) : null;
+  const valuation = fundamentals ? computeValuationMetrics(fundamentals, price) : null;
 
   const availableStats: StatEntry[] = [
     { key: "price", label: "Price", value: formatUSD(price) },
@@ -248,6 +252,227 @@ export default async function PitchBuilderPage({
           ? fundamentals.sharesOutstanding.toLocaleString()
           : null,
     },
+
+    // --- Deeper three-statement data ---
+    {
+      key: "ebitdaMargin",
+      label: "EBITDA margin",
+      value:
+        creditMetrics?.ebitda !== null &&
+        creditMetrics?.ebitda !== undefined &&
+        fundamentals?.revenue
+          ? formatPct((creditMetrics.ebitda / fundamentals.revenue) * 100)
+          : null,
+    },
+    {
+      key: "netMargin",
+      label: "Net margin",
+      value:
+        fundamentals?.netIncome !== null &&
+        fundamentals?.netIncome !== undefined &&
+        fundamentals?.revenue
+          ? formatPct((fundamentals.netIncome / fundamentals.revenue) * 100)
+          : null,
+    },
+    {
+      key: "epsGrowth",
+      label: "EPS growth (YoY)",
+      value: valuation?.epsGrowthPct !== null && valuation?.epsGrowthPct !== undefined
+        ? formatPct(valuation.epsGrowthPct)
+        : null,
+    },
+    {
+      key: "netDebt",
+      label: "Net debt",
+      value: valuation?.netDebt !== null && valuation?.netDebt !== undefined
+        ? formatUSD(valuation.netDebt)
+        : null,
+    },
+    {
+      key: "workingCapital",
+      label: "Working capital",
+      value: valuation?.workingCapital !== null && valuation?.workingCapital !== undefined
+        ? formatUSD(valuation.workingCapital)
+        : null,
+    },
+    {
+      key: "shareholdersEquity",
+      label: "Shareholders' equity",
+      value:
+        fundamentals?.stockholdersEquity !== null &&
+        fundamentals?.stockholdersEquity !== undefined
+          ? formatUSD(fundamentals.stockholdersEquity)
+          : null,
+    },
+    {
+      key: "operatingCashFlow",
+      label: "Operating cash flow",
+      value:
+        fundamentals?.operatingCashFlow !== null &&
+        fundamentals?.operatingCashFlow !== undefined
+          ? formatUSD(fundamentals.operatingCashFlow)
+          : null,
+    },
+    {
+      key: "capex",
+      label: "Capital expenditure",
+      value: fundamentals?.capex !== null && fundamentals?.capex !== undefined
+        ? formatUSD(fundamentals.capex)
+        : null,
+    },
+    {
+      key: "freeCashFlow",
+      label: "Free cash flow",
+      value: valuation?.freeCashFlow !== null && valuation?.freeCashFlow !== undefined
+        ? formatUSD(valuation.freeCashFlow)
+        : null,
+    },
+    {
+      key: "sharesOutstandingBasic",
+      label: "Shares outstanding (basic, wtd. avg.)",
+      value:
+        fundamentals?.sharesOutstandingBasic !== null &&
+        fundamentals?.sharesOutstandingBasic !== undefined
+          ? fundamentals.sharesOutstandingBasic.toLocaleString()
+          : null,
+    },
+    {
+      key: "sharesOutstandingDiluted",
+      label: "Shares outstanding (diluted, wtd. avg.)",
+      value:
+        fundamentals?.sharesOutstandingDiluted !== null &&
+        fundamentals?.sharesOutstandingDiluted !== undefined
+          ? fundamentals.sharesOutstandingDiluted.toLocaleString()
+          : null,
+    },
+
+    // --- Derived basics & valuation multiples ---
+    {
+      key: "marketCap",
+      label: "Market cap",
+      value: valuation?.marketCap !== null && valuation?.marketCap !== undefined
+        ? formatUSD(valuation.marketCap)
+        : null,
+    },
+    {
+      key: "enterpriseValue",
+      label: "Enterprise value",
+      value:
+        valuation?.enterpriseValue !== null && valuation?.enterpriseValue !== undefined
+          ? formatUSD(valuation.enterpriseValue)
+          : null,
+    },
+    {
+      key: "peRatio",
+      label: "P/E ratio",
+      value: valuation?.peRatio !== null && valuation?.peRatio !== undefined
+        ? `${valuation.peRatio.toFixed(1)}x`
+        : null,
+    },
+    {
+      key: "evToEbitda",
+      label: "EV / EBITDA",
+      value: valuation?.evToEbitda !== null && valuation?.evToEbitda !== undefined
+        ? `${valuation.evToEbitda.toFixed(1)}x`
+        : null,
+    },
+    {
+      key: "evToEbit",
+      label: "EV / EBIT",
+      value: valuation?.evToEbit !== null && valuation?.evToEbit !== undefined
+        ? `${valuation.evToEbit.toFixed(1)}x`
+        : null,
+    },
+    {
+      key: "evToSales",
+      label: "EV / Sales",
+      value: valuation?.evToSales !== null && valuation?.evToSales !== undefined
+        ? `${valuation.evToSales.toFixed(1)}x`
+        : null,
+    },
+    {
+      key: "priceToBook",
+      label: "Price / Book",
+      value: valuation?.priceToBook !== null && valuation?.priceToBook !== undefined
+        ? `${valuation.priceToBook.toFixed(1)}x`
+        : null,
+    },
+    {
+      key: "fcfYield",
+      label: "FCF yield",
+      value: valuation?.fcfYieldPct !== null && valuation?.fcfYieldPct !== undefined
+        ? formatPct(valuation.fcfYieldPct)
+        : null,
+    },
+    {
+      key: "dividendYield",
+      label: "Dividend yield",
+      value:
+        valuation?.dividendYieldPct !== null && valuation?.dividendYieldPct !== undefined
+          ? formatPct(valuation.dividendYieldPct)
+          : null,
+    },
+
+    // --- Growth & returns ---
+    {
+      key: "ebitdaGrowth",
+      label: "EBITDA growth (YoY)",
+      value:
+        valuation?.ebitdaGrowthPct !== null && valuation?.ebitdaGrowthPct !== undefined
+          ? formatPct(valuation.ebitdaGrowthPct)
+          : null,
+    },
+    {
+      key: "roe",
+      label: "ROE",
+      value: valuation?.roePct !== null && valuation?.roePct !== undefined
+        ? formatPct(valuation.roePct)
+        : null,
+    },
+    {
+      key: "roa",
+      label: "ROA",
+      value: valuation?.roaPct !== null && valuation?.roaPct !== undefined
+        ? formatPct(valuation.roaPct)
+        : null,
+    },
+  ];
+
+  // Chart-block series registry — same "computed once, offered as a menu"
+  // pattern as availableStats, but for time series instead of single
+  // numbers. Price always available; the SEC-derived series gracefully
+  // become empty (and get skipped in the picker/hidden with a fallback
+  // message) for non-US filers.
+  const availableChartSeries: ChartSeriesOption[] = [
+    {
+      key: "price",
+      label: "Price history",
+      points: chartData.map((p) => ({ label: p.date, value: p.close })),
+    },
+    {
+      key: "revenue",
+      label: "Revenue (annual)",
+      points: (fundamentals?.revenueHistory ?? []).map((v) => ({
+        label: String(v.fiscalYear),
+        value: v.value,
+      })),
+    },
+    {
+      key: "netIncome",
+      label: "Net income (annual)",
+      points: (fundamentals?.netIncomeHistory ?? []).map((v) => ({
+        label: String(v.fiscalYear),
+        value: v.value,
+      })),
+    },
+    {
+      key: "ebitda",
+      label: "EBITDA (annual, est.)",
+      points: (fundamentals ? computeEbitdaHistory(fundamentals) : []).map((v) => ({
+        label: String(v.fiscalYear),
+        value: v.value,
+      })),
+    },
   ];
 
   return (
@@ -278,6 +503,8 @@ export default async function PitchBuilderPage({
         description={description}
         sourceLinks={sourceLinks}
         availableStats={availableStats}
+        availableChartSeries={availableChartSeries}
+        newsArticles={newsArticles}
       />
     </div>
   );

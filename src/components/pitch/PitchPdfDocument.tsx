@@ -12,13 +12,16 @@ import {
   StyleSheet,
   Svg,
   Path,
+  Rect,
+  Link,
 } from "@react-pdf/renderer";
 import { formatUSD, formatPct } from "@/lib/format";
 import type { Rating } from "./PitchWorkbench";
 import type { Fundamentals } from "@/lib/secEdgar";
-import type { Block, StatEntry } from "@/lib/reportBlocks";
+import type { Block, StatEntry, ChartSeriesOption } from "@/lib/reportBlocks";
 import { parseLines } from "@/lib/reportBlocks";
 import { computeLbo, computeManda } from "@/lib/dealMath";
+import type { NewsArticle } from "@/lib/news";
 
 export type PitchPdfProps = {
   symbol: string;
@@ -37,6 +40,8 @@ export type PitchPdfProps = {
   targetPrice: number | null;
   blocks: Block[];
   availableStats: StatEntry[];
+  chartSeries: ChartSeriesOption[];
+  newsArticles: NewsArticle[];
   generatedAt: string;
 };
 
@@ -145,19 +150,45 @@ const RATING_COLORS: Record<Rating, string> = {
   Sell: "#b91c1c",
 };
 
-/** Builds an SVG path string tracing normalized closing prices. */
-function sparklinePath(closes: number[], width: number, height: number): string {
-  if (closes.length < 2) return "";
-  const min = Math.min(...closes);
-  const max = Math.max(...closes);
+/** Builds an SVG path string tracing a normalized series of numbers — used
+ * both for the price sparkline in the banner and for line-type Chart
+ * blocks in the report body. */
+function sparklinePath(values: number[], width: number, height: number): string {
+  if (values.length < 2) return "";
+  const min = Math.min(...values);
+  const max = Math.max(...values);
   const range = max - min || 1;
-  const stepX = width / (closes.length - 1);
-  const points = closes.map((c, i) => {
+  const stepX = width / (values.length - 1);
+  const points = values.map((v, i) => {
     const x = i * stepX;
-    const y = height - ((c - min) / range) * height;
+    const y = height - ((v - min) / range) * height;
     return `${x.toFixed(1)},${y.toFixed(1)}`;
   });
   return `M ${points.join(" L ")}`;
+}
+
+/** Same normalization as sparklinePath, but returns a rect per value for
+ * a bar-type Chart block. */
+function barRects(
+  values: number[],
+  width: number,
+  height: number
+): { x: number; y: number; w: number; h: number }[] {
+  if (values.length === 0) return [];
+  const min = Math.min(0, ...values);
+  const max = Math.max(...values);
+  const range = max - min || 1;
+  const gap = 4;
+  const barWidth = Math.max((width - gap * (values.length - 1)) / values.length, 1);
+  return values.map((v, i) => {
+    const barHeight = ((v - min) / range) * height;
+    return {
+      x: i * (barWidth + gap),
+      y: height - barHeight,
+      w: barWidth,
+      h: Math.max(barHeight, 0),
+    };
+  });
 }
 
 function Stat({ label, value }: { label: string; value: string }) {
@@ -209,9 +240,13 @@ function BulletList({ items }: { items: string[] }) {
 function BlockOutput({
   block,
   availableStats,
+  chartSeries,
+  newsArticles,
 }: {
   block: Block;
   availableStats: StatEntry[];
+  chartSeries: ChartSeriesOption[];
+  newsArticles: NewsArticle[];
 }) {
   const title = block.title || "Untitled";
 
@@ -307,6 +342,65 @@ function BlockOutput({
           </View>
         ) : (
           <Text style={{ fontSize: 9, color: "#999999" }}>(incomplete inputs)</Text>
+        )}
+      </>
+    );
+  }
+
+  if (block.type === "chart") {
+    const series = chartSeries.find((s) => s.key === block.data.seriesKey);
+    const values = series?.points.map((p) => p.value) ?? [];
+    const width = 500;
+    const height = 110;
+    return (
+      <>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        <View style={styles.card}>
+          {series && values.length > 1 ? (
+            <Svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+              {block.data.chartType === "bar"
+                ? barRects(values, width, height).map((r, i) => (
+                    <Rect key={i} x={r.x} y={r.y} width={r.w} height={r.h} fill={ACCENT} />
+                  ))
+                : (
+                    <Path
+                      d={sparklinePath(values, width, height)}
+                      stroke={ACCENT}
+                      strokeWidth={1.5}
+                      fill="none"
+                    />
+                  )}
+            </Svg>
+          ) : (
+            <Text style={{ fontSize: 9, color: "#999999" }}>
+              (not enough data for this series)
+            </Text>
+          )}
+        </View>
+      </>
+    );
+  }
+
+  if (block.type === "news") {
+    return (
+      <>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        {newsArticles.length === 0 ? (
+          <Text style={{ fontSize: 9, color: "#999999" }}>(no recent headlines found)</Text>
+        ) : (
+          <View style={styles.card}>
+            {newsArticles.map((a, i) => (
+              <View key={i} style={{ marginBottom: 6 }}>
+                <Link src={a.link} style={{ fontSize: 9, color: "#1a1a1a" }}>
+                  {a.title}
+                </Link>
+                <Text style={{ fontSize: 8, color: "#999999", marginTop: 1 }}>
+                  {a.source ? `${a.source} · ` : ""}
+                  {a.pubDate}
+                </Text>
+              </View>
+            ))}
+          </View>
         )}
       </>
     );
@@ -490,7 +584,13 @@ export default function PitchPdfDocument(props: PitchPdfProps) {
           {/* Student-built report blocks — rendered generically in
               whatever order the student assembled them in. */}
           {props.blocks.map((block) => (
-            <BlockOutput key={block.id} block={block} availableStats={props.availableStats} />
+            <BlockOutput
+              key={block.id}
+              block={block}
+              availableStats={props.availableStats}
+              chartSeries={props.chartSeries}
+              newsArticles={props.newsArticles}
+            />
           ))}
         </View>
 

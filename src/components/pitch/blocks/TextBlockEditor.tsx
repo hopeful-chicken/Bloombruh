@@ -12,9 +12,12 @@ export default function TextBlockEditor({
   return (
     <textarea
       value={data.body}
-      onChange={(e) => onChange({ body: e.target.value })}
+      onChange={(e) => onChange({ ...data, body: e.target.value })}
       rows={6}
-      placeholder="Write freely — thesis, a deep dive on one topic, anything."
+      placeholder={
+        data.placeholder ??
+        "Write freely — thesis, a deep dive on one topic, anything."
+      }
       className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
     />
   );

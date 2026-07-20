@@ -134,6 +134,14 @@ const CONCEPTS = {
   interestExpense: ["InterestExpense", "InterestExpenseDebt"],
   epsDiluted: ["EarningsPerShareDiluted"],
   sharesOutstanding: ["CommonStockSharesOutstanding"],
+  operatingCashFlow: [
+    "NetCashProvidedByUsedInOperatingActivities",
+    "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+  ],
+  currentAssets: ["AssetsCurrent"],
+  currentLiabilities: ["LiabilitiesCurrent"],
+  sharesOutstandingBasic: ["WeightedAverageNumberOfSharesOutstandingBasic"],
+  sharesOutstandingDiluted: ["WeightedAverageNumberOfDilutedSharesOutstanding"],
 } as const;
 
 export type Fundamentals = {
@@ -145,17 +153,25 @@ export type Fundamentals = {
   netIncomeHistory: YearValue[];
   grossProfit: number | null;
   operatingIncome: number | null;
+  operatingIncomeHistory: YearValue[];
   totalAssets: number | null;
   stockholdersEquity: number | null;
   cash: number | null;
   totalDebt: number | null;
+  currentAssets: number | null;
+  currentLiabilities: number | null;
   depreciationAmortization: number | null;
+  depreciationAmortizationHistory: YearValue[];
   capex: number | null;
+  operatingCashFlow: number | null;
   dividendsPaid: number | null;
   buybacks: number | null;
   interestExpense: number | null;
   epsDiluted: number | null;
+  epsDilutedHistory: YearValue[];
   sharesOutstanding: number | null;
+  sharesOutstandingBasic: number | null;
+  sharesOutstandingDiluted: number | null;
 };
 
 /**
@@ -173,36 +189,46 @@ export async function getFundamentals(ticker: string): Promise<Fundamentals | nu
     revenueHistory,
     netIncomeHistory,
     grossProfit,
-    operatingIncome,
+    operatingIncomeHistory,
     totalAssets,
     stockholdersEquity,
     cash,
     longTermDebt,
     currentDebt,
-    depreciationAmortization,
+    currentAssets,
+    currentLiabilities,
+    depreciationAmortizationHistory,
     capex,
+    operatingCashFlow,
     dividendsPaid,
     buybacks,
     interestExpense,
-    epsDiluted,
+    epsDilutedHistory,
     sharesOutstanding,
+    sharesOutstandingBasic,
+    sharesOutstandingDiluted,
   ] = await Promise.all([
     fetchAnnualConceptHistory(cik, [...CONCEPTS.revenue]),
     fetchAnnualConceptHistory(cik, [...CONCEPTS.netIncome]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.grossProfit]),
-    fetchLatestAnnualConcept(cik, [...CONCEPTS.operatingIncome]),
+    fetchAnnualConceptHistory(cik, [...CONCEPTS.operatingIncome]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.totalAssets]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.stockholdersEquity]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.cash]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.longTermDebt]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.currentDebt]),
-    fetchLatestAnnualConcept(cik, [...CONCEPTS.depreciationAmortization]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.currentAssets]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.currentLiabilities]),
+    fetchAnnualConceptHistory(cik, [...CONCEPTS.depreciationAmortization]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.capex]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.operatingCashFlow]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.dividendsPaid]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.buybacks]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.interestExpense]),
-    fetchLatestAnnualConcept(cik, [...CONCEPTS.epsDiluted]),
+    fetchAnnualConceptHistory(cik, [...CONCEPTS.epsDiluted]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.sharesOutstanding]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.sharesOutstandingBasic]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.sharesOutstandingDiluted]),
   ]);
 
   if (revenueHistory.length === 0 && netIncomeHistory.length === 0) return null;
@@ -210,6 +236,9 @@ export async function getFundamentals(ticker: string): Promise<Fundamentals | nu
   const revenue = revenueHistory.at(-1)?.value ?? null;
   const revenuePriorYear = revenueHistory.at(-2)?.value ?? null;
   const netIncome = netIncomeHistory.at(-1)?.value ?? null;
+  const operatingIncome = operatingIncomeHistory.at(-1)?.value ?? null;
+  const depreciationAmortization = depreciationAmortizationHistory.at(-1)?.value ?? null;
+  const epsDiluted = epsDilutedHistory.at(-1)?.value ?? null;
 
   // Total debt = long-term + current portion, whichever pieces are tagged.
   const debtParts = [longTermDebt?.value, currentDebt?.value].filter(
@@ -226,17 +255,25 @@ export async function getFundamentals(ticker: string): Promise<Fundamentals | nu
     netIncome,
     netIncomeHistory: netIncomeHistory.slice(-5),
     grossProfit: grossProfit?.value ?? null,
-    operatingIncome: operatingIncome?.value ?? null,
+    operatingIncome,
+    operatingIncomeHistory: operatingIncomeHistory.slice(-5),
     totalAssets: totalAssets?.value ?? null,
     stockholdersEquity: stockholdersEquity?.value ?? null,
     cash: cash?.value ?? null,
     totalDebt,
-    depreciationAmortization: depreciationAmortization?.value ?? null,
+    currentAssets: currentAssets?.value ?? null,
+    currentLiabilities: currentLiabilities?.value ?? null,
+    depreciationAmortization,
+    depreciationAmortizationHistory: depreciationAmortizationHistory.slice(-5),
     capex: capex?.value ?? null,
+    operatingCashFlow: operatingCashFlow?.value ?? null,
     dividendsPaid: dividendsPaid?.value ?? null,
     buybacks: buybacks?.value ?? null,
     interestExpense: interestExpense?.value ?? null,
-    epsDiluted: epsDiluted?.value ?? null,
+    epsDiluted,
+    epsDilutedHistory: epsDilutedHistory.slice(-5),
     sharesOutstanding: sharesOutstanding?.value ?? null,
+    sharesOutstandingBasic: sharesOutstandingBasic?.value ?? null,
+    sharesOutstandingDiluted: sharesOutstandingDiluted?.value ?? null,
   };
 }
