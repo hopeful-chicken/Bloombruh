@@ -6,6 +6,15 @@
 // by using Next.js's fetch cache (the `next: { revalidate }` option below)
 // so repeat visits to the same ticker within the cache window don't cost
 // another API call.
+//
+// IMPORTANT — only /quote, /time_series, and /symbol_search are actually
+// available on the free plan. /profile and /statistics (company
+// description, P/E, market cap, dividend yield, etc.) return HTTP 403 on
+// the free plan — they require a paid "Grow" plan ($29/mo) or higher.
+// This was discovered after building against Twelve Data's docs, which
+// don't make the free-vs-paid split obvious. So this module deliberately
+// does NOT call those two endpoints — see docs/DECISIONS.md for the full
+// story and docs/DATA_SOURCES.md for what's really free.
 
 const BASE_URL = "https://api.twelvedata.com";
 
@@ -62,72 +71,17 @@ export type Quote = {
   change: string;
   percent_change: string;
   volume: string;
+  average_volume: string;
   is_market_open: boolean;
-};
-
-/** Current (or last close) price and day's change. Cached 1 minute. */
-export function getQuote(symbol: string): Promise<Quote> {
-  return fetchTwelveData<Quote>("quote", { symbol }, 60);
-}
-
-export type CompanyProfile = {
-  symbol: string;
-  name: string;
-  exchange: string;
-  sector: string;
-  industry: string;
-  employees: number;
-  website: string;
-  description: string;
-  type: string;
-  CEO: string;
-  address: string;
-  city: string;
-  country: string;
-};
-
-/** Company description, sector, industry, etc. Cached 24 hours — this data barely changes. */
-export function getCompanyProfile(symbol: string): Promise<CompanyProfile> {
-  return fetchTwelveData<CompanyProfile>("profile", { symbol }, 86400);
-}
-
-export type Statistics = {
-  statistics: {
-    valuations_metrics: {
-      market_capitalization?: number;
-      trailing_pe?: number;
-      forward_pe?: number;
-      peg_ratio?: number;
-      price_to_sales_ttm?: number;
-      price_to_book_mrq?: number;
-      enterprise_value?: number;
-    };
-    financials: {
-      quarterly_revenue_growth?: number;
-      quarterly_earnings_growth_yoy?: number;
-      gross_margin?: number;
-      profit_margin?: number;
-      operating_margin?: number;
-      return_on_equity_ttm?: number;
-      income_statement?: {
-        diluted_eps_ttm?: number;
-      };
-    };
-    stock_statistics: {
-      "52_week_high"?: number;
-      "52_week_low"?: number;
-      shares_outstanding?: number;
-      "beta"?: number;
-    };
-    dividends_and_splits: {
-      forward_annual_dividend_yield?: number;
-    };
+  fifty_two_week: {
+    low: string;
+    high: string;
   };
 };
 
-/** Key valuation multiples and financial ratios. Cached 24 hours. */
-export function getStatistics(symbol: string): Promise<Statistics> {
-  return fetchTwelveData<Statistics>("statistics", { symbol }, 86400);
+/** Current (or last close) price, day's change, and 52-week range. Cached 1 minute. */
+export function getQuote(symbol: string): Promise<Quote> {
+  return fetchTwelveData<Quote>("quote", { symbol }, 60);
 }
 
 export type PricePoint = {

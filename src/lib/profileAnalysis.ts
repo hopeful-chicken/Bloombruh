@@ -1,13 +1,13 @@
-// Pure functions that turn raw quote/statistics numbers into short,
-// factual, plain-English context — the "analytical layer" the module needs
-// so it's more than a data dump. No opinions on whether to buy/sell
-// anything; just objective comparisons (vs. 52-week range, vs. a rough
-// market-average P/E benchmark). No Node.js deps — safe for client import.
-
-// Very rough, commonly-cited long-run average trailing P/E for the broader
-// US market (S&P 500). This is a loose rule-of-thumb for context, not a
-// precise or current benchmark — labelled as such wherever it's shown.
-export const MARKET_AVERAGE_PE = 20;
+// Pure functions that turn raw price data into short, factual,
+// plain-English context — the "analytical layer" the module needs so it's
+// more than a re-display of Twelve Data's own numbers. No opinions on
+// whether to buy/sell anything; just objective, computed comparisons.
+// No Node.js deps — safe for client import.
+//
+// Note: Twelve Data's free plan doesn't include company fundamentals
+// (P/E, market cap, margins, etc. — see docs/DATA_SOURCES.md), so this
+// layer is built entirely from price history (open/high/low/close over
+// time), computed here rather than fetched pre-made from any provider.
 
 export function describePriceVs52WeekRange(
   price: number,
@@ -35,25 +35,55 @@ export function describePriceVs52WeekRange(
   return `Trading ${pctAboveLow.toFixed(1)}% above its 52-week low, and closer to the bottom of its 52-week range.`;
 }
 
-export function describePE(trailingPE: number | undefined): string | null {
-  if (!trailingPE || !Number.isFinite(trailingPE) || trailingPE <= 0) {
-    return null;
-  }
-  const diffPct = ((trailingPE - MARKET_AVERAGE_PE) / MARKET_AVERAGE_PE) * 100;
-  if (Math.abs(diffPct) < 10) {
-    return `A trailing P/E of ${trailingPE.toFixed(1)} is roughly in line with the broader market's long-run average (~${MARKET_AVERAGE_PE}).`;
-  }
-  const direction = diffPct > 0 ? "above" : "below";
-  return `A trailing P/E of ${trailingPE.toFixed(1)} is ${Math.abs(diffPct).toFixed(0)}% ${direction} the broader market's long-run average (~${MARKET_AVERAGE_PE}) — one signal among many, not a verdict on its own.`;
+/** Simple moving average of the last `window` closing prices. */
+export function computeMovingAverage(
+  closes: number[],
+  window: number
+): number | null {
+  if (closes.length < window) return null;
+  const slice = closes.slice(-window);
+  return slice.reduce((sum, v) => sum + v, 0) / window;
 }
 
-export function describeMargin(
-  label: string,
-  marginFraction: number | undefined
+export function describeMomentum(
+  price: number,
+  movingAverage: number | null,
+  windowLabel: string
 ): string | null {
-  if (marginFraction === undefined || !Number.isFinite(marginFraction)) {
-    return null;
+  if (!movingAverage || !Number.isFinite(movingAverage)) return null;
+  const diffPct = ((price - movingAverage) / movingAverage) * 100;
+  if (Math.abs(diffPct) < 1) {
+    return `Trading close to its ${windowLabel} average price — no strong short-term trend either way.`;
   }
-  const pct = marginFraction * 100;
-  return `${label}: ${pct.toFixed(1)}%.`;
+  const direction = diffPct > 0 ? "above" : "below";
+  const trend = diffPct > 0 ? "upward" : "downward";
+  return `Trading ${Math.abs(diffPct).toFixed(1)}% ${direction} its ${windowLabel} average price, consistent with recent ${trend} momentum.`;
+}
+
+/** Annualized volatility (%) from daily closing prices, using log returns. */
+export function computeAnnualizedVolatility(closes: number[]): number | null {
+  if (closes.length < 2) return null;
+  const returns: number[] = [];
+  for (let i = 1; i < closes.length; i++) {
+    if (closes[i - 1] > 0 && closes[i] > 0) {
+      returns.push(Math.log(closes[i] / closes[i - 1]));
+    }
+  }
+  if (returns.length < 2) return null;
+  const mean = returns.reduce((sum, v) => sum + v, 0) / returns.length;
+  const variance =
+    returns.reduce((sum, v) => sum + (v - mean) ** 2, 0) / (returns.length - 1);
+  const dailyStdDev = Math.sqrt(variance);
+  return dailyStdDev * Math.sqrt(252) * 100; // annualized, as a percentage
+}
+
+export function describeVolatility(annualizedVolPct: number | null): string | null {
+  if (!annualizedVolPct || !Number.isFinite(annualizedVolPct)) return null;
+  const label =
+    annualizedVolPct < 20
+      ? "relatively calm"
+      : annualizedVolPct < 40
+        ? "moderately volatile"
+        : "highly volatile";
+  return `Annualized price volatility over this period is about ${annualizedVolPct.toFixed(0)}%, which is ${label} next to a typical broad-market stock (commonly ~15-25%).`;
 }

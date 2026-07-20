@@ -9,22 +9,27 @@
 
 ## Company Profile Generator — Twelve Data
 
-- **Provider:** [twelvedata.com](https://twelvedata.com) — chosen over Finnhub because Finnhub's free tier blocks historical price candles (a 403 on that endpoint), while Twelve Data's free tier includes quote, company profile, key statistics/multiples, symbol search, *and* historical daily time series all under one key.
+- **Provider:** [twelvedata.com](https://twelvedata.com) — chosen over Finnhub because Finnhub's free tier blocks historical price candles (a 403 on that endpoint).
 - **Free tier limits:** 800 requests/day, 8 requests/minute. No credit card required to sign up.
-- **Endpoints used** (see `src/lib/marketData.ts`):
-  - `/quote` — current price, day's change. Cached 60 seconds.
-  - `/profile` — company description, sector, industry, employee count. Cached 24 hours (barely changes).
-  - `/statistics` — valuation multiples (P/E, market cap), margins, 52-week range, beta, dividend yield. Cached 24 hours.
-  - `/time_series` (interval=1day) — historical daily closes for the price chart. Cached 15 minutes.
+- **Correction (2026-07-20):** Twelve Data's docs make it look like `/profile` and `/statistics` (company description, P/E, market cap, dividend yield, margins, beta, etc.) are included free — they are not. Testing the real key showed both return HTTP 403 on the free Basic plan; they require the paid "Grow" plan ($29/month) or higher. This module was reworked to not depend on them at all — see `docs/DECISIONS.md`.
+- **Endpoints used** (see `src/lib/marketData.ts`), all confirmed free on the Basic plan:
+  - `/quote` — current price, day's change, day's open/high/low, previous close, volume, average volume, and 52-week high/low. Cached 60 seconds.
+  - `/time_series` (interval=1day) — historical daily closes for the price chart, and the input to our own computed analytics (50-day moving average, annualized volatility — see `src/lib/profileAnalysis.ts`). Cached 15 minutes.
   - `/symbol_search` — ticker/name autocomplete, proxied through `/api/search` so the key never reaches the browser. Cached 1 hour.
+- **Not used (paid-only on Twelve Data's free plan):** `/profile` (company description, sector, CEO, employees), `/statistics` (market cap, P/E, dividend yield, EPS, shares outstanding, beta). If real fundamentals data becomes important later, either upgrade the Twelve Data key or bring in a second, still-free source for that specific data — don't silently show broken/blank fields.
 - **Data freshness:** free-tier quotes are effectively real-time to slightly delayed depending on exchange — not tick-by-tick like a real Bloomberg terminal, but current enough to feel live for a student tool. This is stated in the module's UI.
 - **Getting a key:** sign up free at [twelvedata.com/pricing](https://twelvedata.com/pricing) (Basic/free plan), then copy `.env.local.example` to `.env.local` and paste the key in as `TWELVE_DATA_API_KEY`. `.env.local` is gitignored — never commit it.
 - **Graceful failure:** if the key is missing/invalid, or a ticker doesn't exist, the profile page shows a plain error message instead of crashing (see `src/app/profile/[symbol]/page.tsx`).
 
-## Analyst's Portfolio (next module)
+## Pitch Builder — adds SEC EDGAR (US company fundamentals)
 
-- **Position data** (what's held, entry price/date, thesis): Adam's own input, stored as a small JSON or markdown file in the repo — not fetched from any external API.
-- **Current prices for held positions:** reuse the Twelve Data quote endpoint above (`src/lib/marketData.ts`) — no new data source needed.
+- **Provider:** [SEC EDGAR's XBRL API](https://www.sec.gov/edgar/sec-api-documentation) (`data.sec.gov`) — the official, free source of US public companies' actual filed financial statements. No key or signup at all; the SEC only requires a descriptive `User-Agent` header identifying the app (see `src/lib/secEdgar.ts`), which is not a secret.
+- **Coverage:** US-listed companies that file 10-Ks with the SEC only. Non-US tickers (LSE-listed like Shell, AstraZeneca, HSBC, etc.) aren't covered — the Pitch Builder module shows the fundamentals panel only when data comes back, and otherwise just omits it rather than showing broken fields.
+- **Endpoints used** (see `src/lib/secEdgar.ts`):
+  - `company_tickers.json` — the full ticker → CIK (SEC's internal company ID) lookup table. Cached 24 hours.
+  - `xbrl/companyconcept/{cik}/us-gaap/{concept}.json` — one financial-statement line item at a time (e.g. `NetIncomeLoss`, `Assets`), pulled per company from its most recent 10-K. We fetch a handful of concepts (revenue, net income, gross profit, total assets, diluted EPS) rather than the much larger "all facts" endpoint. Cached 24 hours (annual filings don't change intra-day).
+- **Known quirk:** companies don't all use the same XBRL tag for the same concept — e.g. revenue is tagged `RevenueFromContractWithCustomerExcludingAssessedTax` for some filers and `Revenues` for others. `getFundamentals()` tries a short fallback list per concept; if a company uses a tag we haven't listed, that one field just won't show (rather than the whole fetch failing).
+- **Graceful failure:** if a ticker isn't an SEC filer, or none of the tried concepts return data, `getFundamentals()` returns `null` and the Pitch Builder simply doesn't render the fundamentals panel for that company.
 
 ## Explicitly out of scope for now
 
