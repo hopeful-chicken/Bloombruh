@@ -1,9 +1,12 @@
 @import "tailwindcss";
 
 /*
-  Terminal aesthetic: dark background, amber accent, monospace for numbers.
-  This theme is always dark (not tied to the user's OS light/dark preference)
-  — it's a deliberate branding choice for the "Bloomberg-lite" feel.
+  Terminal aesthetic: dark background by default, monospace for numbers.
+  Two themes are supported — dark (default, blue accent) and light (white
+  background, green accent) — toggled by adding/removing the `.light` class
+  on <html> (see ThemeToggle.tsx). Gain/loss colors (--positive/--negative)
+  stay fixed red/green in both themes so financial meaning never depends on
+  which theme is active.
 */
 :root {
   --background: #0a0a0b;
@@ -12,10 +15,25 @@
   --border: #2a2a2e;
   --foreground: #e4e4e7;
   --muted: #8a8a92;
-  --accent: #f5a623;
-  --accent-dim: #8a6114;
+  --accent: #3b82f6;
+  --accent-dim: #1d4ed8;
   --positive: #34d399;
   --negative: #f87171;
+  color-scheme: dark;
+}
+
+:root.light {
+  --background: #ffffff;
+  --surface: #f3f4f6;
+  --surface-hover: #e5e7eb;
+  --border: #e2e2e7;
+  --foreground: #111318;
+  --muted: #6b7280;
+  --accent: #22c55e;
+  --accent-dim: #15803d;
+  --positive: #16a34a;
+  --negative: #dc2626;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -31,10 +49,6 @@
   --color-negative: var(--negative);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-html {
-  color-scheme: dark;
 }
 
 body {

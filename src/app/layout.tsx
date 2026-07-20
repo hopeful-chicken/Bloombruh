@@ -14,23 +14,23 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const title = "Graduate Analyst Terminal";
+const title = "Bloombruh";
 const description =
-  "A free, web-based terminal for students — starting with the SWF Explorer, an interactive look at NBIM's published portfolio holdings.";
+  "A free, web-based Bloomberg-lite for students — look up any public company's price, chart, and fundamentals, or build your own investment pitch report and export it as a PDF.";
 
 export const metadata: Metadata = {
   title: {
     default: title,
-    template: "%s · Graduate Analyst Terminal",
+    template: "%s · Bloombruh",
   },
   description,
   keywords: [
-    "NBIM",
-    "Norges Bank Investment Management",
-    "sovereign wealth fund",
-    "Government Pension Fund Global",
-    "portfolio holdings",
-    "equity ownership",
+    "company profile",
+    "stock research",
+    "equity research",
+    "investment pitch",
+    "financial fundamentals",
+    "student finance tool",
   ],
   openGraph: {
     title,
@@ -54,7 +54,23 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        {/*
+          Applies the saved theme (light/dark) before the page paints, so
+          there's no flash of the wrong theme on reload. Kept as a tiny
+          inline script rather than a library (e.g. next-themes) since this
+          project avoids new dependencies when a few lines of plain JS do
+          the job — see docs/DECISIONS.md.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(localStorage.getItem('theme')==='light'){document.documentElement.classList.add('light')}}catch(e){}",
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <TerminalNav />
         <main className="flex-1">{children}</main>

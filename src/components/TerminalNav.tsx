@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { modules } from "@/lib/modules";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function TerminalNav() {
   const router = useRouter();
@@ -45,7 +46,7 @@ export default function TerminalNav() {
           href="/"
           className="shrink-0 font-mono text-sm font-bold tracking-tight text-foreground sm:text-base"
         >
-          <span className="text-accent">&gt;</span> GRAD_ANALYST_TERMINAL
+          <span className="text-accent">&gt;</span> BLOOMBRUH
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -92,6 +93,8 @@ export default function TerminalNav() {
             />
           </div>
         </form>
+
+        <ThemeToggle />
       </div>
     </header>
   );

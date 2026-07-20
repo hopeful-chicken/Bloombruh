@@ -36,7 +36,7 @@ If it isn't already on GitHub:
 
 That's it. Vercel will run `npm run build` on their servers and, if it
 succeeds (it should — this was checked before every commit), give you a live
-URL like `graduate-analyst-terminal.vercel.app`.
+URL like `bloombruh.vercel.app`.
 
 ## 4. Every future push deploys automatically
 

@@ -45,8 +45,8 @@ export type PitchPdfProps = {
   generatedAt: string;
 };
 
-const ACCENT = "#f5a623";
-const ACCENT_DIM = "#fdf1dc";
+const ACCENT = "#3b82f6";
+const ACCENT_DIM = "#dbeafe";
 
 const styles = StyleSheet.create({
   page: {
@@ -448,13 +448,13 @@ export default function PitchPdfDocument(props: PitchPdfProps) {
   return (
     <Document
       title={`${props.companyName} (${props.symbol}) — Pitch`}
-      author="Graduate Analyst Terminal"
+      author="Bloombruh"
     >
       <Page size="A4" style={styles.page}>
         {/* Banner: company header, rating, sparkline — on a dark card so the
             PDF reads like a "terminal" printout rather than a plain memo. */}
         <View style={styles.banner}>
-          <Text style={styles.kicker}>Graduate Analyst Terminal · Pitch</Text>
+          <Text style={styles.kicker}>Bloombruh · Pitch</Text>
           <View style={styles.headerRow}>
             <View>
               <Text style={styles.companyName}>{props.companyName}</Text>
@@ -596,8 +596,8 @@ export default function PitchPdfDocument(props: PitchPdfProps) {
 
         {/* Footer */}
         <Text style={styles.footer}>
-          Generated {props.generatedAt} by Graduate Analyst Terminal. Prices
-          from Twelve Data, fundamentals from SEC EDGAR (may be delayed).
+          Generated {props.generatedAt} by Bloombruh. Prices from Twelve
+          Data, fundamentals from SEC EDGAR (may be delayed).
           This is student-written analysis, not investment advice — always
           do your own research.
         </Text>

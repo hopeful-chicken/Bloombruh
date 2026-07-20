@@ -1,8 +1,8 @@
-# Graduate Analyst Terminal
+# Bloombruh
 
 A free, web-based "Bloomberg-lite" for students — built by Adam, UCL Economics.
 
-First module: the **SWF Explorer**, an interactive explorer of NBIM's (Norges Bank Investment Management) published portfolio holdings — what the world's largest equity owner actually holds.
+Flagship module: the **Company Profile Generator** — look up any public company and see its price, key multiples, and a plain-English snapshot, free, in seconds.
 
 ## For Claude Code
 

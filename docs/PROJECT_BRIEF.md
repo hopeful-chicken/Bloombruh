@@ -1,4 +1,4 @@
-# Project Brief — Graduate Analyst Terminal
+# Project Brief — Bloombruh
 
 ## One-liner
 

@@ -13,9 +13,8 @@ export default function TerminalFooter() {
           mentioned on this site.
         </p>
         <p className="mt-2">
-          Nothing on this site is investment advice. Graduate Analyst
-          Terminal is a personal, non-commercial student project — always do
-          your own research.
+          Nothing on this site is investment advice. Bloombruh is a personal,
+          non-commercial student project — always do your own research.
         </p>
         <p className="mt-2 text-muted/70">
           Built by Adam · UCL Economics ·{" "}

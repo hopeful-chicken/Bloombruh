@@ -6,7 +6,7 @@ The chrome that everything lives inside.
 
 ### Features
 
-- **Landing page**: name ("Graduate Analyst Terminal" — placeholder, Adam may rebrand), one-line pitch, cards for each module (live ones clickable, future ones shown as "coming soon"), short "about this project" section naming Adam as builder with a link placeholder for LinkedIn/GitHub.
+- **Landing page**: name ("Bloombruh"), one-line pitch, cards for each module (live ones clickable, future ones shown as "coming soon"), short "about this project" section naming Adam as builder with a link placeholder for LinkedIn/GitHub.
 - **Persistent navigation**: top bar listing modules, terminal-style, with a global ticker search box (press `/` to focus it, jumps into the Company Profile module).
 - **Module framework**: each module is a route (`/profile`, `/portfolio`, later `/macro`, `/hype`, ...) sharing the same layout shell. Adding a module later should mean adding a folder, not rewriting the shell.
 - **Footer**: data source attributions, "not investment advice" disclaimer.

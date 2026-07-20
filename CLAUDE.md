@@ -2,7 +2,7 @@
 
 ## What this project is
 
-The **Graduate Analyst Terminal** — a free, web-based "Bloomberg-lite" built by Adam, a UCL Economics student entering 2nd year. The site is a shell (navigation, watchlist, clean terminal-style UI) that hosts modular finance tools. The first module is the **SWF Explorer**: an interactive explorer of NBIM's (Norges Bank Investment Management) published portfolio holdings and voting data.
+**Bloombruh** — a free, web-based "Bloomberg-lite" built by Adam, a UCL Economics student entering 2nd year. The site is a shell (navigation, watchlist, clean terminal-style UI) that hosts modular finance tools. The flagship module is the **Company Profile Generator**: look up any public company and see its price, key multiples, and a plain-English snapshot.
 
 Read these before writing any code, in this order:
 
@@ -44,4 +44,4 @@ Terminal aesthetic, but modern and readable: dark background, a single accent co
 
 ## Definition of "done" for the overnight session
 
-A deployable Next.js app where: the terminal shell renders with navigation and landing page; the SWF Explorer module loads real NBIM holdings data and lets a user search a company, see NBIM's stake, and explore the portfolio by country/sector; `npm run build` passes; `PROGRESS.md` tells Adam exactly what happened and what to do next.
+A deployable Next.js app where: the terminal shell renders with navigation and landing page; the Company Profile Generator module loads real market data and lets a user search a company and see its price, chart, and key stats; `npm run build` passes; `PROGRESS.md` tells Adam exactly what happened and what to do next.

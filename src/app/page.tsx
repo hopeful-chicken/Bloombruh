@@ -10,7 +10,7 @@ export default function Home() {
           Free · Web-based · Built for students
         </p>
         <h1 className="mt-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-          Graduate Analyst Terminal
+          Bloombruh
         </h1>
         <p className="mt-5 text-lg leading-relaxed text-muted">
           A Bloomberg-lite for students who can&apos;t afford a Bloomberg
