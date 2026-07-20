@@ -370,8 +370,9 @@ export const BLOCK_LIBRARY: {
   {
     id: "news",
     type: "news",
-    label: "In the news",
-    description: "Recent headlines about the company, with links to read more.",
+    label: "News (appendix)",
+    description:
+      "The same headlines always shown in the data view, added here as an appendix (or a spot to quote from) in your exported report.",
     group: "Core",
     create: () => createNewsBlock(),
   },

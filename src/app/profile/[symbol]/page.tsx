@@ -10,6 +10,7 @@ import {
   describeVolatility,
 } from "@/lib/profileAnalysis";
 import PriceChart, { type ChartPoint } from "@/components/profile/PriceChart";
+import Stat from "@/components/Stat";
 
 export default async function CompanyProfilePage({
   params,
@@ -188,17 +189,6 @@ export default async function CompanyProfilePage({
           </p>
         </div>
       )}
-    </div>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-lg border border-border bg-surface p-4">
-      <p className="font-mono text-lg font-semibold text-accent sm:text-xl">
-        {value}
-      </p>
-      <p className="mt-1 text-xs text-muted">{label}</p>
     </div>
   );
 }
