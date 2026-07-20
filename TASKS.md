@@ -55,9 +55,35 @@ Work top to bottom. Mark `[x]` when acceptance criteria are met. Log everything 
 - [x] Update `PROGRESS.md` with the pivot summary and API key setup steps for Adam.
 - [x] Commit.
 
-## Phase 7 — Analyst's Portfolio (next up, not yet started)
+## Phase 7 — Analyst's Portfolio (superseded, see Phase 8)
 
-- [ ] Design a simple file format for Adam's paper portfolio positions (ticker, entry price/date, thesis) — plain JSON or markdown, editable without touching code.
-- [ ] Portfolio overview page: positions, live prices (reuse `src/lib/marketData.ts`), unrealized gain/loss, one-line thesis per position.
-- [ ] Letters section: dated written entries, simple markdown-backed list.
-- [ ] Commit. Verify build passes.
+This phase was replaced before being started. Testing the Company Profile
+module with a real key surfaced that Twelve Data's free tier doesn't
+include company fundamentals (see Phase 8 below and `docs/DECISIONS.md`),
+and a broader conversation about what would actually stand out to
+interviewers led to a bigger idea: not Adam's own private portfolio, but a
+tool any student can use to research a company and build their own
+investment pitch. See Phase 8.
+
+## Phase 8 — Pitch Builder (in progress)
+
+- [x] Investigate Twelve Data free-tier limits after testing with a real
+      key — confirmed `/profile` and `/statistics` require a paid plan;
+      reworked Company Profile to run entirely on free endpoints plus
+      self-computed analytics (50-day moving average, momentum, annualized
+      volatility) instead. See `docs/DECISIONS.md`.
+- [x] Research and confirm SEC EDGAR's free XBRL API as a source of real
+      US company fundamentals (revenue, net income, EPS, etc.), no key
+      required — build `src/lib/secEdgar.ts`.
+- [x] Build the Pitch Builder module (`/pitch`, `/pitch/[symbol]`): reuses
+      Company Profile's price/chart data, adds SEC fundamentals for US
+      tickers, and a structured form (rating, target price, thesis,
+      catalysts, risks) — client-side only, no login, no database.
+- [x] Add PDF export of the assembled pitch (`@react-pdf/renderer`) —
+      presentable output a student could actually use.
+- [x] Wire up nav/landing page to the new module; update
+      `docs/MODULE_SPECS.md`/`docs/DATA_SOURCES.md` (done) and
+      `docs/DECISIONS.md`.
+- [x] Verify `npm run build` passes and smoke-test both a US ticker (with
+      fundamentals) and a non-US ticker (without).
+- [x] Update `PROGRESS.md`. Commit.

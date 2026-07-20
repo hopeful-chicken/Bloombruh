@@ -10,9 +10,12 @@ import type { SymbolSearchResult } from "@/lib/marketData";
 export default function TickerSearch({
   initialQuery = "",
   autoFocus = false,
+  basePath = "/profile",
 }: {
   initialQuery?: string;
   autoFocus?: boolean;
+  /** Route prefix to navigate to on selection, e.g. "/profile" or "/pitch". */
+  basePath?: string;
 }) {
   const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
@@ -44,7 +47,7 @@ export default function TickerSearch({
 
   function goToSymbol(symbol: string) {
     setOpen(false);
-    router.push(`/profile/${encodeURIComponent(symbol)}`);
+    router.push(`${basePath}/${encodeURIComponent(symbol)}`);
   }
 
   function handleSubmit(e: React.FormEvent) {

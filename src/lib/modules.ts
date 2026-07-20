@@ -19,12 +19,12 @@ export const modules: ModuleInfo[] = [
       "A clean one-page company snapshot: price chart, basic multiples, and a plain-English description — plus context on whether those multiples look cheap or expensive.",
   },
   {
-    name: "Analyst's Portfolio",
-    slug: "/portfolio",
-    status: "soon",
-    tagline: "A paper portfolio, published in the open",
+    name: "Pitch Builder",
+    slug: "/pitch",
+    status: "live",
+    tagline: "Research a company, write your own pitch",
     description:
-      "The builder's own paper portfolio and published letters — a personal, transparent track record with the reasoning behind every position.",
+      "Pull real price and (for US companies) financial data, then write your own rating, target price, thesis, catalysts, and risks — and download it as a PDF pitch.",
   },
   {
     name: "Central Bank Room",

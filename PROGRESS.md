@@ -4,6 +4,99 @@ This file is updated as work happens. Read top-to-bottom for the latest status. 
 
 ---
 
+## Session 3 — 2026-07-20 (free-tier fix + new flagship: Pitch Builder)
+
+### The short version
+
+Two things happened today, both driven by your feedback.
+
+First, a real bug: once you got a real Twelve Data key, the price and
+chart loaded fine but every stat box showed "—". Turns out Twelve Data's
+free tier does **not** include the `/profile` or `/statistics` endpoints
+(market cap, P/E, dividend yield, etc.) — that needs their paid "Grow"
+plan ($29/month), which the docs didn't make obvious upfront. Rather than
+asking you to pay, I rebuilt Company Profile to run entirely on the
+confirmed-free endpoints (quote + price history) plus numbers computed
+directly from that price history: a 50-day moving average, a plain-English
+momentum note, and annualized volatility. No paid plan needed.
+
+Second, and bigger: you pushed back again, this time harder — "isn't this
+just copying the Twelve Data website?" You're right that a page that only
+re-displays someone else's numbers doesn't prove much to an interviewer.
+We talked through a bigger idea and landed on it: **Pitch Builder**, the
+new flagship-next module. It pulls in real price data and (for US
+companies) real financial fundamentals, then hands you a structured form —
+your own rating, target price, thesis, catalysts, and risks — and exports
+the whole thing as a clean PDF. It's not a data viewer anymore; it's a
+tool where the "output" is *your* analysis, not the raw numbers.
+
+`npm run build` passes cleanly. Nothing new is deployed yet.
+
+### What changed
+
+**Company Profile — fixed to use only free data**
+- `src/lib/marketData.ts`: removed the paid-only `/profile` and
+  `/statistics` calls entirely.
+- `src/lib/profileAnalysis.ts`: rewritten around numbers computed from
+  price history instead — 50-day moving average, a momentum description,
+  and annualized volatility (from daily price swings).
+- The profile page's stat grid now shows Open, Previous close, 52-week
+  high/low, Volume, Average volume, 50-day average, and Volatility —
+  all real, all free.
+
+**New: Pitch Builder (`/pitch`, `/pitch/[symbol]`)**
+- Search a company (same autocomplete box as Company Profile).
+- Pulls the same real price/chart data, plus — for US, SEC-filing
+  companies only — real fundamentals (revenue, revenue growth, net
+  income, gross margin, EPS, total assets) from **SEC EDGAR**, the SEC's
+  own free public data API. No API key needed for this part at all; non-US
+  tickers (e.g. Shell, AstraZeneca) just won't show a fundamentals section,
+  which the page explains plainly rather than hiding.
+- Below the data: a form for your own Buy/Hold/Sell rating, a target
+  price (shows implied upside automatically), a written thesis, and
+  catalysts/risks lists.
+- A "Download PDF" button turns all of it — your data, your writing — into
+  a clean one-page PDF you could genuinely hand to someone. Runs entirely
+  in your browser; nothing is saved to a server or database (no login,
+  matches this project's "no database in v1" rule).
+- `src/lib/secEdgar.ts` is the new server-only wrapper for the SEC data.
+
+**Docs updated:** `docs/DATA_SOURCES.md` (Twelve Data correction + new SEC
+EDGAR section), `docs/MODULE_SPECS.md` (Pitch Builder spec replaces the
+old "Analyst's Portfolio" idea), `docs/DECISIONS.md` (two new entries
+explaining both changes and the "why"), `TASKS.md` (Phase 8 added,
+Phase 7/Analyst's Portfolio marked superseded).
+
+### Action needed from you
+
+Nothing new — your existing Twelve Data key (from Session 2) is all that's
+needed; SEC EDGAR requires no key or signup at all. Try `/pitch/AAPL` (has
+fundamentals) and `/pitch/SHEL` (doesn't — see how it degrades gracefully).
+
+### Known issues / things to check
+- Fundamentals only work for companies that file 10-Ks with the US SEC.
+  Non-US tickers get price data and the pitch form, just no fundamentals
+  section — this is a real, permanent scope limit of the free data
+  source, not a bug.
+- `EDITORIAL` placeholder copy carried into the new module too — same
+  as before, search for it before sharing publicly.
+
+### Suggested next steps, in order
+1. **Try building a real pitch end-to-end** (e.g. `/pitch/AAPL`) and
+   download the PDF — that's the artifact worth putting in front of an
+   interviewer or on a CV.
+2. **Deploy** — `docs/DEPLOY.md` still applies; both modules only need the
+   one `TWELVE_DATA_API_KEY` environment variable in Vercel (SEC EDGAR
+   needs nothing).
+3. **Decide what's next**: polish Pitch Builder further, or start on
+   Central Bank Room / Hype vs Fundamentals from the original module
+   lineup (`docs/MODULE_SPECS.md`) — worth a quick discussion before I
+   start either, since both are bigger builds.
+
+### Nothing broken — safe to continue from here.
+
+---
+
 ## Session 2 — 2026-07-20 (pivot: SWF Explorer → Company Profile Generator)
 
 ### The short version

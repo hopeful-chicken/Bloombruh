@@ -40,24 +40,26 @@ Leave clearly-marked placeholders (`{/* EDITORIAL: Adam to review */}`) on any f
 - Every stat gracefully shows "—" rather than crashing if that field is missing from the API response.
 - Data freshness (quote/statistics cache windows) is documented in `DATA_SOURCES.md`, and the module footer/banner notes that quotes may be delayed.
 
-## 3. Analyst's Portfolio (next up)
+## 3. Pitch Builder (next up — supersedes the earlier "Analyst's Portfolio" idea)
 
-Adam's own paper portfolio and published letters — the one module that is inherently *his*, not a republished public dataset.
+Not Adam's own portfolio — a tool **any student** can use to research a company and build their own investment pitch, then export it as a polished PDF. This is the module that answers "isn't this just a copy of the data provider's website?" — the output is the user's own analysis and judgment, not a republished dataset. Modeled on the "stock pitch" exercise used in real IB/AM/HF interviews and case competitions.
 
-### Core views (priority order)
+### Core views
 
-1. **Portfolio overview** — current paper positions, entry price/date, current price (via the same Twelve Data quote endpoint used by Company Profile), unrealized gain/loss, and a short one-line thesis per position.
-2. **Letters** — a simple list of dated, written entries (Adam's own commentary/reasoning) — can start as markdown files rendered as pages, no CMS needed for v1.
-3. **Track record** — total paper portfolio return over time, ideally a simple chart once enough history exists.
+1. **Ticker search** (`/pitch`) — same interaction as Company Profile's search, landing on a per-company workbench.
+2. **Workbench** (`/pitch/[symbol]`) — pulls in everything Company Profile shows (price, chart, computed momentum/volatility) *plus*, for US SEC-filing companies, real headline fundamentals (revenue, net income, gross profit, total assets, diluted EPS, YoY revenue growth) sourced from SEC EDGAR. Non-US tickers still work, just without the fundamentals panel.
+3. **Structured pitch form** (client-side, no login) — the user fills in: a rating (Buy/Hold/Sell), a target price, a written thesis, catalysts, and risks. This is deliberately a structured form, not a freeform rich-text/drag-and-drop editor — keeps v1 scoped and reliable.
+4. **Live preview + PDF export** — as the user fills the form, a preview of the assembled one-page pitch updates; a "Download PDF" button produces a clean, presentable document (company header, price history, key stats/fundamentals, and the user's own thesis/rating/target/catalysts/risks) they can actually use or submit somewhere.
 
 ### Data notes
 
-Position data (what's held, at what price, since when) is Adam's own input — store it as a small JSON/markdown file he edits directly, not fetched from an API. Current prices reuse `src/lib/marketData.ts` (already built for Company Profile).
+See `DATA_SOURCES.md` for the SEC EDGAR integration. No accounts, no database — the whole tool runs client-side after the initial data fetch; the PDF *is* the save/export mechanism, so no persistence layer is needed for v1.
 
 ### Acceptance criteria
 
-- Adam can add/edit a position or letter by editing a plain file, without touching component code.
-- Every position shows its thesis in his own words — this is the module's whole point, don't let it become just another data table.
+- Works end-to-end for both a US ticker (fundamentals shown) and a non-US ticker (fundamentals panel gracefully omitted, rest of the tool unaffected).
+- The generated PDF is legible and presentable — this needs to be something a student would actually want to attach to an application, not an obvious dev-tool dump.
+- Nothing requires a login or writes to a database.
 
 ## 4. Future modules (not in scope yet — do not build)
 
