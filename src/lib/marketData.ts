@@ -107,12 +107,45 @@ export type TimeSeries = {
 /** Historical daily closes, most recent `outputsize` trading days. Cached 15 minutes. */
 export function getTimeSeries(
   symbol: string,
-  outputsize = 180
+  outputsize = 252
 ): Promise<TimeSeries> {
   return fetchTwelveData<TimeSeries>(
     "time_series",
     { symbol, interval: "1day", outputsize: String(outputsize) },
     900
+  );
+}
+
+// Chart range selector support ----------------------------------------
+//
+// Each range maps to a Twelve Data interval + how many bars to pull.
+// Longer ranges use coarser intervals (weekly) so we don't ask for
+// thousands of daily points, and the free plan doesn't get hit harder
+// than it needs to be. Intraday ("1D") is cached for a much shorter
+// window since it should stay close to live during market hours.
+export type Range = "1D" | "1M" | "3M" | "1Y" | "MAX";
+
+const RANGE_CONFIG: Record<
+  Range,
+  { interval: string; outputsize: number; revalidateSeconds: number }
+> = {
+  "1D": { interval: "5min", outputsize: 80, revalidateSeconds: 60 },
+  "1M": { interval: "1day", outputsize: 22, revalidateSeconds: 900 },
+  "3M": { interval: "1day", outputsize: 65, revalidateSeconds: 900 },
+  "1Y": { interval: "1day", outputsize: 252, revalidateSeconds: 900 },
+  MAX: { interval: "1week", outputsize: 260, revalidateSeconds: 3600 },
+};
+
+/** Historical closes for a given chart range (1D/1M/3M/1Y/MAX). */
+export function getTimeSeriesForRange(
+  symbol: string,
+  range: Range
+): Promise<TimeSeries> {
+  const { interval, outputsize, revalidateSeconds } = RANGE_CONFIG[range];
+  return fetchTwelveData<TimeSeries>(
+    "time_series",
+    { symbol, interval, outputsize: String(outputsize) },
+    revalidateSeconds
   );
 }
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getQuote, getTimeSeries } from "@/lib/marketData";
+import { getCompanyDescription, getSourceLinks } from "@/lib/companyInfo";
 import { formatUSD, formatNumber, formatPct } from "@/lib/format";
 import {
   describePriceVs52WeekRange,
@@ -42,6 +43,14 @@ export default async function CompanyProfilePage({
 
   const quote = quoteResult.value;
   const series = seriesResult.status === "fulfilled" ? seriesResult.value : null;
+
+  // Description first (Wikipedia), then source links — links reuse the
+  // resolved Wikipedia URL rather than re-searching for it.
+  const description = await getCompanyDescription(quote.name).catch(() => null);
+  const sourceLinks = await getSourceLinks(
+    symbol,
+    description?.wikipediaUrl ?? null
+  ).catch(() => []);
 
   const price = parseFloat(quote.close);
   const change = parseFloat(quote.change);
@@ -101,7 +110,7 @@ export default async function CompanyProfilePage({
       {/* Price chart */}
       {chartData.length > 0 && (
         <div className="mt-8">
-          <PriceChart data={chartData} currency={quote.currency} />
+          <PriceChart symbol={symbol} data={chartData} currency={quote.currency} />
         </div>
       )}
 
@@ -142,6 +151,40 @@ export default async function CompanyProfilePage({
           <p className="mt-3 text-xs text-muted/70">
             These are objective, computed comparisons, not recommendations —
             always do your own research.
+          </p>
+        </div>
+      )}
+
+      {/* About — plain-English description sourced from Wikipedia, plus
+          links out to primary sources for deeper research. */}
+      {(description || sourceLinks.length > 0) && (
+        <div className="mt-8">
+          <h2 className="mb-2 font-mono text-xs uppercase tracking-widest text-muted">
+            About
+          </h2>
+          {description && (
+            <p className="text-sm leading-relaxed text-muted">
+              {description.extract}
+            </p>
+          )}
+          {sourceLinks.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-3">
+              {sourceLinks.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-md border border-border px-3 py-1.5 text-xs text-muted hover:border-accent hover:text-accent"
+                >
+                  {link.label} ↗
+                </a>
+              ))}
+            </div>
+          )}
+          <p className="mt-3 text-xs text-muted/70">
+            Description via Wikipedia — may be incomplete or out of date;
+            treat it as a starting point, not a primary source.
           </p>
         </div>
       )}

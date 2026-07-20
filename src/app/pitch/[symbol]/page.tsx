@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getQuote, getTimeSeries } from "@/lib/marketData";
 import { getFundamentals } from "@/lib/secEdgar";
+import { getCompanyDescription, getSourceLinks } from "@/lib/companyInfo";
 import {
   describePriceVs52WeekRange,
   computeMovingAverage,
@@ -46,6 +47,12 @@ export default async function PitchBuilderPage({
   const series = seriesResult.status === "fulfilled" ? seriesResult.value : null;
   const fundamentals =
     fundamentalsResult.status === "fulfilled" ? fundamentalsResult.value : null;
+
+  const description = await getCompanyDescription(quote.name).catch(() => null);
+  const sourceLinks = await getSourceLinks(
+    symbol,
+    description?.wikipediaUrl ?? null
+  ).catch(() => []);
 
   const price = parseFloat(quote.close);
   const change = parseFloat(quote.change);
@@ -98,6 +105,8 @@ export default async function PitchBuilderPage({
         contextNotes={contextNotes}
         chartData={chartData}
         fundamentals={fundamentals}
+        description={description}
+        sourceLinks={sourceLinks}
       />
     </div>
   );

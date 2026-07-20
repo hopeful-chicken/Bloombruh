@@ -4,6 +4,86 @@ This file is updated as work happens. Read top-to-bottom for the latest status. 
 
 ---
 
+## Session 4 — 2026-07-20 (Pitch Builder round two: chart ranges, fancier PDF, company info, SWOT)
+
+### The short version
+
+Four improvements to Pitch Builder (and Company Profile, where shared),
+all free — no new API keys or costs:
+
+1. **Chart range picker** — 1D / 1M / 3M / 1Y / Max buttons above the price
+   chart, on both Company Profile and Pitch Builder.
+2. **Fancier PDF** — the exported pitch now has a proper dark "terminal"
+   header banner, card-style stat boxes, and section dividers instead of
+   plain black-and-white text.
+3. **Richer company info** — a plain-English "About" section (sourced from
+   Wikipedia) plus jump-off links (Yahoo Finance, SEC EDGAR filings,
+   Wikipedia) on both modules.
+4. **Your own SWOT** — a Strengths / Weaknesses / Opportunities / Threats
+   form in Pitch Builder, which flows into the downloaded PDF. This one
+   matters most for the "is this just copying" concern from last session:
+   it's your own judgment, not fetched data.
+
+Two bigger ideas from this conversation — an **equity research report
+template** (a longer/denser template alongside the pitch one) and **AI
+grading of your pitch** — were deliberately **not built yet**. AI grading
+in particular needs a paid LLM API key and a way to stop random visitors
+from running up your bill (no login on this site), so it needs a bit more
+design before it's safe to ship. Flagged as next steps below.
+
+`npm run build` passes cleanly (clean rebuild, `.next` deleted first).
+Dev-server smoke-tested: all 5 chart ranges return real data, `/pitch/AAPL`
+shows description/links/SWOT, `/pitch/SHEL` degrades gracefully (no
+fundamentals, everything else works).
+
+### What changed
+
+- `src/lib/marketData.ts` — generalized time-series fetching into a
+  `getTimeSeriesForRange(symbol, range)` helper with a range→interval
+  table (1D uses 5-minute bars; Max uses weekly bars so it doesn't ask for
+  thousands of daily points).
+- `src/app/api/timeseries/route.ts` (new) — proxies range-based chart
+  fetches so the API key stays server-side, same pattern as the existing
+  search proxy.
+- `src/components/profile/PriceChart.tsx` — now owns its own range state
+  and range-switch buttons; fetches new data client-side on click.
+- `src/lib/companyInfo.ts` (new) — Wikipedia two-step lookup (search →
+  summary) for a plain-English description, plus constructed source links
+  (Yahoo Finance always, SEC EDGAR filings for US filers, Wikipedia if
+  found). No API key needed.
+- `src/components/pitch/PitchPdfDocument.tsx` — restyled with a dark
+  header banner, amber accent color (matches the site's theme), card-style
+  stat boxes, and a new SWOT quadrant layout.
+- `src/components/pitch/PitchWorkbench.tsx` — added the About section and
+  the four-box SWOT form.
+
+### Action needed from you
+None — everything here runs on data sources you're already using (Twelve
+Data + the new free Wikipedia lookup). Nothing to sign up for.
+
+### Known issues / things to check
+- Wikipedia's description is a best-effort text match on company name — for
+  obscure or newly-listed tickers it may find nothing (About section just
+  won't show) or occasionally match a slightly wrong article. Worth a spot
+  check on a few of your own tickers before relying on it.
+- 1D intraday chart data depends on market hours/session — on weekends or
+  holidays it'll show the most recent trading day, not "today."
+
+### Suggested next steps, in order
+1. **Try it**: `/pitch/AAPL`, switch chart ranges, fill in a SWOT, download
+   the PDF — confirm it all looks right to you.
+2. **Decide on AI grading**: you asked for this and it's a strong feature,
+   but it needs an Anthropic (or similar) API key plus a hard rate limit
+   (e.g. one free grade per pitch) since the site has no login to stop
+   abuse. Ready to scope this properly whenever you want to move on it.
+3. **Equity research report template**: a longer/denser second template
+   (business overview, valuation notes, more sections) alongside the
+   existing pitch — queued, not yet started.
+
+### Nothing broken — safe to continue from here.
+
+---
+
 ## Session 3 — 2026-07-20 (free-tier fix + new flagship: Pitch Builder)
 
 ### The short version

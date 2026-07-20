@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 import { formatUSD, formatNumber, formatPct } from "@/lib/format";
 import PriceChart, { type ChartPoint } from "@/components/profile/PriceChart";
 import type { Fundamentals } from "@/lib/secEdgar";
+import type { CompanyDescription, SourceLink } from "@/lib/companyInfo";
 
 // react-pdf's PDFDownloadLink touches browser-only APIs, so it's loaded
 // only in the browser (no server-side render) to avoid build/hydration
@@ -41,6 +42,8 @@ type Props = {
   contextNotes: string[];
   chartData: ChartPoint[];
   fundamentals: Fundamentals | null;
+  description: CompanyDescription | null;
+  sourceLinks: SourceLink[];
 };
 
 export default function PitchWorkbench(props: Props) {
@@ -53,9 +56,17 @@ export default function PitchWorkbench(props: Props) {
   const [thesis, setThesis] = useState("");
   const [catalysts, setCatalysts] = useState("");
   const [risks, setRisks] = useState("");
+  const [strengths, setStrengths] = useState("");
+  const [weaknesses, setWeaknesses] = useState("");
+  const [opportunities, setOpportunities] = useState("");
+  const [threats, setThreats] = useState("");
 
   const catalystLines = catalysts.split("\n").map((l) => l.trim()).filter(Boolean);
   const riskLines = risks.split("\n").map((l) => l.trim()).filter(Boolean);
+  const strengthLines = strengths.split("\n").map((l) => l.trim()).filter(Boolean);
+  const weaknessLines = weaknesses.split("\n").map((l) => l.trim()).filter(Boolean);
+  const opportunityLines = opportunities.split("\n").map((l) => l.trim()).filter(Boolean);
+  const threatLines = threats.split("\n").map((l) => l.trim()).filter(Boolean);
   const targetPriceNum = parseFloat(targetPrice);
   const impliedUpsidePct =
     Number.isFinite(targetPriceNum) && price > 0
@@ -89,7 +100,7 @@ export default function PitchWorkbench(props: Props) {
       {/* Price chart */}
       {props.chartData.length > 0 && (
         <div className="mt-8">
-          <PriceChart data={props.chartData} currency={currency} />
+          <PriceChart symbol={symbol} data={props.chartData} currency={currency} />
         </div>
       )}
 
@@ -122,6 +133,36 @@ export default function PitchWorkbench(props: Props) {
               <li key={n}>{n}</li>
             ))}
           </ul>
+        </div>
+      )}
+
+      {/* About — plain-English description + links to primary sources, so
+          research can start here rather than needing five other tabs open. */}
+      {(props.description || props.sourceLinks.length > 0) && (
+        <div className="mt-8">
+          <h2 className="mb-2 font-mono text-sm uppercase tracking-widest text-muted">
+            About
+          </h2>
+          {props.description && (
+            <p className="text-sm leading-relaxed text-muted">
+              {props.description.extract}
+            </p>
+          )}
+          {props.sourceLinks.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-3">
+              {props.sourceLinks.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-md border border-border px-3 py-1.5 text-xs text-muted hover:border-accent hover:text-accent"
+                >
+                  {link.label} ↗
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -256,6 +297,54 @@ export default function PitchWorkbench(props: Props) {
           />
         </label>
 
+        <div className="mt-6">
+          <span className="mb-2 block text-xs uppercase tracking-widest text-muted">
+            SWOT (your own read — one point per line)
+          </span>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="block text-sm">
+              <span className="mb-1 block text-muted">Strengths</span>
+              <textarea
+                value={strengths}
+                onChange={(e) => setStrengths(e.target.value)}
+                rows={3}
+                placeholder={"Strong brand loyalty\nHigh margins"}
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
+              />
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1 block text-muted">Weaknesses</span>
+              <textarea
+                value={weaknesses}
+                onChange={(e) => setWeaknesses(e.target.value)}
+                rows={3}
+                placeholder={"Reliant on one product line\nHigh customer concentration"}
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
+              />
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1 block text-muted">Opportunities</span>
+              <textarea
+                value={opportunities}
+                onChange={(e) => setOpportunities(e.target.value)}
+                rows={3}
+                placeholder={"New market expansion\nProduct diversification"}
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
+              />
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1 block text-muted">Threats</span>
+              <textarea
+                value={threats}
+                onChange={(e) => setThreats(e.target.value)}
+                rows={3}
+                placeholder={"New competitor\nRegulatory pressure"}
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
+              />
+            </label>
+          </div>
+        </div>
+
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <label className="block text-sm">
             <span className="mb-1 block text-muted">
@@ -300,6 +389,10 @@ export default function PitchWorkbench(props: Props) {
             thesis={thesis}
             catalysts={catalystLines}
             risks={riskLines}
+            strengths={strengthLines}
+            weaknesses={weaknessLines}
+            opportunities={opportunityLines}
+            threats={threatLines}
           />
         </div>
       </div>
