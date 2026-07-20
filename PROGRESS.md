@@ -4,6 +4,89 @@ This file is updated as work happens. Read top-to-bottom for the latest status. 
 
 ---
 
+## Session 2 — 2026-07-20 (pivot: SWF Explorer → Company Profile Generator)
+
+### The short version
+
+You tested the site and pushed back on the SWF Explorer, and you were
+right to: it just showed NBIM's own public holdings back to them — nothing
+about your own thinking. We talked it through and agreed on a pivot: the
+SWF Explorer is **gone entirely**, and the new flagship is a **Company
+Profile Generator** — a "type a ticker, get a clean one-page profile with
+real market data" tool, in the spirit of a mini Bloomberg. It also adds an
+**analytical context block** (e.g. "trading 8% below its 52-week high,"
+"P/E is above the broad market average") so it's not just a data viewer —
+this "analysis, not just data" rule is now the standing design principle
+for every future module (see `docs/PROJECT_BRIEF.md`).
+
+`npm run build` passes cleanly. Nothing is deployed yet.
+
+### What changed
+
+**Removed entirely:** the SWF Explorer module — `/swf` routes, its
+components, the mock NBIM holdings data pipeline (`scripts/`,
+`data-raw/`, `public/data/holdings.json`), and every nav/landing/footer
+reference to it. This was your explicit call (not kept as a secondary
+module) — see `docs/DECISIONS.md`.
+
+**Built: Company Profile Generator (new flagship)**
+- `/profile` — search a company by name or ticker, with a live
+  autocomplete dropdown.
+- `/profile/[symbol]` — the profile page: current price and day's change,
+  a historical price chart, a grid of key stats (market cap, P/E, 52-week
+  range, dividend yield, EPS, shares outstanding, beta), a plain-English
+  company description, and the analytical context block described above.
+- If a ticker doesn't exist, or the API key isn't set up yet, the page
+  shows a clear, friendly error message instead of crashing.
+
+**Data source: real market data via Twelve Data (new — requires a free API key)**
+- Chose Twelve Data over Finnhub because Finnhub's free tier blocks
+  historical price-chart data; Twelve Data's free tier (800 requests/day,
+  no credit card) covers everything this module needs under one key.
+- The key is read only on the server (`src/lib/marketData.ts`) and never
+  reaches the browser — the search box talks to a small proxy route
+  instead of the data provider directly.
+
+**Docs updated to match:** `docs/PROJECT_BRIEF.md`, `docs/MODULE_SPECS.md`,
+`docs/DATA_SOURCES.md`, `docs/DECISIONS.md` (two new dated entries
+explaining the pivot and the Twelve Data choice), and `TASKS.md` (old
+phases kept as history, new Phase 6 pivot section added, Phase 7 —
+Analyst's Portfolio — queued up next).
+
+### Action needed from you: get a free API key
+
+The Company Profile pages won't show real data until you do this
+(~2 minutes, no credit card):
+1. Sign up free at [twelvedata.com/pricing](https://twelvedata.com/pricing) (Basic/free plan).
+2. Copy the key it gives you.
+3. In the project folder, copy `.env.local.example` to a new file named
+   `.env.local`, and paste your key in as `TWELVE_DATA_API_KEY=your-key-here`.
+4. Restart the dev server. That's it — `.env.local` is already set up to
+   never be committed to git.
+
+### Known issues / things to check
+- No API key is set up yet in this environment, so `/profile/[symbol]`
+  pages currently show the graceful error state rather than real data —
+  expected until you do the step above.
+- Editorial placeholders (`EDITORIAL` comments) carried over into the new
+  module's copy — same as before, search for them before sharing publicly.
+
+### Suggested next steps, in order
+1. **Get your Twelve Data API key** (above) and confirm a real profile
+   page (e.g. `/profile/AAPL`) loads with live numbers.
+2. **Build Analyst's Portfolio next** — this is queued as Phase 7 in
+   `TASKS.md`: your own paper portfolio positions and dated letters, the
+   one module that's inherently *yours* rather than republished public
+   data.
+3. **Deploy once you're happy with Company Profile** — `docs/DEPLOY.md`
+   still applies; just remember to add `TWELVE_DATA_API_KEY` as an
+   environment variable in Vercel's project settings too, not just
+   locally.
+
+### Nothing broken — safe to continue from here.
+
+---
+
 ## Session 1 — 2026-07-20 (full overnight session, Phases 0–4 complete)
 
 ### The short version

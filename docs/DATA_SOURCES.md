@@ -3,33 +3,31 @@
 ## Golden rules
 
 1. **Free and public only.** No paid APIs, no scraping behind logins, no violating terms of service.
-2. **Verify empirically before building.** URLs and formats below are best-known as of July 2026 — check them at session start. If a source has moved, look for it on the official site before falling back.
-3. **Attribute everything.** Every view shows its source and as-of date. Footer credits NBIM/Norges Bank as the data source for the SWF Explorer, and states this project is independent and unaffiliated.
-4. **Preprocess, don't ship raw.** Raw downloads go in `/data-raw` (gitignored if large); scripts in `/scripts` transform them into slim JSON in the app. Keep only the columns the UI needs.
+2. **Verify empirically before building.** Endpoints/limits below are best-known as of July 2026 — check the provider's docs if something stops working.
+3. **Attribute everything.** Every module shows its data source and notes that quotes may be delayed. Footer states this project is independent and unaffiliated with any company, exchange, or data provider mentioned on the site.
+4. **API keys stay server-side only.** Never expose a data-provider API key to the browser. In this codebase, only `src/lib/marketData.ts` reads `process.env.TWELVE_DATA_API_KEY` — client components go through the `/api/search` proxy route instead of calling the provider directly.
 
-## NBIM holdings data (primary source for SWF Explorer)
+## Company Profile Generator — Twelve Data
 
-- NBIM publishes its full portfolio holdings on its official site, **nbim.no** — look under "The fund" → "Investments" (or similar). Historically this includes a searchable investments page and downloadable full holdings lists (equities, fixed income, real estate) published annually, typically as Excel/CSV, with fields like: company name, country, sector/industry, market value (NOK and/or USD), ownership %, voting %.
-- There is also an "investments" API/JSON behind their own portfolio browser that has historically been publicly reachable — worth checking via the network tab of their investments page, but only use it if clearly public; otherwise use the downloadable files.
-- Download the most recent full year available (likely year-end 2025) and, if easy, 2–3 prior years for the year-over-year view. **Equities only for v1.**
-- Currency: prefer USD if provided; otherwise keep NOK and label clearly. Do not silently convert.
+- **Provider:** [twelvedata.com](https://twelvedata.com) — chosen over Finnhub because Finnhub's free tier blocks historical price candles (a 403 on that endpoint), while Twelve Data's free tier includes quote, company profile, key statistics/multiples, symbol search, *and* historical daily time series all under one key.
+- **Free tier limits:** 800 requests/day, 8 requests/minute. No credit card required to sign up.
+- **Endpoints used** (see `src/lib/marketData.ts`):
+  - `/quote` — current price, day's change. Cached 60 seconds.
+  - `/profile` — company description, sector, industry, employee count. Cached 24 hours (barely changes).
+  - `/statistics` — valuation multiples (P/E, market cap), margins, 52-week range, beta, dividend yield. Cached 24 hours.
+  - `/time_series` (interval=1day) — historical daily closes for the price chart. Cached 15 minutes.
+  - `/symbol_search` — ticker/name autocomplete, proxied through `/api/search` so the key never reaches the browser. Cached 1 hour.
+- **Data freshness:** free-tier quotes are effectively real-time to slightly delayed depending on exchange — not tick-by-tick like a real Bloomberg terminal, but current enough to feel live for a student tool. This is stated in the module's UI.
+- **Getting a key:** sign up free at [twelvedata.com/pricing](https://twelvedata.com/pricing) (Basic/free plan), then copy `.env.local.example` to `.env.local` and paste the key in as `TWELVE_DATA_API_KEY`. `.env.local` is gitignored — never commit it.
+- **Graceful failure:** if the key is missing/invalid, or a ticker doesn't exist, the profile page shows a plain error message instead of crashing (see `src/app/profile/[symbol]/page.tsx`).
 
-### Fallbacks if downloads fail from the sandbox
+## Analyst's Portfolio (next module)
 
-1. Try the Wayback Machine capture of the NBIM holdings download.
-2. If all else fails, build the entire pipeline against a realistic mock dataset (~200 well-known companies with plausible values, clearly marked `MOCK DATA` in the UI and in PROGRESS.md), so Adam can swap in the real file by dropping it into `/data-raw` and running one script. Make that swap path dead simple and documented.
+- **Position data** (what's held, entry price/date, thesis): Adam's own input, stored as a small JSON or markdown file in the repo — not fetched from any external API.
+- **Current prices for held positions:** reuse the Twelve Data quote endpoint above (`src/lib/marketData.ts`) — no new data source needed.
 
-## NBIM voting data (stretch)
+## Explicitly out of scope for now
 
-- NBIM publishes voting records on nbim.no under responsible investment / "Voting" — historically a searchable voting portal with per-company, per-meeting records, including votes against management and (since 2021) voting intentions published ~5 days before AGMs.
-- This data is large and messier. For overnight scope: attempt ingestion only for the top ~100 holdings, or ship the placeholder tab. Do not let this block the core module.
-
-## Reference data (nice-to-have)
-
-- Country → region mapping: hardcode a small JSON (standard World Bank-style regions).
-- FTSE 100 constituent list for the UK view: a hardcoded list is fine for v1 (label its as-of date).
-
-## Explicitly out of scope for v1
-
-- Live market prices, fundamentals APIs (that's the future company profile module).
+- Sub-second/tick-by-tick market data — no free source provides this legally; Twelve Data's near-real-time delayed quotes are the ceiling for a free tool.
 - Any scraping of Bloomberg, Refinitiv, paid terminals, or content behind paywalls/logins. Never do this.
+- NBIM/sovereign wealth fund holdings data — this was the original flagship module's data source; it was dropped along with the SWF Explorer module (see `docs/DECISIONS.md`). Revisit only if Adam decides to bring an NBIM-specific module back later.

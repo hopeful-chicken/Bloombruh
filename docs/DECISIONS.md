@@ -51,3 +51,23 @@ Every meaningful technical or scope decision gets logged here as it's made. Writ
 **Why:** `CLAUDE.md` explicitly says not to — deploying is the one step reserved for you, partly so the Vercel account is yours and under your control from the start.
 
 **What it means for the project:** The site is fully ready to deploy (build passes cleanly), but it isn't live anywhere yet. Follow `docs/DEPLOY.md` whenever you're ready — it takes about 10 minutes and doesn't require touching a terminal beyond a couple of `git push` commands.
+
+---
+
+### 2026-07-20 — Dropped SWF Explorer, made Company Profile Generator the flagship
+
+**Decision:** Removed the entire SWF Explorer module (NBIM holdings viewer — search, dashboard, country pages, mock data pipeline) and made the **Company Profile Generator** the new flagship module instead. **Analyst's Portfolio** is next in the queue after it.
+
+**Why:** You tried the SWF Explorer and pointed out it didn't show anything about *you* — it was just a clean viewer of NBIM's own already-public data, something anyone can already find on NBIM's site. You clarified your actual goals: your interest is finance broadly (not NBIM specifically, even though it's still your long-term target employer), and you want the project to be a genuinely general, accessible "mini Bloomberg" — not a niche data explorer. This is now the standing design principle for every future module (see `docs/PROJECT_BRIEF.md`): add original analysis on top of data, don't just display it.
+
+**What it means for the project:** All SWF/NBIM code, mock data, and docs sections were removed rather than kept as a secondary module — a clean break, per your explicit choice. The Company Profile Generator adds an "analytical context" block (e.g. how a stock's valuation compares to a rough market-average benchmark) specifically to avoid repeating the "just a data viewer" problem.
+
+---
+
+### 2026-07-20 — Company Profile Generator uses real market data via Twelve Data (API key now required)
+
+**Decision:** Built the Company Profile Generator on live-ish (delayed) market data from the Twelve Data API, rather than static preprocessed JSON as `CLAUDE.md` originally specified for v1. This requires a free API key stored in `.env.local` (gitignored, never committed).
+
+**Why:** You asked whether real-time-following-trends data was possible. True tick-by-tick real-time isn't achievable for free (that's what Bloomberg charges for), but 15-minute-delayed-or-better quotes are — and you confirmed you're OK with signing up for a free API key to get that, which is a deliberate, explicit exception to the original "no API keys in v1" rule.
+
+**What it means for the project:** You'll need to grab a free key from twelvedata.com (no credit card) and drop it into a `.env.local` file — exact steps are in `docs/DATA_SOURCES.md` and `PROGRESS.md`. Without a key, the site still builds and runs, but company profile pages show a clear error message instead of data. Twelve Data was picked over Finnhub specifically because Finnhub's free tier blocks historical price-chart data, while Twelve Data's free tier covers quotes, company profile, statistics, and historical charts all under one key.
