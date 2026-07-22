@@ -9,7 +9,9 @@
 // see https://www.sec.gov/os/webmaster-faq#developers. It does NOT require
 // an API key.
 
-const USER_AGENT = "GraduateAnalystTerminal contact@example.com (student project)";
+import { getExchangeRate } from "./fx";
+
+const USER_AGENT = "Bloombruh contact@example.com (student project)";
 
 // SEC's full ticker → CIK (Central Index Key) lookup table. It's one file,
 // ~1MB, and barely changes — cached for a day.
@@ -49,26 +51,59 @@ type ConceptUnitEntry = {
 
 type ConceptResponse = {
   label: string;
-  units: { USD?: ConceptUnitEntry[]; "USD/shares"?: ConceptUnitEntry[]; shares?: ConceptUnitEntry[] };
+  // SEC tags each value with whichever currency the filer actually reports
+  // in — always USD for US-GAAP/10-K filers, but for foreign-private-issuer
+  // IFRS filers (20-F/40-F, e.g. Canada Goose) it's commonly their home
+  // currency instead (CAD, EUR, etc.), hence a plain currency-keyed record
+  // rather than a fixed "USD" field.
+  units: Record<string, ConceptUnitEntry[]>;
 };
 
 export type YearValue = { fiscalYear: number; value: number };
 
-/**
- * Fetches one XBRL "concept" (e.g. NetIncomeLoss) for a company and returns
- * its full annual (10-K, full-year) history, oldest to newest, one value
- * per fiscal year (de-duplicated by keeping the most recently *filed*
- * value for each year, in case of restatements). Tries a list of fallback
- * concept names since companies don't all use the same XBRL tag for the
- * same idea (e.g. revenue is tagged "Revenues" for some,
- * "RevenueFromContract..." for others).
- */
-async function fetchAnnualConceptHistory(
+// Foreign private issuers file 20-F (or 40-F for Canadian filers) instead
+// of a 10-K, plus 6-K for interim/ad hoc disclosures — but which XBRL
+// *taxonomy* they tag under (us-gaap vs. ifrs-full) is the filer's own
+// accounting-standard choice, independent of which *form* carries it.
+// Confirmed empirically: Alibaba (BABA) reports under US-GAAP but files
+// 20-F/6-K, not 10-K — so restricting the us-gaap lookup to form=10-K-only
+// (the original assumption here) silently returned zero data for it and
+// every other 20-F filer using US-GAAP, not just true IFRS filers like
+// Canada Goose. Both taxonomy lookups now accept the full set of forms;
+// which taxonomy actually has the company's data is what determines the
+// result, not which form the code expected to pair with it.
+const FOREIGN_PRIVATE_ISSUER_FORMS = ["20-F", "20-F/A", "40-F", "40-F/A", "6-K", "6-K/A"];
+const US_GAAP_FORMS = ["10-K", "10-K/A", ...FOREIGN_PRIVATE_ISSUER_FORMS];
+const IFRS_FORMS = FOREIGN_PRIVATE_ISSUER_FORMS;
+
+type ConceptHistoryResult = {
+  history: YearValue[];
+  currency: string;
+  /** Which XBRL concept actually supplied the data — lets the UI caption
+   * values honestly when a non-obvious tag was used (e.g. a bank's
+   * "revenue" coming from RevenuesNetOfInterestExpense). Null when no
+   * concept matched at all. */
+  concept: string | null;
+};
+
+async function fetchAnnualConceptHistoryForTaxonomy(
   cik: string,
-  conceptNames: string[]
-): Promise<YearValue[]> {
+  conceptNames: string[],
+  taxonomy: "us-gaap" | "ifrs-full",
+  forms: string[]
+): Promise<ConceptHistoryResult | null> {
+  // Staleness guard: a company can carry data under an *old* tag it stopped
+  // using years ago (T. Rowe Price still has RevenuesNetOfInterestExpense
+  // entries ending in 2015, JPMorgan has InterestAndDividendIncomeOperating
+  // ending in 2011). Taking the first tag that returns anything would then
+  // present a decade-old figure as "latest FY". So: take the first concept
+  // whose newest fiscal year is recent (within 2 years), and only fall back
+  // to the freshest stale match if nothing recent exists at all.
+  const currentYear = new Date().getFullYear();
+  let bestStale: ConceptHistoryResult | null = null;
+
   for (const concept of conceptNames) {
-    const url = `https://data.sec.gov/api/xbrl/companyconcept/CIK${cik}/us-gaap/${concept}.json`;
+    const url = `https://data.sec.gov/api/xbrl/companyconcept/CIK${cik}/${taxonomy}/${concept}.json`;
     const res = await fetch(url, {
       headers: { "User-Agent": USER_AGENT },
       next: { revalidate: 86400 },
@@ -76,9 +111,12 @@ async function fetchAnnualConceptHistory(
     if (!res.ok) continue; // this concept isn't tagged for this company — try the next
 
     const data = (await res.json()) as ConceptResponse;
-    const entries =
-      data.units.USD ?? data.units["USD/shares"] ?? data.units.shares ?? [];
-    const annual = entries.filter((e) => e.form === "10-K" && e.fp === "FY");
+    const currency = Object.keys(data.units).find(
+      (k) => (data.units[k]?.length ?? 0) > 0
+    );
+    if (!currency) continue;
+    const entries = data.units[currency] ?? [];
+    const annual = entries.filter((e) => forms.includes(e.form) && e.fp === "FY");
     if (annual.length === 0) continue;
 
     // One value per fiscal year — if a year appears more than once (e.g. a
@@ -89,18 +127,50 @@ async function fetchAnnualConceptHistory(
       if (!existing || e.filed > existing.filed) byYear.set(e.fy, e);
     }
 
-    return Array.from(byYear.entries())
-      .sort(([a], [b]) => a - b)
-      .map(([fiscalYear, e]) => ({ fiscalYear, value: e.val }));
+    const result: ConceptHistoryResult = {
+      currency,
+      concept,
+      history: Array.from(byYear.entries())
+        .sort(([a], [b]) => a - b)
+        .map(([fiscalYear, e]) => ({ fiscalYear, value: e.val })),
+    };
+
+    const latestFy = result.history[result.history.length - 1]?.fiscalYear ?? 0;
+    if (latestFy >= currentYear - 2) return result;
+    const bestStaleFy = bestStale?.history[bestStale.history.length - 1]?.fiscalYear ?? 0;
+    if (latestFy > bestStaleFy) bestStale = result;
   }
-  return [];
+  return bestStale;
+}
+
+/**
+ * Fetches one financial concept's full annual history, oldest to newest.
+ * Tries US-GAAP (10-K) first — the vast majority of SEC filers — and falls
+ * back to IFRS (20-F/40-F) for foreign-private-issuer filers, who use a
+ * different set of XBRL tag names and often report in their home currency
+ * rather than USD. Also returns which currency the values actually came in
+ * (almost always "USD"), so callers can convert once, at the end.
+ */
+async function fetchAnnualConceptHistory(
+  cik: string,
+  usGaapConcepts: string[],
+  ifrsConcepts: string[] = []
+): Promise<ConceptHistoryResult> {
+  const usGaap = await fetchAnnualConceptHistoryForTaxonomy(cik, usGaapConcepts, "us-gaap", US_GAAP_FORMS);
+  if (usGaap) return usGaap;
+  if (ifrsConcepts.length > 0) {
+    const ifrs = await fetchAnnualConceptHistoryForTaxonomy(cik, ifrsConcepts, "ifrs-full", IFRS_FORMS);
+    if (ifrs) return ifrs;
+  }
+  return { history: [], currency: "USD", concept: null };
 }
 
 async function fetchLatestAnnualConcept(
   cik: string,
-  conceptNames: string[]
+  usGaapConcepts: string[],
+  ifrsConcepts: string[] = []
 ): Promise<{ value: number; fiscalYear: number } | null> {
-  const history = await fetchAnnualConceptHistory(cik, conceptNames);
+  const { history } = await fetchAnnualConceptHistory(cik, usGaapConcepts, ifrsConcepts);
   if (history.length === 0) return null;
   const latest = history[history.length - 1];
   return { value: latest.value, fiscalYear: latest.fiscalYear };
@@ -112,6 +182,27 @@ const CONCEPTS = {
   revenue: [
     "RevenueFromContractWithCustomerExcludingAssessedTax",
     "Revenues",
+    // The "including assessed tax" variant — some filers (e.g. Weibo) tag
+    // their top line gross of assessed taxes and never use the "excluding"
+    // form above, so without this their revenue (and every margin/multiple
+    // built on it) would be blank. Placed after the cleaner "excluding"
+    // and "Revenues" tags so a company that reports both still uses the net
+    // figure; this only kicks in when those are absent.
+    "RevenueFromContractWithCustomerIncludingAssessedTax",
+    // Financial-sector top lines — banks and insurers don't tag revenue
+    // under the generic concepts above. Each of these was verified against
+    // real filers before being added (see docs/DECISIONS.md): net revenues
+    // for banks/brokers (Goldman $58.3bn, JPMorgan $182.4bn FY2025), net
+    // premiums earned for insurers (Progressive $81.7bn, MetLife $49.8bn),
+    // and gross interest & dividend income as a last resort for smaller
+    // lenders that tag nothing else (Eagle Bancorp $604m). Ordered so the
+    // truest "total revenue" concept wins when several exist; the UI
+    // captions the figure with which concept it came from so a bank's
+    // "revenue" is never silently presented as if it were a normal
+    // company's sales line.
+    "RevenuesNetOfInterestExpense",
+    "PremiumsEarnedNet",
+    "InterestAndDividendIncomeOperating",
   ],
   netIncome: ["NetIncomeLoss"],
   grossProfit: ["GrossProfit"],
@@ -144,6 +235,28 @@ const CONCEPTS = {
   sharesOutstandingDiluted: ["WeightedAverageNumberOfDilutedSharesOutstanding"],
 } as const;
 
+// IFRS equivalents for the subset of concepts common enough to reliably
+// tag under one predictable name (spot-checked against a real 20-F filer,
+// Canada Goose) — not exhaustive. Line items that vary too much company to
+// company to guess reliably (buybacks, dividends, debt breakdowns, capex)
+// are simply left unavailable for IFRS filers, same as any other free-data
+// gap on this site — good enough for a student research tool, not meant to
+// cover every possible IFRS tagging convention.
+const IFRS_CONCEPTS = {
+  revenue: ["Revenue"],
+  netIncome: ["ProfitLoss"],
+  grossProfit: ["GrossProfit"],
+  operatingIncome: ["ProfitLossFromOperatingActivities"],
+  totalAssets: ["Assets"],
+  stockholdersEquity: ["Equity"],
+  cash: ["CashAndCashEquivalents"],
+  currentAssets: ["CurrentAssets"],
+  currentLiabilities: ["CurrentLiabilities"],
+  depreciationAmortization: ["DepreciationAndAmortisationExpense"],
+  epsDiluted: ["DilutedEarningsLossPerShare"],
+  operatingCashFlow: ["CashFlowsFromUsedInOperatingActivities"],
+} as const;
+
 export type Fundamentals = {
   fiscalYear: number;
   revenue: number | null;
@@ -172,6 +285,20 @@ export type Fundamentals = {
   sharesOutstanding: number | null;
   sharesOutstandingBasic: number | null;
   sharesOutstandingDiluted: number | null;
+  /** The currency this company's filings actually report in — "USD" for
+   * virtually all US-GAAP/10-K filers, but sometimes a home currency (e.g.
+   * "CAD") for IFRS/20-F filers. All monetary fields above are already
+   * converted to USD using fxRateToUsd; this is kept alongside so the UI
+   * can show a small "converted from" note. */
+  originalCurrency: string;
+  /** USD per 1 unit of originalCurrency, at time of fetch. 1 when
+   * originalCurrency is "USD" (i.e. nothing was converted). */
+  fxRateToUsd: number;
+  /** Which XBRL concept the revenue figure came from — lets the UI caption
+   * financial-sector top lines honestly (a bank's "revenue" is its net
+   * revenues / interest income, not a product sales line). Null when no
+   * revenue was found. */
+  revenueConcept: string | null;
 };
 
 /**
@@ -186,10 +313,10 @@ export async function getFundamentals(ticker: string): Promise<Fundamentals | nu
   if (!cik) return null;
 
   const [
-    revenueHistory,
-    netIncomeHistory,
+    revenueResult,
+    netIncomeResult,
     grossProfit,
-    operatingIncomeHistory,
+    operatingIncomeResult,
     totalAssets,
     stockholdersEquity,
     cash,
@@ -197,41 +324,65 @@ export async function getFundamentals(ticker: string): Promise<Fundamentals | nu
     currentDebt,
     currentAssets,
     currentLiabilities,
-    depreciationAmortizationHistory,
+    depreciationAmortizationResult,
     capex,
     operatingCashFlow,
     dividendsPaid,
     buybacks,
     interestExpense,
-    epsDilutedHistory,
+    epsDilutedResult,
     sharesOutstanding,
     sharesOutstandingBasic,
     sharesOutstandingDiluted,
   ] = await Promise.all([
-    fetchAnnualConceptHistory(cik, [...CONCEPTS.revenue]),
-    fetchAnnualConceptHistory(cik, [...CONCEPTS.netIncome]),
-    fetchLatestAnnualConcept(cik, [...CONCEPTS.grossProfit]),
-    fetchAnnualConceptHistory(cik, [...CONCEPTS.operatingIncome]),
-    fetchLatestAnnualConcept(cik, [...CONCEPTS.totalAssets]),
-    fetchLatestAnnualConcept(cik, [...CONCEPTS.stockholdersEquity]),
-    fetchLatestAnnualConcept(cik, [...CONCEPTS.cash]),
+    fetchAnnualConceptHistory(cik, [...CONCEPTS.revenue], [...IFRS_CONCEPTS.revenue]),
+    fetchAnnualConceptHistory(cik, [...CONCEPTS.netIncome], [...IFRS_CONCEPTS.netIncome]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.grossProfit], [...IFRS_CONCEPTS.grossProfit]),
+    fetchAnnualConceptHistory(cik, [...CONCEPTS.operatingIncome], [...IFRS_CONCEPTS.operatingIncome]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.totalAssets], [...IFRS_CONCEPTS.totalAssets]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.stockholdersEquity], [...IFRS_CONCEPTS.stockholdersEquity]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.cash], [...IFRS_CONCEPTS.cash]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.longTermDebt]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.currentDebt]),
-    fetchLatestAnnualConcept(cik, [...CONCEPTS.currentAssets]),
-    fetchLatestAnnualConcept(cik, [...CONCEPTS.currentLiabilities]),
-    fetchAnnualConceptHistory(cik, [...CONCEPTS.depreciationAmortization]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.currentAssets], [...IFRS_CONCEPTS.currentAssets]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.currentLiabilities], [...IFRS_CONCEPTS.currentLiabilities]),
+    fetchAnnualConceptHistory(cik, [...CONCEPTS.depreciationAmortization], [...IFRS_CONCEPTS.depreciationAmortization]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.capex]),
-    fetchLatestAnnualConcept(cik, [...CONCEPTS.operatingCashFlow]),
+    fetchLatestAnnualConcept(cik, [...CONCEPTS.operatingCashFlow], [...IFRS_CONCEPTS.operatingCashFlow]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.dividendsPaid]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.buybacks]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.interestExpense]),
-    fetchAnnualConceptHistory(cik, [...CONCEPTS.epsDiluted]),
+    fetchAnnualConceptHistory(cik, [...CONCEPTS.epsDiluted], [...IFRS_CONCEPTS.epsDiluted]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.sharesOutstanding]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.sharesOutstandingBasic]),
     fetchLatestAnnualConcept(cik, [...CONCEPTS.sharesOutstandingDiluted]),
   ]);
 
-  if (revenueHistory.length === 0 && netIncomeHistory.length === 0) return null;
+  if (revenueResult.history.length === 0 && netIncomeResult.history.length === 0) return null;
+
+  // Figure out which currency this company's filings actually report in —
+  // whichever of revenue/net income has data determines it (they always
+  // agree in practice, since a filing only ever uses one reporting
+  // currency). Convert every monetary figure to USD once, here, using a
+  // single current FX rate — see src/lib/fx.ts for why that's good enough.
+  const currency =
+    revenueResult.history.length > 0
+      ? revenueResult.currency
+      : netIncomeResult.currency;
+  const fxRateToUsd = currency === "USD" ? 1 : (await getExchangeRate(currency, "USD")) ?? 1;
+  // If the FX lookup fails, fall back to a rate of 1 — showing the raw
+  // non-USD number un-converted is better than hiding the data entirely.
+
+  const convVal = (v: number | null | undefined): number | null =>
+    v === null || v === undefined || fxRateToUsd === 1 ? (v ?? null) : v * fxRateToUsd;
+  const convHist = (h: YearValue[]): YearValue[] =>
+    fxRateToUsd === 1 ? h : h.map((y) => ({ ...y, value: y.value * fxRateToUsd }));
+
+  const revenueHistory = convHist(revenueResult.history);
+  const netIncomeHistory = convHist(netIncomeResult.history);
+  const operatingIncomeHistory = convHist(operatingIncomeResult.history);
+  const depreciationAmortizationHistory = convHist(depreciationAmortizationResult.history);
+  const epsDilutedHistory = convHist(epsDilutedResult.history);
 
   const revenue = revenueHistory.at(-1)?.value ?? null;
   const revenuePriorYear = revenueHistory.at(-2)?.value ?? null;
@@ -241,8 +392,10 @@ export async function getFundamentals(ticker: string): Promise<Fundamentals | nu
   const epsDiluted = epsDilutedHistory.at(-1)?.value ?? null;
 
   // Total debt = long-term + current portion, whichever pieces are tagged.
-  const debtParts = [longTermDebt?.value, currentDebt?.value].filter(
-    (v): v is number => v !== undefined && v !== null
+  // (Not fetched for IFRS filers — see IFRS_CONCEPTS comment — so this is
+  // simply unavailable for them, same as any other free-data gap.)
+  const debtParts = [convVal(longTermDebt?.value), convVal(currentDebt?.value)].filter(
+    (v): v is number => v !== null
   );
   const totalDebt = debtParts.length > 0 ? debtParts.reduce((a, b) => a + b, 0) : null;
 
@@ -254,26 +407,29 @@ export async function getFundamentals(ticker: string): Promise<Fundamentals | nu
     revenueHistory: revenueHistory.slice(-5),
     netIncome,
     netIncomeHistory: netIncomeHistory.slice(-5),
-    grossProfit: grossProfit?.value ?? null,
+    grossProfit: convVal(grossProfit?.value),
     operatingIncome,
     operatingIncomeHistory: operatingIncomeHistory.slice(-5),
-    totalAssets: totalAssets?.value ?? null,
-    stockholdersEquity: stockholdersEquity?.value ?? null,
-    cash: cash?.value ?? null,
+    totalAssets: convVal(totalAssets?.value),
+    stockholdersEquity: convVal(stockholdersEquity?.value),
+    cash: convVal(cash?.value),
     totalDebt,
-    currentAssets: currentAssets?.value ?? null,
-    currentLiabilities: currentLiabilities?.value ?? null,
+    currentAssets: convVal(currentAssets?.value),
+    currentLiabilities: convVal(currentLiabilities?.value),
     depreciationAmortization,
     depreciationAmortizationHistory: depreciationAmortizationHistory.slice(-5),
-    capex: capex?.value ?? null,
-    operatingCashFlow: operatingCashFlow?.value ?? null,
-    dividendsPaid: dividendsPaid?.value ?? null,
-    buybacks: buybacks?.value ?? null,
-    interestExpense: interestExpense?.value ?? null,
+    capex: convVal(capex?.value),
+    operatingCashFlow: convVal(operatingCashFlow?.value),
+    dividendsPaid: convVal(dividendsPaid?.value),
+    buybacks: convVal(buybacks?.value),
+    interestExpense: convVal(interestExpense?.value),
     epsDiluted,
     epsDilutedHistory: epsDilutedHistory.slice(-5),
     sharesOutstanding: sharesOutstanding?.value ?? null,
     sharesOutstandingBasic: sharesOutstandingBasic?.value ?? null,
     sharesOutstandingDiluted: sharesOutstandingDiluted?.value ?? null,
+    originalCurrency: currency,
+    fxRateToUsd,
+    revenueConcept: revenueResult.concept,
   };
 }

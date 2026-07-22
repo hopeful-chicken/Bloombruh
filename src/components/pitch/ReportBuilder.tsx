@@ -132,7 +132,13 @@ export default function ReportBuilder({
                 onChange={(data) => updateBlock(block.id, (b) => ({ ...b, data } as Block))}
               />
             )}
-            {block.type === "news" && <NewsBlockEditor articles={newsArticles} />}
+            {block.type === "news" && (
+              <NewsBlockEditor
+                data={block.data}
+                articles={newsArticles}
+                onChange={(data) => updateBlock(block.id, (b) => ({ ...b, data } as Block))}
+              />
+            )}
           </BlockShell>
         ))}
       </div>

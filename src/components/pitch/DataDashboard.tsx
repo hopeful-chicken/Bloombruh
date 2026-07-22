@@ -9,7 +9,7 @@
 // report builder (once the student clicks "Build your own report") — see
 // PitchWorkbench.tsx.
 
-import { formatUSD, formatNumber, formatPct } from "@/lib/format";
+import { formatUSD, formatNumber, formatPct, formatOriginalCurrency } from "@/lib/format";
 import PriceChart, { type ChartPoint } from "@/components/profile/PriceChart";
 import Stat from "@/components/Stat";
 import NewsList from "@/components/pitch/NewsList";
@@ -50,9 +50,12 @@ type Props = {
 };
 
 /** Renders one labeled grid of stats, pulled from the availableStats
- * registry by key — "Unavailable" for anything free data doesn't cover,
- * same convention as the rest of the site. Returns null if none of this
- * group's keys are present, so the section just doesn't render. */
+ * registry by key. Unlike the report builder (which shows "Unavailable"
+ * placeholders so a student can fill in an override), this read-only
+ * dashboard only shows stats that actually have a value — a company with
+ * sparse data shows a short, honest grid instead of a wall of
+ * "Unavailable" cards. Returns null (hides the whole section, heading
+ * included) if none of this group's keys have real data. */
 function StatGroup({
   title,
   keys,
@@ -62,7 +65,7 @@ function StatGroup({
   keys: readonly string[];
   stats: StatEntry[];
 }) {
-  const entries = stats.filter((s) => keys.includes(s.key));
+  const entries = stats.filter((s) => keys.includes(s.key) && s.value !== null);
   if (entries.length === 0) return null;
   return (
     <div className="mt-6 first:mt-0">
@@ -71,24 +74,42 @@ function StatGroup({
       </h3>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         {entries.map((s) => (
-          <Stat key={s.key} label={s.label} value={s.value ?? "Unavailable"} />
+          <Stat key={s.key} label={s.label} value={s.value!} caption={s.caption} />
         ))}
       </div>
     </div>
   );
 }
 
+// Every stat key that depends on SEC EDGAR fundamentals, excluding the two
+// (price, beta) computed independently of them — used to decide whether
+// the fundamentals section has anything real to show at all.
+const FUNDAMENTALS_DEPENDENT_KEYS = [
+  ...CORE_FINANCIAL_STAT_KEYS,
+  ...VALUATION_STAT_KEYS.filter((k) => k !== "price"),
+  ...GROWTH_RETURNS_STAT_KEYS,
+  ...CREDIT_WACC_STAT_KEYS.filter((k) => k !== "beta"),
+];
+
 export default function DataDashboard(props: Props) {
   const { symbol, companyName, exchange, currency, price, change, percentChange } =
     props;
   const isUp = change >= 0;
+  const hasFundamentalsData = props.availableStats.some(
+    (s) => FUNDAMENTALS_DEPENDENT_KEYS.includes(s.key) && s.value !== null
+  );
+  // Prices display in the quote's own currency — "HK$474.00", not "$474.00"
+  // (a bare "$" on an HKD price would overstate it ~8x). USD keeps the
+  // compact formatUSD style everything else on the site uses.
+  const fmtPrice = (v: number) =>
+    currency === "USD" ? formatUSD(v) : formatOriginalCurrency(v, currency);
 
   return (
     <div>
       {/* Header */}
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h1 className="font-display text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
             {companyName}{" "}
             <span className="font-mono text-lg text-muted">{symbol}</span>
           </h1>
@@ -96,7 +117,7 @@ export default function DataDashboard(props: Props) {
         </div>
         <div className="text-right">
           <p className="font-mono text-2xl font-semibold text-foreground sm:text-3xl">
-            {formatUSD(price)}
+            {fmtPrice(price)}
           </p>
           <p
             className={`font-mono text-sm ${isUp ? "text-positive" : "text-negative"}`}
@@ -116,15 +137,15 @@ export default function DataDashboard(props: Props) {
 
       {/* Key stats */}
       <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <Stat label="Open" value={formatUSD(props.open)} />
-        <Stat label="Previous close" value={formatUSD(props.previousClose)} />
-        <Stat label="52-week high" value={formatUSD(props.week52High)} />
-        <Stat label="52-week low" value={formatUSD(props.week52Low)} />
+        <Stat label="Open" value={fmtPrice(props.open)} />
+        <Stat label="Previous close" value={fmtPrice(props.previousClose)} />
+        <Stat label="52-week high" value={fmtPrice(props.week52High)} />
+        <Stat label="52-week low" value={fmtPrice(props.week52Low)} />
         <Stat label="Volume" value={formatNumber(props.volume)} />
         <Stat label="Avg. volume" value={formatNumber(props.averageVolume)} />
         <Stat
           label="50-day avg."
-          value={props.movingAverage50 ? formatUSD(props.movingAverage50) : "—"}
+          value={props.movingAverage50 ? fmtPrice(props.movingAverage50) : "—"}
         />
         <Stat
           label="Volatility (ann.)"
@@ -177,42 +198,47 @@ export default function DataDashboard(props: Props) {
       )}
 
       {/* Fundamentals & valuation — every stat the report builder's Stats
-          blocks can offer, always visible here as plain read-only grids,
-          grouped roughly three-statements → valuation → growth/returns →
-          credit, general to specific. */}
+          blocks can offer, shown as plain read-only grids, grouped roughly
+          three-statements → valuation → growth/returns → credit, general to
+          specific. If a company has essentially no fundamentals data (a
+          common non-US SEC-filer situation), this whole section collapses
+          to one explanatory line rather than four half-empty grids. */}
       <div className="mt-8">
         <h2 className="mb-2 font-mono text-sm uppercase tracking-widest text-muted">
           Fundamentals & valuation
           {props.fundamentals && ` (FY${props.fundamentals.fiscalYear}, from SEC filings)`}
         </h2>
-        {!props.fundamentals && (
-          <p className="mb-4 text-xs text-muted/70">
-            No SEC fundamentals available for {symbol} — likely a non-US
-            listing. Figures below that don&apos;t depend on SEC filings
-            (price, volatility, beta) still show; the rest read
-            &ldquo;Unavailable&rdquo;.
+        {!hasFundamentalsData ? (
+          <p className="text-xs text-muted/70">
+            No SEC fundamentals data available for {symbol} — either it
+            isn&apos;t a US SEC filer, or its filings don&apos;t use a
+            recognized tagging format. Price, volatility, and beta above are
+            unaffected.
           </p>
+        ) : (
+          <>
+            <StatGroup
+              title="Core financials"
+              keys={CORE_FINANCIAL_STAT_KEYS}
+              stats={props.availableStats}
+            />
+            <StatGroup
+              title="Valuation multiples"
+              keys={VALUATION_STAT_KEYS}
+              stats={props.availableStats}
+            />
+            <StatGroup
+              title="Growth & returns"
+              keys={GROWTH_RETURNS_STAT_KEYS}
+              stats={props.availableStats}
+            />
+            <StatGroup
+              title="Credit metrics & WACC inputs"
+              keys={CREDIT_WACC_STAT_KEYS}
+              stats={props.availableStats}
+            />
+          </>
         )}
-        <StatGroup
-          title="Core financials"
-          keys={CORE_FINANCIAL_STAT_KEYS}
-          stats={props.availableStats}
-        />
-        <StatGroup
-          title="Valuation multiples"
-          keys={VALUATION_STAT_KEYS}
-          stats={props.availableStats}
-        />
-        <StatGroup
-          title="Growth & returns"
-          keys={GROWTH_RETURNS_STAT_KEYS}
-          stats={props.availableStats}
-        />
-        <StatGroup
-          title="Credit metrics & WACC inputs"
-          keys={CREDIT_WACC_STAT_KEYS}
-          stats={props.availableStats}
-        />
       </div>
 
       {/* News */}

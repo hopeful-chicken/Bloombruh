@@ -14,14 +14,15 @@ export default async function ProfileSearchPage({
       <p className="font-mono text-xs uppercase tracking-widest text-accent">
         Company Profile
       </p>
-      <h1 className="mt-1 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+      <h1 className="font-display mt-1 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
         Look up any public company
       </h1>
       {/* EDITORIAL: Adam to review/replace this framing line with his own voice */}
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
-        Type a company name or ticker to get a one-page snapshot: price
-        chart, key valuation multiples, and a bit of context on how they
-        compare to the broader market.
+        Type a company name or ticker to pull up its price, chart, full
+        financials, and a plain-English snapshot — then, if you want, build
+        your own rating, thesis, and target price on top of it and export
+        the result as a PDF.
       </p>
 
       <div className="mt-8">

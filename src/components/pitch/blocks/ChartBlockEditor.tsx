@@ -71,55 +71,55 @@ export default function ChartBlockEditor({
           <ResponsiveContainer width="100%" height="100%">
             {data.chartType === "bar" ? (
               <BarChart data={selected.points}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2e" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e3e0d3" vertical={false} />
                 <XAxis
                   dataKey="label"
-                  tick={{ fill: "#8a8a92", fontSize: 10 }}
+                  tick={{ fill: "#6f6b60", fontSize: 10 }}
                   tickLine={false}
-                  axisLine={{ stroke: "#2a2a2e" }}
+                  axisLine={{ stroke: "#e3e0d3" }}
                 />
                 <YAxis
-                  tick={{ fill: "#8a8a92", fontSize: 10 }}
+                  tick={{ fill: "#6f6b60", fontSize: 10 }}
                   tickLine={false}
                   axisLine={false}
                   width={50}
                 />
                 <Tooltip
                   contentStyle={{
-                    background: "#141416",
-                    border: "1px solid #2a2a2e",
+                    background: "#f3f1ea",
+                    border: "1px solid #e3e0d3",
                     borderRadius: 6,
                     fontSize: 12,
                   }}
-                  labelStyle={{ color: "#e4e4e7" }}
+                  labelStyle={{ color: "#26241f" }}
                 />
-                <Bar dataKey="value" fill="#f5a623" />
+                <Bar dataKey="value" fill="#bc5b33" />
               </BarChart>
             ) : (
               <LineChart data={selected.points}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2e" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e3e0d3" vertical={false} />
                 <XAxis
                   dataKey="label"
-                  tick={{ fill: "#8a8a92", fontSize: 10 }}
+                  tick={{ fill: "#6f6b60", fontSize: 10 }}
                   tickLine={false}
-                  axisLine={{ stroke: "#2a2a2e" }}
+                  axisLine={{ stroke: "#e3e0d3" }}
                 />
                 <YAxis
-                  tick={{ fill: "#8a8a92", fontSize: 10 }}
+                  tick={{ fill: "#6f6b60", fontSize: 10 }}
                   tickLine={false}
                   axisLine={false}
                   width={50}
                 />
                 <Tooltip
                   contentStyle={{
-                    background: "#141416",
-                    border: "1px solid #2a2a2e",
+                    background: "#f3f1ea",
+                    border: "1px solid #e3e0d3",
                     borderRadius: 6,
                     fontSize: 12,
                   }}
-                  labelStyle={{ color: "#e4e4e7" }}
+                  labelStyle={{ color: "#26241f" }}
                 />
-                <Line type="monotone" dataKey="value" stroke="#f5a623" strokeWidth={2} dot={false} />
+                <Line type="monotone" dataKey="value" stroke="#bc5b33" strokeWidth={2} dot={false} />
               </LineChart>
             )}
           </ResponsiveContainer>

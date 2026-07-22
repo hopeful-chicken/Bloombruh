@@ -1,39 +1,47 @@
 @import "tailwindcss";
 
 /*
-  Terminal aesthetic: dark background by default, monospace for numbers.
-  Two themes are supported — dark (default, blue accent) and light (white
-  background, green accent) — toggled by adding/removing the `.light` class
-  on <html> (see ThemeToggle.tsx). Gain/loss colors (--positive/--negative)
-  stay fixed red/green in both themes so financial meaning never depends on
-  which theme is active.
+  Design language: warm, editorial, and calm — a cream/paper light theme by
+  default (this is the "elegant, classy, modern but simple" look Adam asked
+  for) with a warm-dark mode as an opt-in via the toggle. A single clay/
+  terracotta accent color is used for links, buttons, and highlights in both
+  themes. Gain/loss colors (--positive/--negative) stay a fixed green/red in
+  both themes so financial meaning never depends on which theme is active,
+  and are kept visually distinct from the accent color (accent is a muted
+  orange-brown; negative is a cleaner red) so a loss is never mistaken for a
+  brand highlight.
+
+  Theme is toggled by adding/removing the `.dark` class on <html> (see
+  ThemeToggle.tsx) — light is the default, unauthenticated look.
 */
 :root {
-  --background: #0a0a0b;
-  --surface: #141416;
-  --surface-hover: #1c1c1f;
-  --border: #2a2a2e;
-  --foreground: #e4e4e7;
-  --muted: #8a8a92;
-  --accent: #3b82f6;
-  --accent-dim: #1d4ed8;
-  --positive: #34d399;
-  --negative: #f87171;
-  color-scheme: dark;
+  --background: #faf9f5;
+  --surface: #f3f1ea;
+  --surface-hover: #eae7dc;
+  --border: #e3e0d3;
+  --foreground: #26241f;
+  --muted: #6f6b60;
+  --accent: #bc5b33;
+  --accent-dim: #99472a;
+  --accent-foreground: #ffffff;
+  --positive: #3e7d57;
+  --negative: #c0392b;
+  color-scheme: light;
 }
 
-:root.light {
-  --background: #ffffff;
-  --surface: #f3f4f6;
-  --surface-hover: #e5e7eb;
-  --border: #e2e2e7;
-  --foreground: #111318;
-  --muted: #6b7280;
-  --accent: #22c55e;
-  --accent-dim: #15803d;
-  --positive: #16a34a;
-  --negative: #dc2626;
-  color-scheme: light;
+:root.dark {
+  --background: #201e1a;
+  --surface: #2a2823;
+  --surface-hover: #33302a;
+  --border: #3c3833;
+  --foreground: #f1eee5;
+  --muted: #9c9787;
+  --accent: #e08659;
+  --accent-dim: #b8663f;
+  --accent-foreground: #201e1a;
+  --positive: #55b685;
+  --negative: #e2685a;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -45,18 +53,38 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-dim: var(--accent-dim);
+  --color-accent-foreground: var(--accent-foreground);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Used for page/company titles and the logo via `font-display`/`font-logo`
+     — a characterful, slightly literary serif so headings and the wordmark
+     feel designed and a little elegant, not default-AI-generated. */
+  --font-display: var(--font-fraunces);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-/* Thin, terminal-flavoured scrollbar */
+/* The wordmark and hero title lean into Fraunces' italic cut for a touch of
+   classic, cursive-adjacent elegance — used sparingly (logo + hero only) so
+   the rest of the site stays easy to read. */
+.font-logo {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-optical-sizing: auto;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Thin, understated scrollbar that follows the theme */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -66,7 +94,7 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 6px;
+  border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-dim);

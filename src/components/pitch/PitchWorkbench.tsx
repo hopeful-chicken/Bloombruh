@@ -14,7 +14,9 @@ import type { Fundamentals } from "@/lib/secEdgar";
 import type { CompanyDescription, SourceLink } from "@/lib/companyInfo";
 import type { NewsArticle } from "@/lib/news";
 import DataDashboard from "./DataDashboard";
+import DataSourcesAppendix, { COMPANY_PROFILE_SOURCES } from "./DataSourcesAppendix";
 import ReportBuilder from "./ReportBuilder";
+import AiGrader from "./AiGrader";
 import {
   createTextBlock,
   createSwotBlock,
@@ -68,6 +70,11 @@ type Props = {
   availableStats: StatEntry[];
   availableChartSeries: ChartSeriesOption[];
   newsArticles: NewsArticle[];
+  /** Extra provenance line for the data-sources appendix on pages whose
+   * fundamentals/multiples take a non-obvious route (HK listings bridged
+   * to SEC filings via a US ticker, ADR pages priced off the HK listing —
+   * see src/lib/hkAdrMap.ts). Null on ordinary pages. */
+  fundamentalsSourceNote?: string | null;
 };
 
 const REPORT_TYPES = [
@@ -286,6 +293,18 @@ export default function PitchWorkbench(props: Props) {
       </div>
 
       <div className="mt-5">
+        <AiGrader
+          symbol={symbol}
+          companyName={companyName}
+          price={price}
+          rating={rating}
+          targetPrice={Number.isFinite(targetPriceNum) ? targetPriceNum : null}
+          availableStats={props.availableStats}
+          blocks={blocks}
+        />
+      </div>
+
+      <div className="mt-5">
         <PitchDownloadButton
           symbol={symbol}
           companyName={companyName}
@@ -331,21 +350,43 @@ export default function PitchWorkbench(props: Props) {
           <button
             type="button"
             onClick={() => setShowBuilder(true)}
-            className="shrink-0 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-black hover:opacity-90"
+            className="shrink-0 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:opacity-90"
           >
             Build your own report →
           </button>
         </div>
+
+        <DataSourcesAppendix
+          sources={COMPANY_PROFILE_SOURCES}
+          note={
+            props.fundamentalsSourceNote ??
+            (props.fundamentals
+              ? null
+              : 'No SEC fundamentals were found for this ticker (likely a non-US listing) — figures that depend on it show "Unavailable" rather than a guess.')
+          }
+        />
       </div>
     );
   }
 
   return (
-    <div className="mt-4 grid gap-8 lg:grid-cols-2">
-      <div className="lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto lg:pr-4">
-        <DataDashboard {...props} />
+    <div className="mt-4">
+      <div className="grid gap-8 lg:grid-cols-2">
+        <div className="lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto lg:pr-4">
+          <DataDashboard {...props} />
+        </div>
+        <div>{reportPane}</div>
       </div>
-      <div>{reportPane}</div>
+
+      <DataSourcesAppendix
+        sources={COMPANY_PROFILE_SOURCES}
+        note={
+          props.fundamentalsSourceNote ??
+          (props.fundamentals
+            ? null
+            : 'No SEC fundamentals were found for this ticker (likely a non-US listing) — figures that depend on it show "Unavailable" rather than a guess.')
+        }
+      />
     </div>
   );
 }

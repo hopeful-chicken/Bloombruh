@@ -4,8 +4,8 @@
 
 export default function TerminalFooter() {
   return (
-    <footer className="border-t border-border bg-surface/40">
-      <div className="mx-auto max-w-7xl px-4 py-6 text-xs leading-relaxed text-muted sm:px-6">
+    <footer className="border-t border-border">
+      <div className="mx-auto max-w-7xl px-4 py-8 text-xs leading-relaxed text-muted sm:px-6">
         <p>
           Market data on this site is sourced from free, publicly available
           APIs and may be delayed. This project is independent and
@@ -16,15 +16,22 @@ export default function TerminalFooter() {
           Nothing on this site is investment advice. Bloombruh is a personal,
           non-commercial student project — always do your own research.
         </p>
-        <p className="mt-2 text-muted/70">
-          Built by Adam · UCL Economics ·{" "}
+        <p className="mt-4 flex flex-wrap items-center gap-x-2 text-muted/70">
+          <span className="font-logo text-sm font-medium text-foreground/80">
+            Bloombruh
+          </span>
+          <span aria-hidden="true">·</span>
+          <span>Built by Adam · UCL Economics</span>
+          <span aria-hidden="true">·</span>
           <a
-            href="#"
+            href="https://www.linkedin.com/in/adam-zhou-1913ba225/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-dotted underline-offset-2 hover:text-accent"
           >
             LinkedIn
-          </a>{" "}
-          ·{" "}
+          </a>
+          <span aria-hidden="true">·</span>
           <a
             href="#"
             className="underline decoration-dotted underline-offset-2 hover:text-accent"

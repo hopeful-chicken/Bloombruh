@@ -4,6 +4,559 @@ This file is updated as work happens. Read top-to-bottom for the latest status. 
 
 ---
 
+## Session 18 — 2026-07-21 (Central Bank Room: Global Overview card)
+
+### The short version
+You wanted something at the top of the Central Bank Room that gives a
+global picture across all central banks, with a choice of time period, and
+links to news backing it up. Done — there's now a "Global Overview" card
+right at the top of the page (before the per-bank view), with Day/Week/
+Month/3 Months/Year/Max buttons. It shows a one-line summary ("3 hiked, 2
+cut, 3 held steady across the 8 banks tracked") plus a small card per bank
+with its current rate, how much it's moved in the chosen period, and how
+many decisions happened — click any bank's card to jump to its full page.
+Underneath, a handful of real, dated news links for context.
+
+### What changed under the hood
+New component `src/components/macro/GlobalRatesOverview.tsx`. All the
+numbers (hikes/cuts/holds, each bank's basis-point change) are computed
+directly from the same real rate history each bank's page already fetches —
+nothing here is AI-written or guessed. `src/app/macro/page.tsx` now fetches
+all 8 banks in parallel (not one after another) to build this, plus a broad
+news search for the supporting links. Full detail in `docs/DECISIONS.md`
+(2026-07-21, "Global Overview" entry).
+
+### Verified
+`tsc --noEmit` passes clean. Live-tested: all 8 banks show real current
+rates; switching period buttons correctly recomputes the trend counts and
+each bank's change (checked 3M vs. Max gave different, correct numbers);
+news list and its "show more" button work.
+
+### Nothing broken — safe to continue from here.
+
+---
+
+## Session 17 — 2026-07-21 (Bug fix: ECB rate data wasn't loading)
+
+### The short version
+You reported the ECB page showed "unavailable." Fixed — it was a real bug in
+how ECB's response was parsed, not a problem with the ECB's data source
+itself (I confirmed the ECB API was healthy the whole time).
+
+### What was actually wrong
+The ECB sends its data with Windows-style line endings (`\r\n`), but the
+code only split lines on `\n`, leaving a stray character stuck to the end of
+the last column name in the header row. That column happened not to be the
+one we needed, so the bug stayed invisible — until I also shrank the ECB
+request's payload size (15 years of daily data was 2.17MB, just over a
+Next.js internal caching limit, which was silently breaking caching, not
+the page). Trimming unused columns from the request to fix that shrinking
+step accidentally moved the needed column to the very end — which is
+exactly where the stray character was — and *that's* what made the page
+start showing "unavailable." Fixed the line-splitting properly so both
+issues are resolved together.
+
+### Verified
+Reloaded the ECB page live several times after the fix: correct rate
+(2.25%), full 15-year history chart, and the rate-decision timeline all
+render correctly, and pages load fast (well under a quarter-second) since
+the smaller request now gets cached properly. `tsc --noEmit` passes clean.
+Full detail in `docs/DECISIONS.md` (2026-07-21, "Bug fix: ECB rate data
+wasn't loading").
+
+### What Adam should know
+Nothing to do — just a fix. Worth quickly checking the other central bank
+pages (Fed, BoE, BoC, SNB, RBA, BoJ, PBoC) next time you're on the site,
+just as a sanity check, though none of them share this specific bug.
+
+### Nothing broken — safe to continue from here.
+
+---
+
+## Session 16 — 2026-07-21 (Rate decision timeline: full history by year + AI explanations)
+
+### The short version
+Follow-up on the Central Bank Room timeline: you wanted a longer period
+covered (not just recent moves) with a way to browse by year, and real
+sentences explaining the situation and reasoning behind each decision, with
+sources — not just a pile of headline links.
+
+Both done. The timeline now shows every rate change in the fetched history
+(years back), grouped into expandable year sections — click "2019" and it
+opens to show every move that year, same detail view as before. The most
+recent year opens automatically; older years are collapsed until you click.
+
+For the "why," I checked with you first since it has a real cost: writing a
+grounded explanation needs an actual AI call (same paid Claude API as the
+"Pro" report grader), since there's no free source for a central bank's real
+stated reasoning. You chose AI-generated over a free-but-rougher option.
+Clicking "Explain more" on any decision now shows 2-4 AI-written sentences
+about the situation and likely reasoning — written strictly from the real,
+dated news articles fetched for that decision, with those exact articles
+listed as sources right underneath. If the AI can't generate something (no
+API key configured, or the call fails), it just shows the real source
+articles instead — never a made-up explanation.
+
+### What changed under the hood
+New file `src/lib/rateDecisionExplainer.ts` does the AI call, using the
+cheaper Sonnet model rather than the grader's Opus since this is a short,
+low-effort summary task that could get triggered a lot more often across
+visitors. Results are cached per bank+date on the server so re-opening the
+same decision doesn't fetch or charge twice. Full detail in
+`docs/DECISIONS.md` (2026-07-21, "Rate decision timeline" entry).
+
+### Verified
+`npm run build` and `tsc --noEmit` pass clean. Live-tested on the Fed's
+page: year sections expand/collapse correctly with 2025 open by default;
+"Explain more" correctly fetched real articles and showed the expected
+graceful fallback (no Anthropic key is set in this dev environment, so it
+showed the real source articles with a clear note instead of an AI summary
+— exactly the intended behavior when the key is missing).
+
+### What Adam should know
+This feature needs your `ANTHROPIC_API_KEY` in `.env.local` to actually
+generate AI explanations (same key the "Pro" report grader uses — see
+`.env.local.example`). Without it, the timeline still works fine, it just
+shows real source articles instead of AI-written summaries. Each click that
+does have a key configured costs a small amount on your Anthropic account
+— cached per decision so repeat views are free, but many different
+decisions being explored by many visitors would add up over time, worth
+keeping an eye on usage once this is live.
+
+### Nothing broken — safe to continue from here.
+
+---
+
+## Session 15 — 2026-07-21 (News quoting/pagination, rate-decision "Explain more", rate chart zoom)
+
+### The short version
+Three follow-ups from trying the Pitch Builder and Central Bank Room:
+
+1. **Pick which headlines to quote.** The report builder's News block used
+   to dump every fetched headline into your exported report automatically.
+   Now it's a checkbox list — tick exactly the headlines you want to quote,
+   with "All"/"None" shortcuts. There's also more headlines to choose from
+   (20 fetched instead of 6), shown 6 at a time with a "Show 4 more
+   headlines" button — same pattern on the always-visible News list on the
+   Company Profile page.
+2. **"Explain more" on each rate move.** In the Central Bank Room, every
+   line in the rate-decision timeline now has an "Explain more" button.
+   Instead of inventing a longer canned explanation (no free source
+   publishes a bank's real stated rationale), it fetches real, dated news
+   coverage from around that specific decision and shows the actual
+   headlines — tested live against the Fed's real 2025-12-11 rate cut and
+   it pulled back 5 correctly-dated real articles from AP, CBS, NPR, Yahoo
+   Finance, and Spectrum News.
+3. **Rate chart zoom.** The rate history chart now has the same 1D/1W/1M/
+   3M/1Y/Max buttons as the stock price chart on Company Profile. Since the
+   full rate history is already loaded, zooming just re-filters what's
+   already there — no extra network request, unlike the stock chart.
+
+### What changed under the hood
+`NewsBlockData` (the News report block's saved state) now stores which
+article links are selected instead of storing nothing at all — a report
+started before this change keeps working, since "nothing selected yet"
+still means "show everything," same as before. A new small API route,
+`/api/bank-decision-news`, does the real-news lookup for the "Explain more"
+buttons, reusing the same free Google News feed the rest of the site
+already uses, just scoped to a few days around one specific date. Full
+detail in `docs/DECISIONS.md` (2026-07-21 entry, second one).
+
+### Verified
+`npm run build` and `tsc --noEmit` both pass clean. Live-tested in the
+preview browser: News block checkboxes toggle correctly and All/None work;
+pagination reveals 4 more headlines per click; the rate-decision "Explain
+more" button fetched real articles matching the Fed's actual December cut;
+the rate chart's 1Y button correctly zoomed into the last year of data.
+
+### Nothing broken — safe to continue from here.
+
+---
+
+## Session 14 — 2026-07-21 (Full visual redesign: "Claude-like" look)
+
+### The short version
+You asked for the whole site to be redesigned visually — a "claude design"
+look, an elegant/cursive logo, modern but simple. Done: the site now defaults
+to a warm, light, editorial look (cream background, warm near-black text,
+a single terracotta accent color) instead of the old dark terminal theme —
+dark mode is still there, just now an opt-in toggle instead of the default.
+The "Bloombruh" wordmark (in the nav, footer, and the big landing-page
+heading) now renders in an elegant italic serif for the "cursive, classy"
+look you asked for. Buttons, the search box, and nav items are now fully
+rounded pills; cards have softer corners. Nothing about the data or how any
+page works changed — this was a styling-only pass.
+
+### What changed under the hood
+Because this app already reads all its colors from a small set of shared
+CSS variables (`src/app/globals.css`) instead of hardcoding colors in every
+file, the whole palette could be swapped in one place and almost every page
+inherited it automatically. The few spots that couldn't (chart colors,
+which use a charting library that needs literal colors, and the PDF export,
+which renders completely outside the browser) were updated by hand to match.
+Full detail and reasoning is in `docs/DECISIONS.md` (2026-07-21 entry).
+
+### Verified
+`npm run build` and `tsc --noEmit` both pass clean. Live-tested in the
+browser (landing page, a company profile page, and the Pitch Builder's
+two-pane split-view report builder) in both light and dark mode — colors,
+the chart, and the layout all look right. One local-only hiccup: the preview
+tool's dev server briefly failed to start because of a missing `PATH` entry
+in its own process environment (nothing to do with the site's code) — fixed
+by adding it to `.claude/launch.json`. Won't affect the real deployed site.
+
+### Nothing broken — safe to continue from here.
+
+---
+
+## Session 13 — 2026-07-21 (Central Bank Room: real rates, history charts, rate-decision timeline)
+
+### The short version
+You said the Central Bank Room needed the part that was actually missing —
+real policy rates, history, a rate-decision timeline with explanations, and
+plain-English context on monetary/fiscal policy — shown *before* the news,
+not instead of it. That's now live on `/macro` for all 8 banks.
+
+For each central bank you pick, the page now shows, in this order:
+
+1. **The actual current policy rate**, as of the latest published figure.
+2. **A history chart** of that rate going back several years.
+3. **A rate-decision timeline** — every point the rate changed, most recent
+   first, with a short *generic* explanation of what that type of move
+   (hike or cut) typically does economically. This is explicitly labelled
+   as generic, not the bank's own stated reason for that specific decision
+   — no free source publishes that in a structured way, so I didn't
+   pretend otherwise.
+4. **A plain-English explainer** on how monetary policy works, hikes vs.
+   cuts, and how monetary policy relates to fiscal (government
+   spending/taxing) policy.
+5. Then, same as before: real news for that bank, and your own commentary.
+
+### Where the rate data comes from
+Tested 8 free data sources with real API calls before writing any code —
+each central bank publishes (or has a proxy for) its rate differently:
+
+- **Fed, BoJ, PBoC** — via FRED (the St. Louis Fed's free data service, no
+  key needed). Fed's own daily target rate is used directly. BoJ and PBoC
+  don't publish one clean daily policy rate, so a closely-related market
+  rate (interbank lending rate) is used instead and clearly marked as a
+  **proxy** on the page.
+- **ECB, BoE, BoC** — each bank's own official statistics API, daily rate.
+- **SNB, RBA** — each bank's own official statistics, but only published
+  **monthly** rather than daily — the page says so.
+- One quirk: Australia's central bank (RBA) blocks requests that don't look
+  like they're coming from a plain command-line tool — a one-line fix
+  (sending the same identification a `curl` command already sends for
+  free) got it working. Not a security bypass, just matching what a normal
+  script already gets.
+
+If a fetch ever fails, the page says "Rate data unavailable" honestly
+rather than guessing a number.
+
+### Verified
+- `npm run build` and `tsc --noEmit` pass clean.
+- Live dev server test across all 8 banks
+  (`/macro?bank=fed|ecb|boe|boc|snb|rba|boj|pboc`) — every one shows a real
+  current rate, a working chart, and a decision timeline; confirmed the RBA
+  fix actually resolves the blocked request it hit initially.
+
+### What Adam should do next
+- Nothing required — this is fully working. Worth a look at `/macro` for
+  a couple of banks to see the new layout before deciding what's next.
+- The "Hype vs Fundamentals" module is still the only "soon" card left on
+  the landing page — same open question as last session: build it the same
+  way (data + your own written takes) when you're ready.
+
+---
+
+## Session 12 — 2026-07-21 (Built the Central Bank Room)
+
+### The short version
+The "Central Bank Room" module card on the landing page said "soon" — it's
+now real, at `/macro`. You described it as two parts, and that's exactly
+what's there:
+
+1. **Pick a central bank, see real news.** Fed, ECB, BoE, BoJ, PBoC, SNB,
+   RBA, BoC — click one and get recent, real headlines about it (same free
+   Google News source already used for company pages, just a different
+   search per bank).
+2. **Your own commentary, clearly separate.** Next to the news is a
+   "Commentary" section for your own written take on that bank. There's no
+   database in this project, so this works the same way as everything
+   else here: it's a plain code file
+   (`src/data/centralBankOpinions.ts`) that starts empty. To publish an
+   opinion, just ask me to add it (or edit the file yourself) — same
+   workflow as any other change to the site.
+
+The page is explicit that commentary is your opinion, not reported news —
+there's a banner at the top of the page saying so, so the two never get
+confused.
+
+### What's not built yet
+The original placeholder description for this module mentioned
+"hawkish/dovish scoring" and a "rate-decision timeline" — neither of those
+were built this round. What shipped is simpler: news + your own writing.
+Worth deciding later whether the scoring/timeline idea is still wanted, or
+whether news + commentary is actually the better fit.
+
+### Verified
+- `npm run build` and `tsc --noEmit` pass clean; `/macro` shows up as a new
+  route in the build output.
+- Live dev server test: `/macro` (defaults to the Fed) and
+  `/macro?bank=ecb` both return 200, show the right bank's name and real
+  news headlines, and show "No commentary on Fed yet — check back soon."
+  correctly (since the opinions file is empty right now).
+
+### What Adam should do next
+- Whenever you want to publish a take on a central bank, just tell me what
+  to write (or which bank + what you think) and I'll add it to
+  `src/data/centralBankOpinions.ts` — it'll show up on the site right away.
+- Decide if "Hype vs Fundamentals" (the other "soon" module, for your own
+  ticker-focused articles) should work the same way — a picker/list page +
+  your own written articles in a data file, same pattern as this one.
+
+---
+
+## Session 11 — 2026-07-21 (Built "Pro" AI report grading, code-locked with "bloombruh")
+
+### The short version
+You asked for an AI feature that grades a student's written report — real,
+useful feedback on top of the data, not just another chart. Built it as a
+new **"Pro"** tier:
+
+1. **AI grading is real and working**, powered by Anthropic's Claude API
+   (`claude-opus-4-6`). It reads the student's own written sections
+   (Thesis, SWOT, Bear Case, etc.) *and* the real company numbers already
+   on the page, then returns an overall score, a written summary,
+   strengths, things to improve, section-by-section comments — and
+   crucially, a **fact-check pass** that flags any written claim that
+   doesn't actually match the real data.
+2. **This is the first feature on the whole site that costs real money.**
+   Every other data source (Twelve Data, SEC EDGAR, Wikipedia, Google News,
+   Frankfurter FX) is free with no key. AI grading needs your own
+   `ANTHROPIC_API_KEY` (get one at console.anthropic.com — pay-as-you-go,
+   no free tier). Without a key set, the feature fails gracefully with a
+   clear "AI grading isn't configured" message; nothing else on the site is
+   touched.
+3. **Gated behind a code, not real payment, on purpose.** You said to lock
+   it with a code for now and revisit with something real once there's an
+   actual plan — the code is **"bloombruh"**. It's checked entirely in the
+   browser and remembered via `localStorage`, so it's a friction gate, not
+   real security — fine for now, not meant to survive contact with a real
+   paying customer.
+
+### Where it lives
+- New: `src/lib/grading.ts` (server-only Claude API wrapper — never import
+  this from a client component), `src/app/api/grade/route.ts` (proxy route
+  so the browser never sees your API key), `src/components/pitch/
+  AiGrader.tsx` (the code-lock UI + "Grade my report" button + results).
+- Wired into `PitchWorkbench.tsx`'s report-building pane, right above the
+  "Download PDF" button — so it's part of the same flow, once a student has
+  written something.
+- `.env.local.example` now documents the new (optional, paid)
+  `ANTHROPIC_API_KEY` line, same pattern as `TWELVE_DATA_API_KEY`.
+
+### Verified
+- `npm run build` and `tsc --noEmit` both pass clean; `/api/grade` shows up
+  as a new server route in the build output.
+- Live dev server test: posting to `/api/grade` with no `ANTHROPIC_API_KEY`
+  set returns a clear error message (not a crash) — expected, since no key
+  is configured locally yet. Posting a malformed request returns a clean
+  400. **Not yet tested end-to-end with a real key** — do that once you add
+  your own `ANTHROPIC_API_KEY` to `.env.local`.
+
+### What Adam should do next
+- Get an API key from console.anthropic.com, add `ANTHROPIC_API_KEY=...` to
+  `.env.local`, restart the dev server, and try grading a report on
+  `/profile/AAPL` end-to-end (write a sentence or two in the Thesis block,
+  click "Grade my report").
+- When there's an actual plan for how "Pro" should really work (payment,
+  accounts, etc.), replace the "bloombruh" code-check in `AiGrader.tsx` —
+  it was always meant as a placeholder, not a real gate.
+
+---
+
+## Session 10 — 2026-07-20 (Built the IFRS fundamentals fix + USD conversion from Session 9's follow-up)
+
+### The short version
+1. **Small/mid caps that file under IFRS (like Canada Goose) now show real
+   fundamentals.** Following on from Session 9's diagnosis, `secEdgar.ts`
+   now also checks the `ifrs-full`/`20-F` filing path when a company has no
+   US-GAAP `10-K` data, using a short, spot-checked list of IFRS tag names
+   for the most important line items (revenue, net income, profit, assets,
+   equity, cash, D&A, diluted EPS, operating cash flow). Not every possible
+   line item is covered (buybacks, dividends, debt breakdown, capex stay
+   unavailable for these filers) — deliberately scoped down after you said
+   not to worry about exhaustive accounting rigor for a student site.
+2. **Automatic USD conversion, with a "converted from" note.** When a
+   company's filings come back in another currency (Canada Goose reports
+   in CAD), every dollar figure is now automatically converted to USD using
+   a free, no-key exchange-rate API (Frankfurter) — so multiples, margins,
+   and credit metrics all just work in USD like any other company. The
+   original figure is kept and shown as a small caption under the number,
+   e.g. Revenue shows **$867m**, with **"Converted from CAD C$1.2bn"**
+   underneath — nothing is silently changed without saying so.
+3. **Verified live**: `/profile/GOOS` now shows real converted fundamentals
+   throughout (revenue, net income, EPS, total assets, cash, equity,
+   operating cash flow, EBITDA, working capital all populated with CAD
+   captions); `/profile/AAPL` is completely unaffected (plain USD, no
+   captions) — confirming no regression for the vast majority of US
+   companies that don't need any of this. Both `npm run build` and a
+   TypeScript check pass clean.
+
+### What Adam should look at / decide
+- Nothing needs a decision right now — this session's work directly
+  answered the open question from Session 9.
+- Still nothing has been committed to git across the last several sessions
+  (this one included) — let me know when you'd like these grouped into
+  commits.
+
+---
+
+## Session 9 — 2026-07-20 (Search dedupe, Grow plan follow-up, found the real small/mid-cap fundamentals gap)
+
+### The short version
+1. **Search dropdown deduped to one row per company.** Smaller/dual-listed
+   companies (e.g. Canada Goose) were showing 6+ near-identical rows, one
+   per stock exchange they trade on. Now shows one row per company,
+   preferring whichever listing will actually load.
+2. **You upgraded Twelve Data to the paid "Grow" plan yourself** — that
+   needed no code change on our end, Twelve Data itself now allows more
+   tickers through the same `/quote`/`/time_series` calls.
+3. **Stopped showing empty stat sections.** The company page used to
+   always show all four fundamentals sections (Core financials,
+   Valuation, Growth & returns, Credit metrics) even when a company had
+   zero real data in them, filling the screen with "Unavailable" cards.
+   Now a section only shows if it has real numbers, and if a company has
+   no fundamentals at all, you get one clean sentence instead.
+4. **Found the real reason small/mid caps still lack fundamentals** — and
+   it's good news, not a dead end. I tested Canada Goose directly against
+   SEC EDGAR: it genuinely has real financial data filed with the SEC, but
+   under a different accounting standard (IFRS, form `20-F`) than the one
+   our code checks (US-GAAP, form `10-K`). This is almost certainly true
+   for most non-US companies with a US stock listing (UK, Canadian, EU,
+   Australian companies, etc.) — the data exists for free, our code just
+   isn't looking in the right place for it yet.
+
+### What Adam should look at / decide
+- **Next real option**: add IFRS-taxonomy support to `secEdgar.ts` so
+  foreign-but-US-listed companies get real fundamentals too. Not built
+  yet — it needs one decision first: many IFRS filers report in their
+  home currency (Canada Goose reports in Canadian dollars, not USD), so
+  we'd need to either label that clearly on the page or add currency
+  conversion, rather than silently mixing a USD stock price with
+  non-USD earnings in a valuation multiple.
+- Nothing has been committed to git yet across the last several sessions
+  — worth reviewing and committing in logical groups when you're ready.
+
+---
+
+## Session 8 — 2026-07-20 (Fixed the "Couldn't load DPLM" bug report)
+
+### The short version
+You reported that searching "Diploma plc" found it fine, but the profile
+page then failed with a generic "might not exist" error — frustrating for
+a well-known real company. Two things were going on, both now fixed/handled:
+
+1. **A real code bug**: Twelve Data's error message explaining *why* it
+   couldn't return a quote was being thrown away before it ever reached
+   the page, because the code checked the HTTP status before reading the
+   response body. Fixed — the real reason now surfaces correctly.
+2. **A genuine data-plan limit that can't be "fixed" for free**: the free
+   Twelve Data plan only gives quotes for US-listed stocks (NYSE/NASDAQ)
+   and US OTC — Diploma trades only on the London Stock Exchange with no
+   US listing, so it will never return a real price on this free plan.
+   The page now says this plainly instead of implying something might be
+   wrong with the ticker, and the search dropdown flags "limited data" on
+   likely-unavailable exchanges before you even click through.
+
+### What changed under the hood
+- `src/lib/marketData.ts` — `fetchTwelveData()` now reads and checks the
+  JSON response body for an error message *before* checking `res.ok`,
+  since Twelve Data's plan-gated error is a real HTTP 404 whose useful
+  message was previously being discarded in favor of a generic one.
+- `src/app/profile/[symbol]/page.tsx` — detects this specific error and
+  shows an accurate explanation instead of "might not exist."
+- `src/components/profile/TickerSearch.tsx` — "limited data" badge on
+  search results from exchanges the free plan doesn't cover.
+- Verified live: restarted the dev server, confirmed `/profile/DPLM` now
+  shows the new explanation and `/profile/AAPL` still loads with no
+  regression. `npm run build` passes clean.
+
+### What Adam should look at / decide
+- This is a genuine free-tier limit, not something more code can fix. If
+  non-US companies like this come up often, the real fix is either a paid
+  Twelve Data plan or adding a second, still-free data source for non-US
+  quotes (e.g. Stooq) — flagged in `docs/DECISIONS.md` as a future option,
+  not built yet.
+- Nothing has been committed to git yet this session (or last session's
+  module-merge/font/appendix work) — worth reviewing and committing in
+  logical groups when you're ready.
+
+---
+
+## Session 7 — 2026-07-20 (Merged the two modules, added a title font, added a data-sources appendix)
+
+### The short version
+
+You said Company Profile and Pitch Builder had become too similar ("Pitch
+Builder contains everything Company Profile has"), so this session merged
+them into **one module**, at `/profile` — `/pitch` is gone. The "Build your
+own report" option is still right there at the end of every company's page,
+exactly as before, just under one module name now instead of two. You also
+asked for the titles to feel less generic/"AI website"-like, and for an
+expandable section showing where every number comes from — both done too.
+
+1. **One module, not two** — `/profile` now shows everything the old
+   `/pitch` did (full financials, chart, news, computed analytics like
+   beta) plus the optional two-pane report builder. The landing page and
+   nav show a single "Company Profile" card/link.
+2. **A title font** — added Fraunces, a distinctive serif, used only for
+   page and company titles (e.g. "Bloombruh" on the landing page, the
+   company name on each profile). Everything else — body text, terminal
+   labels, all the numbers — stays on the existing sans/mono fonts, so this
+   is a deliberate, contained flourish rather than a full redesign.
+3. **Data sources appendix** — a new collapsible "Data sources &
+   methodology" box at the bottom of every company page (right after the
+   "Build your own report" prompt), spelling out in plain English which
+   free source backs each figure (Twelve Data for price, SEC EDGAR for
+   fundamentals, Wikipedia for the description, Google News for
+   headlines) and which numbers are this site's own math (beta, credit
+   metrics, valuation multiples) rather than something looked up.
+
+`npm run build` passes with no TypeScript errors. Fresh dev server
+smoke-tested `/`, `/profile`, `/profile/AAPL`, `/profile/SHEL` (all 200)
+and confirmed `/pitch` now correctly 404s.
+
+### What changed
+- `src/app/profile/[symbol]/page.tsx`, `src/app/profile/page.tsx`,
+  `src/app/profile/layout.tsx` — replaced with the fuller versions that
+  used to live under `src/app/pitch/`; `src/app/pitch/` deleted entirely.
+- `src/lib/modules.ts` — one "Company Profile" entry instead of two.
+- `src/app/layout.tsx` — added the Fraunces font.
+- `src/app/globals.css` — registered it as the `font-display` utility.
+- Applied `font-display` to the landing hero title, module card names, the
+  company-profile search page title, and each company's name header
+  (`src/components/pitch/DataDashboard.tsx`).
+- New `src/components/pitch/DataSourcesAppendix.tsx`, wired into
+  `PitchWorkbench.tsx` right after the "Build your own report" CTA (both in
+  the default full-width view and at the bottom of the split view).
+
+### What Adam should look at / decide
+- Nothing blocking. Worth a quick look at the new serif title font on
+  `/profile/AAPL` to confirm you like the feel — easy to swap for a
+  different Google Font later if not (one line in `layout.tsx`).
+- The internal folder is still named `src/components/pitch/` even though
+  the user-facing route is now `/profile` — a deliberate choice to avoid a
+  risky bulk-rename colliding with the pre-existing (and still used)
+  `src/components/profile/` folder that holds `PriceChart.tsx`/
+  `TickerSearch.tsx`. Purely an internal detail; doesn't affect anything
+  you see in the browser.
+
+### Nothing broken — safe to continue from here.
+
+---
+
 ## Session 6 — 2026-07-20 (Deepened the data: full fundamentals, valuation, chart/news blocks, all 4 report types)
 
 ### The short version
@@ -602,5 +1155,474 @@ addressed this session:
   time you're in the app.
 - Same placeholder LinkedIn/GitHub links as before — still marked with
   `EDITORIAL` comments, still waiting on your real links.
+
+### Nothing broken — safe to continue from here.
+
+## Session: New module — Markets Overview (2026-07-21)
+
+You asked for a text section explaining the world situation — both in the
+Central Bank Room's Global Overview and on the homepage — with a picker
+for equity sectors (global equities, TMT, FIG, healthcare, energy,
+industrials, consumer), a period picker (week/month/year/forever),
+descriptions of how each is doing plus graphs, and the same idea for
+private markets (private equity, private credit, etc.).
+
+Before building, I checked three scope questions with you (this was
+genuinely a new module's worth of work): where it should live, how the
+narrative text should be produced, and how to handle private markets
+having no free live data. You chose: a new standalone module with a
+homepage teaser; AI-generated narrative grounded in real news, with Adam's
+own take stacked underneath; and for private markets, real public-market
+proxies (charted) plus real news, clearly labeled as proxies rather than
+actual fund returns.
+
+### What shipped
+A new **Markets Overview** module at `/markets`, live in the nav, plus a
+compact version of its top section on the homepage:
+
+1. **Global Overview** (world situation) — pick Week/Month/Year/Forever,
+   see a short AI-generated summary of how world markets/the economy are
+   doing, grounded in real fetched news underneath, plus a space for
+   Adam's own take (starts empty, same as the Central Bank Room's
+   Commentary section).
+2. **Markets by Sector** — pick a sector (Global Equities, TMT, Financial
+   Institutions, Healthcare, Energy, Industrials, Consumer) and a period;
+   see a real price chart (via that sector's real ETF — e.g. XLK for
+   TMT), the real computed return over the period, the same AI narrative +
+   news + Adam's-take structure as above.
+3. **Private Markets** — same picker structure for Private Equity (PSP),
+   Private Credit (BIZD), and Real Estate & Infrastructure (VNQ), each a
+   real, named, publicly-traded proxy — with a persistent on-page
+   disclaimer that these are public securities standing in for private
+   activity, not actual fund NAVs (there's no free source for real private
+   fund returns).
+
+Nothing here is invented: every chart is real Twelve Data price history,
+every narrative is Claude synthesizing only the real return figure and
+real news handed to it (same "never fabricate" rule as the rate-decision
+explainer), and every "Adam's take" is clearly labeled as your own opinion,
+not fetched or AI data.
+
+### What works (verified live)
+- `npm run build` and `tsc --noEmit` both pass clean.
+- Homepage: the compact world-situation panel renders with real news
+  headlines; since no `ANTHROPIC_API_KEY` is configured in this dev
+  environment, it shows the honest "AI-generated market narratives need an
+  API key" fallback instead of crashing or faking a summary — exactly the
+  designed behavior.
+- `/markets`: all three sections render with real numbers — e.g. SPY moved
+  +0.2% and PSP moved -2.0% over the past month at test time, both with
+  real charts and real, period-scoped news underneath. Clicking a
+  different sector, and switching the period from Month to Week, both
+  correctly re-fetch new real data. No console errors.
+
+### What Adam should look at or decide
+- **Add an `ANTHROPIC_API_KEY`** (see `.env.local.example`) if you want
+  the AI-generated narratives to actually show instead of the fallback
+  message — same key already used by the AI report grader and the
+  rate-decision explainer, so this doesn't add a new cost source, just
+  uses the existing one more.
+- **Write some commentary.** `src/data/marketCommentary.ts` starts empty —
+  add an entry (segment id, date, title, body) any time you want your own
+  take to show under the world situation, a sector, or a private-market
+  segment.
+- Consider whether 7 equity sectors and 3 private-market segments are the
+  right set — both registries (`src/lib/marketSectors.ts`,
+  `src/lib/privateMarketSegments.ts`) are simple arrays, easy to extend
+  later.
+
+### Nothing broken — safe to continue from here.
+
+## Session: Central Bank Room — AI situation summary + per-bank economic backdrop (2026-07-21)
+
+You asked for two additions to the Central Bank Room: an AI-written
+presentation on the Global Overview explaining the current situation across
+central banks (why rates are like this, what's happening, the decisions
+made), and a few simple lines before each bank's own rate-decision timeline
+on that region's current economic situation and how it's evolved.
+
+### What shipped
+- **Global Overview now has a "situation" box.** Under the existing
+  hike/cut/hold summary sentence, a new AI-generated paragraph (3-5
+  sentences) explains the current global rate picture — grounded in the
+  exact same real per-bank figures already on screen plus real,
+  period-scoped news. It re-generates when you change the period selector,
+  same as everything else on that card. Tested live just now: it correctly
+  identified the ECB/RBA hiking, PBoC/SNB cutting, Fed/BoE/BoC holding
+  pattern, named the real reasons found in the news (a new Fed chair,
+  wartime disruptions, a "gigantic problem" headline), and was honest that
+  the coverage didn't fully explain every individual bank's reasoning
+  rather than guessing.
+- **Each bank's page now has an "Economic backdrop" box** between the price
+  chart and the rate-decision timeline — 2-4 simple sentences on that
+  region's current economic situation, grounded in real recent news about
+  that region's economy. Tested live on the Fed (correctly summarized US
+  jobs growth, inflation pressure, and Iran-related uncertainty from real
+  articles) and the ECB (correctly scoped to "Eurozone").
+
+Both features use the same "never invent, only synthesize real data/news"
+approach as the existing rate-decision "Explain more" feature, and both
+gracefully fall back to a plain message (not a crash or a fake summary) if
+the AI key is missing or a call fails.
+
+### What works (verified live, with a real ANTHROPIC_API_KEY configured)
+- `npm run build` and `tsc --noEmit` both pass clean.
+- Global Overview's narrative loads correctly and is cached client-side per
+  period (switching banks doesn't re-trigger it if you're on the same
+  period you already viewed).
+- Fed and ECB pages both show correct, region-specific "Economic backdrop"
+  text.
+- No console errors.
+
+### Nothing broken — safe to continue from here.
+
+## Session: Hong Kong Stock Exchange coverage via EODHD (2026-07-21)
+
+You asked about getting Hong Kong stock data, since Twelve Data's plan
+doesn't include HKEX (upgrading to their Pro tier for it alone would be
+$229/month). We found EODHD as a free alternative, you signed up and got a
+key, and asked specifically for EODHD to be added just for Hong Kong —
+everything else stays on Twelve Data.
+
+### What shipped
+Type any Hong Kong ticker with a `.HK` suffix — e.g. `/profile/0700.HK`
+(Tencent) or search "HSBC" and click the HKEX result — and you get the same
+full Company Profile page as any US/UK/etc. company: real live price, a
+real price chart with range buttons, a real computed 52-week high/low and
+average volume, the plain-English "About" summary, real news, and an
+honest "no SEC fundamentals available" message (Hong Kong companies mostly
+don't file with the SEC, same limitation as any other non-US-filer ticker
+already has). Beta is also skipped for HK tickers, since it needs Twelve
+Data's index history which doesn't cover Hong Kong.
+
+Search now finds real Hong Kong companies too — typing "Tencent" or "HSBC"
+surfaces the actual HKEX-listed stock, not buried under noise. Getting this
+right took an extra fix: neither EODHD's nor Twelve Data's own free-text
+search reliably finds plain HKEX common stock (both surfaced warrants and
+depositary receipts instead), so this uses EODHD's free, complete ~3,700-
+ticker Hong Kong directory instead, filtered locally. And Twelve Data alone
+returns so many international near-duplicates for a name like "HSBC" that
+the one real HK result was getting pushed past what the dropdown actually
+shows — fixed by sorting results so ones that actually work come first,
+which helps every search on the site, not just Hong Kong.
+
+### What works (verified live)
+- `npm run build` and `tsc --noEmit` both pass clean.
+- `/profile/0700.HK` and `/profile/0005.HK` both load with real data —
+  price, chart, 52-week range, About section, news.
+- Searching "hsbc" in the ticker box surfaces the real HKEX listing within
+  the visible results.
+- No console errors.
+
+### What you should know
+- EODHD's free tier is thin — 20 requests/day plus a 500-call welcome
+  bonus. The Hong Kong ticker directory is cached for 24 hours specifically
+  to not burn through that on searches.
+- Fundamentals and beta are genuinely unavailable for Hong Kong tickers on
+  the free tier of either provider — this is disclosed on the page, not a
+  bug to fix later.
+- `EODHD_API_KEY` is optional — every other exchange on the site works
+  fine without it; it's purely additive.
+
+### Nothing broken — safe to continue from here.
+
+## Session: New module — HKEX Screener for the KPMG conversation (2026-07-21)
+
+Right after Hong Kong Stock Exchange coverage shipped, you asked for a
+separate, distinctly-branded page for the KPMG conversation specifically —
+somewhere the *only* thing searchable is Hong Kong Stock Exchange, not
+folded into the general Company Profile search.
+
+### What shipped
+A new module, **HKEX Screener**, live in the nav at `/kpmg`. The landing
+page states plainly it's an independent student project — not affiliated
+with, endorsed by, or built in any official capacity for KPMG, just built
+after a conversation about Hong Kong opportunity screening — then gives a
+search box where every result is a real HKEX-listed company (five
+quick-pick tickers up front: Tencent, HSBC, Alibaba, AIA Group, China
+Mobile). Picking a company sends you to the same full profile page the
+main Company Profile module already has for Hong Kong tickers — real
+price, chart, computed 52-week range, description, news.
+
+This reused everything built minutes earlier for HK coverage rather than
+duplicating it: the only genuinely new code is the search box and the
+landing page itself.
+
+### What works (verified live)
+- `npm run build` and `tsc --noEmit` both pass clean.
+- `/kpmg` renders with the disclaimer banner and quick-pick chips.
+- Searching "alibaba" returns only real HKEX results (not mixed with
+  Twelve Data's global results the way the main search is).
+- Clicking through to a result (tested with Alibaba, `9988.HK`) renders a
+  complete real profile.
+- "HKEX Screener" shows in the nav bar alongside every other module.
+- No console errors.
+
+### Nothing broken — safe to continue from here.
+
+## Session: Chart range bug fix, search UX, HKEX Screener copy (2026-07-21)
+
+You reported some graphs didn't update when switching the time range, asked
+for limited-data companies to just be suggestions rather than clickable
+dead ends, and asked to simplify the HKEX Screener's "conversation with
+KPMG" framing to just "for KPMG."
+
+### What was wrong, and what shipped
+- **The bug was real, and isolated to Hong Kong tickers.** I tested every
+  chart on the site (Company Profile, Markets Overview, Central Bank Room)
+  by simulating clicks and checking the actual rendered dates before and
+  after — only HK tickers' charts were broken. Root cause: EODHD's history
+  endpoint completely ignores the parameter that's supposed to limit how
+  many days it returns (confirmed by testing it directly with different
+  values — same ~1-year answer every time). Fixed by asking it to bound the
+  results by date instead, which does work. Verified live: `/profile/
+  0700.HK`'s chart now correctly narrows from a full year down to one
+  month when you click "1M".
+- **Search now refuses to link to dead ends.** Companies flagged "limited
+  data" (a foreign listing this site's free plan can't actually show)
+  still appear in the search dropdown so you can see they exist, but
+  they're no longer clickable — plain greyed-out text instead of a button.
+  Pressing Enter also now skips past them to the first result that
+  actually works.
+- **HKEX Screener copy simplified** — the module description, the page
+  itself, and the banner now just say "for KPMG" instead of narrating the
+  conversation behind it. The honest "not affiliated with or endorsed by
+  KPMG" line is unchanged.
+
+### What works (verified live)
+- `npm run build` and `tsc --noEmit` both pass clean.
+- HK chart range buttons now genuinely change the chart.
+- Limited-data search results are confirmed non-clickable (checked the
+  actual DOM, not just how it looks).
+- `/kpmg` reads "for KPMG" throughout.
+
+### Nothing broken — safe to continue from here.
+
+## Session: Fixed the "no fundamentals data" bug (2026-07-21)
+
+You said the Fundamentals & Valuation section had almost nothing in it and
+asked if there was anything to do about it. There was — this turned out to
+be two real bugs, not a genuine data gap.
+
+### What was actually wrong
+Tested Alibaba (`BABA`) directly against SEC's own data before touching
+any code. Its real financials are there — revenue, net income, everything
+— but this site's code only accepted that data if it arrived via a 10-K
+filing. Alibaba (like JD.com, Baidu, PDD, NIO, Trip.com, and other
+US-ADR-linked Chinese/Hong-Kong companies) reports under the same US-GAAP
+accounting rules but files a `20-F`/`6-K` instead, since it's a foreign
+private issuer — so its perfectly good data was being silently thrown away
+by an overly strict filter. Fixed.
+
+While checking the fix worked, also found and fixed a second bug: negative
+numbers (like Alibaba's net debt, which is negative since it holds far
+more cash than debt) were displaying as a broken raw number
+(`$-20612040200.00`) instead of a clean `-$20.6bn`.
+
+### What works now (verified live)
+- `/profile/BABA` went from "No SEC fundamentals data available" to a
+  complete fundamentals section: revenue $139.1bn, net income $11.8bn,
+  every valuation multiple, credit metrics, beta, growth rates.
+- Net debt and any other negative dollar figure now renders correctly.
+- `/profile/AAPL` re-checked — no regression for ordinary US filers.
+- `npm run build` and `tsc --noEmit` both pass clean.
+
+### What's proposed next (your call, not built yet)
+1. **Bridge fundamentals to Hong Kong tickers directly.** Many HKEX
+   companies have a real US-listed ADR that IS an SEC filer (e.g. `9988.HK`
+   Alibaba's HK listing ↔ `BABA` its NYSE ADR; `0005.HK` HSBC ↔ `HSBC`).
+   Mapping known HK tickers to their ADR counterpart just for the
+   fundamentals fetch (keeping price from the real HK listing) would show
+   real fundamentals directly on HK company pages, not just when someone
+   searches the US ticker instead.
+2. **A DCF calculator**, matching the existing LBO/M&A calculator pattern
+   already in the report builder — the other "bank valuation model" not
+   yet built alongside comps, LBO, and M&A accretion/dilution.
+
+### Nothing broken — safe to continue from here.
+
+## Session: Homepage cleanup — hero copy trimmed, sources appendix added (2026-07-21)
+
+You asked to remove the hero eyebrow/description on the homepage, and to
+add the same kind of expandable "data sources" section the Company Profile
+page has, at the end of the homepage.
+
+### What shipped
+- Homepage hero is now just the logo and the "Open Company Profile" button
+  — the "Free · Web-based · Built for students" line and the "Bloomberg-
+  lite for students" paragraph are gone.
+- A new expandable "Data sources & methodology" section at the very
+  bottom of the homepage, matching the one already on company pages —
+  click to expand, lists exactly what's real on this page (the world-
+  situation panel's Google News headlines and its Claude-generated
+  narrative).
+- Under the hood, the appendix component that used to be hardcoded to
+  Company Profile is now generic (takes its content as a prop), so it can
+  be reused on any page — the homepage is the second real use of it.
+
+### What works (verified live)
+- `npm run build` and `tsc --noEmit` both pass clean.
+- Homepage renders with the trimmed hero.
+- The new appendix expands correctly with the right content.
+- Company Profile's own appendix (`/profile/AAPL`) re-checked — still
+  works exactly as before.
+
+### Nothing broken — safe to continue from here.
+
+## Session: Way more companies now have real fundamentals (2026-07-22)
+
+You said smaller companies and the HKEX pages showed no Fundamentals &
+Valuation data and asked to close the gap without inventing anything.
+
+### What was actually going on
+Tested before coding. Small US companies mostly worked already — the real
+holes were:
+1. **Banks and insurers showed no revenue** — they report their top line
+   under industry-specific accounting tags. Added the verified ones
+   (checked against Goldman, JPMorgan, Progressive, MetLife, Eagle
+   Bancorp), with a caption under the number saying which concept it is.
+2. **Hong Kong pages had no path to SEC data** — now, for 15 verified
+   companies that are one legal entity with two listings (Alibaba, HSBC,
+   JD.com, Baidu, NIO, NetEase, Yum China, Manulife, Prudential, and
+   more), the HK page shows that same company's real SEC filings, clearly
+   labeled in the appendix. Tencent stays honestly empty — its US ticker
+   never files with the SEC.
+3. **Found a real bug while verifying:** ADR pages (like BABA) showed
+   massively inflated multiples — P/E 204x instead of ~26x — because ADR
+   prices are per bundle of 8 shares. Fixed by pricing multiples off the
+   HK ordinary share. HK prices also now display as "HK$", not "$".
+
+### Still honestly missing
+HKEX companies with no SEC-filing US twin (most small ones + Tencent) have
+no free structured fundamentals anywhere — the paid escape hatch is
+EODHD's fundamentals tier (€59.99/mo) if it ever matters enough.
+
+### Verified live
+EGBN, 9988.HK, BABA, AAPL — all correct, build clean.
+
+### Nothing broken — safe to continue from here.
+
+## Session: Model Templates module — build what analysts build (2026-07-22)
+
+The big one you asked for: downloadable, personalizable templates for the
+work analysts produce across investment banking, equity research, asset
+management, and sales & trading. You chose Excel with live formulas, the
+full set in one go, and sector guidance built into each template.
+
+### What shipped — six templates at /templates ("Model Templates" in nav)
+1. **DCF Valuation Model** — revenue growth that fades to a terminal rate,
+   a WACC you build from real inputs (real beta prefilled), terminal
+   value, implied share price vs. today's, and a sensitivity grid where
+   every cell re-runs the model. **Picking FIG switches the whole file to
+   a dividend-discount model** — banks can't be valued on enterprise
+   value, and the template explains why inside.
+2. **LBO Model** — a real year-by-year debt schedule, MOIC and IRR, and a
+   value-creation bridge answering the classic interview question: did the
+   return come from growth, the multiple, or the debt paydown?
+3. **M&A Accretion/Dilution** — pick acquirer and target tickers, both
+   prefill with real data; financing mix with a sum-to-100% check;
+   synergies deliberately default to zero.
+4. **Equity Research Initiation Note** — rating and target price with live
+   implied upside, thesis prompts that force a real view, a valuation
+   summary that turns your target multiples into implied prices.
+5. **Portfolio One-Pager (AM)** — type positions in, values/weights/
+   concentration compute themselves.
+6. **Market Update Sheet (S&T)** — downloads prefilled with the site's
+   real sector performance and all eight central banks' rates at that
+   moment, plus a structured morning-note section.
+
+Every workbook opens on a guidance sheet (conventions + sector-specific
+advice in plain English) and closes with a "Data & Sources" sheet listing
+where each prefilled number came from. Missing data stays blank — never
+estimated. The homepage now pairs the Global Overview with a "Want to
+build your own valuation model?" card linking to the library.
+
+### Verified (not just built)
+All eight test configurations were generated through the real API and then
+parsed back file-by-file: real prefill confirmed (AAPL's $383.3bn revenue
+and 0.84 beta, Eagle Bancorp's real 54.7% payout in the FIG variant,
+MarineMax's real 3.8x market multiple in the LBO, Alibaba's HK page
+pricing at the correct ~$14.92/ordinary share, the real 3.75% Fed rate in
+the market sheet), live formulas confirmed in every model cell probed, and
+a real download exercised through the browser UI. Build and typecheck
+clean.
+
+### One new dependency
+`exceljs` — what makes these real recalculating models rather than
+pictures of models. Server-side only; documented in DECISIONS.md.
+
+### Nothing broken — safe to continue from here.
+
+## Session: Central Bank Room — "Markets & the economy" panel (2026-07-22)
+
+You asked for two things on each central bank's page: more text on the
+country's situation that changes with the timeline period you pick, and a
+famous regional index (Fed → S&P 500, etc.) charted alongside the policy
+rate so people can compare — while noting you weren't sure the two are
+actually correlated.
+
+### What shipped
+Each bank page now has a **"Markets & the economy"** panel:
+- A period selector (Week / Month / 3 Months / Year / Max).
+- A **dual-axis chart**: the region's stock index (blue, right axis) drawn
+  over the policy rate (terracotta step-line, left axis) on the same
+  timeline — you can see, e.g., the Fed cutting from 4.5% while the S&P 500
+  recovered.
+- A **period-scoped AI write-up** of the country's economy and market for
+  the window you picked, grounded in the real index move and real news,
+  with the headlines listed underneath.
+
+**On the "not sure if correlated" point:** handled honestly on purpose.
+The chart caption says the two lines are shown side by side with no
+correlation implied — judge for yourself — and the AI is told to never
+claim they move together unless the real coverage supports it. In testing,
+the Fed write-up did exactly that: it said drawing a conclusion about the
+rate-vs-market link from the available coverage "would be speculation
+rather than analysis."
+
+**Indices are labeled honestly:** the US and Eurozone use the real tracked
+index (S&P 500 via SPY, Euro Stoxx 50 via FEZ); the others use the closest
+free country-ETF proxy and say so ("UK equities ≈ FTSE 100, via EWU"),
+rather than pretending to be the exact famous index (no free tracker
+exists for those).
+
+### Verified live
+Fed (exact S&P 500) and BoE (proxy, labeled) — both lines render against
+the rate, switching periods re-fetches the narrative + news, correlation
+kept honest. Build + typecheck clean, no console errors.
+
+### Note
+This replaced the old static "Economic backdrop" box (superseded by the
+richer, period-interactive, chart-paired panel).
+
+### Nothing broken — safe to continue from here.
+
+## Session: Markets Overview — 5-Year option + fixed "Forever" (2026-07-23)
+
+You said the chart's x-axis dates weren't understandable, especially for
+"Forever". Turned out to be two real bugs, not one:
+
+1. **"Forever" wasn't actually forever** — it was quietly capped at the
+   same 5-year window as every other long range, with nothing on screen
+   telling you it was capped.
+2. **The year was never shown**, on any multi-year range, for any ticker
+   — a leftover check from the Hong Kong work was silently overriding the
+   year-showing logic for everyone, not just HK tickers.
+
+### What shipped
+- A real **"5 Years"** button, next to Week/Month/Year/Forever.
+- **"Forever" now means it** — tested against SPY, it correctly goes back
+  to 1993 (the ETF's actual inception), not just 5 years.
+- Dates on the chart now show the year for 5-Year and Forever views (e.g.
+  "1993-11"), so you can actually tell which year you're looking at.
+- This also fixed the same "Max" button bug on the Company Profile price
+  chart, since it shares the same underlying code.
+
+### Verified live
+Confirmed via direct testing: the 5-year view returns real weekly data
+correctly labeled, and "Forever" returns 33 years of real monthly SPY data
+starting exactly at its 1993 launch. Clicked through it in the actual
+Markets Overview page and watched the chart re-render with the fix. No
+console errors, build clean.
 
 ### Nothing broken — safe to continue from here.

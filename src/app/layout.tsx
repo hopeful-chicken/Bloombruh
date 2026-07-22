@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import TerminalNav from "@/components/TerminalNav";
 import TerminalFooter from "@/components/TerminalFooter";
@@ -12,6 +12,19 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Fraunces is a characterful serif with a "soft" optical-size axis, used
+// for page/company titles (see the `font-display` utility in globals.css)
+// and, in its italic cut, for the logo/wordmark (see `font-logo`).
+// Everything else stays on Geist Sans/Mono — this is the one deliberate
+// flourish that makes headings and the brand feel designed and a little
+// elegant, without touching the mono numbers.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["opsz"],
+  style: ["normal", "italic"],
 });
 
 const title = "Bloombruh";
@@ -53,21 +66,22 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
         {/*
           Applies the saved theme (light/dark) before the page paints, so
-          there's no flash of the wrong theme on reload. Kept as a tiny
-          inline script rather than a library (e.g. next-themes) since this
-          project avoids new dependencies when a few lines of plain JS do
-          the job — see docs/DECISIONS.md.
+          there's no flash of the wrong theme on reload. Light is the
+          default look; dark is opt-in via the toggle and persists to
+          localStorage. Kept as a tiny inline script rather than a library
+          (e.g. next-themes) since this project avoids new dependencies when
+          a few lines of plain JS do the job — see docs/DECISIONS.md.
         */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(localStorage.getItem('theme')==='light'){document.documentElement.classList.add('light')}}catch(e){}",
+              "try{if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}",
           }}
         />
       </head>

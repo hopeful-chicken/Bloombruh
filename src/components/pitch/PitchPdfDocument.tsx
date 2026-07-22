@@ -45,8 +45,8 @@ export type PitchPdfProps = {
   generatedAt: string;
 };
 
-const ACCENT = "#3b82f6";
-const ACCENT_DIM = "#dbeafe";
+const ACCENT = "#d97757";
+const ACCENT_DIM = "#f3e3da";
 
 const styles = StyleSheet.create({
   page: {
@@ -382,14 +382,20 @@ function BlockOutput({
   }
 
   if (block.type === "news") {
+    // null selectedLinks means "include everything" (default/legacy state);
+    // otherwise only the articles the student explicitly checked.
+    const selected =
+      block.data.selectedLinks === null
+        ? newsArticles
+        : newsArticles.filter((a) => block.data.selectedLinks!.includes(a.link));
     return (
       <>
         <Text style={styles.sectionTitle}>{title}</Text>
-        {newsArticles.length === 0 ? (
+        {selected.length === 0 ? (
           <Text style={{ fontSize: 9, color: "#999999" }}>(no recent headlines found)</Text>
         ) : (
           <View style={styles.card}>
-            {newsArticles.map((a, i) => (
+            {selected.map((a, i) => (
               <View key={i} style={{ marginBottom: 6 }}>
                 <Link src={a.link} style={{ fontSize: 9, color: "#1a1a1a" }}>
                   {a.title}
@@ -468,7 +474,7 @@ export default function PitchPdfDocument(props: PitchPdfProps) {
                 style={{
                   fontSize: 10,
                   textAlign: "right",
-                  color: isUp ? "#34d399" : "#f87171",
+                  color: isUp ? "#55b685" : "#e2685a",
                 }}
               >
                 {isUp ? "+" : ""}
@@ -494,7 +500,7 @@ export default function PitchPdfDocument(props: PitchPdfProps) {
               {props.rating.toUpperCase()}
             </Text>
             {props.targetPrice !== null && (
-              <Text style={{ fontSize: 10, color: "#e4e4e7" }}>
+              <Text style={{ fontSize: 10, color: "#f1eee5" }}>
                 Target: {formatUSD(props.targetPrice)}
                 {impliedUpsidePct !== null &&
                   ` (${formatPct(impliedUpsidePct)} implied)`}
@@ -507,7 +513,7 @@ export default function PitchPdfDocument(props: PitchPdfProps) {
               <Svg width="523" height="60" viewBox="0 0 523 60">
                 <Path
                   d={sparklinePath(props.chartCloses, 523, 60)}
-                  stroke={isUp ? "#34d399" : "#f87171"}
+                  stroke={isUp ? "#55b685" : "#e2685a"}
                   strokeWidth={1.5}
                   fill="none"
                 />

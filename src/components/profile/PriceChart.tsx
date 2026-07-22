@@ -74,7 +74,7 @@ export default function PriceChart({
               onClick={() => handleRangeChange(r.value)}
               className={`rounded-md px-2.5 py-1 font-mono text-xs transition-colors ${
                 range === r.value
-                  ? "bg-accent text-background"
+                  ? "bg-accent text-accent-foreground"
                   : "text-muted hover:bg-surface hover:text-foreground"
               }`}
             >
@@ -95,27 +95,27 @@ export default function PriceChart({
               <linearGradient id="priceFill" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="0%"
-                  stopColor={isUp ? "#34d399" : "#f87171"}
+                  stopColor={isUp ? "#3e7d57" : "#c0392b"}
                   stopOpacity={0.25}
                 />
                 <stop
                   offset="100%"
-                  stopColor={isUp ? "#34d399" : "#f87171"}
+                  stopColor={isUp ? "#3e7d57" : "#c0392b"}
                   stopOpacity={0}
                 />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2e" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e3e0d3" vertical={false} />
             <XAxis
               dataKey="date"
-              tick={{ fill: "#8a8a92", fontSize: 11 }}
+              tick={{ fill: "#6f6b60", fontSize: 11 }}
               tickLine={false}
-              axisLine={{ stroke: "#2a2a2e" }}
+              axisLine={{ stroke: "#e3e0d3" }}
               minTickGap={40}
             />
             <YAxis
               domain={["auto", "auto"]}
-              tick={{ fill: "#8a8a92", fontSize: 11 }}
+              tick={{ fill: "#6f6b60", fontSize: 11 }}
               tickLine={false}
               axisLine={false}
               width={56}
@@ -123,18 +123,18 @@ export default function PriceChart({
             />
             <Tooltip
               contentStyle={{
-                background: "#141416",
-                border: "1px solid #2a2a2e",
+                background: "#f3f1ea",
+                border: "1px solid #e3e0d3",
                 borderRadius: 6,
                 fontSize: 12,
               }}
-              labelStyle={{ color: "#e4e4e7" }}
+              labelStyle={{ color: "#26241f" }}
               formatter={(value) => [`${value}`, "Close"]}
             />
             <Area
               type="monotone"
               dataKey="close"
-              stroke={isUp ? "#34d399" : "#f87171"}
+              stroke={isUp ? "#3e7d57" : "#c0392b"}
               strokeWidth={1.5}
               fill="url(#priceFill)"
             />

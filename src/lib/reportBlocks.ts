@@ -11,6 +11,10 @@ export type StatEntry = {
    * for free for this company — the stats block shows "Unavailable" and
    * lets the student type in their own number/estimate instead. */
   value: string | null;
+  /** Small "converted from X currency" note for stats sourced from a
+   * foreign-currency IFRS filing (see src/lib/fx.ts) — undefined/null for
+   * everything else. */
+  caption?: string | null;
 };
 
 /** One selectable time series (price, revenue, EBITDA, etc.) for the
@@ -82,10 +86,14 @@ export type ChartBlockData = {
   chartType: "line" | "bar";
 };
 
-/** No student-editable fields — content comes entirely from the news
- * articles fetched once, server-side, for this company (see src/lib/news.ts)
- * and passed down as a prop, the same way price/fundamentals data is. */
-export type NewsBlockData = Record<string, never>;
+/** The article list itself comes entirely from the news fetched once,
+ * server-side, for this company (see src/lib/news.ts) and passed down as a
+ * prop, the same way price/fundamentals data is — this block only stores
+ * which of those articles the student chose to quote in their report.
+ * `selectedLinks: null` is the default "include everything" state (matches
+ * the old always-all-articles behavior); once the student touches a
+ * checkbox it becomes an explicit list of article `link`s to include. */
+export type NewsBlockData = { selectedLinks: string[] | null };
 
 export type BlockType =
   | "text"
@@ -251,7 +259,7 @@ export function createChartBlock(title = "Chart", seriesKey = "price"): Block {
 }
 
 export function createNewsBlock(title = "In the news"): Block {
-  return { id: newBlockId(), type: "news", title, data: {} };
+  return { id: newBlockId(), type: "news", title, data: { selectedLinks: null } };
 }
 
 // Preset stat-key groups for the "Financials & valuation" library entries —
