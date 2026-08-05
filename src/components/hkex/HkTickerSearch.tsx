@@ -5,7 +5,9 @@
 // /api/search-hk, so every result is a real Hong Kong Stock Exchange
 // listing this site can actually show real data for. No "limited data"
 // badge is needed here (unlike TickerSearch) since nothing HK-only search
-// can return would fail to load.
+// can return would fail to load. Routes to /hkex/[code] (this module's own
+// richer detail page — price chart, official filing links, press releases,
+// and news, all HKEX-specific) rather than the generic /profile/[symbol].
 
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -42,7 +44,7 @@ export default function HkTickerSearch({ autoFocus = false }: { autoFocus?: bool
 
   function goToSymbol(symbol: string) {
     setOpen(false);
-    router.push(`/profile/${encodeURIComponent(symbol)}`);
+    router.push(`/hkex/${encodeURIComponent(symbol)}`);
   }
 
   function handleSubmit(e: React.FormEvent) {

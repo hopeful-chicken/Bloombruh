@@ -24,9 +24,11 @@ export default function HkexScreenerPage() {
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
         A focused lookup where every company is Hong Kong Stock Exchange-listed,
         real, and free — useful for accounting and advisory teams screening HK
-        names. Pick one and you get the same full profile as anywhere else on
-        this site: real price and chart, computed 52-week range, a plain-English
-        description, and recent news.
+        names. Pick one and you get a dedicated HKEX research page: a real
+        price chart (up to 10 years), direct links to official filings, the
+        company&apos;s own scraped press releases where a source is curated,
+        and reliable third-party news — each with a strictly source-grounded
+        AI recap.
       </p>
 
       <div className="mt-8">
@@ -38,7 +40,7 @@ export default function HkexScreenerPage() {
         {EXAMPLE_TICKERS.map((t) => (
           <a
             key={t.code}
-            href={`/profile/${t.code}`}
+            href={`/hkex/${t.code}`}
             className="rounded border border-border px-2 py-1 font-mono hover:border-accent/60 hover:text-foreground"
             title={t.name}
           >

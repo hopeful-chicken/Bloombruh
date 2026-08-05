@@ -1390,6 +1390,50 @@ closer to "I saw a headline, I want to dig deeper," not a neutral data module.
       this site. Needs your input when you're ready — see PROGRESS.md for what's needed from you
       specifically (DNS access I don't have).
 
+## Phase 44 — HKEX Screener rebuilt: ported in the standalone "HK Research" project
+
+You asked to replace the HKEX Screener's current thin search-and-redirect behavior with a copy
+of a separate, more built-out project you already had ("HK Research," same stack, same author),
+which has its own dedicated per-company research page (price chart, official filing links,
+scraped press releases, filtered third-party news, AI recaps of both).
+
+- [x] Read through all of HK Research's source first (7 lib files, 4 API routes, 2 components,
+      1 data file, ~1,100 lines) before porting anything, to check for real overlap/collisions
+      with this site's existing shared code — found that `src/lib/eodhd.ts` and `src/lib/news.ts`
+      names collide with files already used site-wide (Company Profile, Central Bank Room,
+      Markets Overview, Pitch Builder, the existing `/hkex` search). Ported everything under a
+      dedicated `src/lib/hkex/` namespace instead of dropping it at the top level, so nothing
+      already working elsewhere on the site was put at risk.
+- [x] Kept the existing `/hkex` search page and its search component (`HkTickerSearch.tsx`,
+      backed by this site's own shared HKEX directory/search code) — that part already worked
+      and didn't need replacing. Changed only where a result navigates to: `/hkex/[code]` (new)
+      instead of the generic `/profile/[symbol]`.
+- [x] New `/hkex/[code]` — ported HK Research's company page, restyled to this site's header/
+      page-shell conventions (font-mono eyebrow + font-display h1, matching every other module)
+      rather than its own separate styling. Real price chart (Yahoo Finance primary, up to 10
+      years, with an honest EODHD ~1-year fallback and a visible note when that fallback is in
+      use — confirmed this fallback path firing correctly during testing, when rapid test
+      requests hit Yahoo's real rate limit), direct links to official filings, the company's own
+      press releases scraped from its official page (only for the small curated list where a
+      plain HTTP fetch actually returns real HTML, not a JS-rendered shell — unmapped companies
+      say so honestly), and reliable third-party news via Google News filtered to a fixed list of
+      major outlets — each feed gets a strictly source-grounded Claude summary.
+- [x] Added `fast-xml-parser` dependency (for parsing Google News' RSS feed). `@anthropic-ai/sdk`
+      was already present. Both API keys this needs (`EODHD_API_KEY`, `ANTHROPIC_API_KEY`) were
+      already in this project's `.env.local` — no new secrets required.
+- [x] New namespaced files: `src/lib/hkex/{eodhd,yahooFinance,companyName,officialLinks,news,
+      pressReleaseScraper,summarize}.ts`, `src/data/hkexPressReleaseSources.ts`,
+      `src/components/hkex/{HkexPriceChart,NewsFeedSection}.tsx`, `src/app/api/hkex/{timeseries,
+      news,press-releases}/route.ts`, `src/app/hkex/[code]/page.tsx`. Updated `src/app/hkex/
+      page.tsx`, `layout.tsx`, `src/components/hkex/HkTickerSearch.tsx`, and the module
+      description in `src/lib/modules.ts`.
+- [x] Verified live end-to-end, not just build-clean: searched "HSBC," clicked through to
+      `/hkex/0005.HK` with a real live quote; on Tencent's page, confirmed real scraped press
+      releases (dated, linked, correctly summarized) and real filtered news (Bloomberg/SCMP/
+      FT/Reuters, correctly summarized) both loading with no console errors; confirmed the price
+      chart's range-switching and its honest partial-data fallback both work. `npm run build` and
+      `tsc --noEmit` both clean.
+
 ## Backlog — ideas raised but not started
 
 Not built, not scoped, not scheduled — just captured so they don't get

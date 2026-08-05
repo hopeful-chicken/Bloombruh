@@ -2042,6 +2042,45 @@ Nav correctly shows "My Analysis" with zero remaining trace of "The Vault"; `/re
 
 ### Nothing broken — safe to continue from here.
 
+## Session 22 — 2026-08-05 (HKEX Screener rebuilt from your "HK Research" project)
+
+### The short version
+You had a separate, more built-out local project called "HK Research" (same stack, also built
+with Claude Code) and asked to replace the site's current HKEX Screener with it. Done — `/hkex`
+still has the same search box as before (that part already worked), but clicking a result now
+lands on a genuinely richer dedicated page instead of the generic company profile.
+
+### What's new on a company's HKEX page now
+- A real price chart, up to 10 years, from Yahoo Finance (with an honest fallback to ~1 year of
+  EODHD data if Yahoo is briefly unavailable — and it says so on screen rather than pretending
+  a 1-year chart is actually 10 years).
+- Direct links to the company's key financials and its official HKEX profile.
+- The company's **own press releases**, scraped directly from its official page — genuinely
+  real, dated announcements, not a search result. Only works for the handful of companies whose
+  IR site is honestly checkable this way (their page has to render real HTML, not just an empty
+  shell filled in by JavaScript) — anything else says so plainly instead of guessing.
+- Real third-party news, filtered down to a fixed list of serious financial outlets (Reuters,
+  Bloomberg, FT, SCMP, and similar), not just anything a generic search turns up.
+- A short AI recap above each list — strictly limited to summarizing the real, dated items
+  sitting right below it, never adding outside information.
+
+### How it was built
+Read through the entire HK Research codebase first, then ported it in under its own
+`src/lib/hkex/` folder rather than mixing it into the site's existing code — a couple of its
+filenames (`eodhd.ts`, `news.ts`) exactly matched files already doing different, important jobs
+elsewhere on this site (Company Profile, Central Bank Room, and others all depend on those), so
+keeping it cleanly separated avoided any risk of quietly breaking something that already worked.
+
+### Verified live
+Actually used it, not just checked it builds: searched "HSBC," clicked through to its real page;
+on Tencent's page, confirmed the press releases were real (dated, linked, genuinely from
+Tencent's own site) and the news feed pulled real Bloomberg/SCMP/FT/Reuters coverage, both with
+accurate AI summaries; watched the price chart's fallback correctly kick in and say so when
+repeated testing tripped Yahoo Finance's real rate limit. No console errors, build and typecheck
+both clean.
+
+### Nothing broken — safe to continue from here.
+
 ## Session 20 — 2026-07-25 (Self-audit: new Simulations module + a nav bug fixed)
 
 ### The short version

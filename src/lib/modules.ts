@@ -46,9 +46,9 @@ export const modules: ModuleInfo[] = [
     name: "HKEX Screener",
     slug: "/hkex",
     status: "live",
-    tagline: "Hong Kong Stock Exchange only — for accounting & advisory firms",
+    tagline: "Hong Kong Stock Exchange only — real filings, press releases, and news, AI-summarized",
     description:
-      "A focused company lookup where every searchable ticker is Hong Kong Stock Exchange-listed, via a second free data provider (EODHD) that covers HKEX where this site's main provider doesn't. Useful for accounting and advisory teams screening HK names. Independent student project, not affiliated with or endorsed by any firm.",
+      "A focused Hong Kong Stock Exchange research tool: search any HKEX-listed company and get a dedicated page with a real price chart (up to 10 years, via Yahoo Finance), direct links to official filings, the company's own press releases scraped from its official page where one is curated, and reliable third-party news — each with a strictly source-grounded AI recap. Useful for accounting and advisory teams screening HK names. Independent student project, not affiliated with or endorsed by any firm.",
   },
   {
     name: "Hype vs Fundamentals",
