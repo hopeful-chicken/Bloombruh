@@ -1,13 +1,20 @@
 import Link from "next/link";
 import { ANALYSIS_ENTRIES, STOCK_PITCHES, LEADS, type AnalysisEntry } from "@/data/analysis";
 
-function EntryRow({ entry }: { entry: AnalysisEntry }) {
+function EntryRow({ entry, locked }: { entry: AnalysisEntry; locked?: boolean }) {
   return (
     <Link
       href={`/analysis/${entry.id}`}
       className="block rounded-lg border border-border bg-surface/40 p-4 transition-colors hover:border-accent/60 hover:bg-surface/70"
     >
-      <p className="font-mono text-[11px] text-muted">{entry.date}</p>
+      <div className="flex items-center justify-between gap-2">
+        <p className="font-mono text-[11px] text-muted">{entry.date}</p>
+        {locked && (
+          <span className="rounded-full bg-muted/15 px-2 py-0.5 text-[10px] uppercase tracking-wide text-muted">
+            Locked
+          </span>
+        )}
+      </div>
       <h3 className="font-display mt-0.5 text-base font-semibold text-foreground group-hover:text-accent">
         {entry.title}
       </h3>
@@ -42,7 +49,7 @@ export default function AnalysisPage() {
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">Stock Pitches</h2>
         <div className="mt-3 space-y-2.5">
           {STOCK_PITCHES.map((entry) => (
-            <EntryRow key={entry.id} entry={entry} />
+            <EntryRow key={entry.id} entry={entry} locked />
           ))}
         </div>
       </section>

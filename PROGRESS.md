@@ -2248,6 +2248,37 @@ clean.
 
 ### Nothing broken — safe to continue from here.
 
+## Session 27 — 2026-08-05 (Pitch gate moved to cover the whole pitch, right at the click)
+
+### The short version
+Quick follow-up to the toolkit gate from just before: you wanted the code to show up right when
+you click into a pitch, not buried at the bottom after reading the whole thing. Fixed — the code
+prompt is now the very first thing you see after clicking a pitch, and it covers the entire pitch
+(the write-up and its toolkit together), not just the toolkit section.
+
+### What changed
+- The 9 stock pitches are now fully gated, immediately, right after the title — nothing shows
+  until the code is entered. The 2 macro write-ups (SK Hynix, AI/analyst roles) stay exactly as
+  public as before.
+- Added a "Locked" badge to each pitch on the `/analysis` index page, so it's obvious before you
+  even click.
+
+### An unrelated bug found and fixed along the way
+Right after this change, every page on the site started showing a 404 — including the homepage.
+Not a real code problem: a leftover production build folder from testing the build a few minutes
+earlier was conflicting with the dev server. Cleared it and restarted; confirmed it really was
+just stale cache, not broken code, since the production build itself had already passed clean
+before this happened.
+
+### Verified live
+Checked directly in the actual page content (not just a quick text search, which gave a false
+alarm the first time before I dug in properly) that a pitch page shows only the lock prompt until
+the code is entered, and that entering it correctly reveals everything at once. The index page
+shows exactly 9 "Locked" badges — one per pitch, none on the write-ups. `npm run build` and
+`tsc --noEmit` clean.
+
+### Nothing broken — safe to continue from here.
+
 ## Session 20 — 2026-07-25 (Self-audit: new Simulations module + a nav bug fixed)
 
 ### The short version

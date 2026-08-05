@@ -1,12 +1,11 @@
 "use client";
 
-// Code gate for each stock pitch's "Research Toolkit" — the tools,
-// sources, and step-by-step build guide behind the polished write-up.
+// Code gate for stock pitches — shown immediately (right where you land
+// after clicking a pitch on /analysis), before any of the pitch content.
 // Same pattern as AiGrader.tsx (this site's only other gated feature):
 // one shared, hardcoded code, unlock state in localStorage. This is NOT
 // real security — anyone reading the client bundle can find the code —
-// it's a friction gate so the toolkit isn't just sitting fully open for
-// any visitor, while the pitch write-up itself stays public.
+// it's a friction gate, not a real access-control system.
 
 import { useEffect, useState } from "react";
 
@@ -37,11 +36,11 @@ export default function PitchToolkitGate({ children }: { children: React.ReactNo
     return (
       <div className="mt-8 rounded-lg border border-dashed border-border p-5">
         <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
-          Research Toolkit — locked
+          This pitch is locked
         </h3>
         <p className="mt-2 text-sm text-muted">
-          The tools, sources, and step-by-step build guide behind this pitch — kept out of the
-          public view, unlocked with a code.
+          The full pitch, plus the research toolkit behind it (tools, sources, and a
+          step-by-step build guide) — kept out of public view, unlocked with a code.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <input
@@ -68,10 +67,5 @@ export default function PitchToolkitGate({ children }: { children: React.ReactNo
     );
   }
 
-  return (
-    <div className="mt-8 rounded-lg border border-accent/30 bg-accent/5 p-5">
-      <h3 className="font-mono text-xs uppercase tracking-widest text-accent">Research Toolkit</h3>
-      <div className="mt-4">{children}</div>
-    </div>
-  );
+  return <>{children}</>;
 }

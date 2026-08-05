@@ -1606,6 +1606,30 @@ sitting fully open to any visitor.
       the unlock is genuinely shared — unlocking on Diploma's page also unlocked Palantir's
       without re-entering the code. `npm run build` and `tsc --noEmit` clean.
 
+## Phase 49 — Moved the pitch gate to the whole pitch, shown immediately on click
+
+Quick follow-up: the code gate only covered the "Research Toolkit" section at the bottom of each
+pitch, so clicking a pitch from `/analysis` still showed the full write-up before you ever saw a
+code prompt. You asked for the code to appear right when you click into a pitch instead.
+
+- [x] `src/app/analysis/[slug]/page.tsx` now gates the entire pitch (body + toolkit together, one
+      prompt, shown immediately after the title) for the 9 stock pitches specifically — the 2
+      macro write-ups stay fully public and ungated, unchanged.
+- [x] `PitchToolkitGate.tsx` simplified to match: locked-state copy now says "This pitch is
+      locked" rather than being toolkit-specific, and the unlocked state renders children directly
+      with no extra wrapper box (it's holding a full article now, not a small section).
+- [x] Added a "Locked" badge to each stock pitch's row on the `/analysis` index page, so it's
+      clear before clicking, not just after.
+- [x] Along the way: found and fixed an unrelated stale-build-cache issue (a leftover production
+      `.next` directory from the last `npm run build` was conflicting with `next dev`, causing
+      every route — including the homepage — to 404). Cleared `.next` and restarted; not a code
+      bug, confirmed by the fact `npm run build` itself had already passed clean.
+- [x] Verified live: an unauthenticated visit to a pitch shows only the lock prompt (confirmed via
+      direct DOM inspection, not just visual — an earlier text-match check produced a false
+      positive from unrelated footer copy, caught and re-verified properly); the correct code
+      reveals body and toolkit together in one action; the index page shows exactly 9 "Locked"
+      badges (the pitches) and 0 on the 2 write-ups. `npm run build` and `tsc --noEmit` clean.
+
 ## Backlog — ideas raised but not started
 
 Not built, not scoped, not scheduled — just captured so they don't get

@@ -18,6 +18,7 @@ export default async function AnalysisEntryPage({
   const { slug } = await params;
   const entry = ALL_ENTRIES.find((e) => e.id === slug);
   if (!entry) notFound();
+  const isPitch = STOCK_PITCHES.some((p) => p.id === entry.id);
 
   return (
     <div>
@@ -34,14 +35,24 @@ export default async function AnalysisEntryPage({
       </h1>
       <p className="mt-1 text-sm text-muted">{entry.tagline}</p>
 
-      <div className="mt-8 border-t border-border pt-6">
-        <MarkdownContent markdown={entry.body} />
-      </div>
-
-      {entry.toolkit && (
+      {isPitch ? (
         <PitchToolkitGate>
-          <MarkdownContent markdown={entry.toolkit} />
+          <div className="mt-8 border-t border-border pt-6">
+            <MarkdownContent markdown={entry.body} />
+          </div>
+          {entry.toolkit && (
+            <div className="mt-8 border-t border-border pt-6">
+              <p className="font-mono text-xs uppercase tracking-widest text-accent">
+                Research Toolkit
+              </p>
+              <MarkdownContent markdown={entry.toolkit} />
+            </div>
+          )}
         </PitchToolkitGate>
+      ) : (
+        <div className="mt-8 border-t border-border pt-6">
+          <MarkdownContent markdown={entry.body} />
+        </div>
       )}
     </div>
   );
