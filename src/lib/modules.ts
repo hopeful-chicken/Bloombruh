@@ -4,7 +4,11 @@
 export type ModuleInfo = {
   name: string;
   slug: string; // route, e.g. "/swf"
-  status: "live" | "soon";
+  // "live": ready, Adam stands behind it. "beta": fully built and
+  // browsable, but not yet polished/verified enough to call finished —
+  // still real, not fake data, just labeled honestly as in-progress.
+  // "soon": not built yet, not linkable.
+  status: "live" | "beta" | "soon";
   tagline: string;
   description: string;
 };
@@ -29,7 +33,7 @@ export const modules: ModuleInfo[] = [
   {
     name: "Markets Overview",
     slug: "/markets",
-    status: "live",
+    status: "beta",
     tagline: "The world situation, by sector and by private market — pick a period, see the numbers",
     description:
       "A plain-English read on how the market is doing: a world-situation summary, then a closer look by equity sector (global equities, TMT, financials, healthcare, energy, industrials, consumer) and by private-market segment (private equity, private credit, real assets, via public proxies) — pick a period (week/month/year/forever) and see real price data, a grounded AI narrative, real news, and Adam's own take, each kept clearly separate.",
@@ -37,7 +41,7 @@ export const modules: ModuleInfo[] = [
   {
     name: "Model Templates",
     slug: "/templates",
-    status: "live",
+    status: "beta",
     tagline: "Downloadable Excel models with live formulas — DCF, LBO, M&A, and more, prefilled with real data",
     description:
       "The work analysts actually produce, as personalizable Excel downloads: a DCF (with a dividend-discount variant for banks), LBO and M&A deal models, an equity research initiation note, an asset-management portfolio one-pager, and a sales & trading morning sheet. Pick a company and sector on the site, download a working model prefilled with real data, and make it yours — every file carries its own data-sources sheet, and missing data stays blank rather than estimated.",
@@ -45,7 +49,7 @@ export const modules: ModuleInfo[] = [
   {
     name: "HKEX Screener",
     slug: "/hkex",
-    status: "live",
+    status: "beta",
     tagline: "Hong Kong Stock Exchange only — real filings, press releases, and news, AI-summarized",
     description:
       "A focused Hong Kong Stock Exchange research tool: search any HKEX-listed company and get a dedicated page with a real price chart (up to 10 years, via Yahoo Finance), direct links to official filings, the company's own press releases scraped from its official page where one is curated, and reliable third-party news — each with a strictly source-grounded AI recap. Useful for accounting and advisory teams screening HK names. Independent student project, not affiliated with or endorsed by any firm.",
@@ -53,7 +57,7 @@ export const modules: ModuleInfo[] = [
   {
     name: "Hype vs Fundamentals",
     slug: "/hype",
-    status: "live",
+    status: "beta",
     tagline: "Narrative vs. numbers — historical cases with known outcomes, current themes that aren't",
     description:
       "Real historical cases (the dot-com bubble, the meme-stock mania, the cannabis stock boom) with real computed run-up/drawdown stats and hindsight — then real current themes (AI & semiconductors, quantum computing) with real price returns and revenue growth side by side. The current-themes AI narrative is explicitly instructed to present evidence, never a verdict on whether something is a bubble.",
@@ -69,7 +73,7 @@ export const modules: ModuleInfo[] = [
   {
     name: "Lessons",
     slug: "/lessons",
-    status: "live",
+    status: "beta",
     tagline: "Fixed income, three-statement modeling, options, FX, and reading a real deal",
     description:
       "Six written lessons covering the finance-career fundamentals this site's other data-driven modules don't teach directly: fixed income & credit, three-statement modeling, technical interview fundamentals (DCF/LBO/M&A/comps), options & derivatives, FX as an asset class, and how to read a real M&A deal announcement like an analyst.",
@@ -77,7 +81,7 @@ export const modules: ModuleInfo[] = [
   {
     name: "Simulations",
     slug: "/simulations",
-    status: "live",
+    status: "beta",
     tagline: "Run a trading book, then stress-test a portfolio — the actual job, not just the data",
     description:
       "Two simulations, two seats: a Market Maker game (quote a spread against a randomly generated price feed, manage inventory risk and mark-to-market P&L, get forcibly hedged if you breach the risk limit) and a Portfolio Risk Simulator (build a portfolio across 10 asset classes and run a real 500-path Monte Carlo simulation for a full 1-year distribution, VaR, CVaR, and Sharpe ratio). Generated data, real mechanics — clearly labeled throughout.",
@@ -85,7 +89,7 @@ export const modules: ModuleInfo[] = [
   {
     name: "Test Prep",
     slug: "/test-prep",
-    status: "live",
+    status: "beta",
     tagline: "Firm processes, a technical/case question bank, real Pymetrics games, and HireVue practice",
     description:
       "Recruiting-process breakdowns for bulge bracket and boutique IB, asset management, and MBB/other consulting; a filterable technical and case question bank (accounting, valuation, deals); all 12 real Pymetrics games explained, with a playable Balloon Game; and a write-and-time practice tool for real HireVue-style prompts, saved locally in your browser.",
@@ -94,8 +98,8 @@ export const modules: ModuleInfo[] = [
     name: "My Analysis",
     slug: "/analysis",
     status: "live",
-    tagline: "Independent research on breaking macro stories — AI's impact on analyst roles, Korean equity volatility, and more",
+    tagline: "Independent research, stock pitches, and a running leads list — Adam's own opinions, on the record",
     description:
-      "Adam's own running research notebook: dated, sourced write-ups on breaking macro and market stories as they happen — from AI's impact on hedge fund analyst roles to the Korean equity volatility that followed SK Hynix's $26.5bn Nasdaq listing. Written for himself first, kept here because it's worth coming back to.",
+      "Adam's own running research notebook: dated, sourced write-ups on breaking macro and market stories as they happen, 10 stock pitches, and a lighter-weight \"worth digging into\" leads list — one real sentence and a source each, not yet deep-researched, kept as a starting point rather than a finished conclusion. Written for himself first, kept here because it's worth coming back to.",
   },
 ];

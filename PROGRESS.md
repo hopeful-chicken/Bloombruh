@@ -2127,6 +2127,45 @@ pages, not just a successful build. `npm run build` and `tsc --noEmit` both clea
 
 ### Nothing broken — safe to continue from here.
 
+## Session 24 — 2026-08-05 (Live vs. Beta split; a sourced leads list; stock pitches merged into My Analysis)
+
+### The short version
+Three things: split the site into what you're confident in vs. what's still being polished (both
+labeled honestly, nothing hidden or faked), a sourced list of quick "interesting news" leads for
+you to dig into yourself, and stock pitches moved into My Analysis.
+
+### The Live/Beta split
+Company Profile, Central Bank Room, Pokemon Cards, and My Analysis stay as the main, "this is
+done" front door — no badge, listed first on the homepage. Everything else (Markets Overview,
+Model Templates, HKEX Screener, Hype vs Fundamentals, Lessons, Simulations, Test Prep) now carries
+a small "beta" tag in the nav and sits in its own "In development — beta" section on the homepage,
+with a plain-English note that these are real and working, just not polished/verified to the same
+level yet. Nothing is disabled or hidden — beta modules are fully clickable, just honestly labeled.
+
+### A sourced leads list
+Researched and added 10 real, dated, one-sentence news items to My Analysis, under a new "Worth
+Digging Into" section — SpaceX's rocky first earnings as a public company, Anthropic's and
+OpenAI's own AI models breaching real systems during safety testing, the Bezos Amazon share sale
+the same day Amazon hit $3 trillion, the Strait of Hormuz reopening talks and oil's reaction, a
+contentious Bitcoin protocol fight, Palantir's earnings pop, an unusually high S&P 500 earnings-
+beat rate, a Chipotle selloff, and a claim about corporate AI adoption cooling. Each one is
+explicitly labeled as single-source and not independently verified — these are meant as your own
+starting points, not finished facts, and the page says so directly rather than presenting them
+with the same confidence as the fully-researched write-ups above them.
+
+### Stock pitches, merged in
+The "10 Stock Pitches" write-up (previously part of the retired Vault, also still in the
+downloadable Word doc) now lives directly in My Analysis, alongside the two existing deep-dive
+write-ups and above the new leads list — one page, your own research and opinions, in one place.
+
+### Verified live
+Nav badges and the homepage split match exactly what was asked (4 modules plain, 7 tagged "beta,"
+all still clickable); `/analysis` shows all four sections — two write-ups, stock pitches, and the
+10 sourced leads — in both its jump-to nav and its body. `npm run build` and `tsc --noEmit` both
+clean.
+
+### Nothing broken — safe to continue from here.
+
 ## Session 20 — 2026-07-25 (Self-audit: new Simulations module + a nav bug fixed)
 
 ### The short version

@@ -1483,6 +1483,43 @@ no HKEX listing.
       normally, that one section/stat just doesn't appear), not a crash or fabricated data.
       `npm run build` and `tsc --noEmit` both clean.
 
+## Phase 46 — Live vs. Beta split, a sourced leads list, and stock pitches merged into My Analysis
+
+You asked for three things: separate the modules you're confident in from the ones still being
+worked on (with the in-progress ones clearly labeled, not hidden), a sourced list of "interesting
+news" leads in the same spirit as My Analysis's existing deep-dives but lighter — one real
+sentence each, not fully verified, for you to research further yourself — and stock pitches
+merged into My Analysis.
+
+- [x] Added a third `ModuleInfo` status, `"beta"`, alongside `"live"` and `"soon"` — beta modules
+      are fully real and clickable (not fake, not disabled), just labeled honestly as
+      not-yet-finished. Company Profile, Central Bank Room, Pokemon Cards, and My Analysis stay
+      `"live"`; Markets Overview, Model Templates, HKEX Screener, Hype vs Fundamentals, Lessons,
+      Simulations, and Test Prep moved to `"beta"`.
+- [x] Nav (`TerminalNav.tsx`) shows a small "beta" pill next to each beta module's name — still
+      fully clickable, just visually distinct from the live ones.
+- [x] Homepage split into two sections: "Modules" (live only) and "In development — beta" (beta
+      only, with a one-line explanation that these are real/working, just not fully polished
+      yet) — extracted the shared card-rendering logic into a new `ModuleGrid` component so both
+      sections render identically.
+- [x] Researched and wrote a "Worth Digging Into" leads list — 10 real, dated, sourced
+      one-sentence items across markets/AI/geopolitics/crypto (SpaceX's first public earnings,
+      Anthropic's and OpenAI's own AI models breaching real systems during security testing, the
+      Bezos Amazon share sale the same day Amazon hit $3tn, the Strait of Hormuz reopening talks
+      and the oil-price reaction, a contentious Bitcoin protocol change, Palantir's earnings pop,
+      an unusually high S&P 500 earnings-beat rate worth sanity-checking, a Chipotle selloff on a
+      salmonella scare, and a claim about corporate AI-adoption cooling worth checking how broad
+      it really is) — explicitly labeled as single-source, not independently cross-checked, in
+      contrast to the fully-researched write-ups above them on the same page.
+- [x] Restored the "10 Stock Pitches" content (previously in the retired Vault, now also in the
+      downloadable Word doc) as a new entry directly in My Analysis, alongside the two existing
+      deep-dive write-ups and above the new leads list — same page, three tiers of confidence,
+      clearly distinguished.
+- [x] Verified live: nav badges correct (4 modules plain, 7 tagged "beta," all still clickable);
+      homepage renders exactly the live-then-beta split with the right modules in each; `/analysis`
+      shows all 4 sections (2 write-ups, stock pitches, 10 sourced leads) in its jump-to nav and
+      body. `npm run build` and `tsc --noEmit` clean.
+
 ## Backlog — ideas raised but not started
 
 Not built, not scoped, not scheduled — just captured so they don't get

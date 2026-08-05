@@ -3,6 +3,7 @@ import { modules } from "@/lib/modules";
 import { MARKET_COMMENTARY } from "@/data/marketCommentary";
 import WorldSituationOverview from "@/components/markets/WorldSituationOverview";
 import DataSourcesAppendix, { type DataSource } from "@/components/pitch/DataSourcesAppendix";
+import ModuleGrid from "@/components/ModuleGrid";
 
 // What's actually fetched/computed on this specific page — the world-
 // situation panel above. Each module has its own, more detailed sources
@@ -73,55 +74,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Module cards */}
+      {/* Module cards — split into what's actually ready vs. what's real
+          but still in progress, rather than presenting all of it as
+          equally finished. */}
       <section className="mt-20">
         <h2 className="text-xs font-medium uppercase tracking-widest text-muted">
           Modules
         </h2>
-        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {modules.map((m) => {
-            const card = (
-              <div
-                className={[
-                  "flex h-full flex-col rounded-2xl border p-6 transition-colors",
-                  m.status === "live"
-                    ? "border-border bg-surface hover:border-accent/50"
-                    : "border-border/60 bg-surface/40",
-                ].join(" ")}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <h3 className="font-display text-lg font-medium text-foreground">{m.name}</h3>
-                  <span
-                    className={[
-                      "shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
-                      m.status === "live"
-                        ? "bg-positive/15 text-positive"
-                        : "bg-muted/15 text-muted",
-                    ].join(" ")}
-                  >
-                    {m.status === "live" ? "Live" : "Coming soon"}
-                  </span>
-                </div>
-                <p className="mt-2 text-sm font-medium text-accent">
-                  {m.tagline}
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {m.description}
-                </p>
-              </div>
-            );
+        <ModuleGrid modules={modules.filter((m) => m.status === "live")} />
+      </section>
 
-            return m.status === "live" ? (
-              <Link key={m.slug} href={m.slug} className="block h-full">
-                {card}
-              </Link>
-            ) : (
-              <div key={m.slug} className="h-full cursor-not-allowed">
-                {card}
-              </div>
-            );
-          })}
-        </div>
+      <section className="mt-14">
+        <h2 className="text-xs font-medium uppercase tracking-widest text-muted">
+          In development — beta
+        </h2>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+          These are real, working, and use genuine data — nothing fake here — but they haven&apos;t
+          had the same level of polish or double-checking as the modules above yet, so treat them
+          as a preview rather than a finished product.
+        </p>
+        <ModuleGrid modules={modules.filter((m) => m.status === "beta")} />
       </section>
 
       {/* About */}

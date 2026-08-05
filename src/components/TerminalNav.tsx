@@ -78,27 +78,33 @@ export default function TerminalNav() {
         <nav className="hidden flex-wrap items-center gap-1 pb-3 md:flex">
           {modules.map((m) => {
             const isActive = pathname?.startsWith(m.slug);
+            const isClickable = m.status === "live" || m.status === "beta";
             return (
               <Link
                 key={m.slug}
-                href={m.status === "live" ? m.slug : "#"}
-                aria-disabled={m.status !== "live"}
+                href={isClickable ? m.slug : "#"}
+                aria-disabled={!isClickable}
                 className={[
                   "shrink-0 rounded-full px-3.5 py-1.5 text-sm transition-colors",
-                  m.status !== "live"
+                  !isClickable
                     ? "cursor-not-allowed text-muted/60"
                     : isActive
                       ? "bg-surface text-accent"
                       : "text-muted hover:bg-surface hover:text-foreground",
                 ].join(" ")}
                 onClick={(e) => {
-                  if (m.status !== "live") e.preventDefault();
+                  if (!isClickable) e.preventDefault();
                 }}
               >
                 {m.name}
-                {m.status !== "live" && (
+                {m.status === "soon" && (
                   <span className="ml-1.5 text-[10px] uppercase tracking-wide text-muted/50">
                     soon
+                  </span>
+                )}
+                {m.status === "beta" && (
+                  <span className="ml-1.5 rounded-full bg-accent/15 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-accent">
+                    beta
                   </span>
                 )}
               </Link>
