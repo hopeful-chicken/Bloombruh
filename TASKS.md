@@ -1434,6 +1434,55 @@ scraped press releases, filtered third-party news, AI recaps of both).
       chart's range-switching and its honest partial-data fallback both work. `npm run build` and
       `tsc --noEmit` both clean.
 
+## Phase 45 — Alpha Vantage integration: insider activity, institutional holdings, sentiment news, market movers, US economic indicators
+
+You asked to evaluate Alpha Vantage (a free-tier market-data API) and add whatever tested out as
+genuinely usable. Tested 8 endpoint types via real curl calls before writing any code — 7 came
+back with real, well-formed data; 1 (Hong Kong Stock Exchange fundamentals) doesn't exist on the
+platform at all, confirmed by search returning Frankfurt/US-OTC/London listings for Tencent with
+no HKEX listing.
+
+- [x] New `src/lib/alphaVantage.ts` — typed wrappers for insider transactions, institutional
+      holdings, sentiment-scored news, the earnings calendar (CSV-parsed), top gainers/losers,
+      and two US economic indicators (CPI, unemployment — deliberately not Fed funds rate/
+      Treasury yield, which would duplicate the Central Bank Room's existing official-source rate
+      data). Every function cached 24h via Next.js's fetch `revalidate` (1h for top movers, since
+      that refreshes through the trading day) — the same on-demand-cache pattern already used for
+      EODHD/Yahoo Finance/HK data everywhere else on this site, chosen over a scheduled batch job
+      since this project has no cron infrastructure and traffic is low enough not to need one.
+- [x] **Company Profile** — new "Ownership, activity & sentiment" section (US tickers only,
+      skipped entirely for HKEX): recent insider transactions, institutional holders, sentiment-
+      scored news alongside (not replacing) the existing plain Google News list, and a next-
+      earnings-date stat.
+- [x] **Markets Overview** — new "Today's Movers" panel: real top gainers/losers/most active.
+- [x] **Central Bank Room** — new "Beyond the policy rate" panel, shown only on the Fed's page
+      (this data is explicitly US-only): CPI and unemployment rate.
+- [x] **A real bug, found and fixed during verification, not assumed away:** `UsEconomicIndicators`
+      originally fetched CPI and unemployment via `Promise.allSettled` — firing both concurrently
+      reliably tripped Alpha Vantage's per-request throttling. Fixed two ways: made the two calls
+      sequential in that component, and — more robustly — added a module-level request queue to
+      `alphaVantage.ts` itself (`throttle()`) that serializes *every* call through the module with
+      a guaranteed minimum gap, so no future caller can reintroduce this by accident.
+- [x] **A second issue, investigated thoroughly, not fully resolved tonight:** even after
+      confirming (via timestamped logging) that calls were genuinely ~1.2-3s apart, some calls
+      still came back rate-limited. Ruled out a code bug — direct `curl` calls with identical
+      timing succeeded fine outside the app. The likely explanation: Alpha Vantage's free tier
+      may bucket usage by IP address, not purely by key — a brand-new, never-before-used key
+      started failing almost immediately mid-session, after extensive testing on two other keys
+      from the same machine. Documented directly in `alphaVantage.ts` so this isn't mistaken for
+      a code bug again later.
+- [x] Added `ALPHA_VANTAGE_API_KEY` to `.env.local` (gitignored) and `.env.local.example`
+      (placeholder + explanation). **Still needed: add this key to Vercel's environment variables
+      before deploying** — see PROGRESS.md.
+- [x] Verified live with real data, not just build-clean: real AAPL insider transactions (real
+      executive names, dates, share counts) and institutional holders (Vanguard, BlackRock, State
+      Street with real % changes) on Company Profile; real sentiment-scored news (same-day
+      articles); real top gainers/losers on Markets Overview; real CPI on Central Bank Room.
+      Unemployment and next-earnings intermittently didn't load live during testing — confirmed
+      this is the honest "ran out of quota today" fallback working as designed (page still loads
+      normally, that one section/stat just doesn't appear), not a crash or fabricated data.
+      `npm run build` and `tsc --noEmit` both clean.
+
 ## Backlog — ideas raised but not started
 
 Not built, not scoped, not scheduled — just captured so they don't get

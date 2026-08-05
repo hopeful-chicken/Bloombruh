@@ -10,6 +10,7 @@ import { PRIVATE_MARKET_SEGMENTS, PRIVATE_MARKET_PROXY_DISCLAIMER } from "@/lib/
 import { MARKET_COMMENTARY } from "@/data/marketCommentary";
 import WorldSituationOverview from "@/components/markets/WorldSituationOverview";
 import SegmentOverview from "@/components/markets/SegmentOverview";
+import TopMoversPanel from "@/components/markets/TopMoversPanel";
 
 export default function MarketsOverviewPage() {
   return (
@@ -26,6 +27,8 @@ export default function MarketsOverviewPage() {
       <div className="mt-6">
         <WorldSituationOverview commentary={MARKET_COMMENTARY} />
       </div>
+
+      <TopMoversPanel />
 
       <SegmentOverview
         title="Markets by Sector"

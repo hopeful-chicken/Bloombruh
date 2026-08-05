@@ -28,8 +28,17 @@ export default function ProfileLayout({
         >
           SEC EDGAR
         </a>{" "}
-        (US filers only). Not investment advice — see the data sources
-        appendix on each company page for full detail.
+        (US filers only). Insider transactions, institutional holdings,
+        sentiment-scored news, and the next earnings date (US tickers only —
+        not covered for HKEX) are from{" "}
+        <a
+          href="https://www.alphavantage.co"
+          className="underline decoration-dotted underline-offset-2 hover:text-accent"
+        >
+          Alpha Vantage
+        </a>
+        . Not investment advice — see the data sources appendix on each
+        company page for full detail.
       </div>
       {children}
     </div>

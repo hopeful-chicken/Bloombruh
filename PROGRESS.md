@@ -2081,6 +2081,52 @@ both clean.
 
 ### Nothing broken — safe to continue from here.
 
+## Session 23 — 2026-08-05 (Alpha Vantage: insider activity, institutional holdings, sentiment news, movers, CPI/unemployment)
+
+### The short version
+You wanted to try out Alpha Vantage (a free market-data API) and add whatever tested out as
+genuinely useful. Tested 8 real endpoint types with actual API calls before building anything —
+7 came back with real, good data; Hong Kong Stock Exchange isn't covered at all, confirmed by
+search. Built four new things with what worked, all verified live with real data, not just
+"the build passed."
+
+### What's new
+- **Company Profile** (US tickers only) — a new "Ownership, activity & sentiment" section: who's
+  recently bought/sold stock (real insider names, dates, amounts), who the biggest institutional
+  holders are (Vanguard, BlackRock, etc., with real % changes), sentiment-scored recent news
+  alongside the existing headline list, and the next earnings date.
+- **Markets Overview** — a "Today's Movers" panel: real top gainers, losers, and most-active
+  stocks for the day.
+- **Central Bank Room** — a small CPI/unemployment panel, shown only on the Fed's page (this data
+  is US-only, so it doesn't belong on the ECB's or BoE's page).
+
+### Two real problems hit and worked through, not swept under the rug
+1. **A genuine bug**: fetching two pieces of data at the same time tripped Alpha Vantage's rate
+   limit. Fixed properly — not just patched in one spot, but fixed at the shared code level so it
+   can't happen again anywhere else this API gets used later.
+2. **A harder one, investigated properly but not fully solved tonight**: even spacing requests out
+   by several seconds, some still got rate-limited — including on a completely fresh key that had
+   never been used before. Ruled out my own code as the cause (identical direct tests outside the
+   app worked fine). Most likely explanation: Alpha Vantage may track its free daily limit by IP
+   address, not just by key — meaning today's heavy testing across the three keys you gave me
+   probably shares one real quota, not three separate ones. Documented this clearly in the code
+   so it's not mistaken for a bug again later. Practical effect: some sections (unemployment, next
+   earnings date) may not show up if you check the site again today — that's the quota, and it
+   should recover on its own (daily limits reset).
+
+### What I need from you before this goes live
+Add `ALPHA_VANTAGE_API_KEY` to Vercel's environment variables (Settings → Environment Variables),
+same as you did for the other three keys earlier — I put the first key you gave me into your local
+`.env.local`, but same as always, that file never leaves your machine, so Vercel needs its own
+copy. Then redeploy for it to take effect.
+
+### Verified live
+Real AAPL insider transactions and institutional holders, real same-day sentiment-scored news
+articles, real top market movers, real CPI figures — all confirmed with actual data on the actual
+pages, not just a successful build. `npm run build` and `tsc --noEmit` both clean.
+
+### Nothing broken — safe to continue from here.
+
 ## Session 20 — 2026-07-25 (Self-audit: new Simulations module + a nav bug fixed)
 
 ### The short version

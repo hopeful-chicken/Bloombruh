@@ -19,6 +19,13 @@ import {
 } from "@/lib/fundamentalsAnalysis";
 import { computeValuationMetrics, computeEbitdaHistory } from "@/lib/valuationAnalysis";
 import { getCompanyNews } from "@/lib/news";
+import {
+  getInsiderTransactions,
+  getInstitutionalHoldings,
+  getNewsSentiment,
+  getNextEarnings,
+} from "@/lib/alphaVantage";
+import MarketIntelSection from "@/components/profile/MarketIntelSection";
 import { getBeta } from "@/lib/beta";
 import { computeRSI, type AtAGlanceInputs } from "@/lib/signals";
 import { formatUSD, formatPct, formatOriginalCurrency } from "@/lib/format";
@@ -124,6 +131,18 @@ export default async function CompanyProfilePage({
   ).catch(() => []);
   const betaResult = isHongKong ? null : await getBeta(symbol).catch(() => null);
   const newsArticles = await getCompanyNews(quote.name, 20).catch(() => []);
+
+  // Alpha Vantage doesn't cover HKEX at all (confirmed empirically — see
+  // src/lib/alphaVantage.ts) — skipped entirely for HK tickers rather than
+  // making calls guaranteed to come back empty.
+  const insiderTransactions = isHongKong
+    ? []
+    : await getInsiderTransactions(symbol, 8).catch(() => []);
+  const institutionalHoldings = isHongKong
+    ? null
+    : await getInstitutionalHoldings(symbol).catch(() => null);
+  const sentimentNews = isHongKong ? [] : await getNewsSentiment(symbol, 6).catch(() => []);
+  const nextEarnings = isHongKong ? null : await getNextEarnings(symbol).catch(() => null);
 
   const price = parseFloat(quote.close);
   const change = parseFloat(quote.change);
@@ -681,6 +700,16 @@ export default async function CompanyProfilePage({
         fundamentalsSourceNote={fundamentalsSourceNote}
         snapshotInputs={snapshotInputs}
       />
+
+      {!isHongKong && (
+        <MarketIntelSection
+          companyName={quote.name}
+          insiderTransactions={insiderTransactions}
+          institutionalHoldings={institutionalHoldings}
+          sentimentNews={sentimentNews}
+          nextEarnings={nextEarnings}
+        />
+      )}
     </div>
   );
 }

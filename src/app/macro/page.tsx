@@ -20,6 +20,7 @@ import RateTimeline from "@/components/macro/RateTimeline";
 import PolicyExplainer from "@/components/macro/PolicyExplainer";
 import GlobalRatesOverview from "@/components/macro/GlobalRatesOverview";
 import CountrySituation from "@/components/macro/CountrySituation";
+import UsEconomicIndicators from "@/components/macro/UsEconomicIndicators";
 
 /** Plain-text paragraph splitter — same "no markdown, no new dependency"
  * convention as the report builder's text blocks. A blank line starts a
@@ -180,6 +181,8 @@ export default async function CentralBankRoomPage({
           </div>
         )}
       </section>
+
+      {bank.id === "fed" && <UsEconomicIndicators />}
 
       {/* Markets & the economy — the region's stock index charted against
           the policy rate, plus a period-scoped narrative and news. Shown
