@@ -2206,6 +2206,48 @@ long descriptions. `npm run build` and `tsc --noEmit` clean.
 
 ### Nothing broken — safe to continue from here.
 
+## Session 26 — 2026-08-05 (A gated Research Toolkit on every stock pitch)
+
+### The short version
+You sent me two real competition pitch decks (a long thesis on Global Payments, a short thesis on
+Altria) as the actual bar — properly modeled, DCF-derived target prices, comps tables, the works.
+Rather than have me write pitches at that level, you want to build them yourself — so every one of
+the 9 stock pitches now has its own "Research Toolkit": what tools to use, which newspapers/trade
+press to read, real primary-source links, a pointer to this site's own downloadable model
+templates, and a step-by-step build guide. Kept behind a shared code so it's not just open to
+anyone browsing the site.
+
+### How it works
+The pitch write-up itself stays exactly as public as before — still readable by anyone, including
+a recruiter, with no code needed. Only the new toolkit underneath each one is gated. Enter the
+code once on any pitch and it stays unlocked for every pitch on that browser going forward — same
+mechanism this site already uses for the "Pro" AI-grading feature, so it's consistent with
+something already built rather than a brand new system.
+
+### What's in each toolkit
+Primary filing sources tailored to where each company actually reports (SEC EDGAR for US names,
+London Stock Exchange news + Companies House for the UK ones, Japan's EDINET for Nintendo, Taiwan's
+MOPS for TSMC, Denmark's CVR for Maersk), the real trade press worth reading for that sector
+(Lloyd's List for shipping, DigiTimes for chips, The Grocer for Domino's, USASpending.gov for
+Palantir's actual government contract data), a suggested peer comp set with where to pull free
+multiples, and 4 concrete steps to actually build the thing — including a pointer to this site's
+own downloadable DCF and Trading Comps templates for the modeling itself, rather than needing a
+new blank template built from scratch.
+
+### A real catch while writing it
+Flagged directly in the Domino's toolkit: Domino's Pizza Group plc (the UK listing) and Domino's
+Pizza Inc. (the US-listed global brand owner) are two completely different companies. Mixing up
+their filings would have quietly broken anyone's research from step one, so it's called out
+explicitly rather than left as a trap.
+
+### Verified live
+Confirmed the toolkit content genuinely doesn't appear anywhere in the page before entering the
+code; confirmed the correct code unlocks it; confirmed unlocking on one pitch's page also unlocks
+every other pitch's toolkit without re-entering the code. `npm run build` and `tsc --noEmit`
+clean.
+
+### Nothing broken — safe to continue from here.
+
 ## Session 20 — 2026-07-25 (Self-audit: new Simulations module + a nav bug fixed)
 
 ### The short version

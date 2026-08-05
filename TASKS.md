@@ -1569,6 +1569,43 @@ persistent top nav entirely.
       items; homepage cards confirmed description-free. `npm run build` and `tsc --noEmit` clean
       (44 routes, including 11 new static `/analysis/[slug]` pages).
 
+## Phase 48 — A gated "Research Toolkit" on every stock pitch (sources, tools, downloadable templates, build steps)
+
+You shared two real competition-grade pitch decks (a Varsity Pitch Competition long on Global
+Payments, and a short thesis on Altria) as the actual quality bar — DCF-derived, scenario-
+weighted target prices, comps tables, Porter's Five Forces, precedent transactions, catalysts/
+risk matrices. Rather than have me write pitches at that level, you want to build them yourself,
+with each of the 9 current stock pitches carrying its own tailored research toolkit — tools,
+named newspapers/trade press, real primary-source links, a link to this site's own downloadable
+Excel templates, and a step-by-step build guide — kept behind a shared unlock code so it isn't
+sitting fully open to any visitor.
+
+- [x] New `PitchToolkitGate.tsx` — same pattern as this site's only other gated feature
+      (`AiGrader.tsx`'s "Pro" unlock): one shared hardcoded code, unlock state in `localStorage`,
+      explicitly documented as a friction gate, not real security. Code: `vq55jh68&*`. Unlocking
+      once on any pitch unlocks the toolkit on every pitch for that browser.
+- [x] Added an optional `toolkit` field to `AnalysisEntry`, used only by the 9 stock pitches (the
+      2 macro write-ups don't have one) — kept as a separate field from `body` specifically so the
+      polished pitch write-up stays fully public/recruiter-readable while only the research
+      methodology behind it sits behind the code.
+- [x] Wrote a tailored toolkit for each of the 9 pitches: primary filing source (SEC EDGAR for US
+      filers, LSE news explorer + Companies House for UK names, EDINET for Nintendo, Taiwan MOPS
+      for TSMC, CVR for Maersk), named real trade press per sector/geography (Lloyd's List and
+      TradeWinds for Maersk, DigiTimes and Nikkei Asia for the chip names, The Grocer for
+      Domino's, Defense News and USASpending.gov for Palantir's government contracts, etc.), a
+      comps peer set with free data-source suggestions (stockanalysis.com, macrotrends.net), and a
+      4-step build guide specific to that company's actual situation — plus a pointer to this
+      site's own downloadable **DCF/Trading Comps templates** (`/templates`) for the modeling
+      step, so nothing requires a new template to be built from scratch.
+- [x] One correction caught while writing Domino's toolkit: flagged directly that Domino's Pizza
+      Group plc (LSE: DOM, the UK/Ireland master franchisee) is a different, separately listed
+      company from Domino's Pizza, Inc. (NYSE: DPZ, the global brand owner) — an easy mix-up that
+      would have quietly corrupted anyone's comps/filings research if left unstated.
+- [x] Verified live: the gate renders locked with zero toolkit content leaking into the page text
+      before unlocking; entering the correct code unlocks and reveals the full toolkit; confirmed
+      the unlock is genuinely shared — unlocking on Diploma's page also unlocked Palantir's
+      without re-entering the code. `npm run build` and `tsc --noEmit` clean.
+
 ## Backlog — ideas raised but not started
 
 Not built, not scoped, not scheduled — just captured so they don't get

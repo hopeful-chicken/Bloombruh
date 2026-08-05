@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ANALYSIS_ENTRIES, STOCK_PITCHES } from "@/data/analysis";
 import MarkdownContent from "@/components/research/MarkdownContent";
+import PitchToolkitGate from "@/components/research/PitchToolkitGate";
 
 const ALL_ENTRIES = [...ANALYSIS_ENTRIES, ...STOCK_PITCHES];
 
@@ -36,6 +37,12 @@ export default async function AnalysisEntryPage({
       <div className="mt-8 border-t border-border pt-6">
         <MarkdownContent markdown={entry.body} />
       </div>
+
+      {entry.toolkit && (
+        <PitchToolkitGate>
+          <MarkdownContent markdown={entry.toolkit} />
+        </PitchToolkitGate>
+      )}
     </div>
   );
 }

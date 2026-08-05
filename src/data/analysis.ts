@@ -13,6 +13,11 @@ export type AnalysisEntry = {
   tagline: string;
   date: string;
   body: string;
+  /** Stock pitches only — the tools/sources/step-by-step build guide
+   * behind the pitch, rendered separately behind PitchToolkitGate rather
+   * than inline in `body`, so the polished write-up stays public while
+   * the research methodology stays code-gated. */
+  toolkit?: string;
 };
 
 export const ANALYSIS_ENTRIES: AnalysisEntry[] = [
@@ -123,6 +128,23 @@ The model depends on continuing to find and integrate acquisitions at sensible p
 
 **Sources:** [Diploma Q1/H1 2026 results and acquisitions](https://www.tipranks.com/news/company-announcements/diploma-plc-expands-with-strategic-acquisition), [Diploma share price](https://www.investing.com/equities/diploma--plc), [Peerless Aerospace Fastener acquisition](https://www.tipranks.com/news/global-markets/uk-stocks-diploma-dplm-shares-rally-on-peerless-acquisition)
 `,
+    toolkit: `## Primary filings
+- [London Stock Exchange news explorer](https://www.londonstockexchange.com/news?tab=news-explorer) — search "Diploma" for every RNS (regulatory news) release: trading updates, results, acquisition announcements, directors' dealings.
+- [Diploma plc investor relations](https://www.diplomaplc.com/investors) — annual reports, interim results, investor presentations.
+- [Companies House](https://find-and-update.company-information.service.gov.uk/) — UK statutory filings for Diploma and any UK acquisition target you want to check.
+
+## News to track
+Financial Times (UK mid-cap coverage), Investors' Chronicle, Proactive Investors, and Sharecast — all cover UK-listed industrials like Diploma regularly and are free or have generous free previews.
+
+## Comps and data
+Diploma has no direct UK-listed pure-play peer — build your comp set from Bunzl (LSE: BNZL, another UK distribution "compounder") and US names like Fastenal (NASDAQ: FAST) and W.W. Grainger (NYSE: GWW). Pull multiples from **stockanalysis.com** or **macrotrends.net** (both free, no login).
+
+## Build it yourself
+1. Pull the latest RNS trading update or interim results for organic growth, division-level margins, and net debt.
+2. Read the acquisition announcement RNS for Peerless (and any newer bolt-ons) for the disclosed price, expected EPS accretion, and financing.
+3. Build a 3-5 name comp set (Bunzl, Fastenal, Grainger) and pull EV/EBITDA, P/E, and revenue growth for each.
+4. Download this site's own **DCF and Trading Comps templates** (\`/templates\`) — pick "Diploma" if it's in the company search, or manually adjust a comparable industrial's template with Diploma's own numbers.
+5. Sanity-check your target price against the stock's actual 52-week range before finalizing.`,
   },
   {
     id: "nintendo",
@@ -147,6 +169,21 @@ Console cycles are lumpy and hit-driven. Nintendo's model depends on hardware at
 
 **Sources:** [Nintendo FY26 financial results](https://nintendoeverything.com/nintendo-financial-results-may-2026-switch-2-at-19-86-million-units-switch-at-155-92-million-more/), [Pokemon's best year ever](https://gamerant.com/pokemon-2026-highest-sales-ever/), [Nintendo share price decline on price hike](https://www.cnbc.com/2026/05/11/nintendo-stock-switch-2-price-rise-weak-sales-forecast.html), [June 2026 Direct disappointment](https://gamerant.com/nintendo-stock-price-down-why-february-2026/)
 `,
+    toolkit: `## Primary filings
+- [Nintendo IR (English)](https://www.nintendo.co.jp/ir/en/) — quarterly/annual financial results, investor presentations, and the actual FY26 results deck.
+- [EDINET](https://disclosure2.edinet-fsa.go.jp/) — Japan's official disclosure system (like SEC EDGAR), for the underlying statutory Japanese filings if you want to go past the English summary.
+
+## News to track
+Nikkei Asia and Bloomberg's Japan/gaming desks cover Nintendo's numbers directly; VGC (VideoGamesChronicle) and Automaton are the best English-language sources for the software-pipeline/Direct-showcase side of the story specifically.
+
+## Comps and data
+No exact peer (Nintendo is hardware + first-party software + a licensing stake, which is unusual), but Sony's Games & Network Services segment (within 6758.T) and pure software publishers (Take-Two, EA) are the closest reference points for multiples. Pull from **stockanalysis.com**.
+
+## Build it yourself
+1. Read the actual FY26 results presentation (not just the press summary) for the Switch 2 unit-sales trajectory and segment margins.
+2. Track the memory-chip cost story separately — DRAM/NAND spot price trends are covered by DRAMeXchange/TrendForce, relevant to Switch 2's bill of materials.
+3. Note every dated Nintendo Direct showcase going forward — the market's reaction to announced titles is the single biggest swing factor in this thesis.
+4. Use this site's **DCF template** (\`/templates\`) with a Japan/consumer-hardware sector selection, and sensitize the terminal growth assumption to hardware-cycle risk explicitly rather than a flat rate.`,
   },
   {
     id: "british-american-tobacco",
@@ -171,6 +208,22 @@ Structural decline in combustible cigarette volumes across developed markets is 
 
 **Sources:** [BAT FY2026 buyback and dividend guidance](https://www.stocktitan.net/sec-filings/BTI/6-k-british-american-tobacco-p-l-c-current-report-foreign-issuer-65bb444665c2.html), [BAT New Categories/Vuse strategy](https://www.bat.com/media/press-releases/_2026/february/preliminary-results-for-the-year-ended-31-december-2025), [NBIM's ethical exclusions and Council on Ethics](https://www.nbim.no/en/responsible-investment/our-expectations/)
 `,
+    toolkit: `## Primary filings
+- [BAT investor relations](https://www.bat.com/investors) — annual report, interim results, RNS announcements.
+- [London Stock Exchange news explorer](https://www.londonstockexchange.com/news?tab=news-explorer) — search "British American Tobacco" for the raw RNS feed.
+- [NBIM's own expectation documents](https://www.nbim.no/en/responsible-investment/our-expectations/) and its published exclusion list — the primary source for the ESG-exclusion angle, not a secondhand summary.
+
+## News to track
+Reuters and the FT both cover tobacco-sector regulation and earnings directly; for the New Categories/vaping side specifically, trade press like Vapouround and Tobacco Reporter track product launches, illicit-market enforcement, and competitor moves (ZYN/Swedish Match, etc.) in more depth than generalist outlets.
+
+## Comps and data
+Peer set: Philip Morris International (PM), Imperial Brands (LSE: IMB), Japan Tobacco (2914.T). Pull margins, growth, and multiples from **stockanalysis.com**; note that BAT's UK primary listing means some US aggregators show only the BTI ADR, which can lag the LSE price.
+
+## Build it yourself
+1. Pull the latest annual report for the exact revenue/profit split between combustibles and New Categories (Vuse, Velo, glo) — the trend in that split is the whole thesis.
+2. Cross-check NBIM's exclusion list directly to confirm current status before citing it as fact — exclusion lists are reviewed and can change.
+3. Build the PM/Imperial/JT comp set and note how BAT's multiple compares given its yield and payout policy specifically, not just growth.
+4. Use this site's **DCF template** (\`/templates\`, consumer staples sector) — for a name like this, a dividend-discount-style variant is often more appropriate than a pure DCF, given how much of the total return is the yield itself.`,
   },
   {
     id: "asml",
@@ -195,6 +248,22 @@ Escalating export controls are a structural headwind to what was roughly a third
 
 **Sources:** [ASML China export restrictions and revenue mix](https://marketwise.com/investing/asml-earnings-china-export-restrictions-ai-chip-demand/), [ASML backlog and EUV monopoly](https://www.heygotrade.com/en/blog/asml-investment-case-euv-monopoly-semi-capex/), [ASML denies EUV shipments to China](https://techcrunch.com/2026/06/19/the-us-says-asmls-top-chip-tool-may-be-in-china-asml-says-it-isnt/)
 `,
+    toolkit: `## Primary filings
+- [ASML investor relations](https://www.asml.com/en/investors) — quarterly results, annual report (20-F), investor presentations with the backlog/bookings detail.
+- [SEC EDGAR full-text search](https://www.sec.gov/edgar/search/) — ASML files a 20-F as a foreign private issuer; search "ASML Holding" directly.
+- [US Bureau of Industry and Security (BIS)](https://www.bis.doc.gov/) — the actual source for entity-list changes and export-control rule updates, rather than relying on news summaries of them.
+
+## News to track
+Reuters and Bloomberg's semiconductor desks cover export-control developments as they happen; DigiTimes (Taiwan-based) is the standard trade press for supply-chain-level chip industry news most generalist outlets miss.
+
+## Comps and data
+Peer set: Applied Materials (AMAT), Lam Research (LRCX), KLA Corporation (KLAC) — the other major semicap equipment makers, though none has ASML's EUV monopoly specifically. Pull from **stockanalysis.com**.
+
+## Build it yourself
+1. Read the actual earnings call transcript (not just the press release) for management's own characterization of the China revenue trend and forward bookings commentary.
+2. Track BIS entity-list and export-control rule changes directly — this is the single biggest swing factor in the thesis and moves faster than most news coverage.
+3. Build the AMAT/LRCX/KLAC comp set and note ASML's premium is arguably justified by EUV exclusivity — decide whether you agree.
+4. Use this site's **DCF template** (\`/templates\`, semiconductor/tech sector) and explicitly sensitize the China-revenue-mix assumption across bear/base/bull cases rather than using one flat forecast.`,
   },
   {
     id: "tsmc",
@@ -219,6 +288,22 @@ The vast majority of TSMC's most advanced capacity remains concentrated in Taiwa
 
 **Sources:** [TSMC Q2 2026 results and raised outlook](https://www.techtimes.com/articles/320696/20260716/tsmc-posts-record-quarter-ai-chip-demand-pushes-full-year-growth-outlook-past-40.htm), [TSMC Q2 2026 slides — AI demand and HPC mix](https://www.investing.com/news/company-news/tsmc-q2-2026-slides-ai-demand-drives-record-margins-hpc-surges-20-93CH-4794789), [TSMC raises capex and Arizona investment](https://finance.yahoo.com/markets/article/tsmc-raises-capex-and-revenue-forecast-highlighting-growing-ai-chip-demand-113101950.html)
 `,
+    toolkit: `## Primary filings
+- [TSMC investor relations](https://investor.tsmc.com) — quarterly earnings call transcripts and slides (the actual source of the HPC/wafer-revenue-mix breakdown).
+- [SEC EDGAR full-text search](https://www.sec.gov/edgar/search/) — TSMC's NYSE-listed ADR files a 20-F; search "Taiwan Semiconductor."
+- [Taiwan MOPS (Market Observation Post System)](https://mops.twse.com.tw/mops/web/index) — Taiwan's official disclosure system, for the underlying TWSE filings if you want to go past the ADR-level English disclosure.
+
+## News to track
+DigiTimes and Nikkei Asia are the standard trade press for Taiwan semiconductor supply-chain news; Reuters and Bloomberg's tech desks cover the earnings/capex headlines directly.
+
+## Comps and data
+TSMC has no true peer at the leading edge — Samsung Foundry isn't separately listed, and GlobalFoundries (GFS) and UMC operate at trailing nodes. Use them anyway for a directional multiple comparison via **stockanalysis.com**, but note explicitly in your own write-up that it's an imperfect comp set.
+
+## Build it yourself
+1. Read the actual earnings call transcript for management's own node-by-node (3nm/5nm) revenue and margin commentary — this is more granular than any press summary.
+2. Track the HPC segment's share of wafer revenue each quarter as your core thesis metric.
+3. Note the Arizona capex specifically as a partial geographic-risk hedge, and think through how much risk it actually removes versus how much is still concentrated in Taiwan.
+4. Use this site's **DCF template** (\`/templates\`, semiconductor sector) and build a genuine bear case around a Taiwan-geopolitical-risk scenario, not just a demand-slowdown scenario.`,
   },
   {
     id: "maersk",
@@ -243,6 +328,22 @@ A faster, more complete normalization of Red Sea transit than the market current
 
 **Sources:** [Maersk's Suez Canal return](https://www.maritimenews.com/red-sea/maersk-return-red-sea-carrier-shift), [Red Sea freight rate premium](https://suaidglobal.com/insights/red-sea-shipping-crisis-2026/), [Rate collapse risk from the Suez return](https://gulfnews.com/business/markets/container-shipping-heads-toward-a-harder-2026-as-red-sea-reopening-pressures-rates-1.500441624)
 `,
+    toolkit: `## Primary filings
+- [Maersk investor relations](https://www.maersk.com/investor-relations) — quarterly reports, annual report, capital markets day materials.
+- [CVR (Danish Business Authority company register)](https://datacvr.virk.dk/) — Danish statutory filings, the Danish equivalent of Companies House.
+- Nasdaq Copenhagen's own company news feed for Maersk (MAERSK-B) for real-time announcements.
+
+## News to track
+Lloyd's List, TradeWinds, Splash247, and gCaptain are the standard maritime trade press — genuinely essential here, since general business press only picks up the freight-rate story when it's already a headline. FreightWaves covers the logistics/supply-chain side well too.
+
+## Comps and data
+Peer set: Hapag-Lloyd (HLAG.DE), COSCO Shipping (1919.HK), ZIM Integrated Shipping (ZIM). Pull from **stockanalysis.com**; note container shipping multiples are unusually volatile across the freight-rate cycle, so a single-point-in-time comp can be misleading — check where each peer sits in its own cycle.
+
+## Build it yourself
+1. Track the **Freightos Baltic Index** and **Drewry World Container Index** (both public, updated weekly) for real-time freight-rate data rather than relying on lagging news coverage.
+2. Read Maersk's own quarterly capital markets commentary for their stated capacity/rate outlook — management's own view of the Suez-return timeline is the key input.
+3. Build the Hapag-Lloyd/COSCO/ZIM comp set and compare EV/EBITDA across at least 2-3 points in the recent freight cycle, not just today.
+4. Use this site's **DCF template** (\`/templates\`, industrials/shipping sector) and build the bear case explicitly around a faster-than-expected capacity return compressing rates.`,
   },
   {
     id: "dominos-pizza-group",
@@ -267,6 +368,22 @@ Input cost inflation and a genuinely competitive UK delivery market (Deliveroo a
 
 **Sources:** [Domino's H1 2026 results](https://www.investing.com/news/transcripts/earnings-call-transcript-dominos-pizza-group-posts-steady-h1-2026-growth-93CH-4833195), [Domino's H1 2026 — Chick 'N' Dip and system sales detail](https://www.thegrocer.co.uk/news/dominos-delivers-strong-first-half-as-chick-n-dip-drives-growth/722049.article), [Domino's H1 2026 trading update](https://www.restaurantonline.co.uk/Article/2026/08/04/dominos-reports-strong-half-year-trading/)
 `,
+    toolkit: `## Primary filings
+- [London Stock Exchange news explorer](https://www.londonstockexchange.com/news?tab=news-explorer) — search "Domino's Pizza Group" for RNS trading updates and results.
+- [Companies House](https://find-and-update.company-information.service.gov.uk/) — UK statutory filings.
+- **Important distinction to get right:** Domino's Pizza Group plc (LSE: DOM) is the UK/Ireland master franchisee — a different, separately listed company from Domino's Pizza, Inc. (NYSE: DPZ), which owns the global brand. Don't mix up their filings or financials.
+
+## News to track
+The Grocer and Propel are the standard UK food/hospitality trade press — both cover quick-service chains in more operational depth than general business press. Retail Gazette and the FT's UK consumer desk are good general-coverage supplements.
+
+## Comps and data
+UK quick-service/food-on-the-go peers: Greggs (LSE: GRG), and via The Restaurant Group (LSE: RTN, owner of Wagamama) for a sit-down-adjacent comparison. Pull from **stockanalysis.com**.
+
+## Build it yourself
+1. Read the actual H1/full-year RNS for the system sales vs. like-for-like sales distinction — they measure different things and both matter.
+2. Track the loyalty programme's enrolled-customer count each reporting period as a specific, quotable growth metric.
+3. Build the Greggs comp set and compare like-for-like sales trends directly — both are useful UK consumer-spending bellwethers, so the comparison itself is informative.
+4. Use this site's **DCF template** (\`/templates\`, consumer/restaurants sector) with UK-specific inflation and consumer-spending assumptions rather than defaulting to US ones.`,
   },
   {
     id: "palantir",
@@ -291,6 +408,22 @@ This is the most explicit "priced for perfection" name in this set — genuinely
 
 **Sources:** [Palantir valuation and Rule of 40](https://www.ainvest.com/news/palantir-stock-valuation-growth-sustainability-2026-government-contracts-ai-adoption-justify-hype-2512/), [Palantir government contract concentration](https://intellectia.ai/news/stock/palantir-secures-major-government-contracts-amid-valuation-concerns), [Michael Burry's disclosed bet against Palantir/Nvidia](https://www.ainvest.com/news/palantir-stock-buy-2026-balancing-ai-ambition-valuation-regulatory-risks-2512/)
 `,
+    toolkit: `## Primary filings
+- [SEC EDGAR full-text search](https://www.sec.gov/edgar/search/) — search "Palantir Technologies" for 10-K/10-Q and 8-K filings.
+- [Palantir investor relations](https://investors.palantir.com) — quarterly shareholder letters, which are unusually candid and worth reading in full rather than just the press release.
+- [USASpending.gov](https://www.usaspending.gov/) — the official, free US government contract-spending database. Search "Palantir" directly to see the real value and agency breakdown of its government contracts, rather than relying on news summaries.
+
+## News to track
+Defense News and FedScoop cover the government-contract side in real depth; The Information and Bloomberg Tech cover the commercial/valuation debate.
+
+## Comps and data
+Enterprise AI/data-software peers: Snowflake (SNOW), C3.ai (AI), and for a growth/valuation-multiple comparison generally, other high-multiple software names. Pull from **stockanalysis.com** — pay attention to how few real comps exist at Palantir's specific combination of growth rate and government-revenue mix.
+
+## Build it yourself
+1. Read the full quarterly shareholder letter (not just the earnings release) — Palantir's own commentary on commercial vs. government growth is more detailed there than in the press coverage.
+2. Pull Palantir's actual federal contract values from USASpending.gov to verify the "55% government revenue" figure yourself rather than taking a secondary source's word for it.
+3. Calculate the Rule of 40 score yourself (revenue growth rate + FCF margin) from the reported financials to confirm the number before citing it.
+4. Use this site's **DCF template** (\`/templates\`, software/AI sector) and build an explicit multiple-compression sensitivity table — at this valuation, the exit multiple assumption matters more than almost any operating assumption.`,
   },
   {
     id: "microsoft-ai-industry",
@@ -315,6 +448,22 @@ If Copilot adoption and monetization don't scale meaningfully faster than they h
 
 **Sources:** [Microsoft OpenAI stake and FY2026 capex](https://www.kalkine.com/news/artificial-intelligence/microsoft-stock-msft-analysis-2026-azure-acceleration-copilot-scale-and-the-190b-capex-question), [Copilot monetization math](https://www.vaasblock.com/research/microsoft-copilot-monetization-capex-return-timeline-2026/), [Anthropic's AI models breached three companies during testing](https://techcrunch.com/2026/07/30/anthropic-says-its-own-ai-models-breached-three-companies-during-security-tests/), [OpenAI model breached evaluation boundaries](https://www.bloomberg.com/news/articles/2026-08-04/openai-says-models-breached-boundaries-during-outside-testing)
 `,
+    toolkit: `## Primary filings
+- [SEC EDGAR full-text search](https://www.sec.gov/edgar/search/) — search "Microsoft Corporation" for 10-K/10-Q, including the OpenAI-stake accounting disclosures.
+- [Microsoft investor relations](https://www.microsoft.com/en-us/investor) — quarterly earnings call transcripts, where Copilot seat counts and Azure AI revenue detail actually get disclosed.
+- [OpenAI's own blog](https://openai.com/news) and [Anthropic's own blog](https://www.anthropic.com/news) — the primary source for the AI-safety-incident story itself, rather than relying on secondhand news coverage of it.
+
+## News to track
+Bloomberg and The Information both cover the Microsoft/OpenAI relationship and the broader AI-capex debate in real depth; Reuters' tech desk is a reliable general supplement.
+
+## Comps and data
+For the "AI capex" side specifically: Alphabet/Google, Amazon (AWS), and Meta — the other hyperscalers making comparable capex bets. Pull from **stockanalysis.com**.
+
+## Build it yourself
+1. Read Microsoft's actual earnings call transcript for management's own Copilot seat-count and Azure AI revenue disclosures — these numbers are often more precise on the call than in the press release.
+2. Read the OpenAI and Anthropic blog posts on the safety incidents directly, not just news summaries — the actual technical detail matters for judging how serious the regulatory/adoption risk really is.
+3. Build the Alphabet/Amazon/Meta capex comparison to see whether Microsoft's spend is genuinely an outlier or in line with the broader hyperscaler cohort.
+4. Use this site's **DCF template** (\`/templates\`, tech/software sector) and build the bear case explicitly around slower Copilot monetization rather than a generic "AI bubble" assumption — specificity here is what separates a real thesis from a vibe.`,
   },
 ];
 
