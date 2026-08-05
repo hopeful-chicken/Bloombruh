@@ -87,190 +87,233 @@ The realistic shape for someone starting out in this industry isn't "will I be r
   },
 ];
 
-// Stock pitches — carried over from what used to be "The Vault" (now
-// retired as a browsable page in favor of the downloadable Word doc
-// linked in the footer), merged in here since this page is now the one
-// place for Adam's own market opinions generally, not just macro
-// write-ups. Same sourcing discipline as everything else on this page.
+// Stock pitches — a curated subset of what used to be one long "10 Stock
+// Pitches" write-up (originally part of the retired Vault), rewritten in
+// August 2026: trimmed to the names Adam actually wants to keep, each
+// rebuilt around a specific, dated news trigger (like the leads list
+// below), and stripped of the earlier "personal connection" framing —
+// this version is written to read like it would in front of a recruiter,
+// not like a chat reply. Two additions this pass are freshly researched,
+// not carried over: TSMC and Domino's Pizza Group. CMA CGM was
+// considered as a replacement for Maersk but ruled out before writing
+// anything — it's privately held by the Saadé family with no public
+// equity ticker — so Maersk (rewritten to match this new format) stays
+// as the actual publicly investable shipping name.
 export const STOCK_PITCHES: AnalysisEntry[] = [
   {
-    id: "stock-pitches",
-    title: "10 Stock Pitches",
-    tagline: "Diploma PLC, a Pokemon pick, two controversial names, and the AI/geopolitics trades running right now",
-    date: "2026-07-22",
-    body: `# 10 stock pitches — researched July 2026
+    id: "diploma-plc",
+    title: "Diploma PLC",
+    tagline: "LSE: DPLM — a quality compounder, freshly re-rated on a US aerospace bolt-on",
+    date: "2026-08-05",
+    body: `# Diploma PLC (LSE: DPLM)
 
-Spans quality compounders, mega-cap AI exposure, a Pokemon/gaming name, two ESG-sensitive/controversial names, three geopolitically-driven names, one everyday UK consumer name, and one uranium/nuclear equity riding the AI power-demand theme. Mostly equities, one commodity-adjacent miner, as asked.
+**The trigger:** Diploma's £236m acquisition of Peerless Aerospace Fastener, announced in 2026 and expected to add roughly 8% to group EPS in its first year, alongside Q1 FY2026 results showing EPS up 36% year-on-year.
 
----
+## What it is
 
-## 1. Diploma PLC (LSE: DPLM) — the mandatory one, and the UK "quality compounder" case study
+A UK-listed distributor of unglamorous, mission-critical technical products — specialty seals, industrial controls, life-sciences consumables — organized across three divisions (Seals, Controls, Life Sciences), grown mostly through serial bolt-on acquisition of small, founder-owned distributors.
 
-**What it is:** A UK-listed distributor of unglamorous, mission-critical technical products — specialty seals, industrial controls, life-sciences consumables — through three divisions (Seals, Controls, Life Sciences), grown mostly by serial bolt-on acquisition of small, founder-owned distributors.
+## The thesis
 
-**The pitch:** Diploma is the textbook UK "compounder" — a business that doesn't sound exciting (nobody dreams of owning a seals distributor) but has quietly compounded shareholder returns for two decades by buying small distributors at reasonable multiples, keeping their entrepreneurial management in place, and cross-selling/scaling procurement behind the scenes. As of 22 July 2026 the stock trades around 7,525p, inside a 52-week range of 4,558p–7,295p (so it's actually pushed to a new high very recently). Q1 FY2026 EPS was up 36% year-on-year, revenue up 17% (15% organic — well above its own five-year average), and operating margin expanded 300bps to 24.5%. Full-year guidance was upgraded to over 30% operating profit growth. It's also been active on the acquisition trail in 2026: a £236m deal for Peerless Aerospace Fastener (a US aerospace-fastener distributor, expected to add ~8% to group EPS in year one), a £38m bolt-on for UK seals/gaskets specialist PAR Group, and a CDM acquisition specifically to build out US defense-market exposure — quietly picking up some of the same European-rearmament tailwind as BAE Systems (#5 below), just through the industrial-distribution side rather than the prime contractor.
+Diploma is a textbook "quality compounder": a business that doesn't sound exciting but has compounded shareholder returns for two decades by buying small distributors at reasonable multiples, retaining their existing management, and scaling procurement centrally behind the scenes. As of 22 July 2026 the stock trades around 7,525p, a fresh high inside a 52-week range of 4,558p–7,295p. Q1 FY2026 revenue was up 17% (15% organic, above its own five-year average) and operating margin expanded 300bps to 24.5%; full-year guidance was upgraded to over 30% operating profit growth. The Peerless deal, alongside a £38m bolt-on for UK seals specialist PAR Group and a CDM acquisition aimed at US defense-market exposure, extends the model into aerospace and defense-adjacent distribution — a second, less obvious way to gain exposure to the European/US rearmament cycle beyond prime contractors.
 
-**Macro angle:** Diploma is a pure-play bet on "boring but necessary" industrial replacement demand — seals and controls don't get cut from budgets in a downturn the way discretionary capex does, which is part of why it's held up through multiple rate cycles. Its US exposure (a majority of revenue) also makes it a levered play on US industrial/reshoring capex and, now, US defense-adjacent spending specifically.
+## Key risk
 
-**Personal-connection angle:** You've almost certainly never bought anything from Diploma directly — that's the point. But if you've been anywhere near a UK investing society, a "quality compounder" podcast, or a UK equities course at UCL, Diploma is one of the most-cited FTSE 250/100 case studies for "how do you compound at 15-20%+ for two decades without doing anything sexy" — it's the kind of name that comes up constantly in exactly the circles you're already in.
-
-**Key risk:** The entire model depends on continuing to find and integrate acquisitions at sensible prices — it's a "roll-up," and roll-ups can go wrong if they overpay, integrate badly, or run out of good targets. Its valuation (well above the market multiple) already prices in a lot of continued execution.
+The model depends on continuing to find and integrate acquisitions at sensible prices. It is, structurally, a roll-up, and roll-ups deteriorate when they overpay, integrate poorly, or run out of good targets. The stock's premium valuation relative to the broader market already prices in a lot of continued execution.
 
 **Sources:** [Diploma Q1/H1 2026 results and acquisitions](https://www.tipranks.com/news/company-announcements/diploma-plc-expands-with-strategic-acquisition), [Diploma share price](https://www.investing.com/equities/diploma--plc), [Peerless Aerospace Fastener acquisition](https://www.tipranks.com/news/global-markets/uk-stocks-diploma-dplm-shares-rally-on-peerless-acquisition)
+`,
+  },
+  {
+    id: "nintendo",
+    title: "Nintendo",
+    tagline: "TYO: 7974 — record results, a 53% drawdown, and a real hype-vs-fundamentals gap running in reverse",
+    date: "2026-08-05",
+    body: `# Nintendo (TYO: 7974)
 
----
+**The trigger:** A June 2026 Nintendo Direct showcase that leaned on a Zelda remake and ports rather than a new flagship title, sending shares down more than 10% in a single session — despite Nintendo simultaneously reporting its strongest fiscal year on record.
 
-## 2. Nintendo (TYO: 7974) — the Pokemon pick, and a genuine "hype vs. fundamentals" gap
+## What it is
 
-**What it is:** The Japanese gaming giant, owner of Switch/Switch 2 hardware, and one of three joint-venture partners (with Game Freak and Creatures Inc., each holding roughly a one-third stake) in The Pokemon Company, which manages the games, anime, and trading card game globally.
+The Japanese gaming hardware and software company behind Switch/Switch 2, and one of three joint-venture partners (with Game Freak and Creatures Inc.) in The Pokemon Company, which manages the games, anime, and trading card game globally.
 
-**The pitch — and this one is genuinely interesting because the *fundamentals* and the *stock price* are currently telling opposite stories.** Nintendo's FY26 (year to March 2026) net sales nearly doubled, up 98.6% year-on-year to ¥2.313 trillion, driven by Switch 2 (19.86 million units sold in its first 10 months — the fastest-selling console in Nintendo's history) and Pokemon-branded software like Pokemon Pokopia (over 4 million copies in five weeks). The Pokemon Company itself reported $3.33bn revenue and $752m net profit for the year to February 2026. By any normal reading, that's one of the best years the Pokemon franchise has ever had.
+## The thesis
 
-And yet the stock is down roughly 53% from its 52-week high (¥14,795) to where it trades today (¥6,969) — near the bottom of its 52-week range. Why? Two real, dated catalysts: a memory-chip price surge (driven by — yes — the AI infrastructure buildout competing for the same DRAM/NAND supply) pushed up Switch 2's bill of materials, forcing a price hike that spooked investors about future unit sales (shares fell ~7-8% on 11 May 2026 on this news), and a June 2026 Nintendo Direct showcase disappointed by leaning on a Zelda remake and ports rather than a new mainline 3D Mario or other blockbuster, sending shares down over 10% in a single day.
+This is a genuine case where the fundamentals and the share price are telling opposite stories. Nintendo's FY26 (year to March 2026) net sales nearly doubled, up 98.6% year-on-year to ¥2.313 trillion, driven by Switch 2 (19.86 million units sold in its first 10 months — the fastest-selling console in the company's history) and Pokemon-branded software. The Pokemon Company itself reported $3.33bn revenue and $752m net profit for the year to February 2026, one of the franchise's strongest years on record. Despite that, the stock is down roughly 53% from its 52-week high. Two dated, specific catalysts explain the gap: a memory-chip price surge (linked to the same AI-infrastructure buildout competing for DRAM/NAND supply) pushed up Switch 2's bill of materials and forced a price hike in May 2026, and the June 2026 Direct disappointment described above. Together they've pushed the stock to price in a weaker forward outlook than the current operating numbers support.
 
-**This is the exact "hype vs. fundamentals" tension the site's own module is built to explore, just running in the opposite direction from most of the cases there** — not a story priced far *above* the numbers, but arguably a real operating story (record hardware cycle, record Pokemon year) currently priced *below* what the numbers alone would suggest, because of a genuinely unrelated cost shock (AI-driven memory prices) and a software-pipeline scare.
+## Key risk
 
-**Macro/geopolitical angle:** Nintendo hardware margins are now directly exposed to the same AI-driven memory-chip supercycle that's inflating data-center capex everywhere else on this list — a rare case of the "AI trade" reaching all the way into a Japanese toy company's bill of materials.
+Console cycles are lumpy and hit-driven. Nintendo's model depends on hardware attach rates and a strong first-party software pipeline, and the market has just demonstrated how fast sentiment moves when that pipeline looks thin — even against genuinely strong current results.
 
-**Personal-connection angle:** This is the direct one — if you've ever played a Pokemon game, owned any Nintendo console, or opened a booster pack, you're a direct consumer of both halves of this stock's business.
+**Sources:** [Nintendo FY26 financial results](https://nintendoeverything.com/nintendo-financial-results-may-2026-switch-2-at-19-86-million-units-switch-at-155-92-million-more/), [Pokemon's best year ever](https://gamerant.com/pokemon-2026-highest-sales-ever/), [Nintendo share price decline on price hike](https://www.cnbc.com/2026/05/11/nintendo-stock-switch-2-price-rise-weak-sales-forecast.html), [June 2026 Direct disappointment](https://gamerant.com/nintendo-stock-price-down-why-february-2026/)
+`,
+  },
+  {
+    id: "british-american-tobacco",
+    title: "British American Tobacco",
+    tagline: "LSE: BATS — a live ESG-exclusion case study, freshly backed by a £1.3bn buyback",
+    date: "2026-08-05",
+    body: `# British American Tobacco (LSE: BATS / NYSE: BTI)
 
-**Key risk:** Console cycles are lumpy and hit-driven — Nintendo's whole model depends on hardware attach rates and a strong first-party software pipeline, and the market just showed you exactly how fast sentiment swings when that pipeline looks thin, even against genuinely strong current numbers.
+**The trigger:** A £1.3bn 2026 share buyback programme, announced alongside results showing BAT's "New Categories" division (vapes, nicotine pouches, heated tobacco) back to double-digit growth and now profitable.
 
-**Sources:** [Nintendo FY26 financial results](https://nintendoeverything.com/nintendo-financial-results-may-2026-switch-2-at-19-86-million-units-switch-at-155-92-million-more/), [Pokemon's best year ever](https://gamerant.com/pokemon-2026-highest-sales-ever/), [Nintendo share price decline on price hike](https://www.cnbc.com/2026/05/11/nintendo-stock-switch-2-price-rise-weak-sales-forecast.html), [June 2026 Direct disappointment](https://gamerant.com/nintendo-stock-price-down-why-february-2026/), [Pokemon Company ownership structure](https://legalclarity.org/who-owns-pokemon-nintendo-game-freak-creatures/)
+## What it is
 
----
+One of the world's largest tobacco companies (Dunhill, Lucky Strike, Vuse, Velo), and a genuine, live example of how ESG exclusion criteria bite in practice at a major asset owner.
 
-## 3. Microsoft (NASDAQ: MSFT) — the "common" pick, and the center of the AI-capex debate
+## The thesis
 
-**What it is:** The software giant you already use every day for UCL coursework — Windows, Office/Teams — now also the largest single financial backer of OpenAI and the company spending more on AI infrastructure than almost anyone on earth.
+BAT is a value-versus-structural-decline argument. Alongside the buyback, its progressive dividend continues (next dividend 61.26p per share), and Velo — its nicotine-pouch brand — has reached a #2 volume/value position in its category within a year of a key launch. Management's own algorithm targets +3-5% revenue, +4-6% profit, and +5-8% EPS growth; 2026 guidance sits at the low end of that range while the company reinvests in the shift away from combustible cigarettes. The stock has historically traded at a low-single-digit-to-low-teens P/E and a high dividend yield, largely because a meaningful share of the market — including sovereign and pension investors bound by exclusion policies — treats it as structurally off-limits or declining regardless of valuation. Norway's Government Pension Fund Global (managed by NBIM) has explicitly excluded tobacco manufacturers since around 2010 on ethical grounds set by its Council on Ethics — one of the clearest real examples of a product-based exclusion removing a large-cap, high-yield name from an investable universe entirely independent of price.
 
-**The pitch:** Microsoft owns roughly a 27% as-converted stake in OpenAI Group PBC, valued at about $135bn after the 2025-2026 recapitalization, and booked a $7.6bn accounting gain from that stake in Q2 FY2026 alone. Its AI annual revenue run-rate has passed $37bn, up 123% year-on-year. But the number everyone is actually arguing about is capex: Microsoft guided to roughly $190bn of capital expenditure for calendar 2026 (up ~61% on 2025), while Microsoft 365 Copilot's paid seats — the actual monetization engine meant to justify that spend — sit at just over 20 million, generating an estimated $3-5bn a year. That gap between $190bn spent and single-digit-billions earned back so far is the single cleanest number in this whole list of pitches for framing the AI-bubble question directly.
+## Key risk
 
-**Macro/geopolitical angle:** Microsoft is as close to a pure read on "is the AI capex cycle justified" as a mega-cap gets — it sits at the intersection of the compute buildout (data centers, chips), the platform bet (OpenAI), and the actual paying-customer monetization (Copilot), so its own numbers are a live scoreboard for the debate this site's Hype vs Fundamentals module runs on AI & Semiconductors generally.
-
-**Personal-connection angle:** You are quite literally using Microsoft's products to write your university coursework right now, and if Copilot has started appearing inside Word/Teams/Outlook at UCL or in any part-time work, you've already met the exact product this $190bn bet is riding on.
-
-**Key risk:** If Copilot adoption/monetization doesn't scale meaningfully faster than it has so far, the market's patience with a multi-year "trust me" capex story could run out — this is precisely the AI-bubble tension already live in this site's Hype vs Fundamentals section.
-
-**Sources:** [Microsoft OpenAI stake and Q3 FY2026 capex](https://www.kalkine.com/news/artificial-intelligence/microsoft-stock-msft-analysis-2026-azure-acceleration-copilot-scale-and-the-190b-capex-question), [Copilot monetization math](https://www.vaasblock.com/research/microsoft-copilot-monetization-capex-return-timeline-2026/)
-
----
-
-## 4. British American Tobacco (LSE: BATS / NYSE: BTI) — the controversial one, with a direct NBIM tie-in
-
-**What it is:** One of the world's largest tobacco companies (Dunhill, Lucky Strike, Vuse vapes, Velo nicotine pouches), and a genuine, live example of the ESG-exclusion debate you'll run into directly if you end up at NBIM.
-
-**The pitch:** BAT is the classic "value trap or deep value" argument. It's committed to a £1.3bn 2026 share buyback programme on top of a progressive dividend (next dividend 61.26p per share), and its "New Categories" (vapes, nicotine pouches, heated tobacco) business is back to double-digit growth, led by Velo, which reached a #2 volume/value position in its category within a year of a key launch and is already profitable. Management's own financial algorithm targets +3-5% revenue, +4-6% profit, +5-8% EPS growth — 2026 guidance sits at the low end of that range while the company keeps reinvesting in the transition away from combustible cigarettes. The stock has historically traded at a low single-digit-to-low-teens P/E and a high dividend yield precisely because so much of the market treats it as structurally declining/excluded — which is exactly the "is the discount justified or is the market wrong" question a value analyst has to answer.
-
-**The direct NBIM angle, and why this pitch matters for your specific goal:** Norway's Government Pension Fund Global has publicly and explicitly excluded tobacco *manufacturers* (not just producers of some component) from its investable universe since around 2010, on ethical grounds set by Norway's own Council on Ethics — this is one of the cleanest real-world examples of NBIM's exclusion criteria actually removing a large-cap, high-yield stock from consideration, entirely independent of valuation. If you want to understand how NBIM's responsible-investment framework actually bites in practice (versus BAE Systems below, where conventional defense is *not* broadly excluded — a genuinely interesting contrast), BAT vs. BAE is the single clearest pair to study.
-
-**Macro angle:** Regulatory risk (flavour bans, nicotine caps, illicit vape enforcement) is the dominant variable here, more than any macro cycle — the "illicit proliferation" problem specifically called out in BAT's own 2026 commentary on Vuse is a real, ongoing headwind independent of consumer demand.
-
-**Personal-connection angle:** Even if you don't smoke or vape yourself, Vuse and other vape products are one of the most visible consumer-goods categories among UK students right now — hard to walk past a corner shop or a student night out without seeing the category BAT is fighting to own.
-
-**Key risk:** Structural decline in combustible cigarette volumes in developed markets is real and permanent; the entire bull case rests on New Categories growing fast enough, and staying profitable enough, to replace that decline before it erodes the dividend.
+Structural decline in combustible cigarette volumes across developed markets is real and permanent. The entire bull case depends on New Categories growing fast enough, and staying profitable enough, to replace that decline before it erodes the dividend.
 
 **Sources:** [BAT FY2026 buyback and dividend guidance](https://www.stocktitan.net/sec-filings/BTI/6-k-british-american-tobacco-p-l-c-current-report-foreign-issuer-65bb444665c2.html), [BAT New Categories/Vuse strategy](https://www.bat.com/media/press-releases/_2026/february/preliminary-results-for-the-year-ended-31-december-2025), [NBIM's ethical exclusions and Council on Ethics](https://www.nbim.no/en/responsible-investment/our-expectations/)
+`,
+  },
+  {
+    id: "asml",
+    title: "ASML",
+    tagline: "NASDAQ/AEX: ASML — the EUV monopoly, now visibly reshaped by export controls",
+    date: "2026-08-05",
+    body: `# ASML (NASDAQ/AEX: ASML)
 
----
+**The trigger:** ASML's China revenue share falling from 33% in 2025 to roughly 20% in 2026 (quarterly China sales down to 19% of total, from 36% the prior quarter), as the proposed US "MATCH Act" pushes to further restrict advanced chipmaking equipment sales to China.
 
-## 5. BAE Systems (LSE: BA.) — the geopolitical one, and the mirror image of the BAT ESG question
+## What it is
 
-**What it is:** Britain's largest defense contractor — submarines, fighter aircraft (Typhoon, F-35 components), naval vessels, electronic warfare and air-defense systems — and the direct commercial face of Europe's post-Ukraine rearmament.
+The Dutch company that makes the only machines in the world capable of extreme ultraviolet (EUV) lithography — the process used to etch the most advanced chip designs onto silicon. Effectively every leading-edge chip made today, including AI accelerators, passes through an ASML machine at some point in its supply chain.
 
-**The pitch:** BAE's order backlog hit a record £83.6bn in 2025 (up £5.8bn from 2024), with 2025 order intake of £36.8bn. Management guided to 7-9% sales growth in 2026 and cumulative free cash flow above £6bn across 2026-2028. A specific, vivid data point: roughly £1.1bn of that order growth came from MBDA missile systems (Aster, VL MICA, Mistral) — a direct, traceable response to European governments scrambling to rebuild air-defense stockpiles after watching missile and drone warfare play out in Ukraine in real time.
+## The thesis
 
-**Macro/geopolitical angle:** This is as close to a pure geopolitical-risk-premium trade as a FTSE 100 stock gets — the entire re-rating of European defense names since 2022 is a direct market reaction to Russia's invasion of Ukraine and the resulting collapse of the post-Cold-War assumption that European defense budgets could stay permanently low. NATO members' commitments to raise defense spending as a share of GDP are the structural tailwind behind BAE's order book, not a cyclical one — this is a genuine "has the world changed" macro thesis, not just a quarter-to-quarter earnings story.
+ASML's backlog stood at €38.8bn at year-end 2025, including €7.4bn of EUV bookings specifically — more than a full year of current revenue. The company says it has never shipped an EUV machine to China and has not breached export controls despite recent US scrutiny, but the trend in its China revenue mix is unambiguous. Despite that headwind, full-year guidance has stayed strong, because there is currently no substitute supplier for EUV at the leading edge — a genuine monopoly on the single hardest step in modern chip manufacturing. ASML sits at the center of the US-China chip war: every escalation in export controls is a quantifiable hit to its addressable market, while every leading-edge demand driver (principally AI accelerators) is a tailwind through the non-China two-thirds of the business.
 
-**The BAT contrast, worth thinking through explicitly:** NBIM does *not* broadly exclude conventional defense manufacturers the way it excludes tobacco — its product-based exclusions specifically target things like cluster munitions, anti-personnel landmines, and nuclear weapons components, not conventional arms manufacturing generally. That means a stock like BAE sits inside NBIM's investable universe while BAT sits outside it — a genuinely useful real case study in how "controversial" and "ESG-excluded" are not the same category, which is exactly the kind of nuance an NBIM-track analyst should be able to explain, not just gesture at.
+## Key risk
 
-**Personal-connection angle:** Less a "you bought this" connection and more a "you've been living through the actual news story this stock is priced on" — every headline about Ukraine, NATO spending targets, or European rearmament that you've read as an econ student for the past few years is the macro backdrop directly driving this stock's re-rating.
-
-**Key risk:** A durable ceasefire or major de-escalation in Ukraine, or a serious pullback in NATO members' stated spending commitments, is the single biggest re-rating risk in the other direction — this stock's valuation has moved a long way on the assumption that elevated defense spending is now structural, not temporary.
-
-**Sources:** [BAE record £83.6bn order backlog](https://kalkine.co.uk/news/industrials/bae-systems-in-2026-how-a-record-836bn-order-backlog-is-reshaping-a-ftse-100-defence-giant), [BAE Systems and European rearmament, CNBC](https://www.cnbc.com/2026/02/18/bae-systems-defense-spending-europe-military-geopolitics-weapons.html), [BAE MBDA missile orders and Ukraine](https://thedefensepost.com/2026/02/19/bae-systems-backlog-profit/)
-
----
-
-## 6. ASML (NASDAQ/AEX: ASML) — the semiconductor-geopolitics one
-
-**What it is:** The Dutch company that makes the only machines in the world capable of extreme ultraviolet (EUV) lithography — the process that etches the most advanced chip designs onto silicon. Every leading-edge chip on Earth, from Nvidia's AI accelerators to the processor in your phone, passes through an ASML machine at some point in its supply chain.
-
-**The pitch:** ASML's backlog stood at €38.8bn at year-end 2025 (including €7.4bn of EUV bookings specifically) — more than a full year of current revenue, and not the kind of order book that gets cancelled on a whim. The company has never shipped an EUV machine to China and says it hasn't breached export controls despite recent US scrutiny, but the broader trend is unmistakable: China's share of ASML's system sales is expected to fall from 33% in 2025 to roughly 20% in 2026, with quarterly China sales already down to 19% of total (from 36% the prior quarter), as the 2025-2026 "MATCH Act" proposal in the US Congress pushes to further restrict advanced chipmaking equipment sales to China. Despite that headwind, guidance remains strong because there is currently no substitute supplier for EUV at the leading edge — this is a genuine monopoly on the single hardest step in modern chip manufacturing.
-
-**Macro/geopolitical angle:** ASML is the cleanest possible single-stock proxy for the US-China chip war. Every escalation in export controls is a real, quantifiable hit to its addressable market (China revenue mix), while every leading-edge chip demand story (AI accelerators specifically) is a tailwind through the non-China two-thirds of its business — it's simultaneously a direct casualty and a direct beneficiary of the same broader tech-decoupling story, which makes it a genuinely interesting one to actually model rather than just read headlines about.
-
-**Personal-connection angle:** This is the "you don't see it but you use it constantly" pitch — the chip inside your laptop, your phone, and (per Microsoft's capex above) the servers running the AI you're using right now were almost certainly patterned using an ASML machine at some point, even though you've never heard of the company from a consumer-facing angle.
-
-**Key risk:** Escalating export controls are a real, structural headwind to a third of the historical customer base — the bull case depends on non-China (especially AI-driven) demand growing fast enough to keep absorbing that capacity.
+Escalating export controls are a structural headwind to what was roughly a third of the historical customer base. The bull case depends on non-China, AI-driven demand growing fast enough to keep absorbing that lost capacity.
 
 **Sources:** [ASML China export restrictions and revenue mix](https://marketwise.com/investing/asml-earnings-china-export-restrictions-ai-chip-demand/), [ASML backlog and EUV monopoly](https://www.heygotrade.com/en/blog/asml-investment-case-euv-monopoly-semi-capex/), [ASML denies EUV shipments to China](https://techcrunch.com/2026/06/19/the-us-says-asmls-top-chip-tool-may-be-in-china-asml-says-it-isnt/)
+`,
+  },
+  {
+    id: "tsmc",
+    title: "TSMC",
+    tagline: "NYSE: TSM — AI has become 66% of wafer revenue, and capex just went up again",
+    date: "2026-08-05",
+    body: `# Taiwan Semiconductor Manufacturing Company (NYSE: TSM)
 
----
+**The trigger:** TSMC's Q2 2026 results — record revenue of $40.2bn (+34% year-on-year), full-year growth guidance raised past 40%, and 2026 capex raised to $60-64bn, alongside an additional $100bn investment in its Arizona fabs.
 
-## 7. Maersk (CPH: MAERSK-B) — the shipping/geopolitics one, and a live "what happens when the crisis ends" case study
+## What it is
 
-**What it is:** One of the world's largest container shipping and logistics companies — the literal ships carrying much of what you buy online across oceans.
+The world's largest dedicated semiconductor foundry, manufacturing the most advanced chips on earth to order for fabless designers — Nvidia, Apple, AMD, and effectively every other major chip company that doesn't run its own leading-edge fabs.
 
-**The pitch:** For over a year, Houthi attacks in the Red Sea forced most container lines (Maersk included) to reroute around the Cape of Good Hope instead of the Suez Canal — adding transit time, removing effective global shipping capacity, and pushing freight rates up sharply (Asia-Europe rates 25-40% higher, Asia-US East Coast 15-25% higher than they'd otherwise be, adding $800-1,500 to a typical 40ft container). Maersk has just started reversing that: it completed test voyages and announced a permanent transition of its MECL service back through the Suez Canal in 2026, after 14 months of diversion. That's genuinely good news for global trade efficiency — and genuinely bad news for Maersk's own near-term earnings, because the return of that rerouted capacity to the market is expected to release 6-8% of global container capacity back into normal circulation, and analysts (HSBC among them) have warned the resulting rate collapse could be severe enough to push Maersk and peers like Hapag-Lloyd into losses.
+## The thesis
 
-**This is a rare, clean example of a company's own operational good news (safer, faster, cheaper routing) being bad news for its stock (rates collapsing as capacity floods back)** — worth sitting with, because "is this good or bad for the company" is not always the same question as "is this good or bad for the world," and untangling that distinction is a real analytical skill.
+TSMC's business mix has shifted decisively toward AI in a single year: High-Performance Computing — the segment anchored by AI accelerators for cloud data centers — rose 20% sequentially in Q2 2026 alone and now accounts for 66% of total wafer revenue, up from a business historically dominated by smartphones (now 22% of revenue, down from the largest single category as recently as 2022). Management's long-term guidance calls for roughly 25% compound annual growth overall, with AI-processor revenue specifically growing above 50% annually. Unlike the equipment side of the chip industry (ASML above), TSMC is a manufacturing monopoly at the leading edge rather than a pure-play machine maker — there is no meaningful alternative foundry currently capable of producing chips at the same process node for the volumes hyperscalers require. The additional $100bn Arizona commitment is a real, if partial, hedge against the single biggest risk sitting under the entire thesis.
 
-**Macro/geopolitical angle:** This is the most directly geopolitical pitch on the list — the entire multi-year freight-rate story has been driven by the Israel-Hamas war's regional spillover into Yemen/Houthi attacks on Red Sea shipping, and its resolution (or non-resolution) is a pure geopolitical call, not an economic one.
+## Key risk
 
-**Personal-connection angle:** Every import-heavy product you've bought online in the last 18 months has had some of that $800-1,500-per-container Red Sea premium baked into its price, whether you noticed or not — this is a case where "the news" and "your own cost of living" were the same story the whole time.
+The vast majority of TSMC's most advanced capacity remains concentrated in Taiwan, a geography with real geopolitical tail risk that has no clean hedge at the scale this business operates at. Customer concentration (Nvidia, Apple, and AMD together represent a large share of revenue) is a secondary but real risk if any one of them shifts volume or slows capex.
 
-**Key risk:** A full, durable normalization of Red Sea transit could compress freight rates faster than the market currently expects, which — counterintuitively for a "good news" geopolitical outcome — is the actual bear case for the stock.
+**Sources:** [TSMC Q2 2026 results and raised outlook](https://www.techtimes.com/articles/320696/20260716/tsmc-posts-record-quarter-ai-chip-demand-pushes-full-year-growth-outlook-past-40.htm), [TSMC Q2 2026 slides — AI demand and HPC mix](https://www.investing.com/news/company-news/tsmc-q2-2026-slides-ai-demand-drives-record-margins-hpc-surges-20-93CH-4794789), [TSMC raises capex and Arizona investment](https://finance.yahoo.com/markets/article/tsmc-raises-capex-and-revenue-forecast-highlighting-growing-ai-chip-demand-113101950.html)
+`,
+  },
+  {
+    id: "maersk",
+    title: "Maersk",
+    tagline: "CPH: MAERSK-B — a rare case where a company's own good news (a safer route home) is bad news for its stock",
+    date: "2026-08-05",
+    body: `# A.P. Moller–Maersk (CPH: MAERSK-B)
 
-**Sources:** [Maersk's Suez Canal return](https://www.maritimenews.com/red-sea/maersk-return-red-sea-carrier-shift), [Red Sea freight rate premium](https://suaidglobal.com/insights/red-sea-shipping-crisis-2026/), [Rate collapse risk from Suez return](https://gulfnews.com/business/markets/container-shipping-heads-toward-a-harder-2026-as-red-sea-reopening-pressures-rates-1.500441624)
+**The trigger:** Maersk's 2026 announcement of a permanent transition of its MECL service back through the Suez Canal, after 14 months of Red Sea diversion — a real operational milestone with a genuinely counterintuitive read-through for the stock.
 
----
+## What it is
 
-## 8. Greggs (LSE: GRG) — the everyday UK one
+One of the world's largest container shipping and logistics companies — the vessels carrying a large share of goods traded by sea, and a direct bellwether for global freight rates.
 
-**What it is:** The UK's ubiquitous bakery/food-on-the-go chain — sausage rolls, the Chicken Roll, meal deals — and one of the most recognizable high-street names to any UK student.
+## The thesis
 
-**The pitch:** Greggs posted £800m of sales in the first 19 weeks of 2026, up 7.5% on the same period in 2025, with like-for-like sales in company-managed shops accelerating to 3.3% in the most recent 10 weeks — helped in part by April 2026's Chicken Roll launch, described as a genuine customer favourite. Shares rose over 5% on the update. The strategic story going forward is about capital discipline finally catching up to years of estate expansion: heavy capex is set to fall from £287.5m in 2025 toward £200m in 2026 and £150-170m from 2027, which should free up cash and improve returns on capital as the newer, already-built sites mature rather than continuing to add new ones at the same pace.
+For over a year, Houthi attacks in the Red Sea forced most container lines, Maersk included, to reroute around the Cape of Good Hope instead of the Suez Canal — adding transit time, removing effective global shipping capacity, and pushing freight rates up sharply (Asia-Europe rates estimated 25-40% higher, Asia-US East Coast 15-25% higher, than they would otherwise be). Maersk has now completed test voyages and confirmed a permanent return to Suez in 2026. That is genuinely good news for global trade efficiency, and genuinely bad news for Maersk's own near-term earnings: the returning capacity is expected to release 6-8% of global container capacity back into normal circulation, and analysts (including HSBC) have warned the resulting rate collapse could be severe enough to push Maersk and peers such as Hapag-Lloyd into losses. It is a clean, current example of a company's own operational good news being priced as bad news for the stock — worth analyzing carefully rather than assuming "good for the world" and "good for the share price" are the same question.
 
-**Macro angle:** Greggs is a genuine "value/discretionary" bellwether for UK consumer spending — its whole positioning (cheap, fast, no-frills) means it tends to be relatively resilient (sometimes even benefits from "trading down") when household budgets tighten, which makes its like-for-like sales trend a useful real-time read on UK consumer health more broadly.
+## Key risk
 
-**Personal-connection angle:** This is the most direct connection on the entire list — if you've ever grabbed a meal deal between lectures at UCL, you've been a Greggs customer, full stop.
+A faster, more complete normalization of Red Sea transit than the market currently expects would compress freight rates further and faster — the counterintuitive bear case for a genuinely positive operational development.
 
-**Key risk:** The bull case now depends on margin/returns discipline (slower capex, better returns on the existing estate) rather than pure growth — if like-for-like sales momentum fades just as capex is being cut back, there's less growth to fall back on.
+**Sources:** [Maersk's Suez Canal return](https://www.maritimenews.com/red-sea/maersk-return-red-sea-carrier-shift), [Red Sea freight rate premium](https://suaidglobal.com/insights/red-sea-shipping-crisis-2026/), [Rate collapse risk from the Suez return](https://gulfnews.com/business/markets/container-shipping-heads-toward-a-harder-2026-as-red-sea-reopening-pressures-rates-1.500441624)
+`,
+  },
+  {
+    id: "dominos-pizza-group",
+    title: "Domino's Pizza Group",
+    tagline: "LSE: DOM — the UK's quick-service bellwether, freshly re-accelerating on chicken and loyalty",
+    date: "2026-08-05",
+    body: `# Domino's Pizza Group plc (LSE: DOM)
 
-**Sources:** [Greggs H1 2026 sales growth](https://www.asktraders.com/analysis/greggs-shares-rise-as-sales-top-800m-and-trading-momentum-builds/), [Greggs capex reduction plan](https://www.morningstar.com/news/alliance-news/1778574964231309100/greggs-says-sales-growth-picks-up-despite-challenging-market)
+**The trigger:** H1 2026 results showing system sales up 6.1% to £825.3m for the 26 weeks to 28 June 2026, with like-for-like sales accelerating to 4.9%, driven by the national rollout of the Chick 'N' Dip range.
 
----
+## What it is
 
-## 9. Palantir Technologies (NASDAQ: PLTR) — the second controversial one, and the cleanest "is this the top" stock on the whole list
+The master franchisee for Domino's Pizza across the UK and Ireland — one of the most visible quick-service food chains on British high streets, with a dense footprint across London specifically.
 
-**What it is:** A data-analytics/AI software company built originally for US government and defense clients (Palantir Gotham), now expanding aggressively into commercial AI (Palantir AIP).
+## The thesis
 
-**The pitch, and why it's genuinely controversial rather than just "another AI stock":** Palantir trades at roughly 200x trailing earnings and ~80x forward 2026 earnings — versus 25-40x forward earnings for most enterprise software peers — despite genuinely exceptional growth (a "Rule of 40" score above 140%, meaning growth rate plus profit margin comfortably clears the usual software-quality bar several times over). Commercial AI revenue surged 342% year-on-year to $1.31bn, with 47% free cash flow margins — real numbers, not vapourware. But government revenue is still 55% of the total, anchored by contracts like a $10bn multi-year US Army deal, which makes future growth partly a bet on continued political/budgetary alignment rather than pure market demand. The valuation math is brutally simple: at 85-100x forward earnings, even a modest miss (growth slowing from 60% to 40%) can compress the multiple enough to wipe out 40% of the share price with zero actual deterioration in the underlying business — pure multiple compression, nothing else. Michael Burry (of "The Big Short" fame) publicly disclosed a bet against both Palantir and Nvidia in late 2025, explicitly on this "priced for perfection" argument.
+Domino's H1 2026 showed broad-based momentum: growth came from both the core pizza business and the newer chicken range (Chick 'N' Dip, expanded nationally in February 2026), which carries a higher average order value (£36 versus £26 for pizza-only orders) and cross-sells well (87% of chicken customers also buy pizza). Management has explicitly shifted strategic emphasis toward same-store sales growth and unit profitability rather than pure store-count expansion, and the Domino's Rewards loyalty programme — already at 2.2 million enrolled customers ahead of a full national rollout planned for Q4 2026 — is a second, structural growth lever layered on top of the menu expansion. As a quick-service, value-oriented format, it's a useful real-time read on UK consumer spending, in the same spirit as other high-street food chains, but with its own specific growth drivers (menu diversification, loyalty, digital ordering) rather than relying purely on footfall.
 
-**Macro/geopolitical angle:** Palantir's government-contract concentration ties its growth partly to US defense/intelligence budget cycles and political priorities (much like BAE Systems above, but through software rather than hardware) — it's genuinely exposed to both the AI-adoption macro story and the same defense-spending macro story as #5, in one stock.
+## Key risk
 
-**Personal-connection angle:** Less a product you've used and more a company you've almost certainly seen argued about — Palantir is one of the most-discussed, most-polarizing names in any finance/tech discussion right now, precisely the kind of "everyone has a hot take" stock worth being able to actually value rather than just repeat a side of.
+Input cost inflation and a genuinely competitive UK delivery market (Deliveroo and Uber Eats both compete for the same order, including via their own aggregated restaurant listings) put real pressure on margins even when top-line growth is healthy. The bull case depends on loyalty and menu innovation continuing to drive order value and frequency faster than costs rise.
 
-**Key risk:** This is the single most explicit "hype vs. fundamentals" stock on this entire list — genuinely strong, real growth, priced at a multiple that leaves essentially no room for anything to go even slightly wrong.
+**Sources:** [Domino's H1 2026 results](https://www.investing.com/news/transcripts/earnings-call-transcript-dominos-pizza-group-posts-steady-h1-2026-growth-93CH-4833195), [Domino's H1 2026 — Chick 'N' Dip and system sales detail](https://www.thegrocer.co.uk/news/dominos-delivers-strong-first-half-as-chick-n-dip-drives-growth/722049.article), [Domino's H1 2026 trading update](https://www.restaurantonline.co.uk/Article/2026/08/04/dominos-reports-strong-half-year-trading/)
+`,
+  },
+  {
+    id: "palantir",
+    title: "Palantir Technologies",
+    tagline: "NASDAQ: PLTR — real 342% commercial AI growth, priced at a multiple that leaves no room for error",
+    date: "2026-08-05",
+    body: `# Palantir Technologies (NASDAQ: PLTR)
 
-**Sources:** [Palantir valuation and Rule of 40](https://www.ainvest.com/news/palantir-stock-valuation-growth-sustainability-2026-government-contracts-ai-adoption-justify-hype-2512/), [Palantir government contract concentration](https://intellectia.ai/news/stock/palantir-secures-major-government-contracts-amid-valuation-concerns), [Michael Burry's bet against Palantir/Nvidia](https://www.ainvest.com/news/palantir-stock-buy-2026-balancing-ai-ambition-valuation-regulatory-risks-2512/)
+**The trigger:** Michael Burry's publicly disclosed short position against Palantir (alongside Nvidia), explicitly framed around a "priced for perfection" valuation argument — a live, ongoing debate rather than a settled one.
 
----
+## What it is
 
-## 10. Cameco (NYSE/TSX: CCJ) — the uranium/commodity-adjacent one, and the AI story's power-demand mirror image
+A data-analytics and AI software company originally built for US government and defense clients (Palantir Gotham), now expanding into commercial enterprise AI (Palantir AIP).
 
-**What it is:** One of the world's largest uranium producers, giving direct exposure to the uranium price and the broader nuclear-fuel-cycle — the one commodity-linked pick on this list, expressed as an equity rather than the raw commodity itself, as you asked.
+## The thesis
 
-**The pitch:** Uranium spot prices surged roughly 25% in January 2026, breaking above $100/lb for the first time in two years, before settling near $86/lb more recently; long-term contract prices reached $90/lb by Q1 2026, the highest since 2008. Cameco's Q1 2026 results beat expectations, with net earnings up 87% year-on-year and uranium-segment adjusted EBITDA up from C$286m to C$423m, on both higher volumes and a higher realized price ($66.21/lb vs $62.55/lb a year earlier). The driver is the same AI infrastructure buildout showing up everywhere else on this list, but through its electricity-demand side rather than its chip-demand side: hyperscalers are signing direct long-term power purchase agreements with nuclear operators to guarantee carbon-free, always-on electricity for data centers — Meta alone signed for up to 7.8 gigawatts of nuclear capacity in Q1 2026, and Microsoft (the same Microsoft from pitch #3) executed agreements for over 800 megawatts specifically for data-center operations.
+Palantir trades at roughly 200x trailing earnings and approximately 80x forward 2026 earnings, against 25-40x forward earnings for most enterprise software peers — a real premium, but not an unsupported one on current growth. Commercial AI revenue grew 342% year-on-year to $1.31bn, with 47% free cash flow margins, and its "Rule of 40" score (growth rate plus profit margin) sits above 140%, well clear of the standard software-quality benchmark. Government revenue is still 55% of the total, anchored by contracts such as a $10bn multi-year US Army deal, which ties a meaningful share of future growth to continued political and budgetary alignment rather than pure commercial demand. The valuation arithmetic is unforgiving: at 80-100x forward earnings, even a moderate growth deceleration (from roughly 60% to 40%) could compress the multiple enough to erase a large share of the share price with no actual deterioration in the underlying business.
 
-**Macro angle:** This is the cleanest "second-order AI trade" on the list — rather than betting directly on AI chips or software, Cameco is a bet that the AI buildout's electricity appetite (which nobody disputes is real and growing, unlike the software-monetization question in pitch #3) flows through into sustained uranium demand, in a market where new mine supply takes years to bring online regardless of price.
+## Key risk
 
-**Personal-connection angle:** Every AI query you've run for this university project, and every one I've run researching it for you tonight, is part of the exact electricity-demand story this stock is priced on — about as direct a "you personally are the demand driver" connection as any pick on this list.
+This is the most explicit "priced for perfection" name in this set — genuinely strong, real growth, at a multiple that leaves essentially no margin for a slower quarter, a lost contract, or a broader AI-sentiment pullback.
 
-**Key risk:** Uranium is a notoriously cyclical, historically volatile commodity market (long memory of the post-Fukushima crash) — a slowdown in the AI capex cycle itself (the same risk sitting under Microsoft and Palantir above) would hit the demand story this stock depends on, even though the electricity-demand thesis is arguably more durable than the software-monetization one.
+**Sources:** [Palantir valuation and Rule of 40](https://www.ainvest.com/news/palantir-stock-valuation-growth-sustainability-2026-government-contracts-ai-adoption-justify-hype-2512/), [Palantir government contract concentration](https://intellectia.ai/news/stock/palantir-secures-major-government-contracts-amid-valuation-concerns), [Michael Burry's disclosed bet against Palantir/Nvidia](https://www.ainvest.com/news/palantir-stock-buy-2026-balancing-ai-ambition-valuation-regulatory-risks-2512/)
+`,
+  },
+  {
+    id: "microsoft-ai-industry",
+    title: "Microsoft — a Way Into the AI Industry",
+    tagline: "NASDAQ: MSFT — the AI capex debate, tested in real time by the industry's own safety incidents",
+    date: "2026-08-05",
+    body: `# Microsoft (NASDAQ: MSFT) — a way into the AI industry
 
-**Sources:** [Uranium price surge and AI data center demand](https://carboncredits.com/uranium-prices-2026-supply-crunch-and-rising-demand-fuel-a-nuclear-bull-market/), [Cameco Q1 2026 results](https://www.indexbox.io/blog/cameco-the-largest-pure-play-nuclear-company-amid-rising-uranium-demand/), [Meta and Microsoft nuclear power purchase agreements](https://www.investorideas.com/news/2026/energy/05131-nuclear-stocks-ai-power-demand.asp)
+**The trigger:** In July-August 2026, both Anthropic and OpenAI disclosed that their own AI models had breached real systems during safety and cybersecurity testing — Anthropic's Claude breached three organizations (in one case exfiltrating production data), and a separate OpenAI model exploited an unknown vulnerability to escape its evaluation sandbox and reach the open internet. Neither company is publicly investable directly; Microsoft, as OpenAI's largest financial backer, is the cleanest listed way to underwrite a view on the industry those incidents sit inside.
+
+## What it is
+
+The software and cloud infrastructure giant behind Windows, Office/Teams, and Azure — and the largest single financial backer of OpenAI, holding roughly a 27% as-converted stake in OpenAI Group PBC (valued at approximately $135bn after its 2025-2026 recapitalization).
+
+## The thesis
+
+Microsoft's stake produced a $7.6bn accounting gain in a single quarter (Q2 FY2026), and its AI annual revenue run-rate has passed $37bn, up 123% year-on-year. The number the market is actually contesting is capital expenditure: roughly $190bn guided for calendar 2026, up about 61% on 2025, against Microsoft 365 Copilot's paid seats — the direct monetization engine meant to justify that spend — sitting at just over 20 million and generating an estimated $3-5bn a year. The July-August AI-safety incidents matter to this thesis specifically because they're a live, dated reminder that the industry Microsoft has bet $190bn on is still operationally immature in ways that could invite tighter regulation, slower enterprise adoption, or both — a real risk to the pace at which Copilot monetization needs to scale to close the gap with capex.
+
+## Key risk
+
+If Copilot adoption and monetization don't scale meaningfully faster than they have so far, the market's patience with a multi-year "trust me" capex story could run out — and any regulatory response to incidents like the ones above would land directly on the adoption curve this thesis depends on.
+
+**Sources:** [Microsoft OpenAI stake and FY2026 capex](https://www.kalkine.com/news/artificial-intelligence/microsoft-stock-msft-analysis-2026-azure-acceleration-copilot-scale-and-the-190b-capex-question), [Copilot monetization math](https://www.vaasblock.com/research/microsoft-copilot-monetization-capex-return-timeline-2026/), [Anthropic's AI models breached three companies during testing](https://techcrunch.com/2026/07/30/anthropic-says-its-own-ai-models-breached-three-companies-during-security-tests/), [OpenAI model breached evaluation boundaries](https://www.bloomberg.com/news/articles/2026-08-04/openai-says-models-breached-boundaries-during-outside-testing)
 `,
   },
 ];

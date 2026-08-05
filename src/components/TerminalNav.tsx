@@ -76,37 +76,25 @@ export default function TerminalNav() {
         </div>
 
         <nav className="hidden flex-wrap items-center gap-1 pb-3 md:flex">
-          {modules.map((m) => {
+          {/* Only the modules Adam stands behind get a permanent spot in
+              nav — beta modules are real and reachable, but only from
+              their own homepage section, not the persistent top bar. */}
+          {modules
+            .filter((m) => m.status === "live")
+            .map((m) => {
             const isActive = pathname?.startsWith(m.slug);
-            const isClickable = m.status === "live" || m.status === "beta";
             return (
               <Link
                 key={m.slug}
-                href={isClickable ? m.slug : "#"}
-                aria-disabled={!isClickable}
+                href={m.slug}
                 className={[
                   "shrink-0 rounded-full px-3.5 py-1.5 text-sm transition-colors",
-                  !isClickable
-                    ? "cursor-not-allowed text-muted/60"
-                    : isActive
-                      ? "bg-surface text-accent"
-                      : "text-muted hover:bg-surface hover:text-foreground",
+                  isActive
+                    ? "bg-surface text-accent"
+                    : "text-muted hover:bg-surface hover:text-foreground",
                 ].join(" ")}
-                onClick={(e) => {
-                  if (!isClickable) e.preventDefault();
-                }}
               >
                 {m.name}
-                {m.status === "soon" && (
-                  <span className="ml-1.5 text-[10px] uppercase tracking-wide text-muted/50">
-                    soon
-                  </span>
-                )}
-                {m.status === "beta" && (
-                  <span className="ml-1.5 rounded-full bg-accent/15 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-accent">
-                    beta
-                  </span>
-                )}
               </Link>
             );
           })}

@@ -1520,6 +1520,55 @@ merged into My Analysis.
       shows all 4 sections (2 write-ups, stock pitches, 10 sourced leads) in its jump-to nav and
       body. `npm run build` and `tsc --noEmit` clean.
 
+## Phase 47 — My Analysis rebuilt: index/detail split, a trimmed and re-sourced stock-pitch set, homepage cleanup
+
+You asked for a substantial rework of My Analysis: delete the page's disclosure banner, rename
+and rewrite the intro copy around the "scrolling my feed" concept, rewrite the stock pitches to
+read as professional/recruiter-facing (no personal notes) with an explicit recent-news trigger
+for each, cut the set down to specific names (dropping others), add three new ones, merge in an
+AI-industry pitch tied to the Anthropic/OpenAI leads-list stories, and change the page from
+"everything expanded inline" to a title-only index with click-through detail pages. Separately:
+strip the long description text from the homepage's module cards, and drop beta modules from the
+persistent top nav entirely.
+
+- [x] Deleted the "Written by Adam, researched with AI-assisted tools..." disclosure banner from
+      `/analysis`'s layout.
+- [x] New page title ("The Feed") and intro copy built around the actual mental model you
+      described — most of what reaches you is short-form feed content (Instagram), most of it
+      scrolled past, this page is what you stopped on.
+- [x] Stock pitches rebuilt from scratch as 9 entries, each with a "The trigger" line naming the
+      specific dated news story that justified picking it, professional/analyst tone throughout,
+      zero personal-connection framing: **Diploma PLC**, **Nintendo**, **British American
+      Tobacco**, **ASML**, **TSMC** (new), **Maersk** (kept — see correction below), **Domino's
+      Pizza Group** (new — the "same type as Greggs, present in London" pick), **Palantir**, and
+      **Microsoft** (new framing — "a way into the AI industry," its trigger drawn directly from
+      the Anthropic/OpenAI AI-safety leads-list stories, tying the stock pitches and leads list
+      together as asked). Dropped: Microsoft's original framing, BAE Systems, Greggs, Cameco (not
+      requested to keep).
+- [x] **A real correction made mid-task, not glossed over:** you asked for CMA CGM in place of
+      Maersk. Checked its listing status before writing anything — CMA CGM is privately held by
+      the Saadé family (~73% ownership) with no public equity ticker on any exchange; a
+      conventional "buy the stock" pitch would have been a fabricated premise. Initially rewrote
+      it as a credit-story pitch instead (real, rated, publicly traded CMA CGM bonds do exist),
+      flagged this finding to you directly, and you confirmed reverting to Maersk — done, with
+      Maersk's pitch rewritten to match the new professional format.
+- [x] Restructured `/analysis` from one long page with every entry expanded inline into an index
+      (dates/titles/taglines only, styled like a headline list) plus new `/analysis/[slug]`
+      detail pages for full write-ups and pitches — applies to both the 2 write-ups and all 9
+      pitches, so nothing forces a full article open until you choose to click it. The "Worth
+      Digging Into" leads list stays inline on the index (each entry is already one sentence —
+      nothing to expand).
+- [x] Homepage: removed the long per-module description paragraph from `ModuleGrid` — cards now
+      show just the name and one-line tagline.
+- [x] Nav: beta modules no longer appear in the persistent top bar at all — only the 4 live
+      modules do. Beta modules stay fully real and reachable via the homepage's dedicated "in
+      development — beta" section.
+- [x] Verified live: index page shows the new title/copy and correct title-only rows for both
+      write-ups and all 9 pitches; a detail page (Microsoft) renders the full trigger/thesis/risk/
+      sources content correctly with no personal-connection language; nav confirmed down to 4
+      items; homepage cards confirmed description-free. `npm run build` and `tsc --noEmit` clean
+      (44 routes, including 11 new static `/analysis/[slug]` pages).
+
 ## Backlog — ideas raised but not started
 
 Not built, not scoped, not scheduled — just captured so they don't get

@@ -2166,6 +2166,46 @@ clean.
 
 ### Nothing broken — safe to continue from here.
 
+## Session 25 — 2026-08-05 (My Analysis rebuilt: index/detail pages, professional stock pitches)
+
+### The short version
+A bigger rework of My Analysis: new page name and intro (built around how you actually described
+finding things — scrolling your feed, stopping on the odd thing), the disclosure banner deleted,
+stock pitches rewritten to read professionally with no personal asides, and the whole page
+changed from "everything expanded at once" to a proper index you click into.
+
+### What changed
+- Page renamed to **The Feed**, with new intro copy about scrolling past most of what reaches you
+  and stopping on the rare thing worth digging into properly.
+- Deleted the old disclosure banner at the top of the page entirely, as asked.
+- **Stock pitches rewritten from scratch**, professional tone throughout, no personal notes: kept
+  Diploma PLC, Nintendo, British American Tobacco, ASML, Maersk, and Palantir; added TSMC and
+  Domino's Pizza Group (the "same idea as Greggs, but in London" pick) fresh; reworked Microsoft
+  around a new angle tying it directly to the Anthropic/OpenAI AI-safety stories already in the
+  leads list. Every pitch now opens with an explicit "trigger" — the actual dated news that
+  justified picking it, same idea as the leads list, just applied to the pitches too.
+- **A real catch, worth flagging directly:** you asked for CMA CGM in place of Maersk. Checked
+  first — CMA CGM has no public shares at all; it's privately owned by the Saadé family. Told you
+  this rather than quietly writing a pitch for a stock that doesn't exist, and you confirmed
+  going back to Maersk, rewritten in the new format.
+- **The page itself restructured**: instead of every write-up and pitch sitting fully expanded on
+  one long page, `/analysis` is now a clean index — just dates, titles, and one-line taglines, in
+  the style of a real news index — and clicking one opens its own full page. Applies to both the
+  write-ups and all 9 stock pitches. The leads list stays as-is on the index, since each one is
+  already just a sentence.
+- Also, while in there: removed the long description text under each module card on the
+  homepage (titles and one-line taglines only now), and beta modules no longer sit in the
+  permanent top nav bar — only the 4 modules you're confident in do. Beta modules are still fully
+  real and reachable from the homepage's own section.
+
+### Verified live
+Index page shows the new title, new copy, and correct title-only listings for both sections; a
+detail page (Microsoft) opens correctly with the full professional write-up, trigger, and
+sources; nav confirmed down to exactly 4 items; homepage cards confirmed to no longer show the
+long descriptions. `npm run build` and `tsc --noEmit` clean.
+
+### Nothing broken — safe to continue from here.
+
 ## Session 20 — 2026-07-25 (Self-audit: new Simulations module + a nav bug fixed)
 
 ### The short version

@@ -36,7 +36,6 @@ export default function ModuleGrid({ modules }: { modules: ModuleInfo[] }) {
               </span>
             </div>
             <p className="mt-2 text-sm font-medium text-accent">{m.tagline}</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted">{m.description}</p>
           </div>
         );
 
