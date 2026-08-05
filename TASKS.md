@@ -914,3 +914,494 @@ compare (unsure if actually correlated).
       "5 Years" button; clicking "Forever" on a real chart renders ticks
       `1993-11 → 2026-07`. Build + typecheck clean, no console errors.
 - [x] Updated `docs/DECISIONS.md`, `PROGRESS.md`.
+
+## Phase 35 — New module: Hype vs Fundamentals (historical cases + current themes)
+
+You asked for a module comparing hype to fundamentals in two parts: closed
+historical cases, and open current ones (e.g. "AI bubble").
+
+- [x] `src/lib/hypeCases.ts` — registry of 3 historical cases (dot-com,
+      meme stocks, cannabis boom), each with its tickers, a bounded
+      era window (start/end), and a news query. Metadata only — no
+      hardcoded prices or stats.
+- [x] `src/lib/hypeThemes.ts` — registry of 2 current themes (AI &
+      semiconductors, quantum computing), same pattern, no end window
+      since these are still open.
+- [x] `src/lib/hypeAnalysis.ts` — real computation layer: fetches each
+      historical ticker's full monthly price history, indexes it to 100
+      at the window start, finds the real peak *within the case's era*
+      (not the whole history), and computes real run-up % and
+      vs-today % from that. Current themes get a real quote + real SEC
+      EDGAR revenue growth + real valuation multiples.
+- [x] `src/lib/hypeNarrative.ts` — two AI narrative functions with
+      deliberately different guardrails: historical cases allow hindsight
+      ("what happened, and why"); current themes are explicitly instructed
+      to **never render a verdict** on whether something is a bubble —
+      present the real evidence on both sides and say so if it's unclear.
+- [x] `/api/hype-theme-narrative` route (current themes only — historical
+      narratives are cheap enough to compute directly in the server
+      component) + `src/data/hypeCommentary.ts` for Adam's own take.
+- [x] `IndexedCaseChart.tsx`, `HistoricalCaseCard.tsx`,
+      `CurrentThemeCard.tsx` (period selector, reuses Markets Overview's
+      `SegmentChart`), `hype/layout.tsx` (source/guardrail banner),
+      `hype/page.tsx` (assembles both sections).
+- [x] `modules.ts` — "Hype vs Fundamentals" flipped from "soon" to "live".
+- [x] **Bug found and fixed:** every historical ticker's computed "era
+      peak" was landing in 2024–2026 instead of its real historical era.
+      Root cause was two layers deep — a missing `windowEnd` bound on the
+      peak search, and (the real cause) `getTimeSeries()` being hardcoded
+      to daily bars, so `outputsize=400` only reached back ~1.6 years,
+      nowhere near 1998–2003. Fixed by switching to
+      `getTimeSeriesForRange(symbol, "MAX")` (the monthly-bar deep-history
+      function built for Markets Overview's "Forever" fix) plus the
+      `windowEnd` bound. Verified live after the fix: CSCO/QQQ peak
+      2000-03, GME 2021-01, AMC 2021-06, TLRY 2018-09, CGC 2019-04 — all
+      correct eras, with plausible real run-up % (GME +7388%).
+- [x] **Bug found and fixed:** the current-theme AI narrative fired before
+      the page's own price-return figures had loaded client-side, so it
+      sometimes said price-return data was "unavailable" while the stat
+      cards next to it already showed real numbers. Fixed by waiting for
+      every ticker's real return before requesting the narrative.
+- [x] **Bug found and fixed:** the module fetches SEC EDGAR fundamentals
+      for up to 5 tickers per page load; each ticker's own fundamentals
+      call already fans out to ~21 concurrent SEC requests, and doing
+      several tickers at once multiplied that into a burst well past
+      SEC's documented 10-requests/second limit, causing some real
+      fundamentals to silently come back "Unavailable". Fixed by fetching
+      tickers sequentially instead of via `Promise.all`, capping the
+      module's peak SEC EDGAR concurrency at the same level every other
+      page on the site already has.
+- [x] Build + typecheck clean; `dynamic = "force-dynamic"` added after
+      confirming the page would otherwise run its (paid) AI narrative
+      calls at `next build` time on every deploy.
+- [x] Updated `docs/DECISIONS.md`, `docs/DATA_SOURCES.md`, `PROGRESS.md`.
+
+## Phase 36 — Deep research pass (stock pitches, valuation plan, hype/fundamentals, agentic AI) + new Pokemon Cards module + new Prompt Answers page
+
+While you were out: 10 stock pitches, a guided valuation-model learning
+plan, 10 hype-vs-fundamentals write-ups, agentic AI research for KPMG's
+tax team, and a real Pokemon card market module — done in that order
+(easier/research tasks first, Pokemon last, per your instruction).
+
+- [x] 10 stock pitches researched live (Diploma PLC mandatory, Nintendo
+      for the Pokemon angle, BAT/BAE as the paired ESG-exclusion
+      contrast, ASML/Maersk/Cameco for the geopolitics angle, Microsoft/
+      Palantir for AI, Greggs for the everyday-UK pick) — each with real
+      current numbers, macro/geopolitical context, and a personal-
+      connection angle.
+- [x] Valuation-model learning plan written, sequenced for NBIM's
+      equities team specifically (grounded in NBIM's own real published
+      strategy and active-ownership documents, not a generic curriculum),
+      staying open to S&T/M&A, referencing this site's own Model
+      Templates for practice.
+- [x] 10 hype-vs-fundamentals examples researched with real, sourced
+      quotes (tulip mania debunked by modern historians, the NFT "right
+      click save" collapse, Meta's $80bn+ metaverse retreat, the Nikola
+      "rolling downhill truck" fraud, the 3D-printing bubble, quantum
+      computing's 800-1000x P/S ratios) alongside the two required open
+      cases: the AI bubble and Pokemon card hype.
+- [x] Agentic AI capabilities researched live across Copilot, OpenAI,
+      Claude, and Perplexity, specifically for KPMG's tax practice —
+      including what KPMG itself has already committed to (Workbench,
+      Digital Gateway + Claude integration, the Microsoft Agent 365/
+      Copilot firm-wide deployment) plus the Circular 230/hallucination
+      liability considerations that matter most for tax specifically.
+- [x] Pokemon card data-source research done empirically (not assumed):
+      TCGdex confirmed as a genuinely free, working, multi-language API
+      with real current pricing; PokemonPriceTracker identified as the
+      real paid option for deeper history if ever wanted. Reverse-
+      engineering question answered directly (moot now that a free,
+      legitimate option covers the need).
+- [x] `src/lib/pokemonCards.ts` + `src/app/pokemon/` — new module: search
+      by name/language/energy-type/set, card detail page with real
+      TCGPlayer low/mid/high/market + Cardmarket avg/1-7-30-day trend.
+      Honest about the one real limit (no free multi-year price history
+      exists anywhere) rather than faking a chart.
+- [x] `src/data/promptAnswers.ts` + `src/app/research/` — new "Prompt
+      Answers" page storing all the long-form research above (rendered
+      via `react-markdown`, the one new dependency this added).
+- [x] Both new modules registered in `modules.ts`. Build + typecheck
+      clean; live-verified real search results, a real card detail page
+      matching a direct API call, and the research page rendering
+      correctly — no console errors.
+- [x] Updated `docs/DECISIONS.md`, `docs/DATA_SOURCES.md`, `PROGRESS.md`.
+
+## Phase 37 — Company Profile: gauge scores, chart baseline/color fixes, disclosure, logos
+
+Picked from the Streamlit-spec gap-analysis report (Phase 36's last entry),
+in the priority order you gave: chart color-split, 1D baseline bug check,
+disclosure footer, gauge scores, logos.
+
+- [x] `src/lib/chartSplit.ts` — shared `splitAtBaseline()` helper: splits a
+      price series into green-above/red-below segments around a baseline,
+      inserting an exact interpolated crossing point so the color change
+      happens right where the line crosses, not at the nearest real point.
+      Applied to `PriceChart.tsx` (Company Profile) and `SegmentChart.tsx`
+      (Markets Overview / Hype current themes) — not to the multi-ticker
+      `IndexedCaseChart`, where distinct per-ticker colors matter more than
+      a shared up/down semantic.
+- [x] **Real bug found and fixed**: `PriceChart`'s "1D" view computed
+      up/down (and the chart's own baseline) from the day's *first*
+      intraday bar, not yesterday's close — Twelve Data's 1D intraday
+      series only covers today's own session. An overnight gap-down could
+      render as a green "up" day. Fixed by wiring the `previousClose`
+      already fetched server-side (previously computed but only shown as
+      a separate stat tile) through to `PriceChart` as a real baseline,
+      prepended as a genuine data point so the chart itself shows the true
+      gap, with an explicit caption saying so.
+- [x] `src/lib/config.ts` — single `DISCLOSURE` constant, now the source
+      for the line already shown in `TerminalFooter.tsx` (rendered on
+      every page via the root layout) — one wording, one place, instead of
+      hand-typed prose that could drift between pages.
+- [x] `src/lib/signals.ts` + `src/components/profile/ScoreGauge.tsx` — two
+      0-100 gauges ("Technical strength": 200DMA trend, 14-day RSI,
+      52-week range position; "Fundamental quality": margin, ROE, net
+      debt/EBITDA, revenue growth) plus 7 short neutral-language "at a
+      glance" chips (Trend, Momentum, 52-week range, Profitability,
+      Leverage, Volatility, Valuation) — never a buy/sell signal, every
+      sub-score documented as a simple linear-clamp heuristic against
+      commonly-cited reference ranges, and any missing input is left out
+      of the average rather than guessed. Wired into `DataDashboard.tsx`
+      right after the price chart, fed by real inputs already computed on
+      the Company Profile page (fundamentals, valuation metrics, beta,
+      price history) — no new API calls.
+- [x] `src/lib/logos.ts` — lightweight logo display: a curated ticker→
+      domain map plus Google's public favicon proxy, fetched live at
+      render time (no offline scraper pipeline, no locally-stored asset
+      files to maintain, per the report's own recommendation against the
+      spec's heavier approach). Shown next to the company name on Company
+      Profile and next to each match in the ticker search dropdown.
+- [x] Verified live: AAPL's gauges/chips show real numbers (88 Technical
+      strength, 76 Fundamental quality, driver bullets matching the stats
+      grid below exactly); the 1Y chart visibly splits red→green at the
+      real crossing point; the 1D view shows the "Baselined at yesterday's
+      close" caption and a real previous-close data point; the Apple logo
+      renders in the header. Build + typecheck clean, no console errors.
+- [x] Updated `docs/DECISIONS.md`, `PROGRESS.md`.
+
+## Phase 38 — "The Vault" cleanup + Pokemon Cards rebuilt as a market analysis + walking-sprite easter egg
+
+You asked to trim the research page, rename it, and rework Pokemon Cards
+from a per-card search tool into a market-level analysis — framed around
+a specific thesis you gave: Pokemon behaves like a durable commodity,
+unlike the hype-and-crash pattern of most collectibles.
+
+- [x] Removed 4 entries from `promptAnswers.ts` (the two KPMG write-ups,
+      the Pokemon API research writeup, and the Streamlit-spec comparison)
+      — 3 remain (valuation plan, stock pitches, hype vs fundamentals 10).
+      Renamed the module/page from "Prompt Answers" to **"The Vault"**
+      throughout (`modules.ts`, the page eyebrow).
+- [x] `src/lib/pokemonMarket.ts` — real, sourced data only: the Pokemon
+      Company's own disclosed cumulative-production milestones (34.1bn in
+      2020 → 85bn+ by May 2026, ~40% of all cards ever printed made in
+      just the last 3 fiscal years), PSA 10 1st-Edition Base Set
+      Charizard's real reported price trajectory (2018-2025), and real
+      liquidity proxies (PSA grading volume +95% YoY, eBay's ~58% share of
+      Pokemon sales) — no fabricated data points, no smoothed gaps.
+- [x] Researched the "commodity vs. hype" thesis directly rather than just
+      asserting it: found the 1990s "Junk Wax" baseball-card bubble (81bn
+      cards/year printed at the peak, market never recovered, revenue fell
+      to ~1/7th of peak) as the real contrast case, and confirmed Pokemon
+      is actually outperforming Magic/Yu-Gi-Oh in recent growth rather
+      than the category broadly declining.
+      Also researched, and reported honestly, what *isn't* verifiable: no
+      continuous 30-year demand series exists publicly (only scattered
+      disclosed milestones), and "market size" estimates disagree 3-5x
+      across research firms depending on methodology.
+- [x] `src/components/pokemon/MarketChart.tsx` and `CharizardChart.tsx` —
+      real Recharts visualizations of the above (Charizard's chart is
+      log-scaled; the price range spans ~700x). `src/app/pokemon/page.tsx`
+      rebuilt around this analysis: market overview, the Charizard case
+      study (with a live current raw-card price pulled from this module's
+      own TCGdex feed, for comparison against the historical graded
+      figures), the sports-card comparison, a SWOT, and an explicit "what
+      isn't knowable" section.
+- [x] Removed the per-card search UI and its now-dead code
+      (`searchCards`, `listSets`, `ENERGY_TYPES`, `CardSummary` in
+      `pokemonCards.ts`) per your explicit request to reframe this as a
+      market, not a lookup tool. The `/pokemon/[id]` card detail route
+      stays live and linkable (used by the Charizard case study's "see
+      the live card page" link) — just no longer the page's front door.
+- [x] **Real bug found and fixed while verifying the new page:** two
+      bold/plain-text JSX boundaries lost their space on render (e.g.
+      "...ever printed</span>was printed..." with no space) — a classic
+      JSX line-wrap whitespace-collapsing pitfall already worked around
+      elsewhere in this codebase with explicit `{" "}`. Found via direct
+      HTML inspection (not just the rendered screenshot), fixed the same way.
+- [x] `src/components/pokemon/WalkingPokemon.tsx` — the easter egg: every
+      6-10 seconds (randomized), a real animated Pokemon sprite spawns and
+      genuinely wanders — a shared `requestAnimationFrame` loop drives
+      real per-frame position updates (random direction changes every
+      1.5-4s, edge-bounce by reflecting the angle, a sine-wave vertical
+      bob for a walking gait), not a fixed CSS point-A-to-B keyframe.
+      Refined twice from your feedback: first to genuinely wander instead
+      of glide in a straight line, then to stay in the page's empty side
+      margins (computed from the content column's real `max-w-5xl` width)
+      rather than crossing over the text. Capped at 6 on-screen at once,
+      each despawning after ~35s. A defensive guard skips spawning
+      entirely if the viewport hasn't been laid out yet (0 width/height)
+      rather than ever placing a walker at garbage coordinates. Sprites
+      are real animated GIFs from the `PokeAPI/sprites` GitHub repo
+      (Pokemon Showdown/Smogon-community sourced, explicitly credited as
+      reusable in that repo's own README), served via jsDelivr's GitHub
+      CDN mirror (not `raw.githubusercontent.com`, which explicitly asks
+      not to be hotlinked in production) — confirmed working via a direct
+      request before building anything. Same non-commercial, educational,
+      fan-project usage category as the card artwork this module already
+      displays via TCGdex — not Nintendo-licensed, but the same
+      well-established, low-friction pattern thousands of fan tools rely on.
+- [x] Verified live: new page renders with real chart data and a real
+      live Charizard price matching a direct API check; DOM inspection
+      confirmed real sprites spawning with correct URLs, positions, and
+      capping behavior; a real screenshot confirmed correct visible
+      placement in the side margin after the wander/side-zone refinement
+      (a Psyduck sprite in the top-right corner, clear of the text
+      column); no console errors; `npm run build`/`tsc --noEmit` clean.
+- [x] Updated `docs/DECISIONS.md`, `docs/DATA_SOURCES.md`, `PROGRESS.md`.
+
+## Phase 39 — Pokemon Cards: "$30 in 1999" vs. the S&P 500 comparison chart
+
+You asked for a chart: $30 in a PSA 10 1st-Edition Charizard since 1999
+vs. $30 in the S&P 500 since 1999, orange vs. blue. Built it, with a real
+constraint surfaced along the way: this session's web-search budget for
+the month was exhausted partway through the research, and PriceCharting/
+PWCC/Heritage Auctions all blocked automated access (HTTP 403) on top of
+that — so this documents exactly what's solidly sourced vs. not, rather
+than presenting a smooth 27-year line as if it were all equally real.
+
+- [x] **The S&P 500 side is fully real.** Found that Yahoo Finance's own
+      public chart API (`query1.finance.yahoo.com/v8/finance/chart/SPY`)
+      is directly reachable and returns real dividend-and-split-adjusted
+      ("Adj Close") SPY prices back to January 1999 — confirmed live,
+      332 real monthly data points. This is the correct basis for a fair
+      total-return comparison (not just raw price appreciation), and is
+      exactly the source you named. $30 in January 1999 compounds to
+      ~$261 today (real, computed from this real data — roughly 9x).
+- [x] **The Charizard side is honest about a real ~19-year data gap.**
+      From 2018 onward, every point is the same real, publicly reported
+      sale data already verified earlier this session ($11,000 in 2018 →
+      $550,000 by December 2025). For 1999-2017, no dated PSA 10 sale
+      record could be verified from the named sources given the access
+      blocks — the $30 starting point is treated explicitly as the
+      *stated entry-price assumption this comparison was asked to use*,
+      not a documented sale, and is visually marked as such on the chart
+      (a hollow/dashed dot vs. filled dots for every real transaction).
+- [x] `src/lib/pokemonMarket.ts` — added `THIRTY_DOLLAR_COMPARISON`, a
+      real year-by-year dataset (1999-2026) merging the dense real S&P
+      500 series with the sparse real Charizard sale points, each row
+      flagged `charizardReal: true/false` so the chart can render the
+      distinction rather than imply false precision.
+- [x] `src/components/pokemon/ThirtyDollarChart.tsx` — dual-line,
+      log-scale (the two lines end ~2,000x apart) Recharts component,
+      Charizard in orange, S&P 500 in blue, with a custom dot renderer
+      for the real-vs-assumption distinction.
+- [x] Added to `src/app/pokemon/page.tsx` with an explicit "exactly how
+      solid each side of this chart actually is" disclosure box — same
+      honesty pattern as the rest of this module.
+- [x] **Real bug found and fixed while verifying, same pattern as before:**
+      another JSX whitespace-collapse spot (`$550,000</span> as of...`
+      losing its space where the line wrapped) — found via direct HTML
+      inspection, fixed with `{" "}`.
+- [x] Verified live: real computed figures (9x, ~18,000x) match the
+      underlying data exactly; the full 28-point dataset confirmed
+      correctly embedded and rendered via direct HTML inspection; no
+      console errors; `npm run build`/`tsc --noEmit` clean.
+- [x] Updated `docs/DECISIONS.md`, `docs/DATA_SOURCES.md`, `PROGRESS.md`.
+
+## Phase 40 — Pokemon Cards: filled the pre-2016 gap, and corrected a shaky data point in the process
+
+You asked to search again specifically for pre-2016 Charizard data.
+Web search access had come back since the last session (the earlier
+monthly-budget block was temporary), which turned up real, better-sourced
+data — and, importantly, surfaced that one of the *existing* data points
+was itself questionable and needed fixing, not just filling a gap forward.
+
+- [x] Found a real, precisely dated sale: **$18,900, 23 July 2017**, via
+      PWCC on eBay, documented by Beckett News — one of the sources you
+      originally named. Pushes real data back about 5 months earlier than
+      what was there before.
+- [x] Found something more valuable than another data point: an explicit,
+      source-attributed fact (via data tracker Card Ladder) that **no PSA
+      10 sale of this card is publicly recorded at all between 2017 and
+      2021**. That's not a research gap to apologize for — it's a real,
+      citable fact about the market itself, and a stronger thing to show
+      on the chart than an invented intermediate point ever would be.
+- [x] **Caught and corrected a real data-quality issue while doing this:**
+      the previously-used "2018: $11,000" point turned out to be shaky —
+      it doesn't square with the Card Ladder gap fact above, and its
+      original sourcing (from earlier in the project) wasn't as solid as
+      what this pass found. Replaced it with the properly-sourced $18,900/
+      July 2017 figure. Also removed a "2016: $800" point that had been
+      mixing a different, far more common ungraded/near-mint card into
+      the same series as PSA 10 graded sales — a real, if subtle,
+      apples-to-oranges mistake that made the pre-2020 gap look smaller
+      than it honestly is.
+- [x] **Caught a real bug while making this edit, before it ever
+      shipped:** first attempt at encoding the "no recorded sales"
+      2017-2021 gap used a literal `{ usd: 0 }` placeholder point — which
+      would have plotted as a real zero value on a log-scale axis (where
+      log(0) is undefined) and misleadingly implied a documented $0 sale.
+      Caught immediately on review and fixed by leaving the gap as a true
+      gap in the data (no interpolated point at all) with the Card
+      Ladder fact stated in prose instead.
+- [x] Updated `src/lib/pokemonMarket.ts` (`CHARIZARD_PRICE_HISTORY` and
+      `THIRTY_DOLLAR_COMPARISON`), the case-study prose, and the "$30 in
+      1999" disclosure box in `src/app/pokemon/page.tsx` — all now
+      consistent with the corrected data and the new sourcing.
+- [x] Verified live: old `$11,000` figure confirmed completely gone from
+      the rendered page; new `$18,900`/`Card Ladder` figures confirmed
+      present in both the case-study section and the full embedded
+      28-point dataset; no console errors; `npm run build`/`tsc --noEmit`
+      clean.
+- [x] Updated `docs/DECISIONS.md`, `docs/DATA_SOURCES.md`, `PROGRESS.md`.
+
+## Phase 41 — Two new modules: Lessons and Test Prep (closing the finance-career gaps)
+
+You asked what was missing from the site for a real banking/asset
+management/consulting career, then asked for two new blocks: a "Lessons"
+block covering the gap topics as proper written lessons (fixed income,
+three-statement modeling, technical interview fundamentals, options,
+FX, and reading a real deal — built as a complete set, not just the ones
+you asked about by name), and a "Test Prep" block covering first-round
+assessments specifically — firm-type process breakdowns, a technical/case
+question bank, real Pymetrics game mocks, and HireVue-style written
+practice.
+
+- [x] Researched the real first-round assessment landscape before
+      building anything: which firms actually use Pymetrics vs. HireVue
+      vs. their own tools (McKinsey uses "Solve," not Pymetrics — a real
+      distinction worth not blurring), what the real 12 Pymetrics games
+      are and what each measures, and how bulge bracket IB, boutique IB,
+      asset management, and MBB vs. other consulting recruiting
+      processes actually differ.
+- [x] New **Lessons** module (`/lessons`, `/lessons/[slug]`) — six
+      full written lessons in `src/data/lessons.ts`: Fixed Income &
+      Credit, Three-Statement Modeling, Technical Interview Fundamentals
+      (turns the site's own DCF/LBO/M&A/Comps templates into
+      interview-ready walkthroughs), Options & Derivatives, FX as an
+      Asset Class, and Reading a Real Deal. Reuses the existing
+      `MarkdownContent` renderer from The Vault rather than building a
+      new one. Registered in `src/lib/modules.ts` and site nav.
+- [x] New **Test Prep** module (`/test-prep`) — firm-type process
+      overviews for 5 firm types in `src/data/testPrep.ts`; a filterable
+      technical/case question bank (15 questions across Accounting &
+      Three-Statement, Valuation & Technicals, and Deal & Case, each
+      tagged by which firm types actually ask it) via
+      `src/components/testprep/QuestionBank.tsx`; all 12 real Pymetrics
+      games listed with what each measures, plus a genuinely playable
+      simplified Balloon Game (`BalloonGame.tsx`) — explicitly labeled as
+      an honest simplification, not Pymetrics' real algorithm; and a
+      write-and-time HireVue practice tool (`HireVuePractice.tsx`) with
+      12 real behavioral/technical/motivational prompts, a stopwatch, and
+      localStorage-persisted drafts (no accounts/database in this
+      project, so drafts save per-browser).
+- [x] Verified live: both modules render correctly in nav and on their
+      pages; question bank category/firm-type filters and expand/collapse
+      work; Balloon Game pump/pop/cash-out mechanics confirmed correct
+      via direct interaction; HireVue textarea save-to-localStorage and
+      persistence across a full page reload both confirmed; no console
+      errors; `npm run build` clean (29 routes, including 6 static
+      lesson pages via `generateStaticParams`).
+
+## Phase 42 — Self-audit pass: new Simulations module + a real nav bug fixed
+
+You asked me to self-check the site as an analyst would and add whatever I
+judged genuinely useful — no need to ask first — and specifically floated
+a "simulation" section for any high-finance role, generated data allowed
+if real data wasn't available.
+
+- [x] New **Simulations** module (`/simulations`) — two simulations, two
+      seats:
+      - **Market Maker** (`MarketMakerGame.tsx`) — a sales & trading
+        seat. Quote a bid/ask spread around a randomly generated
+        (random-walk) mid price for 90 ticks; tighter spreads fill more
+        often but earn less per trade, wider spreads the opposite;
+        inventory carries real mark-to-market risk; breaching a ±40-share
+        risk limit triggers a forced, penalty-priced hedge — the same
+        trade-offs a real market-making desk manages, on fully synthetic
+        data.
+      - **Portfolio Risk Simulator** (`PortfolioRiskSimulator.tsx`) — an
+        asset-management/risk seat. Build a portfolio across 10 real
+        asset classes (`src/data/simulations.ts`), each with an
+        illustrative long-run return/vol/beta assumption (textbook-style
+        figures, explicitly labeled as assumptions, not live data or any
+        specific bank's published forecast), and run a genuine 500-path,
+        1-year Monte Carlo simulation (single-factor/market-model, so
+        assets move with realistic correlation) entirely in the browser —
+        outputs a percentile fan chart, expected return, volatility, 95%
+        VaR, 95% CVaR (Expected Shortfall), and Sharpe ratio.
+- [x] Registered in `src/lib/modules.ts` and nav.
+- [x] **Found and fixed a real bug while verifying this in the browser,
+      not something the user reported:** adding an 11th nav item pushed
+      the top nav past the width of a standard 1280px desktop screen —
+      "Test Prep" and "The Vault" scrolled off with no visible way to
+      reach them (my first attempted fix, a horizontal scroll container,
+      made this worse by hiding the scrollbar entirely). Fixed properly
+      by moving the module links to their own row that wraps onto a
+      second line instead of scrolling — confirmed via direct DOM
+      inspection that all 11 modules are present and reachable at both
+      1280px desktop and 768px tablet widths.
+- [x] Verified live: Monte Carlo output sanity-checked by hand (a
+      50/20/30 Large-Cap/Intl/Bonds mix returned a Sharpe ratio matching
+      `(expectedReturn − 4%) / volatility` exactly); Market Maker's
+      pump/fill/risk-breach/pause/resume mechanics all exercised directly
+      (including confirming the "Resume" button correctly continues an
+      in-progress session instead of restarting it); dark-mode chart
+      colors confirmed resolving to the correct theme value via computed
+      styles. No console errors. `npm run build` clean (30 routes).
+
+## Phase 43 — Replaced The Vault with a Word download; added "My Analysis" (Adam's own research notebook)
+
+You asked for two changes ahead of moving the site to bloombruh.com: remove "The Vault" as a
+browsable section and replace it with a downloadable Word document instead, and add a new
+section for your own independent, ongoing research on breaking macro/market stories — something
+closer to "I saw a headline, I want to dig deeper," not a neutral data module.
+
+- [x] Generated a real `.docx` (`public/downloads/bloombruh-research.docx`, ~40KB) from the 3
+      remaining Vault entries (valuation-model learning plan, 10 stock pitches, 10 hype-vs-
+      fundamentals write-ups) — built with the `docx` npm library since neither `pandoc` nor
+      LibreOffice was available on this machine to use the more typical markdown→docx path;
+      verified structurally (63 hyperlinks, 35 headings, 160 bold runs, 27 bullets — all counts
+      consistent with the source content) since there was no way to render it to an image for a
+      visual check without LibreOffice installed.
+- [x] Removed `src/app/research/` entirely, removed "The Vault" from `src/lib/modules.ts`/nav,
+      deleted the now-fully-unused `src/data/promptAnswers.ts`, and removed a stale link to it
+      from the Pokemon Cards page.
+- [x] Added a "Download past research write-ups (Word)" link to the site footer
+      (`TerminalFooter.tsx`) so the content is still reachable, just as a download rather than a
+      browsable page.
+- [x] New **My Analysis** module (`/analysis`) — reuses the same entry-list + Markdown-body
+      pattern The Vault used, but reframed as Adam's own personal research notebook rather than
+      AI-answered prompts. Two real, sourced entries to start:
+      - **Korean equity volatility following SK Hynix's $26.5bn Nasdaq listing** — researched
+        fresh (the $26.5bn/second-largest-US-listing claim checked out): the 10 July 2026 ADR
+        debut, the 15.37% Seoul-listed share drop and >9% KOSPI cascade four days later, and the
+        genuine causes (new-share dilution, a liquidity migration into the new US listing, and a
+        real analyst earnings downgrade from Korea Investment & Securities).
+      - **What AI is actually doing to hedge fund/bank analyst roles** — led with real Goldman
+        Sachs/Morgan Stanley labor-market research (via Axios) rather than vendor blog claims;
+        explicitly flagged and excluded one vendor-sourced stat (a "3-5% higher returns" claim
+        from an AI-tool vendor's own blog) as commercially motivated rather than presenting it as
+        fact.
+- [x] Verified live: nav shows "My Analysis" with no remaining trace of "The Vault," `/research`
+      correctly 404s, the footer download link serves the real `.docx` with the correct
+      content-type, no console errors, `npm run build` clean (30 routes).
+- [ ] **Not done yet, deferred at your request:** pointing bloombruh.com (bought via Porkbun) at
+      this site. Needs your input when you're ready — see PROGRESS.md for what's needed from you
+      specifically (DNS access I don't have).
+
+## Backlog — ideas raised but not started
+
+Not built, not scoped, not scheduled — just captured so they don't get
+lost. Nothing below should be started without picking it up as a real
+phase first.
+
+- **Pokémon card trading market** (raised 2026-07-23) — Adam's idea: a
+  stock-exchange-style market for Pokémon trading cards (real cards have
+  real secondary-market prices via sites like TCGplayer/PriceCharting).
+  Explicitly "just an idea at the moment, don't build it yet." Whenever
+  it's picked up, the first step should be the same as every other module
+  here: check what free/public real pricing data actually exists for
+  card prices before designing anything (same "verify before building"
+  discipline as the rest of this project) — don't assume a free API
+  exists just because one might.

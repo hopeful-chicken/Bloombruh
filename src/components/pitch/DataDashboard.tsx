@@ -11,11 +11,19 @@
 
 import { formatUSD, formatNumber, formatPct, formatOriginalCurrency } from "@/lib/format";
 import PriceChart, { type ChartPoint } from "@/components/profile/PriceChart";
+import ScoreGauge from "@/components/profile/ScoreGauge";
+import { getLogoUrl } from "@/lib/logos";
 import Stat from "@/components/Stat";
 import NewsList from "@/components/pitch/NewsList";
 import type { Fundamentals } from "@/lib/secEdgar";
 import type { CompanyDescription, SourceLink } from "@/lib/companyInfo";
 import type { NewsArticle } from "@/lib/news";
+import {
+  computeTechnicalScore,
+  computeFundamentalScore,
+  computeAtAGlanceChips,
+  type AtAGlanceInputs,
+} from "@/lib/signals";
 import {
   CORE_FINANCIAL_STAT_KEYS,
   VALUATION_STAT_KEYS,
@@ -47,6 +55,7 @@ type Props = {
   sourceLinks: SourceLink[];
   availableStats: StatEntry[];
   newsArticles: NewsArticle[];
+  snapshotInputs: AtAGlanceInputs;
 };
 
 /** Renders one labeled grid of stats, pulled from the availableStats
@@ -108,12 +117,22 @@ export default function DataDashboard(props: Props) {
     <div>
       {/* Header */}
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <div>
-          <h1 className="font-display text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
-            {companyName}{" "}
-            <span className="font-mono text-lg text-muted">{symbol}</span>
-          </h1>
-          <p className="mt-1 text-sm text-muted">{exchange}</p>
+        <div className="flex items-center gap-3">
+          {getLogoUrl(symbol) && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={getLogoUrl(symbol)!}
+              alt=""
+              className="h-12 w-12 rounded-md border border-border bg-white object-contain p-1.5"
+            />
+          )}
+          <div>
+            <h1 className="font-display text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
+              {companyName}{" "}
+              <span className="font-mono text-lg text-muted">{symbol}</span>
+            </h1>
+            <p className="mt-1 text-sm text-muted">{exchange}</p>
+          </div>
         </div>
         <div className="text-right">
           <p className="font-mono text-2xl font-semibold text-foreground sm:text-3xl">
@@ -131,9 +150,80 @@ export default function DataDashboard(props: Props) {
       {/* Price chart */}
       {props.chartData.length > 0 && (
         <div className="mt-8">
-          <PriceChart symbol={symbol} data={props.chartData} currency={currency} />
+          <PriceChart
+            symbol={symbol}
+            data={props.chartData}
+            currency={currency}
+            previousClose={props.previousClose}
+          />
         </div>
       )}
+
+      {/* Snapshot — real computed signal, never a buy/sell call (see
+          DISCLOSURE in lib/config.ts). Two 0-100 gauges plus 7 short,
+          factual "at a glance" chips, all from lib/signals.ts. */}
+      <div className="mt-8">
+        <p className="text-xs text-muted">
+          A quick, factual read on the price trend and the underlying business — not a
+          recommendation, and not a substitute for reading the numbers below yourself.
+        </p>
+        <div className="mt-3 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-lg border border-border bg-surface p-4">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
+              At a glance
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {computeAtAGlanceChips(props.snapshotInputs).map((c) => (
+                <span
+                  key={c.label}
+                  title={c.label}
+                  className="rounded-full border border-border px-2.5 py-1 text-[11px] text-foreground"
+                >
+                  {c.value}
+                </span>
+              ))}
+            </div>
+          </div>
+          {(() => {
+            const technical = computeTechnicalScore(props.snapshotInputs);
+            return (
+              <div>
+                <ScoreGauge
+                  score={technical.score}
+                  label="Technical strength"
+                  subtitle="Trend, momentum, position vs averages"
+                />
+                {technical.drivers.length > 0 && (
+                  <ul className="mt-2 space-y-0.5 text-[11px] text-muted">
+                    {technical.drivers.map((d) => (
+                      <li key={d}>• {d}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            );
+          })()}
+          {(() => {
+            const fundamental = computeFundamentalScore(props.snapshotInputs);
+            return (
+              <div>
+                <ScoreGauge
+                  score={fundamental.score}
+                  label="Fundamental quality"
+                  subtitle="Margins, returns, leverage, growth"
+                />
+                {fundamental.drivers.length > 0 && (
+                  <ul className="mt-2 space-y-0.5 text-[11px] text-muted">
+                    {fundamental.drivers.map((d) => (
+                      <li key={d}>• {d}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            );
+          })()}
+        </div>
+      </div>
 
       {/* Key stats */}
       <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">

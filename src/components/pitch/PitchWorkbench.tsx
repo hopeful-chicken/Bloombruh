@@ -13,6 +13,7 @@ import type { ChartPoint } from "@/components/profile/PriceChart";
 import type { Fundamentals } from "@/lib/secEdgar";
 import type { CompanyDescription, SourceLink } from "@/lib/companyInfo";
 import type { NewsArticle } from "@/lib/news";
+import type { AtAGlanceInputs } from "@/lib/signals";
 import DataDashboard from "./DataDashboard";
 import DataSourcesAppendix, { COMPANY_PROFILE_SOURCES } from "./DataSourcesAppendix";
 import ReportBuilder from "./ReportBuilder";
@@ -75,6 +76,7 @@ type Props = {
    * to SEC filings via a US ticker, ADR pages priced off the HK listing —
    * see src/lib/hkAdrMap.ts). Null on ordinary pages. */
   fundamentalsSourceNote?: string | null;
+  snapshotInputs: AtAGlanceInputs;
 };
 
 const REPORT_TYPES = [

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { SymbolSearchResult } from "@/lib/marketData";
 import { hasFreeQuoteDataForResult } from "@/lib/exchangeCoverage";
+import { getLogoUrl } from "@/lib/logos";
 
 // The search endpoint (symbol_search) returns matches across every global
 // exchange, but the free Twelve Data plan this site uses only actually
@@ -106,16 +107,27 @@ export default function TickerSearch({
           {!loading &&
             results.slice(0, 8).map((r) => {
               const freeData = hasFreeQuoteDataForResult(r);
+              const logoUrl = getLogoUrl(r.symbol);
               const rowContent = (
                 <>
-                  <span>
-                    <span
-                      className={`font-medium ${freeData ? "text-foreground" : "text-muted"}`}
-                    >
-                      {r.instrument_name}
-                    </span>
-                    <span className="ml-2 font-mono text-xs text-muted">
-                      {r.symbol}
+                  <span className="flex items-center gap-2">
+                    {logoUrl && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={logoUrl}
+                        alt=""
+                        className="h-5 w-5 shrink-0 rounded border border-border bg-white object-contain p-0.5"
+                      />
+                    )}
+                    <span>
+                      <span
+                        className={`font-medium ${freeData ? "text-foreground" : "text-muted"}`}
+                      >
+                        {r.instrument_name}
+                      </span>
+                      <span className="ml-2 font-mono text-xs text-muted">
+                        {r.symbol}
+                      </span>
                     </span>
                   </span>
                   <span className="shrink-0 text-right">

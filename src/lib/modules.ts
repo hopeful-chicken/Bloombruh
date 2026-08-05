@@ -53,9 +53,49 @@ export const modules: ModuleInfo[] = [
   {
     name: "Hype vs Fundamentals",
     slug: "/hype",
-    status: "soon",
-    tagline: "Narrative vs numbers",
+    status: "live",
+    tagline: "Narrative vs. numbers — historical cases with known outcomes, current themes that aren't",
     description:
-      "Mention velocity and sentiment plotted against earnings revisions and valuation — flagging where hype and fundamentals diverge.",
+      "Real historical cases (the dot-com bubble, the meme-stock mania, the cannabis stock boom) with real computed run-up/drawdown stats and hindsight — then real current themes (AI & semiconductors, quantum computing) with real price returns and revenue growth side by side. The current-themes AI narrative is explicitly instructed to present evidence, never a verdict on whether something is a bubble.",
+  },
+  {
+    name: "Pokemon Cards",
+    slug: "/pokemon",
+    status: "live",
+    tagline: "The collectible commodity — real production data, a real volatility case study, and an honest SWOT",
+    description:
+      "A market-level analysis of Pokemon TCG cards as an asset class: real 3-decade production data, a real price-volatility case study (PSA 10 Charizard, 2018-2025), a direct comparison to the 1990s sports-card crash, and a SWOT on investing in the category — treated as a genuine commodity-like market, not a search tool for individual cards.",
+  },
+  {
+    name: "Lessons",
+    slug: "/lessons",
+    status: "live",
+    tagline: "Fixed income, three-statement modeling, options, FX, and reading a real deal",
+    description:
+      "Six written lessons covering the finance-career fundamentals this site's other data-driven modules don't teach directly: fixed income & credit, three-statement modeling, technical interview fundamentals (DCF/LBO/M&A/comps), options & derivatives, FX as an asset class, and how to read a real M&A deal announcement like an analyst.",
+  },
+  {
+    name: "Simulations",
+    slug: "/simulations",
+    status: "live",
+    tagline: "Run a trading book, then stress-test a portfolio — the actual job, not just the data",
+    description:
+      "Two simulations, two seats: a Market Maker game (quote a spread against a randomly generated price feed, manage inventory risk and mark-to-market P&L, get forcibly hedged if you breach the risk limit) and a Portfolio Risk Simulator (build a portfolio across 10 asset classes and run a real 500-path Monte Carlo simulation for a full 1-year distribution, VaR, CVaR, and Sharpe ratio). Generated data, real mechanics — clearly labeled throughout.",
+  },
+  {
+    name: "Test Prep",
+    slug: "/test-prep",
+    status: "live",
+    tagline: "Firm processes, a technical/case question bank, real Pymetrics games, and HireVue practice",
+    description:
+      "Recruiting-process breakdowns for bulge bracket and boutique IB, asset management, and MBB/other consulting; a filterable technical and case question bank (accounting, valuation, deals); all 12 real Pymetrics games explained, with a playable Balloon Game; and a write-and-time practice tool for real HireVue-style prompts, saved locally in your browser.",
+  },
+  {
+    name: "My Analysis",
+    slug: "/analysis",
+    status: "live",
+    tagline: "Independent research on breaking macro stories — AI's impact on analyst roles, Korean equity volatility, and more",
+    description:
+      "Adam's own running research notebook: dated, sourced write-ups on breaking macro and market stories as they happen — from AI's impact on hedge fund analyst roles to the Korean equity volatility that followed SK Hynix's $26.5bn Nasdaq listing. Written for himself first, kept here because it's worth coming back to.",
   },
 ];

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import {
-  AreaChart,
+  ComposedChart,
   Area,
   XAxis,
   YAxis,
@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+import { splitAtBaseline } from "@/lib/chartSplit";
 
 export type ChartPoint = {
   date: string;
@@ -26,23 +27,42 @@ const RANGES: { value: Range; label: string }[] = [
   { value: "MAX", label: "Max" },
 ];
 
+const UP_COLOR = "#3e7d57";
+const DOWN_COLOR = "#c0392b";
+
 export default function PriceChart({
   symbol,
   data,
   currency,
   initialRange = "1Y",
+  previousClose,
 }: {
   symbol: string;
   data: ChartPoint[];
   currency: string;
   initialRange?: Range;
+  /** Real previous-session close, fetched server-side from the live quote.
+   * Used as the 1D view's baseline instead of the day's first intraday bar
+   * — otherwise an overnight gap-down can render as a green "up" day, since
+   * intraday data only covers today's own session, not yesterday's close.
+   * Bug found and fixed 2026-07-23. */
+  previousClose?: number;
 }) {
   const [range, setRange] = useState<Range>(initialRange);
   const [points, setPoints] = useState<ChartPoint[]>(data);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const isUp = points.length > 1 && points[points.length - 1].close >= points[0].close;
+  // For "1D", the real baseline is yesterday's close, not today's first
+  // bar — prepend it as a genuine data point so the chart's own line (not
+  // just the up/down color) shows the true overnight gap.
+  const chartPoints =
+    range === "1D" && previousClose != null && points.length > 0
+      ? [{ date: "Prev close", close: Math.round(previousClose * 100) / 100 }, ...points]
+      : points;
+
+  const baseline = chartPoints.length > 0 ? chartPoints[0].close : 0;
+  const splitData = splitAtBaseline(chartPoints, baseline);
 
   async function handleRangeChange(next: Range) {
     if (next === range) return;
@@ -90,19 +110,15 @@ export default function PriceChart({
 
       <div className="h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={points} margin={{ left: 0, right: 8, top: 8, bottom: 0 }}>
+          <ComposedChart data={splitData} margin={{ left: 0, right: 8, top: 8, bottom: 0 }}>
             <defs>
-              <linearGradient id="priceFill" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="0%"
-                  stopColor={isUp ? "#3e7d57" : "#c0392b"}
-                  stopOpacity={0.25}
-                />
-                <stop
-                  offset="100%"
-                  stopColor={isUp ? "#3e7d57" : "#c0392b"}
-                  stopOpacity={0}
-                />
+              <linearGradient id="priceFillUp" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={UP_COLOR} stopOpacity={0.25} />
+                <stop offset="100%" stopColor={UP_COLOR} stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="priceFillDown" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={DOWN_COLOR} stopOpacity={0.25} />
+                <stop offset="100%" stopColor={DOWN_COLOR} stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#e3e0d3" vertical={false} />
@@ -129,18 +145,35 @@ export default function PriceChart({
                 fontSize: 12,
               }}
               labelStyle={{ color: "#26241f" }}
-              formatter={(value) => [`${value}`, "Close"]}
+              formatter={(value) => (value == null ? ["", ""] : [`${value}`, "Close"])}
             />
             <Area
               type="monotone"
-              dataKey="close"
-              stroke={isUp ? "#3e7d57" : "#c0392b"}
+              dataKey="above"
+              stroke={UP_COLOR}
               strokeWidth={1.5}
-              fill="url(#priceFill)"
+              fill="url(#priceFillUp)"
+              connectNulls={false}
+              isAnimationActive={false}
             />
-          </AreaChart>
+            <Area
+              type="monotone"
+              dataKey="below"
+              stroke={DOWN_COLOR}
+              strokeWidth={1.5}
+              fill="url(#priceFillDown)"
+              connectNulls={false}
+              isAnimationActive={false}
+            />
+          </ComposedChart>
         </ResponsiveContainer>
       </div>
+      {range === "1D" && previousClose != null && (
+        <p className="mt-1 text-[11px] text-muted/70">
+          Baselined at yesterday&apos;s close ({currency === "USD" ? "$" : ""}
+          {previousClose.toFixed(2)}), not today&apos;s first intraday price.
+        </p>
+      )}
     </div>
   );
 }

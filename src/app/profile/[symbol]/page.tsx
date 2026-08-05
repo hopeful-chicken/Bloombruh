@@ -20,6 +20,7 @@ import {
 import { computeValuationMetrics, computeEbitdaHistory } from "@/lib/valuationAnalysis";
 import { getCompanyNews } from "@/lib/news";
 import { getBeta } from "@/lib/beta";
+import { computeRSI, type AtAGlanceInputs } from "@/lib/signals";
 import { formatUSD, formatPct, formatOriginalCurrency } from "@/lib/format";
 import type { StatEntry, ChartSeriesOption } from "@/lib/reportBlocks";
 import PitchWorkbench from "@/components/pitch/PitchWorkbench";
@@ -142,7 +143,9 @@ export default async function CompanyProfilePage({
   const averageVolume = parseFloat(quote.average_volume);
 
   const movingAverage50 = computeMovingAverage(closes, 50);
+  const movingAverage200 = computeMovingAverage(closes, 200);
   const annualizedVol = computeAnnualizedVolatility(closes);
+  const rsi = computeRSI(closes);
 
   const contextNotes = [
     describePriceVs52WeekRange(price, week52Low, week52High),
@@ -184,6 +187,34 @@ export default async function CompanyProfilePage({
     fundamentals && valuationPrice !== null
       ? computeValuationMetrics(fundamentals, valuationPrice)
       : null;
+
+  // Real inputs for the Snapshot panel's two 0-100 gauges (Technical
+  // strength, Fundamental quality) and the 7 neutral-language "at a
+  // glance" chips — see lib/signals.ts for how these combine into a score.
+  // Never a buy/sell signal: every value here is a factual figure already
+  // computed above, just packaged for the scoring functions.
+  const grossMarginPct =
+    fundamentals?.grossProfit != null && fundamentals?.revenue
+      ? (fundamentals.grossProfit / fundamentals.revenue) * 100
+      : null;
+  const netMarginPct =
+    fundamentals?.netIncome != null && fundamentals?.revenue
+      ? (fundamentals.netIncome / fundamentals.revenue) * 100
+      : null;
+  const snapshotInputs: AtAGlanceInputs = {
+    price,
+    movingAverage200,
+    rsi,
+    week52Low,
+    week52High,
+    grossMarginPct,
+    netMarginPct,
+    roePct: valuation?.roePct ?? null,
+    netDebtToEbitda: creditMetrics?.netDebtToEbitda ?? null,
+    revenueGrowthPct: valuation?.revenueGrowthPct ?? null,
+    beta: betaResult?.beta ?? null,
+    peRatio: valuation?.peRatio ?? null,
+  };
 
   // For companies whose SEC filings report in a currency other than USD
   // (IFRS/20-F filers, e.g. Canada Goose in CAD) — getFundamentals() has
@@ -648,6 +679,7 @@ export default async function CompanyProfilePage({
         availableChartSeries={availableChartSeries}
         newsArticles={newsArticles}
         fundamentalsSourceNote={fundamentalsSourceNote}
+        snapshotInputs={snapshotInputs}
       />
     </div>
   );

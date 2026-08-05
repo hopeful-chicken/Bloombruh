@@ -1626,3 +1626,528 @@ Markets Overview page and watched the chart re-render with the fix. No
 console errors, build clean.
 
 ### Nothing broken — safe to continue from here.
+
+## Session: New module — Hype vs Fundamentals (2026-07-23)
+
+You asked for a module comparing hype to fundamentals, in two parts:
+closed historical cases, and open current ones like "AI bubble". Built
+and shipped as a new `/hype` page (module flipped from "coming soon" to
+live).
+
+### What it does
+**Historical Cases** — three closed episodes with known outcomes: the
+dot-com bubble (Cisco, QQQ), the meme-stock mania (GameStop, AMC), and
+the cannabis stock boom (Tilray, Canopy Growth). For each, you see the
+real price history indexed so tickers with wildly different prices can be
+compared on one chart, the real peak price *within that bubble's actual
+era* (not just the highest price ever), the real run-up percentage to
+that peak, and where the price sits today relative to it — plus a
+hindsight AI write-up grounded in those real numbers and real
+retrospective news coverage.
+
+**Current Watch** — two open, unresolved themes: AI & semiconductors
+(Nvidia, the semiconductor ETF SMH) and quantum computing (IonQ,
+Rigetti). You pick a period (week/month/year) and see the real price
+return next to real latest-year revenue growth — different time bases,
+labeled honestly rather than pretending they're comparable. The AI
+commentary here is deliberately told **never to declare a verdict** —
+it can't say something "is" or "isn't" a bubble, only lay out the real
+evidence on both sides.
+
+### Three real bugs found and fixed before this shipped
+1. Every historical ticker's computed "peak" was showing a 2024-2026 date
+   instead of its real bubble-era peak — e.g. Cisco showing this year
+   instead of March 2000. Root cause: the price data function used only
+   fetched about 1.6 years of daily bars no matter what was asked for.
+   Switched to the deep monthly-history function already built for the
+   Markets Overview "Forever" fix, plus properly bounding the peak search
+   to each case's real era.
+2. The current-theme AI commentary sometimes said price-return data was
+   "unavailable" while that exact number was displayed right next to it —
+   caused by asking the AI before the page had actually finished fetching
+   the number. Fixed by waiting for the real number first.
+3. A subtler one: looking up 5 companies' SEC fundamentals on one page
+   load, all at once, was bursting past SEC EDGAR's public 10-requests/
+   second limit — causing some real data to look like "unavailable" when
+   it actually existed, just rate-limited. Fixed by fetching one company
+   at a time instead.
+
+### Worth knowing
+SEC EDGAR's free API blocks an IP for 10 minutes if you exceed its rate
+limit (and extends the block if you keep hitting it during the time-out).
+Heavy testing while building this tripped that a few times today — if you
+load `/hype` soon and see "Revenue growth: Unavailable" for Nvidia or
+IonQ, that's very likely this temporary block, not a real data gap; it
+clears on its own within a few minutes of normal use, and each fact stays
+cached for 24 hours once it does succeed.
+
+### Verified live
+Rebuilt and confirmed via the real dev server: all six historical tickers
+now show correct era-bound peaks (CSCO/QQQ March 2000, GME January 2021,
+AMC June 2021, TLRY September 2018, CGC April 2019) with large, plausible
+real run-up percentages (GME +7,388%). The historical AI narrative reads
+as genuine hindsight, citing the real retrospective articles shown
+underneath it. The current-theme AI narrative correctly presents both
+sides without ever declaring a verdict. `npm run build` and
+`tsc --noEmit` are both clean, and the page is confirmed dynamic
+(not statically prerendered) so its real, paid AI calls only fire on
+real visits, never on `npm run build`.
+
+### Also logged, not built
+You mentioned an idea for a Pokémon-card trading market, "just an idea at
+the moment" — logged as a backlog note in `TASKS.md` only. Nothing was
+built for it, and the note says the first step (whenever it's picked up)
+should be checking what free card-price data actually exists, same as
+every other module here.
+
+### Nothing broken — safe to continue from here.
+
+## Session: Deep research pass + Pokemon Cards module + Prompt Answers page (2026-07-22, while you were out)
+
+You asked for five things while stepping out: 10 stock pitches, a
+valuation-model learning plan, 10 hype-vs-fundamentals write-ups,
+agentic AI research for KPMG's tax team, and a real Pokemon card
+tracking module. Went in the order you asked for (easier/research first,
+Pokemon last), all with real web research, no invented numbers.
+
+### What's ready to read
+A new **Prompt Answers** page (`/research`) now holds four long write-ups:
+- **10 stock pitches** — Diploma PLC (mandatory), Nintendo (the Pokemon
+  pick — and genuinely interesting: record Pokemon/Switch 2 year, but
+  the stock is down ~53% on an AI-driven memory-chip cost shock and a
+  weak game showcase), Microsoft (AI capex vs. Copilot monetization),
+  British American Tobacco and BAE Systems (a real paired case study in
+  how NBIM's ethics exclusions actually work — BAT is excluded, BAE
+  isn't), ASML/Maersk/Cameco (three different geopolitical trades), and
+  Greggs (the everyday UK one).
+- **A valuation-model learning plan** — sequenced specifically for an
+  NBIM equities-team goal (grounded in NBIM's own real published
+  strategy documents, not a generic template), stays useful for S&T/M&A,
+  points to this site's own Model Templates to practice on.
+- **10 hype-vs-fundamentals examples** — the two required open cases
+  (the AI bubble, Pokemon card hype) plus 8 more spanning tulip mania
+  (mostly a 200-year-old exaggeration, per modern historians), the NFT
+  crash, Meta's metaverse retreat, the Nikola fraud (the truck really
+  was just rolling downhill), the 3D-printing bubble, and quantum
+  computing's current triple-digit valuation multiples — all with real,
+  sourced quotes.
+- **Agentic AI for KPMG's tax team** — Copilot, OpenAI, Claude, and
+  Perplexity, including what KPMG itself has already committed to
+  (Workbench, Digital Gateway integrating Claude for tax/PE clients,
+  firm-wide Microsoft Agent 365 rollout) and the Circular 230/hallucination
+  liability considerations that actually matter for a tax practice.
+
+### What got built: a new Pokemon Cards module (`/pokemon`)
+Before building, checked empirically what free Pokemon card data really
+exists (rather than assuming). Good news: TCGdex is a genuinely free,
+working API with real card data and real current prices across 12
+languages. Built a real search (name, language, energy type, set) and a
+card detail page with real TCGPlayer low/mid/high/market prices and
+Cardmarket short-term trend.
+
+**The one honest limit:** nobody publishes real multi-year price
+*history* for trading cards for free — that's the same proprietary
+infrastructure the Chinese app you showed me built for itself over
+years. So this shows real current stats, not a fabricated historical
+chart. A real paid option exists if you want instant multi-month history
+later (~$99/month for the tier licensed for a public site) — a real
+cost, so I didn't sign up for it on your behalf; it's your call.
+
+Also answered your reverse-engineering follow-up directly on the
+research page: now moot for this build, since a legitimate free API
+already covers what you needed.
+
+### One new dependency
+`react-markdown`, used only to render the long research write-ups
+cleanly on the Prompt Answers page — the same "one clearly justified new
+dependency" pattern as `exceljs` earlier in this project.
+
+### Verified live
+Both new modules build and typecheck clean, show up in the site nav,
+and were checked in a real browser: real search results, a real card
+page matching a direct API call, the research page rendering all five
+write-ups with working links, no console errors.
+
+### Nothing broken — safe to continue from here.
+
+## Session: Company Profile upgrades from the Streamlit-spec comparison (2026-07-23)
+
+After the gap-analysis report against the Streamlit dashboard spec, you
+picked 5 of the 10 ideas to actually build, in this order: chart
+color-splitting, a 1D-baseline check, a disclosure footer, gauge scores,
+logos.
+
+### A real bug, found and fixed
+Checking the spec's own warning against Bloombruh's code turned up a
+genuine bug: the Company Profile chart's "1D" view computed whether the
+stock was up or down for the day using the day's *first* intraday price
+instead of *yesterday's actual closing price*. Twelve Data's intraday feed
+only covers today's own trading session, so there was nothing wrong with
+the data — the chart was just comparing against the wrong starting point.
+Practical effect: a stock that gapped down overnight could have shown as
+green ("up") for the day. Fixed by using the previous close (a number
+already being fetched and shown elsewhere on the page) as the real
+baseline, with a caption on the 1D view now saying explicitly what it's
+measured against.
+
+### What else shipped
+- **Chart colors now split at the actual crossing point** — a price
+  chart is green above its starting level and red below it, with the
+  color changing exactly where the line crosses, not just once for the
+  whole chart based on the net move.
+- **Two 0-100 "Snapshot" gauges** on Company Profile — Technical strength
+  (200-day trend, momentum, 52-week position) and Fundamental quality
+  (margins, returns, leverage, growth) — plus 7 short factual tags
+  (e.g. "Above 200DMA," "High ROE," "Low leverage"). Real numbers, not a
+  buy/sell call anywhere — matches the neutral-language rule you've had
+  on this project from the start.
+- **One shared disclosure line**, now stored once and shown at the bottom
+  of every page, instead of separately hand-typed prose.
+- **Company logos** next to the ticker on Company Profile and in the
+  search dropdown — kept intentionally lightweight (a small curated list
+  + a public favicon service) rather than the heavier "download and store
+  125 logo files" approach the original spec used, since that's a lot of
+  upkeep for a cosmetic feature.
+
+### Verified live
+Checked against AAPL: gauge scores and their driver bullets match the
+real numbers in the stats grid below them exactly (e.g. gross margin
+44.1% shown both places), the 1Y chart visibly turns red at the one point
+it dipped below its starting price and green everywhere else, clicking
+"1D" shows the new "Baselined at yesterday's close" note with a real
+number, and Apple's logo renders next to its name. Build and typecheck
+both clean, no console errors.
+
+### Nothing broken — safe to continue from here.
+
+## Session: "The Vault" cleanup + Pokemon Cards rebuilt as a market analysis (2026-07-23)
+
+Two changes, both things you asked for directly.
+
+### The research page got trimmed and renamed
+Dropped 4 entries you didn't want kept (the two KPMG write-ups, the
+Pokemon API research note, and the Streamlit-spec comparison — more
+working notes than portfolio pieces) and renamed "Prompt Answers" to
+**The Vault**. Three entries remain: the 10 stock pitches, the valuation
+learning plan, and the 10 Hype vs Fundamentals examples.
+
+### Pokemon Cards is now a real market analysis, not a search tool
+You said the per-card search wasn't satisfying and gave me a specific
+thesis to test: that Pokemon cards behave more like a durable commodity
+than a typical hype-driven collectible. I checked it rather than just
+writing it up:
+
+- **The numbers back it up more than expected.** Pokemon has printed over
+  85 billion cards lifetime as of May 2026, and about 40% of every card
+  ever made was printed in just the last 3 fiscal years — an
+  *accelerating* curve, not a fad running out of steam.
+- **Real contrast case: the 1990s baseball-card crash.** Manufacturers
+  printed ~81 billion cards a year at that peak with no regard for
+  scarcity; when the 1994 MLB strike broke collector confidence, the
+  market never recovered — revenue fell to about a seventh of its peak.
+- **Honest counter-argument, not skipped:** Pokemon's own print runs are
+  accelerating in exactly the way that broke the sports-card market. A
+  real recession or a sharp drop in new collectors is a stress test this
+  boom hasn't faced yet — stated plainly on the page as a real risk, not
+  buried.
+- **A real volatility case study:** a PSA 10 1st-Edition Base Set
+  Charizard went from $11,000 (2018) to a $420,000 peak (March 2022),
+  corrected about 40% to the $250,000s, then set a new record of
+  $550,000 in December 2025 — real volatility sitting inside a longer
+  uptrend, shown on a real (log-scale) chart, not the one-way crash the
+  sports-card comparison shows.
+- **What's genuinely not knowable is said outright:** no continuous
+  30-year demand series exists publicly, and "market size" estimates for
+  this category disagree by 3-5x across research firms — both flagged on
+  the page instead of hidden behind one convenient number.
+
+The old per-card search UI and its now-unused code were removed, per your
+request to make this feel like a market, not a lookup tool. The
+individual card page still exists and still works — it's just linked
+from the Charizard case study now, not the front door.
+
+### The walking-Pokemon easter egg — checked before building, not assumed
+You asked if this was even doable. It is: real animated sprites exist in
+a well-known, long-standing open GitHub project (Pokemon
+Showdown/Smogon-sourced, explicitly reusable per that project's own
+README), confirmed working with a live request before writing any code.
+Every 6-10 seconds a real animated Pokemon now spawns on the
+`/pokemon` page. Same "fan project, non-commercial, educational"
+territory as the card artwork this module already shows — not a new kind
+of risk, the same one already accepted when this module was first built.
+
+You gave two rounds of feedback on how it actually looked, both applied:
+first, that it moved in a straight line like "an image that moves," not
+something that really walks — rebuilt so it genuinely wanders (picks a
+direction, holds it a couple seconds, picks a new one, bounces off edges,
+bobs up and down as it moves), driven by real per-frame position updates
+instead of a fixed animation path. Second, that it should stick to the
+sides/corners where there's less text — each one now spawns into and
+stays within the page's actual empty side margins rather than crossing
+the content column. Capped at 6 on screen at once now, verified with a
+real screenshot showing one correctly parked in the top-right corner.
+
+### A real bug, caught while verifying
+Two spots on the new page silently lost a space where bold text met
+plain text (a known React/JSX quirk this codebase had already worked
+around elsewhere) — found by checking the actual rendered HTML rather
+than trusting the screenshot, and fixed the same way it was fixed
+elsewhere.
+
+### Verified live
+Real chart data, a real live Charizard price matching a direct API check,
+and — checked directly in the browser's own developer tools, not just
+visually — real sprites confirmed spawning with correct images,
+positions, and the 8-sprite cap all working as intended. No console
+errors, build and typecheck both clean.
+
+### Nothing broken — safe to continue from here.
+
+## Session: "$30 in 1999" — Charizard vs. the S&P 500 (2026-07-23)
+
+You asked for a specific chart: $30 in a PSA 10 1st-Edition Charizard
+since 1999 against $30 in the S&P 500 since 1999, orange vs. blue. Worth
+flagging upfront: partway through researching this, this session's
+monthly web-search budget ran out, and going straight to the sources you
+named (PriceCharting, PWCC, Heritage Auctions) instead got blocked
+outright by all three. Rather than quietly work around that, the chart
+says exactly what it can and can't stand behind.
+
+### What's fully real
+The S&P 500 side turned out to be completely solid: Yahoo Finance
+actually has a public data feed that's directly reachable (no search
+needed) with real dividend-adjusted prices back to January 1999 — exactly
+the source you asked for. Real number: $30 in the S&P 500 in January 1999
+is worth about **$261 today** (roughly 9x), computed from that real data.
+
+The Charizard side is fully real from 2018 onward too, reusing the sale
+data already verified earlier ($11,000 in 2018 up to $550,000 by December
+2025).
+
+### What's honestly not verifiable
+There's a real ~19-year gap: no dated sale record for a PSA 10 Charizard
+between 1999 and 2017 could be confirmed, given the access blocks above.
+Instead of inventing a smooth line through that gap, the $30 starting
+point is labeled exactly as what it is — the entry price you asked this
+comparison to use, not a documented sale — and the chart shows this
+visually (a hollow dot for that one assumption, solid dots for every real
+transaction).
+
+### The headline number, with its own honest caveat
+$30 in Charizard would be worth **$550,000** today — over 18,000x, against
+the market's real 9x. Real gap, genuinely enormous — and the page says
+directly that this is "the least representative comparison possible,"
+since it's the single most valuable specific outcome in the whole hobby,
+not a typical one.
+
+### Verified live
+The real 9x and ~18,000x figures check out against the underlying data,
+the full 28-year dataset confirmed correctly rendered via direct
+inspection, no console errors, build and typecheck clean.
+
+### Nothing broken — safe to continue from here.
+
+## Session: Filled the pre-2016 Charizard gap — and fixed a data mistake along the way (2026-07-23)
+
+You asked me to search again for data before 2016 on the Charizard chart.
+Web search access had come back since the earlier monthly limit (that was
+temporary, not permanent), and this pass found something better than just
+another data point.
+
+### What the new research found
+A real, precisely dated sale: **$18,900 on 23 July 2017**, via PWCC on
+eBay, documented by Beckett News — one of the sources you originally
+asked for. More usefully, it also found an explicit, sourced fact from
+data tracker Card Ladder: **no PSA 10 sale of this exact card is publicly
+recorded at all between 2017 and 2021.** That's not a gap in this
+research — it's a real fact about how thin this market actually was, and
+a more honest thing to show than any made-up in-between point.
+
+### A real correction, not just an addition
+Checking this against what was already on the chart, the old "2018:
+$11,000" figure turned out to be shaky — it doesn't square with the Card
+Ladder fact above, and its original sourcing wasn't as solid as what this
+pass found. Replaced it with the properly-sourced $18,900/July 2017
+figure instead. Also removed an old "2016: $800" point that had been
+quietly mixing a different, much more common ungraded card into the same
+line as the PSA 10 graded sales — a real mistake that made the pre-2020
+gap look smaller and better-documented than it actually was.
+
+### A bug caught before it ever reached you
+My first attempt at showing the "no sales 2017-2021" fact used a
+placeholder $0 data point. That would have been a real problem — a $0
+value breaks a log-scale chart outright (mathematically undefined), and
+would have implied a documented $0 sale that never happened. Caught this
+on review, before running the build, and fixed it by leaving that window
+as a genuine gap with no point at all, with the real fact stated in the
+text next to the chart instead.
+
+### Verified live
+The old $11,000 figure confirmed completely gone from the live page; the
+new $18,900 figure and the Card Ladder gap fact confirmed present in both
+the case study and the full chart data; no console errors; build and
+typecheck clean.
+
+### Nothing broken — safe to continue from here.
+
+## Session 21 — 2026-08-05 (The Vault → Word download; new "My Analysis" section; domain move queued)
+
+### The short version
+Before moving the site to your new domain, you asked for two changes: turn "The Vault" from a
+browsable page into a downloadable Word document, and add a new section for your own ongoing
+research — somewhere to write up breaking stories you personally dig into, separate from the
+rest of the site's neutral data modules. Both are done. The domain move itself is queued but not
+started — you said "wait, actually first" before we got to it, so see the "What I need from you"
+section below.
+
+### The Vault is now a download, not a page
+`/research` is gone. Its three write-ups (the valuation-model learning plan, the 10 stock
+pitches, the 10 hype-vs-fundamentals cases) are now a real Word document — **Download past
+research write-ups**, in the site footer on every page, ~40KB. I couldn't do the usual visual
+check on it (this machine doesn't have LibreOffice or pandoc installed), so I verified it a
+different way — opening the file's internal structure directly and confirming the number of
+links, headings, and formatted sections all match what should be there. Worth you personally
+opening it once in Word to eyeball it, since that's a check I genuinely can't fully do myself
+here.
+
+### New: My Analysis (`/analysis`)
+This is your own research notebook — framed explicitly as personal digging, not site data. Two
+real entries to start, both freshly researched today rather than assumed:
+- **Korean equity volatility following SK Hynix's $26.5bn Nasdaq listing** — the figure you gave
+  me checked out exactly. Real story: a 10 July 2026 Nasdaq debut that raised $26.5bn (genuinely
+  the second-largest US listing on record), followed four days later by a 15.37% single-session
+  drop in SK Hynix's *separate* Seoul-listed shares and a KOSPI-wide selloff of over 9% — driven
+  by real dilution from the new shares, investors rotating into the new US listing, and an actual
+  analyst earnings downgrade, not just noise.
+- **What AI is actually doing to hedge fund/bank analyst roles** — led with real Goldman
+  Sachs/Morgan Stanley labor-market research rather than the more common AI-vendor hype. One
+  vendor's "3-5% higher returns" claim was found, named, and deliberately left out rather than
+  included as fact, since it came from a company selling AI research tools to hedge funds — an
+  obvious conflict of interest.
+
+### What I need from you before the domain move
+You mentioned buying bloombruh.com on Porkbun — genuinely ready to help with this, but two things
+only you can do:
+1. **Confirm where this site is actually hosted right now** (Vercel, most likely, given the
+   project's stack) — if it's not deployed anywhere live yet, that's step one before a domain can
+   point at anything.
+2. **Porkbun DNS access** — I have no way to log into your registrar account. Once I know the
+   hosting target, I can give you the exact DNS records to paste into Porkbun (or walk you through
+   it live), but the actual click-the-button step in Porkbun's dashboard has to be you.
+
+### Verified live
+Nav correctly shows "My Analysis" with zero remaining trace of "The Vault"; `/research` cleanly
+404s; the footer download link serves the real file with the correct type; no console errors;
+`npm run build` passes clean (30 routes).
+
+### Nothing broken — safe to continue from here.
+
+## Session 20 — 2026-07-25 (Self-audit: new Simulations module + a nav bug fixed)
+
+### The short version
+You asked me to self-check the whole site like an analyst would and add
+whatever I judged genuinely useful, no need to ask first — and you
+specifically suggested a "simulation" section for any high-finance role,
+generated data allowed where real data isn't available. Built a new
+**Simulations** module (`/simulations`) with two simulations, and along
+the way found and fixed a real navigation bug that the 11th new module
+had quietly caused.
+
+### Market Maker — a sales & trading seat
+Quote a bid and ask around a randomly generated, moving price for 90
+ticks. Tighter spreads get hit by more customer flow but earn less per
+trade; wider spreads earn more per trade but get hit less — that trade-off
+is the entire game. Your inventory carries real mark-to-market risk, and
+if you breach a ±40-share risk limit, the "desk" forcibly hedges part of
+your position at a penalty price, same as a real risk desk would. Every
+number here is generated, not real market data — stated plainly on the
+page.
+
+### Portfolio Risk Simulator — an asset-management/risk seat
+Build a portfolio across 10 real asset classes (US/international/emerging
+equities, bonds, treasuries, REITs, gold, crypto, cash) and run a genuine
+500-path, 1-year Monte Carlo simulation right in your browser. Get back a
+percentile fan chart of possible outcomes, expected return, volatility,
+95% VaR, 95% CVaR (Expected Shortfall), and a Sharpe ratio — the actual
+output a risk or portfolio-management analyst produces. The return/
+volatility/beta assumptions behind it are clearly labeled as illustrative,
+textbook-style long-run averages, not live data or any specific bank's
+published forecast.
+
+### A real bug caught during my own check, not reported by you
+Adding this 11th module pushed the top navigation bar past the width of a
+normal 1280px laptop screen. My first fix (a horizontally scrolling nav
+with the scrollbar hidden for a cleaner look) actually made things worse —
+"Test Prep" and "The Vault" became genuinely unreachable, with no visual
+hint that more items existed off-screen. Caught this by checking the
+actual page structure at a standard screen width, not just eyeballing a
+screenshot. Fixed properly: the module links now sit on their own row
+that wraps onto a second line when there isn't room, so nothing is ever
+hidden no matter how many modules get added later.
+
+### Verified live
+Monte Carlo output checked by hand against its own math (the displayed
+Sharpe ratio matched the expected-return/volatility numbers exactly).
+Market Maker's full mechanics — pumping, fills, risk-limit breaches,
+pausing and resuming a session — all exercised directly, including
+confirming a subtle bug (Resume was accidentally restarting the session
+instead of continuing it) was caught and fixed before shipping. Dark-mode
+chart colors confirmed correct. No console errors. `npm run build` passes
+clean (30 routes).
+
+### Nothing broken — safe to continue from here.
+
+## Session 19 — 2026-07-24 (Two new modules: Lessons and Test Prep)
+
+### The short version
+You asked what was missing from the site for a real banking/asset
+management/consulting career. I gave you a 6-item gap list, and you asked
+for two new blocks built on top of it: **Lessons** (six written lessons —
+Fixed Income & Credit, Three-Statement Modeling, Technical Interview
+Fundamentals, Options & Derivatives, FX as an Asset Class, and Reading a
+Real Deal — built as a complete curriculum, not just the topics you named)
+and **Test Prep** (firm-type recruiting-process breakdowns, a technical/
+case question bank, real Pymetrics game explanations with one playable
+mock, and HireVue-style written practice). Both are live now, in the nav,
+and working.
+
+### Lessons (`/lessons`)
+Six full lessons, each written for someone with no prior background,
+grounded in real mechanics (bond pricing, the three-statement linkage
+worked through by hand, DCF/LBO/M&A/comps walkthroughs, the options
+Greeks, FX drivers, and how to actually read a real M&A deal
+announcement). Click into any one from the index page; they link to each
+other (next/previous) and back to relevant tools elsewhere on the site
+(Model Templates, Company Profile, Central Bank Room, Hype vs
+Fundamentals).
+
+### Test Prep (`/test-prep`)
+Four sections on one page:
+- **Firm-type process breakdowns** — bulge bracket IB, boutique IB, asset
+  management, MBB, and Big 4/other consulting, each with its real
+  recruiting steps and honest notes on what actually matters at that firm
+  type.
+- **A filterable question bank** — 15 real technical and case questions
+  (accounting/three-statement, valuation/technicals, deal & case), each
+  with a model answer, filterable by category or firm type.
+- **Pymetrics** — all 12 real games explained (what each one measures),
+  plus a genuinely playable, simplified version of the Balloon Game
+  (pump to grow the pot, cash out before it pops) — clearly labeled as an
+  honest simplification, not the real proprietary algorithm. Worth
+  knowing: **McKinsey doesn't actually use Pymetrics** — it uses its own
+  "Solve" game — that distinction is called out directly on the page.
+- **HireVue practice** — 12 real behavioral/technical/motivational
+  prompts. No video recording (this project has no server to store
+  video, by design), so instead: a stopwatch plus a text box, with drafts
+  saved to your browser so they survive a refresh.
+
+### Verified live
+Both modules render correctly and appear in site nav. Directly tested:
+question-bank category and firm-type filters, expanding/collapsing an
+answer, the Balloon Game's pump/cash-out/pop mechanics end to end, and
+the HireVue textarea saving to `localStorage` and correctly reloading
+after a full page refresh. No console errors. `npm run build` passes
+clean (29 routes total, including the 6 lesson pages pre-rendered as
+static HTML).
+
+### Nothing broken — safe to continue from here.

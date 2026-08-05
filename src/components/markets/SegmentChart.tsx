@@ -12,7 +12,7 @@
 
 import { useEffect, useState } from "react";
 import {
-  AreaChart,
+  ComposedChart,
   Area,
   XAxis,
   YAxis,
@@ -21,6 +21,10 @@ import {
   CartesianGrid,
 } from "recharts";
 import type { MarketPeriod } from "./PeriodSelector";
+import { splitAtBaseline } from "@/lib/chartSplit";
+
+const UP_COLOR = "#3e7d57";
+const DOWN_COLOR = "#c0392b";
 
 type ChartPoint = { date: string; close: number };
 
@@ -89,16 +93,21 @@ export default function SegmentChart({
     );
   }
 
-  const isUp = points[points.length - 1].close >= points[0].close;
+  const baseline = points[0].close;
+  const splitData = splitAtBaseline(points, baseline);
 
   return (
     <div className="h-64 w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={points} margin={{ left: 0, right: 8, top: 8, bottom: 0 }}>
+        <ComposedChart data={splitData} margin={{ left: 0, right: 8, top: 8, bottom: 0 }}>
           <defs>
-            <linearGradient id="segmentFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={isUp ? "#3e7d57" : "#c0392b"} stopOpacity={0.25} />
-              <stop offset="100%" stopColor={isUp ? "#3e7d57" : "#c0392b"} stopOpacity={0} />
+            <linearGradient id="segmentFillUp" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={UP_COLOR} stopOpacity={0.25} />
+              <stop offset="100%" stopColor={UP_COLOR} stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="segmentFillDown" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={DOWN_COLOR} stopOpacity={0.25} />
+              <stop offset="100%" stopColor={DOWN_COLOR} stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#e3e0d3" vertical={false} />
@@ -125,16 +134,27 @@ export default function SegmentChart({
               fontSize: 12,
             }}
             labelStyle={{ color: "#26241f" }}
-            formatter={(value) => [`$${value}`, "Close"]}
+            formatter={(value) => (value == null ? ["", ""] : [`$${value}`, "Close"])}
           />
           <Area
             type="monotone"
-            dataKey="close"
-            stroke={isUp ? "#3e7d57" : "#c0392b"}
+            dataKey="above"
+            stroke={UP_COLOR}
             strokeWidth={1.5}
-            fill="url(#segmentFill)"
+            fill="url(#segmentFillUp)"
+            connectNulls={false}
+            isAnimationActive={false}
           />
-        </AreaChart>
+          <Area
+            type="monotone"
+            dataKey="below"
+            stroke={DOWN_COLOR}
+            strokeWidth={1.5}
+            fill="url(#segmentFillDown)"
+            connectNulls={false}
+            isAnimationActive={false}
+          />
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   );

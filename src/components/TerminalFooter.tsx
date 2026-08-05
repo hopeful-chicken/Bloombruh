@@ -1,6 +1,10 @@
 // Server component: shows disclaimers and attribution shared across every
 // module. Individual modules show their own data-source/as-of-date banners
 // (e.g. the Company Profile module shows "quotes may be delayed ~15min").
+// The DISCLOSURE line itself lives in one shared constant (lib/config.ts)
+// rather than being hand-typed here, so it can never drift between pages.
+
+import { DISCLOSURE } from "@/lib/config";
 
 export default function TerminalFooter() {
   return (
@@ -12,9 +16,17 @@ export default function TerminalFooter() {
           unaffiliated with any exchange, data provider, or company
           mentioned on this site.
         </p>
-        <p className="mt-2">
-          Nothing on this site is investment advice. Bloombruh is a personal,
-          non-commercial student project — always do your own research.
+        <p className="mt-2">{DISCLOSURE}</p>
+        <p className="mt-3">
+          <a
+            href="/downloads/bloombruh-research.docx"
+            download
+            className="underline decoration-dotted underline-offset-2 hover:text-accent"
+          >
+            Download past research write-ups (Word, ~40KB)
+          </a>
+          {" "}— 10 stock pitches, a valuation-model learning plan, and 10 hype-vs-fundamentals
+          case studies, previously kept as a browsable page here.
         </p>
         <p className="mt-4 flex flex-wrap items-center gap-x-2 text-muted/70">
           <span className="font-logo text-sm font-medium text-foreground/80">
