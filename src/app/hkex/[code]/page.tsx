@@ -50,7 +50,7 @@ export default async function HkexCompanyPage({
         </div>
       </div>
 
-      <section className="mt-8 rounded-xl border border-border bg-surface/40 p-5 sm:p-6">
+      <section className="mt-8 rounded-sm border border-border bg-surface/40 p-5 sm:p-6">
         <HkexPriceChart code={code} data={history} initialRange="1Y" />
       </section>
 

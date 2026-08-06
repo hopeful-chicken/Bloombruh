@@ -4,6 +4,61 @@ This file is updated as work happens. Read top-to-bottom for the latest status. 
 
 ---
 
+## Session 33 — 2026-08-06 (Deck rebuilt to match your real references; a first real design pass on the site)
+
+### The pitch deck template — rebuilt to actually look like the decks you sent
+You re-uploaded the two real, competition-shortlisted decks and asked for the downloadable template
+to look like them, not a generic placeholder skeleton. I could render them as real images this time
+(installed a Python PDF library that doesn't need the missing system tool) and looked closely at
+both, page by page. They share a real, specific visual language: white background, one strong brand
+color for header bars and rules, green/red used as real signal (bull/bear) rather than decoration,
+dense bordered "callout" boxes instead of paragraphs, and real embedded charts everywhere.
+
+Rebuilt `build.js` from scratch around that language — same white background, Bloombruh terracotta
+standing in for each reference deck's own brand blue, and new bordered/numbered box components.
+Two real, substantive additions this made possible:
+- **The valuation slide now shows your pitch's actual Bear/Base/Bull numbers** (from the DCF
+  workbook, color-coded rows) plus a real native chart — not `[?]` placeholders anymore.
+- **A new "DCF Summary" appendix slide** with the real 5-year cash-flow build and WACC breakdown
+  side by side, directly modeled on the reference deck's own DCF appendix page.
+
+All 9 decks (now 10 slides each) checked structurally — every shape on-canvas, the chart carries
+real data, no leftover placeholder text anywhere. Still no way to visually render the actual slides
+on this machine (no LibreOffice) — said so plainly rather than claiming a check I didn't do.
+
+### The site itself — a first real design pass, not just a new module color
+You asked me to step back, look at the site honestly, and make it feel less like a generic
+AI-generated template. Being straight about what I found: the homepage hero was just the wordmark
+and one button floating in a lot of empty space, buttons and nav were generic rounded-full pills,
+and cards across the site were the same soft rounded-2xl-border-and-padding treatment everywhere —
+recognizable "AI-generated Tailwind template" patterns, not a real design decision.
+
+What changed:
+- **Nav**: rounded pill tabs → small mono-uppercase labels with an underline in the module's own
+  color when active — reads more like a real terminal/editorial nav, less like a generic app.
+- **Homepage hero**: replaced the empty wordmark-plus-button with a real one-line positioning
+  statement and a genuine stat strip (modules live, pitches sourced, banks tracked, fabricated
+  numbers: 0) — the hero now says something instead of just sitting there.
+- **Buttons**: primary CTAs moved off rounded-full pills onto sharper, bordered buttons.
+- **Section headers**: a few key ones (the templates teaser, "Modules") now use a solid color bar
+  or left rule instead of a plain muted label — directly borrowing the same "color as structure"
+  language the pitch decks now use, so the site and the downloads it produces finally feel like the
+  same product.
+- **Every card, sitewide**: `rounded-xl`/`rounded-2xl` → a sharper, more structural `rounded-sm`,
+  applied consistently across all 16 files that used the old radius — a single mechanical but
+  high-leverage change.
+- **Module grid cards**: rebuilt as a shared-hairline grid with a solid color rail per module,
+  instead of floating rounded cards — closer to a real data table than a marketing card grid.
+
+Verified in the browser, both themes: homepage, Pokemon Cards (nav underline + sharp cards
+confirmed in light and dark). This is a first pass on the shared, highest-traffic surfaces (nav,
+homepage, the components almost every page reuses) — **not** an exhaustive page-by-page redesign.
+Individual module pages' own internal sections mostly inherited the fix automatically (they reuse
+`Stat`, card borders, etc.), but none got a bespoke pass beyond that, and the Company Profile page's
+search hero was checked and left as-is — it was already using a restrained `rounded-lg`, not the
+generic pattern the homepage had.
+
+### Nothing broken — safe to continue from here. Still not pushed to GitHub — say the word.
 ## Session 32 — 2026-08-05 (Locked the whole of My Analysis; found nothing had been pushed all session; starting the DCF/deck build)
 
 ### Important — nothing from today was live until just now

@@ -64,7 +64,7 @@ export default function BalloonGame() {
   const poppedCount = results.filter((r) => r.popped).length;
 
   return (
-    <div className="rounded-xl border border-border bg-surface/40 p-5">
+    <div className="rounded-sm border border-border bg-surface/40 p-5">
       {!done ? (
         <>
           <div className="flex items-center justify-between text-xs text-muted">

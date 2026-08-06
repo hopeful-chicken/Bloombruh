@@ -165,7 +165,7 @@ export default function MarketMakerGame() {
   const inventoryColor = inventoryPct > 90 ? "text-red-500" : inventoryPct > 60 ? "text-accent" : "text-foreground";
 
   return (
-    <div className="rounded-xl border border-border bg-surface/40 p-5">
+    <div className="rounded-sm border border-border bg-surface/40 p-5">
       {!running && tickCount === 0 && (
         <div>
           <p className="text-sm text-muted">

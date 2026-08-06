@@ -41,7 +41,7 @@ export default async function PokemonPage() {
         <p className="mt-0.5 text-xs text-muted/70">
           Real production milestones and secondary-market liquidity proxies — sourced, dated below.
         </p>
-        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+        <div className="mt-4 rounded-sm border border-border bg-surface/40 p-5">
           <p className="text-sm text-foreground">
             Cumulative Pokemon TCG cards printed worldwide crossed{" "}
             <span className="font-semibold">85 billion in May 2026</span> — and roughly{" "}
@@ -70,7 +70,7 @@ export default async function PokemonPage() {
           Wall Street and academia have actually published, sourced and confidence-rated below.
         </p>
 
-        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+        <div className="mt-4 rounded-sm border border-border bg-surface/40 p-5">
           <h3 className="text-sm font-semibold text-foreground">
             The price-tracking infrastructure is real, and it&apos;s more fragmented than it looks
           </h3>
@@ -120,7 +120,7 @@ export default async function PokemonPage() {
           </p>
         </div>
 
-        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+        <div className="mt-4 rounded-sm border border-border bg-surface/40 p-5">
           <h3 className="text-sm font-semibold text-foreground">
             Fractional card-investing platforms have, so far, mostly failed
           </h3>
@@ -160,7 +160,7 @@ export default async function PokemonPage() {
           </p>
         </div>
 
-        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+        <div className="mt-4 rounded-sm border border-border bg-surface/40 p-5">
           <h3 className="text-sm font-semibold text-foreground">
             What Wall Street coverage and academic research actually say
           </h3>
@@ -236,7 +236,7 @@ export default async function PokemonPage() {
           cards entirely — and, for an investor, who you actually can and can&apos;t buy a share of.
         </p>
 
-        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+        <div className="mt-4 rounded-sm border border-border bg-surface/40 p-5">
           <h3 className="text-sm font-semibold text-foreground">
             The IP holder is a private joint venture, not a company you can buy
           </h3>
@@ -260,7 +260,7 @@ export default async function PokemonPage() {
           </p>
         </div>
 
-        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+        <div className="mt-4 rounded-sm border border-border bg-surface/40 p-5">
           <h3 className="text-sm font-semibold text-foreground">
             The grading infrastructure is private too — and consolidating fast
           </h3>
@@ -291,7 +291,7 @@ export default async function PokemonPage() {
           </p>
         </div>
 
-        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+        <div className="mt-4 rounded-sm border border-border bg-surface/40 p-5">
           <h3 className="text-sm font-semibold text-foreground">
             Cards are a fraction of a much bigger franchise
           </h3>
@@ -375,7 +375,7 @@ export default async function PokemonPage() {
         <p className="mt-0.5 text-xs text-muted/70">
           PSA 10, 1st Edition Base Set Charizard — the single most-tracked card in the hobby.
         </p>
-        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+        <div className="mt-4 rounded-sm border border-border bg-surface/40 p-5">
           <p className="text-sm text-foreground">
             Real answer: yes, individual cards are genuinely volatile — but the shape of
             that volatility matters. A PSA 10 1st-edition Charizard sold for{" "}
@@ -419,7 +419,7 @@ export default async function PokemonPage() {
         <p className="mt-0.5 text-xs text-muted/70">
           A PSA 10 1st-Edition Charizard against $30 in the S&amp;P 500, dividends reinvested.
         </p>
-        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+        <div className="mt-4 rounded-sm border border-border bg-surface/40 p-5">
           <p className="text-sm text-foreground">
             $30 in the S&amp;P 500 in January 1999 — dividends reinvested, real Yahoo
             Finance adjusted-close data — is worth about{" "}
@@ -471,7 +471,7 @@ export default async function PokemonPage() {
           Every hype cycle eventually gets compared to something that crashed. Here&apos;s the honest one.
         </p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-border bg-surface/40 p-5">
+          <div className="rounded-sm border border-border bg-surface/40 p-5">
             <h3 className="text-sm font-semibold text-foreground">
               1990s &ldquo;Junk Wax&rdquo; baseball cards — the real cautionary tale
             </h3>
@@ -485,7 +485,7 @@ export default async function PokemonPage() {
               most of that era&apos;s cards are worth about a cent each today.
             </p>
           </div>
-          <div className="rounded-xl border border-border bg-surface/40 p-5">
+          <div className="rounded-sm border border-border bg-surface/40 p-5">
             <h3 className="text-sm font-semibold text-foreground">
               Pokemon is running the same risk — just hasn&apos;t hit it (yet)
             </h3>
@@ -520,7 +520,7 @@ export default async function PokemonPage() {
       </section>
 
       {/* Honesty section */}
-      <section className="mt-10 rounded-xl border border-border bg-surface/40 p-5">
+      <section className="mt-10 rounded-sm border border-border bg-surface/40 p-5">
         <h2 className="font-mono text-sm uppercase tracking-widest text-muted">
           What Isn&apos;t Actually Knowable Here
         </h2>
@@ -569,7 +569,7 @@ function SwotBlock({
   tone: "positive" | "negative";
 }) {
   return (
-    <div className="rounded-xl border border-border bg-surface/40 p-5">
+    <div className="rounded-sm border border-border bg-surface/40 p-5">
       <h3
         className={`text-sm font-semibold ${tone === "positive" ? "text-positive" : "text-negative"}`}
       >

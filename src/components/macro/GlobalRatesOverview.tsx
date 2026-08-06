@@ -95,7 +95,7 @@ export default function GlobalRatesOverview({
     narrativeResult && narrativeResult.articles.length > 0 ? narrativeResult.articles : news;
 
   return (
-    <section className="mb-8 rounded-xl border border-border bg-surface/40 p-5">
+    <section className="mb-8 rounded-sm border border-border bg-surface/40 p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="font-mono text-sm uppercase tracking-widest text-muted">

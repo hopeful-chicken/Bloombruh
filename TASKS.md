@@ -1761,6 +1761,38 @@ the full body/toolkit/news to every visitor and only hiding it with JavaScript a
       real code correctly loads the full pitch; confirmed the new route returns 403 for a wrong code
       and 404 for an unknown id when hit directly. `npm run build` clean.
 
+## Phase 54 — Deck rebuilt to match your real reference decks; a first design pass on the site
+
+- [x] Rendered both real reference PDFs (Global Payments long thesis, Altria short thesis) as
+      actual images via `pymupdf` (no system dependency, works despite the missing
+      `pdftoppm`/LibreOffice) and studied them page by page — white background, one strong brand
+      color used structurally, green/red as real bull/bear signal, dense bordered callout boxes,
+      real embedded charts throughout.
+- [x] Rebuilt `build.js` around that same visual language (Bloombruh terracotta standing in for
+      each reference deck's own brand color). New bordered/numbered box components; the valuation
+      slide now shows the pitch's real Bear/Base/Bull numbers (from its DCF workbook) in
+      color-coded rows plus a real native chart; new "DCF Summary" appendix slide with the actual
+      5-year cash-flow build + WACC breakdown, directly modeled on the reference deck's own
+      appendix page. All 9 decks regenerated at 10 slides each.
+- [x] Verified structurally: every shape on every slide on-canvas, the chart carries real data, zero
+      leftover placeholder text across all 9 decks. Visual rendering of the actual slides still not
+      possible on this machine — disclosed, not glossed over.
+- [x] Design audit of the live site: found the homepage hero was a wordmark and a button in a lot
+      of empty space, buttons/nav used generic rounded-full pills, cards used a uniform soft
+      `rounded-2xl` treatment sitewide — recognizable default-Tailwind-template patterns.
+- [x] Redesigned `TerminalNav.tsx` (pill tabs → underlined mono labels, module-colored when active),
+      the homepage hero (real one-line positioning statement + a live-feeling stat strip replacing
+      the empty space), and `ModuleGrid.tsx` (rounded card grid → shared-hairline grid with a solid
+      color rail per module) — plus a sitewide `rounded-xl`/`rounded-2xl` → `rounded-sm` pass across
+      all 16 files that used it, so the new sharper language cascades to every module page
+      automatically via shared components.
+- [x] Verified live in the browser, light and dark mode: homepage and Pokemon Cards confirmed.
+      `npm run build` clean throughout.
+- [ ] **Not done, flagged honestly:** this is a first pass on shared, highest-traffic surfaces, not
+      an exhaustive page-by-page redesign — individual module pages' own bespoke sections (beyond
+      what the shared components already fix) are still on the original styling. A reasonable next
+      phase, not claimed as finished here.
+
 ## Backlog — ideas raised but not started
 
 Not built, not scoped, not scheduled — just captured so they don't get

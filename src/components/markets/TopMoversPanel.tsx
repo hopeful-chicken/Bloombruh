@@ -24,7 +24,7 @@ export default async function TopMoversPanel() {
   if (!movers) return null;
 
   return (
-    <section className="mt-10 rounded-xl border border-border bg-surface/40 p-5 sm:p-6">
+    <section className="mt-10 rounded-sm border border-border bg-surface/40 p-5 sm:p-6">
       <p className="font-mono text-xs uppercase tracking-widest text-accent">Today&apos;s Movers</p>
       <h2 className="font-display mt-1 text-lg font-semibold text-foreground">
         Top gainers, losers &amp; most active

@@ -23,10 +23,10 @@ export default function WorldSituationOverview({
   const [period, setPeriod] = useState<MarketPeriod>("1M");
 
   return (
-    <section className="rounded-xl border border-border bg-surface/40 p-5">
+    <section className="border border-border bg-surface/40 p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="font-mono text-sm uppercase tracking-widest text-muted">
+          <h2 className="border-l-2 border-accent pl-2.5 font-mono text-sm uppercase tracking-widest text-muted">
             Global Overview
           </h2>
           <p className="mt-0.5 text-xs text-muted/70">

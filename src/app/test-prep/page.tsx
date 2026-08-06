@@ -25,7 +25,7 @@ export default function TestPrepPage() {
         </h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {FIRM_TYPES.map((f) => (
-            <div key={f.id} className="rounded-xl border border-border bg-surface/40 p-5">
+            <div key={f.id} className="rounded-sm border border-border bg-surface/40 p-5">
               <p className="font-mono text-[10px] uppercase tracking-widest text-muted/70">
                 {f.category}
               </p>

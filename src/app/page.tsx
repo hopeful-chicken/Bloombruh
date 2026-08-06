@@ -26,20 +26,43 @@ const HOME_SOURCES: DataSource[] = [
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
-      {/* Hero */}
-      <section className="max-w-3xl">
-        <h1 className="font-logo mt-5 text-6xl font-medium tracking-tight text-foreground sm:text-7xl">
-          Bloombruh
-        </h1>
-        <div className="mt-9 flex flex-wrap gap-3">
+    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+      {/* Hero — a real positioning statement and a live-feeling module
+          strip instead of a wordmark floating alone above a CTA button. */}
+      <section className="grid gap-10 border-b border-border pb-10 lg:grid-cols-[auto_1fr] lg:items-end lg:gap-16">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-widest text-accent">
+            Free · Independent · Built in public
+          </p>
+          <h1 className="font-logo mt-2 text-6xl font-medium tracking-tight text-foreground sm:text-7xl">
+            Bloombruh
+          </h1>
+          <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
+            A terminal-style research tool built by an economics student, not a company —
+            real prices, real filings, real central-bank data, and the pitch decks and models
+            to turn any of it into your own view.
+          </p>
           <Link
             href="/profile"
-            className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90"
+            className="mt-7 inline-flex items-center gap-2 border border-accent bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-dim"
           >
-            Open Company Profile →
+            Open Company Profile <span aria-hidden="true">→</span>
           </Link>
         </div>
+
+        <dl className="grid grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-4">
+          {[
+            { label: "Modules live", value: "4" },
+            { label: "Stock pitches, sourced", value: "9" },
+            { label: "Central banks tracked", value: "8" },
+            { label: "Fabricated numbers", value: "0" },
+          ].map((s) => (
+            <div key={s.label} className="bg-background p-4">
+              <dt className="font-mono text-[11px] uppercase tracking-wide text-muted">{s.label}</dt>
+              <dd className="mt-1 font-mono text-2xl font-semibold text-foreground">{s.value}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       {/* World situation teaser + template library teaser, side by side on
@@ -47,30 +70,32 @@ export default function Home() {
           with it" pair. */}
       <section className="mt-16 grid max-w-6xl gap-6 lg:grid-cols-[3fr_2fr]">
         <WorldSituationOverview commentary={MARKET_COMMENTARY} compact />
-        <div className="rounded-xl border border-border bg-surface/40 p-5">
-          <h2 className="font-mono text-sm uppercase tracking-widest text-muted">
+        <div className="border border-border">
+          <h2 className="bg-accent px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-accent-foreground">
             Want to build your own valuation model?
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            Grab a working Excel template — a DCF, an LBO, an M&amp;A model,
-            an equity research note, a portfolio one-pager, or a trading-floor
-            morning sheet — prefilled with real data for any company on this
-            site, with sector-by-sector guidance built in. Then use the
-            Markets Overview, the Central Bank Room, and the company profiles
-            to do what analysts actually do: turn data into a defensible view.
-          </p>
-          <ul className="mt-4 space-y-1 text-sm text-foreground">
-            <li>· DCF valuation (banks get the dividend-discount variant)</li>
-            <li>· LBO &amp; M&amp;A deal models</li>
-            <li>· Equity research initiation note</li>
-            <li>· AM portfolio one-pager &amp; S&amp;T morning sheet</li>
-          </ul>
-          <Link
-            href="/templates"
-            className="mt-5 inline-block rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90"
-          >
-            Open the template library →
-          </Link>
+          <div className="p-5">
+            <p className="text-sm leading-relaxed text-muted">
+              Grab a working Excel template — a DCF, an LBO, an M&amp;A model,
+              an equity research note, a portfolio one-pager, or a trading-floor
+              morning sheet — prefilled with real data for any company on this
+              site, with sector-by-sector guidance built in. Then use the
+              Markets Overview, the Central Bank Room, and the company profiles
+              to do what analysts actually do: turn data into a defensible view.
+            </p>
+            <ul className="mt-4 space-y-1 text-sm text-foreground">
+              <li>· DCF valuation (banks get the dividend-discount variant)</li>
+              <li>· LBO &amp; M&amp;A deal models</li>
+              <li>· Equity research initiation note</li>
+              <li>· AM portfolio one-pager &amp; S&amp;T morning sheet</li>
+            </ul>
+            <Link
+              href="/templates"
+              className="mt-5 inline-flex items-center gap-2 border border-accent px-5 py-2.5 text-sm font-semibold text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
+            >
+              Open the template library <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -78,14 +103,14 @@ export default function Home() {
           but still in progress, rather than presenting all of it as
           equally finished. */}
       <section className="mt-20">
-        <h2 className="text-xs font-medium uppercase tracking-widest text-muted">
+        <h2 className="border-l-2 border-accent pl-3 font-mono text-xs font-medium uppercase tracking-widest text-muted">
           Modules
         </h2>
         <ModuleGrid modules={modules.filter((m) => m.status === "live")} />
       </section>
 
       <section className="mt-14">
-        <h2 className="text-xs font-medium uppercase tracking-widest text-muted">
+        <h2 className="border-l-2 border-border pl-3 font-mono text-xs font-medium uppercase tracking-widest text-muted">
           In development — beta
         </h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">

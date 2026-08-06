@@ -123,7 +123,7 @@ export default function CurrentThemeCard({
     .sort((a, b) => b.date.localeCompare(a.date));
 
   return (
-    <section className="rounded-xl border border-border bg-surface/40 p-5">
+    <section className="rounded-sm border border-border bg-surface/40 p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h3 className="font-display text-lg font-semibold text-foreground">{theme.name}</h3>

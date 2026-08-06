@@ -39,7 +39,7 @@ export default async function UsEconomicIndicators() {
   const latestUnemployment = unemployment[0];
 
   return (
-    <section className="mt-8 rounded-xl border border-border bg-surface/40 p-5">
+    <section className="mt-8 rounded-sm border border-border bg-surface/40 p-5">
       <p className="font-mono text-xs uppercase tracking-widest text-module-macro">US Economic Indicators</p>
       <h2 className="font-display mt-1 text-lg font-semibold text-foreground">
         Beyond the policy rate

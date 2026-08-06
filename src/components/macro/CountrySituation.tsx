@@ -118,7 +118,7 @@ export default function CountrySituation({
   }, [bankId, range]);
 
   return (
-    <section className="mt-8 rounded-xl border border-border bg-surface/40 p-5">
+    <section className="mt-8 rounded-sm border border-border bg-surface/40 p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="font-mono text-sm uppercase tracking-widest text-muted">

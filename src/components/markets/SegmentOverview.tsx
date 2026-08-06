@@ -82,7 +82,7 @@ export default function SegmentOverview({
         ))}
       </div>
 
-      <div className="mt-5 rounded-xl border border-border bg-surface/40 p-5">
+      <div className="mt-5 rounded-sm border border-border bg-surface/40 p-5">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h3 className="text-base font-semibold text-foreground">{selected.label}</h3>
           {changePercent !== null && (

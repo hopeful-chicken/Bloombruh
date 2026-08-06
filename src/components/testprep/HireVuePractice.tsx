@@ -56,7 +56,7 @@ export default function HireVuePractice() {
   const secs = seconds % 60;
 
   return (
-    <div className="rounded-xl border border-border bg-surface/40 p-5">
+    <div className="rounded-sm border border-border bg-surface/40 p-5">
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => {

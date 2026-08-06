@@ -41,7 +41,7 @@ export default function HistoricalCaseCard({
     .sort((a, b) => b.date.localeCompare(a.date));
 
   return (
-    <section className="rounded-xl border border-border bg-surface/40 p-5">
+    <section className="rounded-sm border border-border bg-surface/40 p-5">
       <h3 className="font-display text-lg font-semibold text-foreground">
         {hypeCase.name} <span className="font-mono text-sm font-normal text-muted">{hypeCase.era}</span>
       </h3>

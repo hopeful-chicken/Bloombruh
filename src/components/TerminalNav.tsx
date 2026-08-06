@@ -60,7 +60,7 @@ export default function TerminalNav() {
           </Link>
 
           <form onSubmit={handleSubmit} className="ml-auto flex-1 sm:max-w-xs">
-            <div className="flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 transition-colors focus-within:border-accent">
+            <div className="flex items-center gap-2 rounded-sm border border-border bg-surface px-3 py-1.5 transition-colors focus-within:border-accent">
               <svg
                 viewBox="0 0 20 20"
                 fill="none"
@@ -76,7 +76,7 @@ export default function TerminalNav() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search a ticker…"
-                className="w-full bg-transparent text-sm text-foreground placeholder:text-muted/60 focus:outline-none"
+                className="w-full bg-transparent font-mono text-sm text-foreground placeholder:text-muted/60 focus:outline-none"
               />
             </div>
           </form>
@@ -84,7 +84,7 @@ export default function TerminalNav() {
           <ThemeToggle />
         </div>
 
-        <nav className="hidden flex-wrap items-center gap-1 pb-3 md:flex">
+        <nav className="hidden flex-wrap items-center gap-6 md:flex">
           {/* Only the modules Adam stands behind get a permanent spot in
               nav — beta modules are real and reachable, but only from
               their own homepage section, not the persistent top bar. */}
@@ -98,10 +98,10 @@ export default function TerminalNav() {
                 key={m.slug}
                 href={m.slug}
                 className={[
-                  "shrink-0 rounded-full px-3.5 py-1.5 text-sm transition-colors",
+                  "shrink-0 border-b-2 pb-3 font-mono text-[11px] uppercase tracking-wider transition-colors",
                   isActive
-                    ? `bg-surface ${activeTextClass}`
-                    : "text-muted hover:bg-surface hover:text-foreground",
+                    ? `border-current ${activeTextClass}`
+                    : "border-transparent text-muted hover:text-foreground",
                 ].join(" ")}
               >
                 {m.name}

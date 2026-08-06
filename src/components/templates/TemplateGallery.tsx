@@ -232,7 +232,7 @@ export default function TemplateGallery() {
         return (
           <div
             key={t.id}
-            className={`rounded-2xl border p-6 transition-colors ${
+            className={`rounded-sm border p-6 transition-colors ${
               isOpen ? "border-accent/60 bg-surface" : "border-border bg-surface hover:border-accent/40"
             }`}
           >

@@ -68,7 +68,7 @@ export default function PortfolioRiskSimulator() {
   }, [result]);
 
   return (
-    <div className="rounded-xl border border-border bg-surface/40 p-5">
+    <div className="rounded-sm border border-border bg-surface/40 p-5">
       <p className="text-xs text-muted">
         Starting portfolio: <span className="font-mono text-foreground">${STARTING_VALUE.toLocaleString()}</span>.
         Set weights below (they&apos;ll be normalized to 100% automatically), then run 500 simulated

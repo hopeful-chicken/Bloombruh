@@ -20,7 +20,7 @@ export default function LessonsPage() {
           <Link
             key={lesson.slug}
             href={`/lessons/${lesson.slug}`}
-            className="group rounded-xl border border-border bg-surface/40 p-5 transition-colors hover:border-accent/60 hover:bg-surface/70"
+            className="group rounded-sm border border-border bg-surface/40 p-5 transition-colors hover:border-accent/60 hover:bg-surface/70"
           >
             <p className="font-mono text-[11px] uppercase tracking-widest text-muted/70">
               {lesson.category}
