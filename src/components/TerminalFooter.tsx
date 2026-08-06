@@ -17,17 +17,6 @@ export default function TerminalFooter() {
           mentioned on this site.
         </p>
         <p className="mt-2">{DISCLOSURE}</p>
-        <p className="mt-3">
-          <a
-            href="/downloads/bloombruh-research.docx"
-            download
-            className="underline decoration-dotted underline-offset-2 hover:text-accent"
-          >
-            Download past research write-ups (Word, ~40KB)
-          </a>
-          {" "}— 10 stock pitches, a valuation-model learning plan, and 10 hype-vs-fundamentals
-          case studies, previously kept as a browsable page here.
-        </p>
         <p className="mt-4 flex flex-wrap items-center gap-x-2 text-muted/70">
           <span className="font-logo text-sm font-medium text-foreground/80">
             Bloombruh
