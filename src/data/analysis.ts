@@ -7,6 +7,27 @@
 // promoting its own product), that's flagged explicitly rather than
 // presented as neutral fact.
 
+export type AnalysisChartPoint = { date: string; close: number };
+
+export type AnalysisChart = {
+  title: string;
+  note: string;
+  /** Indexed to 100 at this date, so two very differently-priced stocks
+   * (a $150 ADR vs. a $900 US peer) can be compared on one honest axis —
+   * same device as IndexedCaseChart.tsx in the Hype module. */
+  indexBase: string;
+  /** Real daily closes, sourced live from Twelve Data at the time this
+   * entry was written — a dated snapshot, not a live feed (same
+   * discipline as everywhere else on this site: see the module header
+   * comment). Kept as a static array rather than fetched at request time
+   * so this entry keeps working even after the news cycle (and the free
+   * API's usable history window) has moved on. */
+  series: { symbol: string; label: string; color: string; points: AnalysisChartPoint[] }[];
+  /** Callouts pinned to specific dates, rendered as numbered vertical
+   * markers — same device the reference pitch decks use. */
+  annotations: { date: string; label: string }[];
+};
+
 export type AnalysisEntry = {
   id: string;
   title: string;
@@ -18,44 +39,152 @@ export type AnalysisEntry = {
    * than inline in `body`, so the polished write-up stays public while
    * the research methodology stays code-gated. */
   toolkit?: string;
+  /** Optional real embedded price chart — see AnalysisChart. */
+  chart?: AnalysisChart;
 };
 
 export const ANALYSIS_ENTRIES: AnalysisEntry[] = [
   {
     id: "sk-hynix-nasdaq-kospi-volatility",
-    title: "Korean Equity Volatility Following SK Hynix's $26.5bn Nasdaq Listing",
-    tagline: "A record US listing on Wednesday, a 15% Seoul selloff by the following week — and what it says about how tied together these two markets now are",
-    date: "2026-08-05",
-    body: `# Korean equity volatility following SK Hynix's $26.5bn Nasdaq listing
+    title: "Korea's Leverage Crash: SK Hynix, the KOSPI, and What Actually Broke",
+    tagline: "A record Nasdaq listing, a 35% ADR drawdown, 1.2 million margin calls, and a president's approval rating cracking 50% — the real chain of events, and the one comparison the headlines are skipping",
+    date: "2026-08-07",
+    body: `# Korea's leverage crash: SK Hynix, the KOSPI, and what actually broke
 
-This is the one that made me want to build this section in the first place — a story that looked like a straightforward "record IPO" headline on day one and turned into a real lesson on cross-market plumbing by day four.
+I wrote the first version of this piece after four days of a story that looked done. It wasn't close to done. What started as a record Nasdaq listing turned, over the following four weeks, into South Korea's single worst month for equities on record — worse, by some measures, than any single month of the 1997 Asian Financial Crisis or 2008 — 1.2 million retail accounts hit with margin calls, a president's disapproval rating cracking 50% for the first time, and a market still whipsawing violently as of this week. This is the full version: the real timeline, the mechanics of how a brand-new financial product turned a normal correction into a crisis, and — because I think it's the most interesting thing in the whole story and nobody else seems to be saying it — real data showing that roughly two-thirds of the price damage would have happened anyway, leverage or no leverage.
 
-## The listing itself
+## How we actually got here
 
-On 10 July 2026, SK Hynix completed the Nasdaq debut of its American Depositary Receipts, raising **$26.5bn** — the second-largest US listing on record. The ADRs priced at $149 each (177.9m ADRs sold, each representing one-tenth of a common share), and the deal was reportedly oversubscribed roughly 7x before pricing. The stock closed its first day at $168, a **13% gain**. SK Hynix said the proceeds would go toward expanding its South Korean manufacturing capacity and buying equipment, including EUV lithography scanners — the same category of machine at the center of the ASML story covered elsewhere on this site.
+**10 July** — SK Hynix completes its Nasdaq ADR debut, raising $26.5bn, the largest US listing ever by a foreign company (bigger than Alibaba's $25bn in 2014). 177.9m ADRs price at $149; the stock closes its first session at $168.01.
 
-## Four days later, the mood in Seoul flipped
+**13-14 July** — Seoul-listed SK Hynix common shares fall 15.37% on the 14th, the KOSPI drops over 9% intraday and trips trading halts. This is the point everyone, including my own earlier write-up, treated as "the crash." It wasn't — it was the opening act. (More on what actually happened to the ADR that same day below — it's the most interesting single data point in this story.)
 
-On **14 July**, SK Hynix's *Seoul-listed* common shares — a separate line of stock from the new US ADR — fell **15.37% in a single session**, closing at ₩1.85m (about $1,230). Foreign investors sold roughly ₩1.41 trillion of stock that day; institutional investors sold a further ₩1.47 trillion. The drop cascaded into the wider KOSPI index, which fell over 9% and triggered trading halts.
+**Through mid-July** — the real mechanism driving this turns out to be something that had launched only six weeks earlier: single-stock leveraged ETFs tied to Samsung and SK Hynix, offering 2x daily returns, first listed 27 May. Korean retail investors bought a net ₩14tn of them versus roughly ₩2tn from foreign investors. Outstanding leveraged bets peaked at ₩29.2tn (~$19.7bn) in early July. By 13 July, more than 1.2 million retail leveraged accounts had triggered margin calls; 320,000-360,000 were forcibly liquidated, totaling ₩2.3tn in forced selling in about two and a half months.
 
-## Why a US listing would hit the Korean market this hard
+**27-28 July** — two things land almost simultaneously. First, reports that a Chinese state-backed firm (Shanghai Aishengna) had begun mass-producing homegrown immersion DUV lithography tools — domestically-made chipmaking machines that reduce China's dependence on Dutch supplier ASML. Second, SK Hynix reports Q2 results: revenue of ₩79.32tn, up 257% year-on-year, with a 76% operating margin — a genuinely record quarter that still missed consensus (~₩84tn revenue expected), largely because some HBM4 shipment recognition slipped into Q3. Bank of Korea also raised rates into this same window.
 
-A few things compounded at once, and untangling them is the actual interesting part of this story:
+**July, in full** — the KOSPI posts its worst month on record. Reported figures vary by exactly what's being measured (peak-to-trough intraday versus month-end close), from a 22% monthly decline to as much as 33-44% off the June peak; roughly ₩250tn to over $2tn in market value was erased depending on the window used. Seven circuit breakers triggered across the month; one two-day stretch alone wiped out ₩864.5tn, enough to force an emergency government meeting on the evening of 29 July.
 
-1. **Genuine dilution.** 177.9m new ADRs is real new supply of SK Hynix stock that didn't exist the week before — all else equal, more shares outstanding means each existing share is worth a smaller slice of the company.
-2. **A liquidity migration.** With a newly liquid, dollar-denominated way to hold SK Hynix stock now trading on Nasdaq, some foreign and institutional holders of the Seoul-listed shares appear to have rotated out of the local listing — exactly the kind of flow a brand-new ADR line can trigger in its first days, before the two listings settle into a stable arbitrage relationship.
-3. **A real earnings reassessment, not just flow.** Korea Investment & Securities cut its Q2 operating profit estimate for SK Hynix to ₩60.4tn — 8% below the ₩65tn consensus — and trimmed its 2026 and 2027 estimates by 9% and 11% respectively. So part of the move wasn't just mechanical flow, it was analysts genuinely marking down the forward numbers.
+**29 July** — the trough. SK Hynix's ADR bottoms at $126.79.
 
-## The bigger structural point
+**Late July into August** — the government responds: the Financial Services Commission suspends new single-stock leveraged ETF listings, bans their marketing, and triples the minimum deposit for new leveraged investors to ₩30m (~$20,000). It's also weighing a cap limiting any investor's leveraged exposure to 20% of their total portfolio. None of it stops President Lee Jae-myung's disapproval rating from breaking 50% for the first time in his term — Korea's own National Pension Service, drawn into the stabilization effort, has been publicly criticized as "an amplifier, not a stabilizer."
 
-SK Hynix and Samsung Electronics together make up more than half of the KOSPI index's weight, which is why a single company's US listing was able to move the *entire* Korean market, not just one stock. Separately, the 60-day rolling correlation between the KOSPI and the Nasdaq 100 has climbed to roughly 0.50 — its highest level since 2021 — reflecting how much more tied together these two markets have become as Korean chipmakers' fortunes increasingly move with the same AI-infrastructure demand story driving US tech.
+**This week** — the market is still nowhere near settled. The KOSPI rose 3.76% to 6,598 on 5 August on hopes of a US-Iran deal, then fell 4.58% to 6,296.38 on 6 August as a broad Wall Street tech selloff dragged Samsung (-6.5%) and SK Hynix (-10.67%) down with it. This is not a market that has found a floor and stopped moving — it's still trading like a market with real fear in it.
 
-## What I'm still watching
+*The full timeline, the real daily price data behind the chart below (with live formulas, not just static numbers), the leverage/margin-call figures, and the bull/bear case side by side — all of it is in [the data workbook (.xlsx)](/downloads/korea-leverage-crash-data.xlsx) if you want to check my math or build on it yourself.*
 
-Whether the Seoul/Nasdaq price gap closes into a stable arbitrage band over the coming weeks, or whether it stays volatile — that's the tell for whether this was a one-off listing-week flow shock or a more durable repricing of how SK Hynix's Korean and US shares relate to each other going forward.
+## The comparison the headlines are skipping: Micron fell almost as hard, with zero Korean leverage anywhere near it
 
-**Sources:** [SK Hynix Nasdaq debut, $26.5bn ADR listing](https://finance.yahoo.com/markets/stocks/articles/sk-hynix-nasdaq-debut-26-113118390.html), [Capital exodus hits KOSPI after SK Hynix's Nasdaq debut — Korea JoongAng Daily](https://www.koreajoongangdaily.com/business/capital-exodus-hits-kospi-after-sk-hynixs-blockbuster-nasdaq-debut/12769678), [SK Hynix shares plunge, deepening Korea selloff — Advisor Perspectives](https://www.advisorperspectives.com/articles/2026/07/13/sk-hynix-shares-plunge-record-deepening-korea-selloff), [Nasdaq/KOSPI correlation and Wall Street-Korea market ties — CNBC](https://www.cnbc.com/2026/07/28/nasdaq-kospi-wall-street-korea-markets-skhynox-samsung.html)
+Here's what actually made me want to rebuild this piece rather than just extend the old one. Every article on this crash leads with the leveraged ETFs — reasonably, since they're the reason 1.2 million Korean households got margin calls and a president's approval rating cratered. But I pulled the real, live daily price series for SK Hynix's own ADR (ticker SKHY, Nasdaq-listed, so genuinely fetchable — this isn't an estimate) and for Micron, a comparable US-listed memory chipmaker with zero exposure to Korea's leveraged-ETF market, over the identical window, and put them on the same chart, indexed to the same starting point.
+
+From their shared local peak on 14 July to the market trough on 29 July: **SK Hynix's ADR fell 34.6%. Micron — unlevered, US-listed, none of Korea's retail-ETF machinery anywhere near it — fell 24.8% over the exact same fifteen days.**
+
+That's the real story underneath the leverage headlines. Roughly two-thirds to three-quarters of SK Hynix's drawdown is explained by the same global AI-and-memory-stock repricing that hit Micron, a stock with none of Korea's structural fragility. The leverage didn't cause the crash. What it did was take a real, already-painful global semiconductor correction and turn the *last* incremental ten points of price decline, plus effectively all of the social and political fallout — the margin calls, the forced liquidations, the presidential approval collapse — into something uniquely, structurally Korean. A Micron shareholder in the US took a genuinely brutal hit over those fifteen trading days too. They just didn't get a margin call from a 2x product that had existed for six weeks, because that product doesn't exist in the US market in the same form.
+
+## The split nobody mentioned: the ADR went up 27% the same day Seoul crashed 15%
+
+The second thing worth surfacing on its own: on 14 July — the day every headline cites as "the crash" — SK Hynix's Nasdaq ADR didn't fall. It closed at $193.92, up from $152.35 the day before — a **27% single-day gain**, on the same day the Seoul-listed common shares fell 15.37%.
+
+Two listings of the same company, same day, moving in opposite directions by double-digit percentages. The most coherent read: the new, dollar-denominated, freshly-liquid ADR was still absorbing genuine first-week demand (helped by the earlier reported 7x oversubscription) even as some Seoul-side holders were rotating into the new line or simply getting hit by the leveraged-ETF unwind already underway locally. The two listings didn't actually converge into a shared, coherent price until the China/earnings shock a full two weeks later dragged both down together. That's fifteen days where the same company's stock told two completely different stories depending on which exchange you were watching — a genuinely underappreciated data point for anyone who assumes a cross-listed stock trades as "one" security in any meaningful real-time sense.
+
+## Sizing the China shock honestly
+
+The Shanghai Aishengna DUV news is real and worth taking seriously as a multi-year signal — but it's currently much smaller than the market's one-day reaction implied. The Chinese firm is expected to deliver roughly five immersion DUV units in 2026, rising to about 20 more in 2027. ASML alone expects to ship around 130 immersion systems in 2026. The domestic Chinese tools reportedly still lag ASML's technology and depend on some non-domestic components. This is a real, credible first step toward Chinese self-sufficiency in a category it has never mass-produced before — and a genuine long-term reason for Korean chipmakers to keep investing in staying ahead — but it changes essentially nothing about 2026 or 2027 memory-chip supply and demand. The market's violent reaction to it looks much more like an already-fragile, over-levered market treating a symbolic headline as a reason to sell than a rational repricing of near-term competitive risk.
+
+## Why this isn't 1997
+
+It's tempting to reach for Korea's last great financial crisis, and some of the July numbers genuinely did exceed single-month declines from that era. But the mechanism is close to the opposite. 1997 was an *external* funding crisis — foreign banks stopped rolling over loans to Korean banks and companies, who found they couldn't secure new financing at any price. 2026 is a *domestic* leverage crisis, manufactured almost entirely at home: a financial product regulators approved in late May, bought overwhelmingly by Korean retail investors rather than foreign capital, unwinding through margin calls rather than a sovereign funding freeze. Foreign investors did pull real money out in July (widely reported around $13bn), but as a consequence of the crash, not its original cause. Different disease, and — I think — a much shorter one, because a leverage-driven crash burns out once the forced sellers are gone, and the 1.2 million margin calls and 320,000+ liquidations by mid-July did most of that flushing already. A funding crisis doesn't resolve nearly that fast.
+
+## Why this isn't quite 2018 either — but its sequel might rhyme with it
+
+The 2018 memory-chip downturn is the other obvious comparison, and it's also a poor match for what just happened — but for a reason worth sitting with, because I think it points at the actual forward risk. 2018 was a *supply-side* glut: hyperscalers had over-ordered during the first big cloud buildout, DRAM prices then fell roughly 60% over the following four quarters as that excess capacity actually arrived. Nothing about July 2026 resembles that. Real demand data from this same window — Amazon, Microsoft, Alphabet and Meta guiding to a combined $725bn of 2026 AI capex, up 77% year-on-year, with Evercore and Bank of America now modeling over $1tn combined for 2027; S&P Global's July PMI showing the fastest tech-equipment output growth since May 2021 — all point at demand that is still real and still accelerating, not a 2018-style glut arriving into a saturated market.
+
+But new fab capacity from Samsung, SK Hynix, Micron and Kioxia isn't due to reach volume production until late 2027 or 2028. Every one of them is expanding capacity right now, at the same time, into a demand curve that even the bulls describe as a "supercycle" — a word that, by definition, implies an eventual normalization rather than permanent 77%-a-year growth. That's not this crash. It's a real, specific, later risk: if 2027-2028 capacity additions land just as hyperscaler capex growth naturally decelerates off this year's exceptional base, you get something that could look a lot more like 2018 than anything that happened in July 2026.
+
+## The bull case, stated plainly
+
+SK Hynix just posted 257% revenue growth and a 76% operating margin, and "missed" only because consensus had run even further ahead of an already-extraordinary number — a sign of a market pricing in near-perfection, not a business in trouble. J.P. Morgan's own read, published the same week as the fresh 6 August selloff: the sell-off "had not derailed" the AI investment cycle, and "we do not see any fundamental indicators that signal meaningful weakness in the next 6-12 months." Real hyperscaler capex guidance backs that up directly. On this view, July was a leverage-and-positioning accident laid on top of a genuinely intact fundamental story, and the current multiple compression is a buying opportunity for anyone willing to sit through the volatility.
+
+## The bear case, stated plainly
+
+Michael Burry's own framing, from a 4 August note, a day before the market's next leg down: "I continue to believe it is possible we are near a major top, and possibly a 1987-type fall." The bear case isn't really about SK Hynix's own numbers — it's about crowding and leverage across the entire AI trade, of which Korea's retail leveraged-ETF mania was one particularly visible, particularly Korean symptom, not a uniquely Korean disease. If the same positioning fragility exists in less visible forms elsewhere in the AI trade (margin debt, options-driven flows, concentrated index weights), then a Korea-style unwind could recur anywhere sentiment cracks next, and the 2027-2028 capacity-glut risk above sits waiting underneath all of it regardless of how the next twelve months of sentiment go.
+
+## My view
+
+I don't think this was a demand story breaking. The real, comparable data says most of it wasn't even a Korea story specifically — Micron took nearly the same hit with none of the leverage. What actually happened is that Korea built a genuinely fragile piece of market plumbing (a brand-new, unseasoned 2x retail product) directly underneath the most crowded trade in the world, and that combination was always going to break violently the first time sentiment wobbled even slightly, which a slightly-worse-than-priced-for-perfection quarter and a symbolic Chinese headline were more than enough to trigger. The leverage-driven part of this — the margin calls, the forced liquidations — has mostly already worked through the system by mid-July, which is why I'd expect the extreme, product-specific volatility to fade faster than a real funding crisis (1997) or a real supply glut (2018) would.
+
+What I don't think fades: the multiple. Even once the forced selling is fully done, I'd expect SK Hynix and Samsung to trade at a structurally lower multiple on their HBM earnings than they did in June, simply because the market has now watched exactly how fragile Korean retail positioning can be, and will keep some of that risk priced in going forward. And the risk I'd actually be watching two years out isn't anything from this July — it's whether 2027-2028 capacity arrives right as hyperscaler capex growth normalizes off this year's number, because that's the setup that has ended every memory cycle before this one.
+
+**Sources:** [SK Hynix Nasdaq debut, $26.5bn ADR listing — Bloomberg](https://www.bloomberg.com/news/articles/2026-07-09/sk-hynix-is-said-to-price-us-share-offering-at-149-apiece-mrdz562z), [SK Hynix Nasdaq debut sets record — Yahoo Finance](https://finance.yahoo.com/markets/stocks/articles/sk-hynix-nasdaq-debut-26-113118390.html), [Capital exodus hits KOSPI after SK Hynix's Nasdaq debut — Korea JoongAng Daily](https://www.koreajoongangdaily.com/business/capital-exodus-hits-kospi-after-sk-hynixs-blockbuster-nasdaq-debut/12769678), [Give me my money back: Korean traders' leveraged bets unravel — CNBC](https://www.cnbc.com/2026/07/20/give-me-my-money-back-south-korean-traders-leveraged-bets-unravel.html), [Minister apologizes as leveraged ETF investors nurse losses — CNBC](https://www.cnbc.com/2026/07/29/korea-leveraged-etf-kodex-sk-hynix.html), [1.2 million accounts hit margin calls — BigGo Finance](https://finance.biggo.com/news/1046f613-8e0d-4326-bd38-2d90a094e2cb), [South Korea's KOSPI plummets 23% in July, record circuit breakers — KuCoin](https://www.kucoin.com/news/flash/south-korea-s-kospi-index-plummets-23-in-july-2026-triggering-record-circuit-breakers), [KOSPI crash officially worse than 1997 and 2008 — Yahoo Finance](https://finance.yahoo.com/markets/stocks/articles/south-korea-stock-market-crash-092957385.html), [China begins mass-producing homegrown DUV lithography tools — Tom's Hardware](https://www.tomshardware.com/tech-industry/semiconductors/china-begins-mass-production-of-domestic-immersion-duv-lithography-machines), [China's chip breakthrough comes with big caveats — CNBC](https://www.cnbc.com/2026/07/28/china-chipmaking-duv-tool-asml-explained.html), [SK hynix 2Q26 results — SK hynix Newsroom](https://news.skhynix.com/en/q2-2026-business-results/), [SK Hynix Q2 revenue jumps 257% YoY — BigGo Finance](https://finance.biggo.com/news/KR_000660.KS_2026-07-28), [Chip stocks shed $1tn in selloff — CNBC](https://www.cnbc.com/2026/07/29/chip-selloff-sk-hynix-samsung-softbank.html), [Asian tech stocks drop, SK Hynix plunges 10% — CNBC](https://www.cnbc.com/2026/08/06/asia-tech-selloff-wall-street-samsung-sk-hynix.html), [Korea holds emergency meeting as ₩864tn leaves market — Yahoo Finance](https://finance.yahoo.com/markets/world-indices/articles/south-korea-holds-emergency-meeting-103240901.html), [Kospi rout puts Lee government on alert — Bloombit](https://en.bloomingbit.io/feed/news/117526), [NPS becomes an amplifier, not a stabilizer — Korea JoongAng Daily](https://www.koreajoongangdaily.com/opinion/nps-becomes-an-amplifier-not-a-stabilizer/12782277), [KOSPI falls to 6,200 level as chip giants plunge — Seoul Economic Daily](https://en.sedaily.com/finance/2026/08/06/kospi-falls-to-6200-level-as-chip-giants-plunge-kosdaq), [Hyperscalers plan $725bn 2026 AI capex — AI Weekly](https://aiweekly.co/alerts/amazon-microsoft-alphabet-meta-plan-725b-ai-capex-in-2026), [Michael Burry bets against rally, warns of 1987-type fall — CNBC](https://www.cnbc.com/2026/08/04/michael-burry-bets-against-rally-we-are-near-a-major-top.html), [J.P. Morgan: Asia tech sell-off has not derailed AI investment cycle — CNBC](https://www.cnbc.com/2026/08/06/asia-tech-sell-off-has-not-derailed-ai-investment-cycle-jp-morgan-says.html)
 `,
+    chart: {
+      title: "SKHY (SK Hynix ADR) vs. Micron — indexed to 100 on 14 July 2026",
+      note: "Real daily closes, Nasdaq-listed securities, fetched live via Twelve Data on 2026-08-07. Indexed so a ~$150 ADR and a ~$900 US stock compare on one honest axis — both fell hard; SKHY fell meaningfully further, the gap being the genuinely Korea-specific piece of this story.",
+      indexBase: "2026-07-14",
+      series: [
+        {
+          symbol: "SKHY",
+          label: "SK Hynix ADR (SKHY)",
+          color: "#bc5b33",
+          points: [
+            { date: "2026-07-10", close: 168.01 },
+            { date: "2026-07-13", close: 152.35 },
+            { date: "2026-07-14", close: 193.92 },
+            { date: "2026-07-15", close: 176.46 },
+            { date: "2026-07-16", close: 152.31 },
+            { date: "2026-07-17", close: 154.03 },
+            { date: "2026-07-20", close: 151.16 },
+            { date: "2026-07-21", close: 171.94 },
+            { date: "2026-07-22", close: 165.27 },
+            { date: "2026-07-23", close: 169.50 },
+            { date: "2026-07-24", close: 154.57 },
+            { date: "2026-07-27", close: 143.02 },
+            { date: "2026-07-28", close: 130.17 },
+            { date: "2026-07-29", close: 126.79 },
+            { date: "2026-07-30", close: 149.00 },
+            { date: "2026-07-31", close: 143.73 },
+            { date: "2026-08-03", close: 142.72 },
+            { date: "2026-08-04", close: 154.38 },
+            { date: "2026-08-05", close: 151.03 },
+            { date: "2026-08-06", close: 145.87 },
+          ],
+        },
+        {
+          symbol: "MU",
+          label: "Micron (MU) — unlevered US peer",
+          color: "#2f6f9f",
+          points: [
+            { date: "2026-07-10", close: 979.30 },
+            { date: "2026-07-13", close: 937.00 },
+            { date: "2026-07-14", close: 983.12 },
+            { date: "2026-07-15", close: 904.28 },
+            { date: "2026-07-16", close: 853.20 },
+            { date: "2026-07-17", close: 848.95 },
+            { date: "2026-07-20", close: 865.46 },
+            { date: "2026-07-21", close: 970.82 },
+            { date: "2026-07-22", close: 959.48 },
+            { date: "2026-07-23", close: 990.21 },
+            { date: "2026-07-24", close: 920.95 },
+            { date: "2026-07-27", close: 900.20 },
+            { date: "2026-07-28", close: 820.53 },
+            { date: "2026-07-29", close: 739.00 },
+            { date: "2026-07-30", close: 874.66 },
+            { date: "2026-07-31", close: 823.03 },
+            { date: "2026-08-03", close: 829.50 },
+            { date: "2026-08-04", close: 892.67 },
+            { date: "2026-08-05", close: 893.19 },
+            { date: "2026-08-06", close: 898.97 },
+          ],
+        },
+      ],
+      annotations: [
+        { date: "2026-07-10", label: "SK Hynix's $26.5bn Nasdaq ADR debut" },
+        { date: "2026-07-14", label: "Seoul shares -15% same day ADR +27% — the split" },
+        { date: "2026-07-28", label: "China DUV news + Q2 results (record quarter, missed consensus)" },
+        { date: "2026-07-29", label: "Trough: SKHY -34.6% from 7/14 peak, MU -24.8%" },
+        { date: "2026-08-06", label: "Fresh selloff tracking a broad Wall Street tech pullback" },
+      ],
+    },
   },
   {
     id: "ai-hedge-fund-analyst-roles",

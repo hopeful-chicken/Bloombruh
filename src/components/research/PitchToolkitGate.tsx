@@ -23,7 +23,9 @@ import { useEffect, useState } from "react";
 import { PITCH_UNLOCK_CODE as UNLOCK_CODE, PITCH_UNLOCK_STORAGE_KEY as STORAGE_KEY } from "@/lib/pitchUnlock";
 import MarkdownContent from "@/components/research/MarkdownContent";
 import PitchNewsSection from "@/components/research/PitchNewsSection";
+import AnalysisPriceChart from "@/components/research/AnalysisPriceChart";
 import type { NewsArticle } from "@/lib/news";
+import type { AnalysisChart } from "@/data/analysis";
 
 type PitchContent = {
   title: string;
@@ -31,6 +33,7 @@ type PitchContent = {
   date: string;
   body: string;
   toolkit: string | null;
+  chart: AnalysisChart | null;
   news: { articles: NewsArticle[]; narrative: string | null; narrativeError: string | null } | null;
 };
 
@@ -138,6 +141,7 @@ export default function PitchToolkitGate({ pitchId }: { pitchId: string }) {
       <div className="mt-8 border-t border-border pt-6">
         <MarkdownContent markdown={content.body} />
       </div>
+      {content.chart && <AnalysisPriceChart chart={content.chart} />}
       {content.news && (
         <PitchNewsSection
           narrative={content.news.narrative}

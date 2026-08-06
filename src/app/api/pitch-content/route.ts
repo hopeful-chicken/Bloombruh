@@ -58,6 +58,7 @@ export async function GET(req: NextRequest) {
       date: entry.date,
       body: entry.body,
       toolkit: entry.toolkit ?? null,
+      chart: entry.chart ?? null,
       news,
     },
     { headers: { "Cache-Control": "no-store" } }
