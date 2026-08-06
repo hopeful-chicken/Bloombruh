@@ -48,16 +48,23 @@ export default function Home() {
             </span>
           </h1>
           <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
-            A terminal-style research tool built by an economics student, not a company —
-            real prices, real filings, real central-bank data, and the pitch decks and models
-            to turn any of it into your own view.
+            A terminal-style research tool I built as a UCL economics student — price data,
+            central-bank rates, and the pitch decks and models to turn any of it into your own view.
           </p>
-          <Link
-            href="/profile"
-            className="mt-7 inline-flex w-fit items-center gap-2 border border-accent bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-dim"
-          >
-            Open Company Profile <span aria-hidden="true">→</span>
-          </Link>
+          <div className="relative mt-7 w-fit">
+            <span
+              className="font-hand pointer-events-none absolute -right-4 -top-7 -rotate-6 text-lg text-accent sm:-right-8 sm:text-xl"
+              aria-hidden="true"
+            >
+              start here ↴
+            </span>
+            <Link
+              href="/profile"
+              className="inline-flex w-fit items-center gap-2 border border-accent bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-all hover:bg-accent-dim active:translate-y-px"
+            >
+              Open Company Profile <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </ScrollReveal>
 
         <ScrollReveal delayMs={120}>
@@ -112,9 +119,9 @@ export default function Home() {
           In development — beta
         </h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-          These are real, working, and use genuine data — nothing fake here — but they haven&apos;t
-          had the same level of polish or double-checking as the modules above yet, so treat them
-          as a preview rather than a finished product.
+          Fully working, same live data as everything else above — just not polished or
+          double-checked to the same standard yet, so treat them as a preview rather than a
+          finished product.
         </p>
         <ModuleGrid modules={modules.filter((m) => m.status === "beta")} />
       </ScrollReveal>
@@ -125,10 +132,9 @@ export default function Home() {
           About this project
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-muted">
-          Built by Adam, a UCL Economics student, as a long-term project to
-          learn by building and to demonstrate genuine interest in markets
-          and asset management. It&apos;s free, independent, and
-          unaffiliated with any company, exchange, or institution mentioned
+          I&apos;m Adam, a UCL Economics student — building this long-term to get better at
+          markets and asset management by actually building something, not just reading about it.
+          Free, independent, and unaffiliated with any company, exchange, or institution mentioned
           on this site.
         </p>
         <p className="mt-3 text-sm leading-relaxed text-muted">

@@ -72,7 +72,7 @@ export default async function HypePage() {
       </h1>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
         When does a story get ahead of the numbers behind it — and what happens
-        next? Real historical cases with known outcomes, then real current themes
+        next? Closed historical cases with known outcomes, then current themes
         where the outcome isn&apos;t known yet.
       </p>
 
@@ -81,7 +81,7 @@ export default async function HypePage() {
           Historical Cases
         </h2>
         <p className="mt-0.5 text-xs text-muted/70">
-          Closed episodes — real prices, real (where available) fundamentals, hindsight.
+          Closed episodes — price history, fundamentals where available, and hindsight.
         </p>
         <div className="mt-4 space-y-6">
           {cases.map((c) => (

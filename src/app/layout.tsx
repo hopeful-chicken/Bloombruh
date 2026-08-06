@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fraunces } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces, Caveat } from "next/font/google";
 import "./globals.css";
 import TerminalNav from "@/components/TerminalNav";
 import TerminalFooter from "@/components/TerminalFooter";
@@ -25,6 +25,16 @@ const fraunces = Fraunces({
   subsets: ["latin"],
   axes: ["opsz"],
   style: ["normal", "italic"],
+});
+
+// A handwriting-style face used sparingly for small "margin note"
+// annotations (see `font-hand` in globals.css) — a real, human, sketched-
+// in-the-margin touch instead of another line of marketing copy. Never
+// used for real content, only for a handful of asides.
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 const title = "Bloombruh";
@@ -66,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} ${caveat.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

@@ -83,6 +83,9 @@
      — a characterful, slightly literary serif so headings and the wordmark
      feel designed and a little elegant, not default-AI-generated. */
   --font-display: var(--font-fraunces);
+  /* A handwriting face for small margin-note asides only — see `font-hand`
+     usage and the comment on the Caveat import in layout.tsx. */
+  --font-hand: var(--font-caveat);
 }
 
 body {
