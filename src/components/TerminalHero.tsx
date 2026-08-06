@@ -16,7 +16,7 @@ type Line =
 
 const LINES: Line[] = [
   { kind: "prompt", command: "whoami" },
-  { kind: "output", text: "Adam — 2nd year economics, UCL. Building this between lectures." },
+  { kind: "output", text: "Adam — 2nd year economics, UCL. Building this during my internship in Hong Kong." },
   { kind: "prompt", command: "ls modules/ --live" },
   {
     kind: "list",
