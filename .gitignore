@@ -44,3 +44,20 @@ next-env.d.ts
 # Claude Code local settings (personal, not shared)
 .claude/settings.local.json
 .claude/launch.json
+
+# Internal AI-assisted-development working docs — kept locally so the
+# workflow they describe (CLAUDE.md's instructions, the TASKS.md backlog,
+# PROGRESS.md's session-by-session log, the plain-English docs/DECISIONS.md
+# log) still works day to day, but not published: a public repo should read
+# like a finished project, not a running transcript of prompts and session
+# notes. See README.md for the public-facing project writeup instead.
+CLAUDE.md
+AGENTS.md
+PROGRESS.md
+TASKS.md
+docs/DATA_SOURCES.md
+docs/DECISIONS.md
+docs/DEPLOY.md
+docs/MODULE_SPECS.md
+docs/PROJECT_BRIEF.md
+Untitled design.png
