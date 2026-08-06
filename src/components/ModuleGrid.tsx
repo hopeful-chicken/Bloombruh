@@ -40,7 +40,7 @@ export default function ModuleGrid({ modules }: { modules: ModuleInfo[] }) {
         const card = (
           <div
             className={[
-              "flex h-full items-stretch transition-colors",
+              "relative flex h-full items-stretch overflow-hidden transition-colors",
               isClickable ? "bg-surface hover:bg-surface-hover" : "bg-surface/40",
             ].join(" ")}
           >
@@ -56,6 +56,14 @@ export default function ModuleGrid({ modules }: { modules: ModuleInfo[] }) {
               </div>
               <p className={`mt-2 text-sm font-medium ${isClickable ? taglineClass : "text-muted"}`}>{m.tagline}</p>
             </div>
+            {m.note && (
+              <span
+                className="font-hand pointer-events-none absolute bottom-1 right-2 whitespace-nowrap rotate-[-4deg] text-base text-accent/70"
+                aria-hidden="true"
+              >
+                {m.note}
+              </span>
+            )}
           </div>
         );
 

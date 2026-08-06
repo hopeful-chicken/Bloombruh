@@ -111,6 +111,31 @@ direction lands well with you.
 
 ---
 
+## Session 37 — 2026-08-06 (More handwritten notes; the "AI not working" report was me stopping the preview server)
+
+Two things: you said the AI-generated Global Overview "doesn't seem to be working," and separately
+said you loved the "start here" handwritten note and wanted more of that.
+
+**The AI wasn't actually broken.** Checked the network requests: every real call to
+`/api/market-narrative` succeeded and returned real generated text — the only failures were
+`ERR_CONNECTION_REFUSED`, which happens when the preview server isn't running. I'd been stopping it
+after each check in the last couple of sessions to be tidy, not realizing you're watching the same
+live preview — so from your side the page just stopped responding. Confirmed the narrative genuinely
+works, and I'll leave the preview server running between turns from now on instead of stopping it.
+
+**More of the handwritten-note treatment.** Added it in three more places: "the flagship" on the
+Company Profile module card, "my actual opinions" on the My Analysis card, and "say hi ↷" pointing at
+the LinkedIn link in the About section. Kept it deliberately sparing rather than putting one on every
+card — a note on everything stops reading as a real aside and starts reading as a pattern, which
+would undercut the whole point. Fixed one real layout bug found while checking this: the first
+version of the module-card note got clipped by the card's edge; repositioned it to sit fully inside.
+
+Checked in the browser: light mode, dark mode, and mobile width. `npm run build` passes clean.
+
+### Nothing broken — safe to continue from here. Not yet pushed.
+
+---
+
 ## Session 33 — 2026-08-06 (Deck rebuilt to match your real references; a first real design pass on the site)
 
 ### The pitch deck template — rebuilt to actually look like the decks you sent

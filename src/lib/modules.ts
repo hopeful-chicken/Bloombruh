@@ -17,6 +17,11 @@ export type ModuleInfo = {
   // accent. Kept to the four "live" modules only, deliberately, so this
   // stays a small function-coded palette rather than one color per card.
   accentColor?: "macro" | "pokemon" | "analysis";
+  // Optional small handwritten-style aside rendered in the card corner
+  // (see ModuleGrid.tsx / the `font-hand` note pattern from the homepage
+  // hero, Aug 2026). Sparingly used — a note on every card would just be
+  // noise, so only add one where it's actually worth saying something.
+  note?: string;
 };
 
 export const modules: ModuleInfo[] = [
@@ -27,6 +32,7 @@ export const modules: ModuleInfo[] = [
     tagline: "Ticker in, full profile — and your own pitch — out",
     description:
       "A clean company snapshot — price chart, full financials, and a plain-English description, with context on whether the multiples look cheap or expensive — plus the option to build your own rating, thesis, and target price on top and export it as a PDF.",
+    note: "the flagship",
   },
   {
     name: "Central Bank Room",
@@ -110,5 +116,6 @@ export const modules: ModuleInfo[] = [
     description:
       "Adam's own running research notebook: dated, sourced write-ups on breaking macro and market stories as they happen, 10 stock pitches, and a lighter-weight \"worth digging into\" leads list — one real sentence and a source each, not yet deep-researched, kept as a starting point rather than a finished conclusion. Written for himself first, kept here because it's worth coming back to.",
     accentColor: "analysis",
+    note: "my actual opinions",
   },
 ];

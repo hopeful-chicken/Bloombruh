@@ -137,7 +137,13 @@ export default function Home() {
           Free, independent, and unaffiliated with any company, exchange, or institution mentioned
           on this site.
         </p>
-        <p className="mt-3 text-sm leading-relaxed text-muted">
+        <p className="relative mt-7 text-sm leading-relaxed text-muted">
+          <span
+            className="font-hand pointer-events-none absolute -top-7 left-9 rotate-3 text-base text-accent/80 sm:left-14"
+            aria-hidden="true"
+          >
+            say hi ↷
+          </span>
           Links:{" "}
           <a
             href="https://www.linkedin.com/in/adam-zhou-1913ba225/"
