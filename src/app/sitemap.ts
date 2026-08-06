@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { ANALYSIS_ENTRIES, STOCK_PITCHES } from "@/data/analysis";
 import { COURSE_CHAPTERS } from "@/data/course";
+import { DEEP_DIVES } from "@/data/deepDives";
+import { TRACKS } from "@/data/tracks";
 
 // Lists every URL worth Google indexing. Ticker-driven pages
 // (/profile/[symbol], /pokemon/[id], /hkex/[code]) are left out on purpose
@@ -41,5 +43,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  return [...staticEntries, ...analysisEntries, ...chapterEntries];
+  const deepDiveEntries = DEEP_DIVES.map((deepDive) => ({
+    url: `${siteUrl}/lessons/deep-dive/${deepDive.slug}`,
+    lastModified: new Date(),
+  }));
+
+  const trackEntries = TRACKS.flatMap((track) => [
+    { url: `${siteUrl}/lessons/track/${track.id}`, lastModified: new Date() },
+    ...track.chapters.map((chapter) => ({
+      url: `${siteUrl}/lessons/track/${track.id}/${chapter.slug}`,
+      lastModified: new Date(),
+    })),
+  ]);
+
+  return [...staticEntries, ...analysisEntries, ...chapterEntries, ...deepDiveEntries, ...trackEntries];
 }

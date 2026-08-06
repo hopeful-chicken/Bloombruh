@@ -53,10 +53,10 @@ export default function Home() {
           </p>
           <div className="relative mt-7 w-fit">
             <span
-              className="font-hand pointer-events-none absolute -right-4 -top-7 -rotate-6 text-lg text-accent sm:-right-8 sm:text-xl"
+              className="font-hand pointer-events-none absolute -top-8 left-2 -rotate-6 text-lg text-accent sm:text-xl"
               aria-hidden="true"
             >
-              start here ↴
+              start here ↓
             </span>
             <Link
               href="/profile"

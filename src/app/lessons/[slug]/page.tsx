@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { COURSE_CHAPTERS } from "@/data/course";
+import { DEEP_DIVES } from "@/data/deepDives";
 import MarkdownContent from "@/components/research/MarkdownContent";
 import TryItCallout from "@/components/lessons/TryItCallout";
 import QuizBlock from "@/components/lessons/QuizBlock";
@@ -21,6 +22,7 @@ export default async function ChapterPage({
   const chapter = COURSE_CHAPTERS[index];
   const prev = COURSE_CHAPTERS[index - 1];
   const next = COURSE_CHAPTERS[index + 1];
+  const deepDive = DEEP_DIVES.find((d) => d.parentChapterSlug === chapter.slug);
 
   return (
     <div>
@@ -61,6 +63,24 @@ export default async function ChapterPage({
       <TryItCallout items={chapter.tryIt} />
 
       <QuizBlock quiz={chapter.quiz} chapterSlug={chapter.slug} />
+
+      {deepDive && (
+        <Link
+          href={`/lessons/deep-dive/${deepDive.slug}`}
+          className="group mt-8 flex items-stretch overflow-hidden border border-border bg-surface/40 transition-colors hover:bg-surface/70"
+        >
+          <span className="w-1 shrink-0 bg-module-analysis" aria-hidden="true" />
+          <div className="flex-1 p-4 sm:p-5">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-module-analysis">
+              Liked this chapter? Go deeper
+            </p>
+            <p className="mt-1 text-sm font-semibold text-foreground group-hover:text-accent">
+              {deepDive.title} →
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-muted">{deepDive.tagline}</p>
+          </div>
+        </Link>
+      )}
 
       <div className="mt-10 flex items-center justify-between gap-4 border-t border-border pt-6 text-sm">
         {prev ? (

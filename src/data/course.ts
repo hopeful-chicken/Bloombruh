@@ -69,6 +69,8 @@ Almost every seat in finance is one or the other. Keep this framing in your head
 
 Investment bankers advise companies on two things: **raising capital** (helping a company sell new stock via an IPO — Equity Capital Markets, ECM — or issue new bonds — Debt Capital Markets, DCM) and **M&A advisory** (advising a company that's buying or selling another company). Banks get paid a fee, often a percentage of the deal or capital raised — which is why bankers are motivated to get deals *done*, not just to give good advice in the abstract.
 
+**Worked example:** fee = deal value × fee %. A bank advises on a $2 billion acquisition and charges a 1% advisory fee: $2,000M × 1% = **$20 million**, typically paid on successful closing — nothing if the deal falls apart, which is exactly why "get it done" is such a strong incentive.
+
 ## Sales & Trading (S&T) — sell-side
 
 S&T sits between the bank's clients (asset managers, hedge funds, corporations) and the market. **Sales** maintains the client relationships and takes their orders; **trading** executes those orders and manages the resulting risk, often by *making markets* — quoting both a buy and sell price and profiting from the spread between them. S&T doesn't (mostly) make big directional bets on where markets are going; it makes money on client flow and the spread, at scale.
@@ -84,6 +86,11 @@ Asset managers invest money on behalf of clients — pension funds, insurance co
 ## Hedge Funds — buy-side
 
 Similar to asset management in that they invest pooled capital, but with far more flexible mandates — they can short stocks, use leverage, trade derivatives, and pursue strategies public mutual funds usually can't. The classic fee structure, "**2 and 20**," means a 2% annual management fee plus 20% of profits — which is why hedge funds are far more performance-incentivized than a typical asset manager.
+
+**Worked example:** a fund manages $500 million and returns 15% this year (a $75M profit).
+- Management fee: 2% × $500M = **$10M**.
+- Performance fee: 20% × $75M = **$15M**.
+- Total fees this year: **$25M** — noticeably more than a pure management-fee-only structure (Asset Management, below) would generate on the same $500M, precisely because of that performance component.
 
 ## Private Equity (PE) — buy-side
 
@@ -172,6 +179,8 @@ If a company has 1,000,000 shares outstanding and you own 1,000 of them, you own
 **Market capitalization** = share price × shares outstanding. If a company trades at $50/share with 20 million shares outstanding, its market cap is $1 billion. This is "what the market currently thinks the whole company is worth" — and it's the number that determines whether a company gets called small-cap, mid-cap, or large-cap.
 
 Market cap is *not* the same as **enterprise value (EV)** — a concept that comes up constantly in valuation work. EV = market cap + total debt − cash. The intuition: if you actually bought the whole company, you'd inherit its debt (a cost to you) and its cash (money you'd immediately get back) — EV captures what you'd really be paying for the underlying business, independent of how it happens to be financed.
+
+**Worked example:** Company X has a $2,000M market cap, $500M of debt, and $200M of cash. EV = $2,000M + $500M − $200M = **$2,300M** — $300M more than market cap alone suggests, exactly reflecting the net debt an acquirer would actually inherit.
 
 ## How a company's shares end up tradeable in the first place
 
@@ -267,6 +276,8 @@ The coupon rate is fixed at issuance and never changes. The **yield** is what yo
 
 **Yield to maturity (YTM)** is the more complete version — the total annualized return you'd earn if you bought the bond today and held it to maturity. This is the number that actually gets quoted and compared across bonds.
 
+**Worked example (current yield, the simplest version):** current yield = annual coupon ÷ price. A bond with a $1,000 face value and a 4% coupon pays $40/year. If it's trading at $950: current yield = $40 ÷ $950 = **4.2%** — already above the 4% coupon rate, exactly because you're paying less than face value for the same fixed $40 payment. (Full YTM refines this further by also folding in the gain from $950 back up to $1,000 at maturity — current yield is the quick approximation.)
+
 ## The yield curve
 
 Plot the yield of bonds from the same issuer (usually a government) against their maturities — 3-month, 2-year, 10-year, 30-year — and you get the **yield curve**.
@@ -360,6 +371,8 @@ Plot commodity futures prices against how far out they expire, and you get a fut
 - **Contango**: futures prices are *higher* than the current spot price — common when storage costs matter (you're paying someone to hold the physical commodity until you need it) or supply is currently ample.
 - **Backwardation**: futures prices are *lower* than the current spot price — often signals near-term scarcity: the market is willing to pay more for the commodity *right now* than for delivery later, a real, urgent supply-demand signal.
 
+**Worked example:** oil's spot price is $70/barrel; the 6-month futures price is $73/barrel. Since futures ($73) > spot ($70), this is **contango** — here, roughly reflecting the cost of storing that oil for six months. If the futures price were instead $67 (below the $70 spot), that would be **backwardation**.
+
 This site's own Pokemon Cards module treats trading cards as a genuine collectible-commodity case study — real production data, a real price-volatility episode, and a direct comparison to a past physical-collectible market crash. Worth a look as a concrete, low-stakes example of commodity-like supply/demand dynamics before you apply the same thinking to oil or gold.
 
 ## FX: the quoting convention that trips people up
@@ -371,6 +384,8 @@ A currency pair like **GBP/USD = 1.27** means 1 British pound buys 1.27 US dolla
 This connects FX directly to the Central Bank Room on this site: **money tends to flow toward the currency offering the higher real (inflation-adjusted) interest rate**, because investors can borrow in a low-yielding currency, convert to a high-yielding one, and earn the spread — a strategy called the **carry trade**.
 
 If the Fed holds rates meaningfully higher than the ECB, that tends to support USD strength against EUR, all else equal — real money is incentivized to hold dollar-denominated assets for the extra yield. This is why an FX trader watches central bank decisions as closely as an equity analyst watches earnings.
+
+**Worked example:** Currency A yields 5%, Currency B yields 1% — a 4-percentage-point differential. Borrow 1,000,000 units of B, convert to A, earn the differential: 1,000,000 × 4% = **40,000 units/year** of carry, before accounting for any move in the exchange rate itself, transaction costs, or the risk of a sudden unwind.
 
 **Worth knowing for an interview:** carry trades work smoothly until they don't — a sudden shift in risk sentiment can cause a rapid, painful unwind, which is why "carry trades unwinding" is a recurring phrase in real market-stress episodes.
 
@@ -665,6 +680,8 @@ Holding many uncorrelated assets reduces a portfolio's overall volatility *witho
 ## The risk metrics a real portfolio review actually uses
 
 - **Sharpe ratio**: (portfolio return − risk-free rate) ÷ portfolio volatility. A measure of *return per unit of risk taken*, not just raw return — a portfolio returning 8% with low volatility can have a better Sharpe ratio than one returning 12% with much higher volatility, and a real portfolio manager cares about both numbers, not just the headline return.
+
+**Worked example:** risk-free rate is 4%. Portfolio A returns 10% with 8% volatility: Sharpe = (10% − 4%) ÷ 8% = **0.75**. Portfolio B returns 14% with 20% volatility: Sharpe = (14% − 4%) ÷ 20% = **0.50**. Despite the lower headline return, Portfolio A delivered more return per unit of risk taken — the number a real risk review actually leads with.
 - **VaR (Value at Risk)**: an estimate of the maximum loss a portfolio is likely to experience over a given time horizon, at a given confidence level. "1-day 95% VaR of $1 million" means: on 95% of days, you don't expect to lose more than $1 million — and, importantly, on the remaining 5% of days, you could lose more, sometimes significantly more (VaR describes a threshold, not a worst-case cap).
 - **CVaR (Conditional VaR)**: the *average* loss in exactly those worst-case scenarios VaR doesn't fully describe — a more complete picture of true tail risk.
 
@@ -942,6 +959,15 @@ This is close to the single most-asked technical question in finance interviews,
 5. **Bridge to equity value**: subtract net debt, divide by shares outstanding to get a per-share value.
 6. **Compare to the current share price.**
 
+**Worked example, simplified to one year plus a terminal value:** Year-1 unlevered FCF = $100M, WACC = 10%, terminal growth = 2%.
+- Discount factor formula: 1 ÷ (1 + WACC)ⁿ. For year 1: 1 ÷ 1.10 = 0.909.
+- PV of Year-1 FCF = $100M × 0.909 = **$90.9M**.
+- Terminal value formula: FCF × (1 + g) ÷ (WACC − g) = $100M × 1.02 ÷ (0.10 − 0.02) = $102M ÷ 0.08 = **$1,275M**.
+- PV of terminal value = $1,275M × 0.909 = **$1,159M**.
+- Enterprise Value ≈ $90.9M + $1,159M = **$1,250M**.
+
+A real DCF repeats the first step for 5 years instead of 1, but the mechanics — discount factor = 1/(1+WACC)ⁿ, terminal value = FCF×(1+g)/(WACC−g) — are exactly this, just repeated.
+
 The line that signals real understanding, not memorization: *"A DCF is only as good as its assumptions — I'd always sensitize it across a range of WACC and terminal growth, not present one number as if it were precise."*
 
 ## "Walk me through an LBO"
@@ -955,6 +981,13 @@ The core question: can a private equity firm buy this company mostly with borrow
 
 LBO returns come from three levers — **debt paydown**, **multiple expansion**, and **EBITDA growth**. A good candidate can name which lever is doing the most work in a given deal.
 
+**Worked example:** buy a company for 8x its $125M EBITDA = **$1,000M**, financed 65% debt ($650M) / 35% equity ($350M). Five years later, EBITDA has grown to $175M; assume the *same* 8x exit multiple (no multiple expansion): exit EV = 8 × $175M = **$1,400M**. Debt has been paid down from $650M to $300M over those five years.
+- Exit equity value = exit EV − remaining debt = $1,400M − $300M = **$1,100M**.
+- MOIC = exit equity ÷ entry equity = $1,100M ÷ $350M = **3.14x**.
+- Approximate IRR over 5 years: 3.14^(1/5) − 1 ≈ **26%**.
+
+Notice this 3.14x came entirely from EBITDA growth and debt paydown — multiple expansion contributed nothing (entry and exit multiples are both 8x) — exactly the kind of "which lever is doing the work" answer that signals real understanding.
+
 ## "Walk me through an M&A model" (accretion/dilution)
 
 Does the deal increase or decrease the acquirer's earnings per share?
@@ -965,6 +998,12 @@ Does the deal increase or decrease the acquirer's earnings per share?
 4. **Compute pro forma shares outstanding** (up, if stock-funded).
 5. **Pro forma EPS = pro forma net income ÷ pro forma shares.** Higher than the acquirer's standalone EPS is "accretive," lower is "dilutive."
 
+**Worked example (all-cash deal):** Acquirer: net income $500M, 100M shares, EPS = $500M ÷ 100M = **$5.00**. Target: net income $100M, 50M shares, trading at a $30/share offer price → deal value = 50M × $30 = **$1,500M**, paid entirely in cash. That cash was earning 3% interest; losing it costs $1,500M × 3% = $45M pre-tax, or $45M × (1 − 25% tax) = **$33.75M** after-tax.
+- Pro forma net income = $500M + $100M − $33.75M = **$566.25M**.
+- Pro forma shares = 100M (unchanged — it's a cash deal).
+- Pro forma EPS = $566.25M ÷ 100M = **$5.66**.
+- vs. standalone $5.00 → **accretive by ($5.66 − $5.00) ÷ $5.00 = 13.2%.**
+
 The real nuance: **a cheap deal funded with cash is almost always accretive; a deal funded with stock is accretive only if the acquirer's own P/E is higher than the target's.** And — worth remembering from Chapter 9's AOL–Time Warner example — **accretive doesn't automatically mean "good deal."**
 
 ## "Walk me through a comps analysis"
@@ -973,6 +1012,8 @@ The real nuance: **a cheap deal funded with cash is almost always accretive; a d
 2. **Compute each peer's multiples**: P/E, EV/EBITDA, EV/Sales.
 3. **Take the peer median** (not average — one outlier shouldn't swing the read).
 4. **Apply that median multiple to your subject company's own metric** to get an implied valuation.
+
+**Worked example:** five peers trade at P/E multiples of 18x, 19x, 20x, 22x, and 35x (one clear outlier). Median = **20x** (the average would be a distorted 22.8x — exactly why median is preferred). Subject company's EPS = $3.00 → implied price = 20 × $3.00 = **$60**. If it's actually trading at $50, that's a **20% gap** to where peers suggest it should trade ((60 − 50) ÷ 50).
 
 The answer that signals real judgment: *"If my subject trades meaningfully below the peer median, that's not automatically a buy signal — it could mean the market is pricing in something real that a simple multiple doesn't capture."* This is exactly the discipline this site's own Hype vs Fundamentals module is built around.
 
@@ -1052,6 +1093,8 @@ Chapter 9 covered why deals happen and two historical case studies. Chapter 10 c
 
 - **Consideration**: is the target being bought for cash, stock, or a mix? This single fact tells you more about the deal's real character than almost anything else — an all-cash deal signals the acquirer has (or is borrowing) real capital and wants certainty; a stock deal means target shareholders are betting on the combined company's future.
 - **The premium**: the offer price compared to the target's *undisturbed* share price (typically right before announcement, or averaged over the preceding 30-90 days). A takeover premium in the 20-40% range is typical for a negotiated deal; a much lower premium can signal a weak negotiating position for the target's board.
+
+**Worked example:** premium = (offer price − undisturbed price) ÷ undisturbed price. Target traded at $40/share before any deal rumors; the acquirer offers $52/share cash. Premium = ($52 − $40) ÷ $40 = **30%** — squarely in the typical negotiated-deal range from above.
 - **Deal multiple**: EV/EBITDA or EV/Sales the acquirer is paying, compared to where public peers trade — the trading-comps skill from Chapter 10, applied to a real transaction.
 - **Financing**: for a cash deal, is it funded from balance sheet cash, new debt, or a mix? A highly-levered financing package is a real signal about how confident the acquirer is in the combined company's future cash flow.
 - **Strategic rationale, in management's own words**: every press release states one (cost synergies, revenue synergies, consolidation, vertical integration) — a real analyst's job is to ask whether that's actually the most likely explanation, or a more palatable framing of something else (defending market share, pre-empting a competitor, empire-building).

@@ -86,10 +86,10 @@ export const modules: ModuleInfo[] = [
   {
     name: "Lessons",
     slug: "/lessons",
-    status: "beta",
-    tagline: "Finance 101 — a 13-chapter course from equities to M&A, with quizzes and hands-on links to the rest of the site",
+    status: "live",
+    tagline: "Finance 101 — a 13-chapter course from equities to M&A, plus a deep dive per chapter",
     description:
-      "A start-to-end course for anyone new to finance: equities, fixed income, commodities & FX, how markets actually trade, options, asset management, three-statement modeling, M&A, valuation, and reading the market today — thirteen chapters, each with a quiz and a direct link to go use Company Profile, Central Bank Room, Markets Overview, Simulations, or Model Templates for real.",
+      "A start-to-end course for anyone new to finance: equities, fixed income, commodities & FX, how markets actually trade, options, asset management, three-statement modeling, M&A, valuation, and reading the market today — thirteen chapters, each with a quiz, a direct link to go use Company Profile, Central Bank Room, Markets Overview, Simulations, or Model Templates for real, and a deeper-dive companion article for whichever topics actually grab you.",
   },
   {
     name: "Simulations",
