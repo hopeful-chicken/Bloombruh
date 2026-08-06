@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { ANALYSIS_ENTRIES, STOCK_PITCHES } from "@/data/analysis";
-import { LESSONS } from "@/data/lessons";
+import { COURSE_CHAPTERS } from "@/data/course";
 
 // Lists every URL worth Google indexing. Ticker-driven pages
 // (/profile/[symbol], /pokemon/[id], /hkex/[code]) are left out on purpose
@@ -36,10 +36,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const lessonEntries = LESSONS.map((lesson) => ({
-    url: `${siteUrl}/lessons/${lesson.slug}`,
+  const chapterEntries = COURSE_CHAPTERS.map((chapter) => ({
+    url: `${siteUrl}/lessons/${chapter.slug}`,
     lastModified: new Date(),
   }));
 
-  return [...staticEntries, ...analysisEntries, ...lessonEntries];
+  return [...staticEntries, ...analysisEntries, ...chapterEntries];
 }

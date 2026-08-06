@@ -87,9 +87,9 @@ export const modules: ModuleInfo[] = [
     name: "Lessons",
     slug: "/lessons",
     status: "beta",
-    tagline: "Fixed income, three-statement modeling, options, FX, and reading a real deal",
+    tagline: "Finance 101 — a 13-chapter course from equities to M&A, with quizzes and hands-on links to the rest of the site",
     description:
-      "Six written lessons covering the finance-career fundamentals this site's other data-driven modules don't teach directly: fixed income & credit, three-statement modeling, technical interview fundamentals (DCF/LBO/M&A/comps), options & derivatives, FX as an asset class, and how to read a real M&A deal announcement like an analyst.",
+      "A start-to-end course for anyone new to finance: equities, fixed income, commodities & FX, how markets actually trade, options, asset management, three-statement modeling, M&A, valuation, and reading the market today — thirteen chapters, each with a quiz and a direct link to go use Company Profile, Central Bank Room, Markets Overview, Simulations, or Model Templates for real.",
   },
   {
     name: "Simulations",

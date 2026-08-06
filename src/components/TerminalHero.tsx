@@ -40,8 +40,8 @@ const LINES: Line[] = [
       { text: "test-prep/", colorClass: "text-muted" },
     ],
   },
-  { kind: "prompt", command: "open profile" },
-  { kind: "link", href: "/profile", label: "Open Company Profile" },
+  { kind: "prompt", command: "open lessons" },
+  { kind: "link", href: "/lessons", label: "Start Finance 101" },
 ];
 
 export default function TerminalHero() {
