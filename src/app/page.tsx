@@ -5,6 +5,8 @@ import WorldSituationOverview from "@/components/markets/WorldSituationOverview"
 import DataSourcesAppendix, { type DataSource } from "@/components/pitch/DataSourcesAppendix";
 import ModuleGrid from "@/components/ModuleGrid";
 import TerminalHero from "@/components/TerminalHero";
+import ScrollReveal from "@/components/ScrollReveal";
+import { LogoMark } from "@/components/Logo";
 
 // What's actually fetched/computed on this specific page — the world-
 // situation panel above. Each module has its own, more detailed sources
@@ -28,18 +30,22 @@ const HOME_SOURCES: DataSource[] = [
 export default function Home() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
-      {/* Hero — a real positioning statement paired with an actual working
-          terminal window, instead of a wordmark floating alone above a
-          CTA button. The terminal is the "mind blowing, not a regular
-          website" centerpiece: real content about the site, staggered in
-          like a boot sequence, not a stock hero graphic. */}
-      <section className="grid gap-10 border-b border-border pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-center lg:gap-8">
-        <div>
+      {/* Hero — one unified bento grid instead of a separate hero-then-
+          teaser stack. The brand statement and the terminal window sit as
+          the two big cards up top; the world situation and "build your
+          own model" cards sit right underneath, same weight, same grid —
+          a dashboard you land on, not a marketing page you scroll past.
+          Each cell fades/slides in on load or on scroll, staggered. */}
+      <section className="grid grid-cols-1 gap-4 border-b border-border pb-14 lg:grid-cols-2">
+        <ScrollReveal className="flex flex-col justify-center border border-border bg-surface/40 p-6 sm:p-8">
           <p className="font-mono text-xs uppercase tracking-widest text-accent">
             Free · Independent · Built in public
           </p>
-          <h1 className="font-logo mt-2 text-6xl font-medium tracking-tight text-foreground sm:text-7xl">
-            Bloombruh
+          <h1 className="mt-3 flex items-center gap-2 sm:gap-4">
+            <LogoMark className="h-6 w-[2.1rem] shrink-0 sm:h-10 sm:w-14" />
+            <span className="font-logo text-4xl font-medium tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+              Bloom<span className="text-accent">bruh</span>
+            </span>
           </h1>
           <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
             A terminal-style research tool built by an economics student, not a company —
@@ -48,20 +54,21 @@ export default function Home() {
           </p>
           <Link
             href="/profile"
-            className="mt-7 inline-flex items-center gap-2 border border-accent bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-dim"
+            className="mt-7 inline-flex w-fit items-center gap-2 border border-accent bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-dim"
           >
             Open Company Profile <span aria-hidden="true">→</span>
           </Link>
-        </div>
-        <TerminalHero />
-      </section>
+        </ScrollReveal>
 
-      {/* World situation teaser + template library teaser, side by side on
-          wide screens — the "read the market" and "now build something
-          with it" pair. */}
-      <section className="mt-16 grid max-w-6xl gap-6 lg:grid-cols-[3fr_2fr]">
-        <WorldSituationOverview commentary={MARKET_COMMENTARY} compact />
-        <div className="border border-border">
+        <ScrollReveal delayMs={120}>
+          <TerminalHero />
+        </ScrollReveal>
+
+        <ScrollReveal delayMs={200}>
+          <WorldSituationOverview commentary={MARKET_COMMENTARY} compact />
+        </ScrollReveal>
+
+        <ScrollReveal delayMs={280} className="border border-border">
           <h2 className="bg-accent px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest text-accent-foreground">
             Want to build your own valuation model?
           </h2>
@@ -87,20 +94,20 @@ export default function Home() {
               Open the template library <span aria-hidden="true">→</span>
             </Link>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Module cards — split into what's actually ready vs. what's real
           but still in progress, rather than presenting all of it as
           equally finished. */}
-      <section className="mt-20">
+      <ScrollReveal as="section" className="mt-20">
         <h2 className="border-l-2 border-accent pl-3 font-mono text-xs font-medium uppercase tracking-widest text-muted">
           Modules
         </h2>
         <ModuleGrid modules={modules.filter((m) => m.status === "live")} />
-      </section>
+      </ScrollReveal>
 
-      <section className="mt-14">
+      <ScrollReveal as="section" className="mt-14">
         <h2 className="border-l-2 border-border pl-3 font-mono text-xs font-medium uppercase tracking-widest text-muted">
           In development — beta
         </h2>
@@ -110,10 +117,10 @@ export default function Home() {
           as a preview rather than a finished product.
         </p>
         <ModuleGrid modules={modules.filter((m) => m.status === "beta")} />
-      </section>
+      </ScrollReveal>
 
       {/* About */}
-      <section className="mt-20 max-w-3xl border-t border-border pt-10">
+      <ScrollReveal as="section" className="mt-20 max-w-3xl border-t border-border pt-10">
         <h2 className="text-xs font-medium uppercase tracking-widest text-muted">
           About this project
         </h2>
@@ -145,7 +152,7 @@ export default function Home() {
         </p>
 
         <DataSourcesAppendix sources={HOME_SOURCES} />
-      </section>
+      </ScrollReveal>
     </div>
   );
 }

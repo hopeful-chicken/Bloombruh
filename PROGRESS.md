@@ -34,6 +34,47 @@ top of the already-pushed Session 33 changes; say the word when you want it up.
 
 ---
 
+## Session 35 — 2026-08-06 (A real logo; the terminal window stopped being a black box; homepage is now one bento grid with scroll-in sections)
+
+You said the terminal window looked like an ugly black box, and that the "Bloombruh" wordmark was
+too plain — wanted something special, with colour. Also asked for a bento-grid-style homepage
+(cards, dashboard feel) inspired by two reference sites, with sections that slide in as you scroll —
+confirmed: merge the hero and the teaser row into one grid, and roll the scroll-in effect out
+sitewide (no rush).
+
+**Fixed the black box.** The terminal window was hardcoded to near-black regardless of site theme —
+that's what made it look like a foreign rectangle dropped onto the page. It now uses the same
+surface/border colors as every other card on the site, so in light mode it's a cream terminal window
+and in dark mode a dark one — still has its window chrome, monospace lines, and blinking cursor, just
+actually belongs to the page now.
+
+**A real logo.** Built a small four-bar "chart" icon (`LogoMark`, in `src/components/Logo.tsx`) using
+the exact four colors already in use across the site — the brand accent plus the three module
+signature colors (teal/amber/violet) — so it's not an invented palette, it's the site's own color
+system turned into a mark. Sits next to the wordmark in the nav (small) and the homepage hero
+(large), with "bruh" picked out in the accent color. In the terminal window, the `ls modules/` line
+now color-codes each module path to its own signature color too, tying the whole thing together.
+
+**Homepage is now one dashboard, not a hero-then-scroll-past page.** The old separate "hero" and
+"teaser row" sections are merged into a single 2x2 bento grid: brand statement, terminal window,
+world situation, and the "build your own model" card, all the same visual weight. Built a reusable
+`ScrollReveal` component (plain IntersectionObserver + CSS transition, no new dependency) that fades
++ slides content up the first time it scrolls into view; every homepage section now uses it,
+staggered. Respects reduced-motion. Fixed one real bug found in testing: the wordmark overflowed its
+card at mobile width once the icon ate into the available space — resized down at the small
+breakpoint.
+
+Checked in the browser: light mode, dark mode, and mobile width, both before and after the mobile
+overflow fix. `npm run build` passes clean, no console errors.
+
+**Not done yet:** the scroll-in treatment is only on the homepage so far — rolling it out to the
+other 11 pages (Company Profile, Central Bank Room, Pokemon Cards, My Analysis, Markets, Templates,
+HKEX, Hype, Lessons, Simulations, Test Prep) is next, at no rush per your instruction.
+
+### Nothing broken — safe to continue from here. Not yet pushed.
+
+---
+
 ## Session 33 — 2026-08-06 (Deck rebuilt to match your real references; a first real design pass on the site)
 
 ### The pitch deck template — rebuilt to actually look like the decks you sent

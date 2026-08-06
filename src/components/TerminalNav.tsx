@@ -9,6 +9,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { modules, type ModuleInfo } from "@/lib/modules";
 import ThemeToggle from "@/components/ThemeToggle";
+import Logo from "@/components/Logo";
 
 // Module signature colors (see docs/DECISIONS.md, Aug 2026) — same
 // mapping as ModuleGrid, spelled out because Tailwind can't resolve a
@@ -52,11 +53,8 @@ export default function TerminalNav() {
     <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-center gap-5 py-3.5">
-          <Link
-            href="/"
-            className="font-logo shrink-0 text-xl font-medium tracking-tight text-foreground sm:text-2xl"
-          >
-            Bloombruh
+          <Link href="/" className="shrink-0 transition-opacity hover:opacity-80">
+            <Logo size="sm" />
           </Link>
 
           <form onSubmit={handleSubmit} className="ml-auto flex-1 sm:max-w-xs">

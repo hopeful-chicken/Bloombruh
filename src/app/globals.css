@@ -121,11 +121,9 @@ body {
   background: var(--accent-dim);
 }
 
-/* Terminal hero (homepage) — a real CRT-style terminal window, not a
-   generic hero graphic. Kept isolated to its own classes rather than
-   theme variables since it deliberately stays dark-on-black regardless
-   of the site's light/dark toggle, the same way the reference pitch
-   decks commit fully to one register for their title slide. */
+/* Terminal hero (homepage) — the line-by-line stagger-in and blinking
+   cursor for the terminal window. Colors come from the site's own theme
+   tokens (see TerminalHero.tsx), just the motion lives here. */
 @keyframes term-blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
@@ -140,15 +138,6 @@ body {
 .term-line {
   opacity: 0;
   animation: term-line-in 0.4s ease-out forwards;
-}
-.term-scanlines {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.05) 0px,
-    rgba(255, 255, 255, 0.05) 1px,
-    transparent 1px,
-    transparent 3px
-  );
 }
 @media (prefers-reduced-motion: reduce) {
   .term-cursor,

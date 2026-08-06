@@ -4,6 +4,28 @@ Every meaningful technical or scope decision gets logged here as it's made. Writ
 
 ---
 
+### 2026-08-06 — A real logo, a themed terminal window, and scroll-reveal via `IntersectionObserver` (no new library)
+
+**Decision:** Built `Logo.tsx` — a small four-bar chart icon using the site's four existing colors
+(brand accent + the three module colors) next to the wordmark — and switched the terminal window
+from hardcoded near-black to the site's own theme colors, so it now looks right in both light and
+dark mode. Also built `ScrollReveal.tsx`, a small reusable component that fades content in the first
+time it scrolls into view, using the browser's built-in `IntersectionObserver` — no animation library
+added.
+
+**Why:** You said the terminal window looked like an ugly black box and the wordmark was too plain.
+The black box happened because I'd hardcoded terminal colors instead of using the site's theme
+variables — an easy, avoidable mistake. For the logo and scroll animations, `IntersectionObserver` is
+the standard, dependency-free way every "sections slide in" site does this — adding a library like
+Framer Motion wasn't necessary for a one-shot fade-and-slide effect.
+
+**What it means for the project:** No new dependencies in `package.json`. If you want the logo's
+colors to change later, they're driven by the same `--module-*`/`--accent` variables as everything
+else in `globals.css` — change them once, the logo updates everywhere. `ScrollReveal` is reusable —
+wrap any section in `<ScrollReveal>...</ScrollReveal>` and it gets the same effect.
+
+---
+
 ### 2026-08-06 — Removed the homepage stat strip; added a real terminal window instead
 
 **Decision:** Pulled the "Modules Live / Stock Pitches Sourced / Central Banks Tracked / Fabricated
