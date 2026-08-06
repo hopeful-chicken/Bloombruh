@@ -4,6 +4,7 @@ import { MARKET_COMMENTARY } from "@/data/marketCommentary";
 import WorldSituationOverview from "@/components/markets/WorldSituationOverview";
 import DataSourcesAppendix, { type DataSource } from "@/components/pitch/DataSourcesAppendix";
 import ModuleGrid from "@/components/ModuleGrid";
+import TerminalHero from "@/components/TerminalHero";
 
 // What's actually fetched/computed on this specific page — the world-
 // situation panel above. Each module has its own, more detailed sources
@@ -27,9 +28,12 @@ const HOME_SOURCES: DataSource[] = [
 export default function Home() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
-      {/* Hero — a real positioning statement and a live-feeling module
-          strip instead of a wordmark floating alone above a CTA button. */}
-      <section className="grid gap-10 border-b border-border pb-10 lg:grid-cols-[auto_1fr] lg:items-end lg:gap-16">
+      {/* Hero — a real positioning statement paired with an actual working
+          terminal window, instead of a wordmark floating alone above a
+          CTA button. The terminal is the "mind blowing, not a regular
+          website" centerpiece: real content about the site, staggered in
+          like a boot sequence, not a stock hero graphic. */}
+      <section className="grid gap-10 border-b border-border pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-center lg:gap-8">
         <div>
           <p className="font-mono text-xs uppercase tracking-widest text-accent">
             Free · Independent · Built in public
@@ -49,20 +53,7 @@ export default function Home() {
             Open Company Profile <span aria-hidden="true">→</span>
           </Link>
         </div>
-
-        <dl className="grid grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-4">
-          {[
-            { label: "Modules live", value: "4" },
-            { label: "Stock pitches, sourced", value: "9" },
-            { label: "Central banks tracked", value: "8" },
-            { label: "Fabricated numbers", value: "0" },
-          ].map((s) => (
-            <div key={s.label} className="bg-background p-4">
-              <dt className="font-mono text-[11px] uppercase tracking-wide text-muted">{s.label}</dt>
-              <dd className="mt-1 font-mono text-2xl font-semibold text-foreground">{s.value}</dd>
-            </div>
-          ))}
-        </dl>
+        <TerminalHero />
       </section>
 
       {/* World situation teaser + template library teaser, side by side on

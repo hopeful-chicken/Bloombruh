@@ -4,6 +4,27 @@ Every meaningful technical or scope decision gets logged here as it's made. Writ
 
 ---
 
+### 2026-08-06 — Removed the homepage stat strip; added a real terminal window instead
+
+**Decision:** Pulled the "Modules Live / Stock Pitches Sourced / Central Banks Tracked / Fabricated
+Numbers" row you flagged off the homepage. In its place, next to the wordmark, is a genuine
+terminal-window component — window chrome, a title bar, and a handful of real commands
+(`whoami`, `ls modules/`, `cat rules.txt`, `open profile`) that stagger onto the screen like a
+boot sequence, on a near-black background with amber text and a blinking cursor, regardless of
+whether the rest of the site is in light or dark mode.
+
+**Why:** The stat strip read as a generic "impressive numbers" landing-page move — the opposite of
+what you're trying to signal to recruiters. You asked for something that actually looks built by a
+person, not assembled from a template. A working terminal window is a much more honest fit for a
+site whose entire visual identity is "terminal" — it's a real interactive piece of interface, not a
+decorative stat row.
+
+**What it means for the project:** No new dependency — it's plain React/CSS (a few keyframes in
+`globals.css` for the stagger and cursor blink). If you ever want to change what the terminal
+"says," the lines live in one array at the top of `src/components/TerminalHero.tsx`.
+
+---
+
 ### 2026-07-20 — Scaffolded with Next.js + TypeScript + Tailwind
 
 **Decision:** Used the standard `create-next-app` tool to generate the project, with TypeScript and Tailwind CSS turned on, using the "App Router" (Next.js's newer, recommended way of organizing pages as folders).

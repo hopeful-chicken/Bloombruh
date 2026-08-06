@@ -4,6 +4,36 @@ This file is updated as work happens. Read top-to-bottom for the latest status. 
 
 ---
 
+## Session 34 — 2026-08-06 (Stat strip removed; a real terminal window on the homepage)
+
+### The stat strip you flagged is gone
+You sent a screenshot of the "Modules Live / Stock Pitches Sourced / Central Banks Tracked /
+Fabricated Numbers" row on the homepage and said it's a no. Agreed — on reflection it read like a
+generic "impressive metrics" SaaS-landing-page move, exactly the "AI-generated" feel you're trying
+to get away from. Removed it. The hero is back to the eyebrow line, the Fraunces "Bloombruh"
+wordmark, one positioning paragraph, and the CTA button — no invented-sounding numbers up top.
+
+### Built an actual terminal window instead
+You asked for something that doesn't look like a regular website — "find Claude design and make
+something mind blowing." Rather than another round of spacing/radius tweaks, I built a real
+terminal-window component (`TerminalHero.tsx`) and put it directly next to the wordmark in the
+hero: three window-chrome dots, a title bar, and staggered-in monospace lines — `whoami`,
+`ls modules/ --live`, `cat rules.txt`, `open profile` — with real, honest content about the site
+(not invented stats), a CRT-style scanline texture, and a blinking cursor at the end. It stays
+dark-and-amber on purpose regardless of which site theme you're in, the same way your reference
+pitch decks commit fully to one register on their title slide rather than trying to match every
+surrounding page.
+
+Checked in the browser in both themes: on dark it blends into the page; on light it sits as a
+deliberate dark "window" against the cream background, which reads as intentional rather than
+broken. Also checked at mobile width — stacks cleanly under the text instead of squeezing sideways.
+`npm run build` passes clean, no console errors.
+
+### Nothing broken — safe to continue from here. Not yet pushed — this is new, uncommitted work on
+top of the already-pushed Session 33 changes; say the word when you want it up.
+
+---
+
 ## Session 33 — 2026-08-06 (Deck rebuilt to match your real references; a first real design pass on the site)
 
 ### The pitch deck template — rebuilt to actually look like the decks you sent
