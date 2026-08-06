@@ -41,7 +41,14 @@ const title = "Bloombruh";
 const description =
   "A free, web-based Bloomberg-lite for students — look up any public company's price, chart, and fundamentals, or build your own investment pitch report and export it as a PDF.";
 
+// Real deployed URL, set via NEXT_PUBLIC_SITE_URL once the site is live
+// (see .env.local.example) — this is what search engines use to resolve
+// canonical/OG links. Falls back to a placeholder so the build still works
+// before that's set, it just won't have correct SEO links yet.
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bloombruh.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: title,
     template: "%s · Bloombruh",
@@ -55,11 +62,18 @@ export const metadata: Metadata = {
     "financial fundamentals",
     "student finance tool",
   ],
+  // Explicit rather than relying on the default, since this is exactly the
+  // signal Google Search Console checks first when a page isn't indexing.
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title,
     description,
     type: "website",
     siteName: title,
+    url: siteUrl,
   },
   twitter: {
     card: "summary_large_image",

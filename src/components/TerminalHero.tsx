@@ -16,7 +16,7 @@ type Line =
 
 const LINES: Line[] = [
   { kind: "prompt", command: "whoami" },
-  { kind: "output", text: "Adam — 2nd year economics, UCL. Building this during my internship in Hong Kong." },
+  { kind: "output", text: "Adam Zhou, incoming second-year UCL Economics student." },
   { kind: "prompt", command: "ls modules/ --live" },
   {
     kind: "list",
@@ -27,8 +27,19 @@ const LINES: Line[] = [
       { text: "my-analysis/", colorClass: "text-module-analysis" },
     ],
   },
-  { kind: "prompt", command: "cat todo.txt" },
-  { kind: "output", text: "Add three more modules. Fix the bug I found this morning. Sleep." },
+  { kind: "prompt", command: "ls modules/ --in-development" },
+  {
+    kind: "list",
+    items: [
+      { text: "markets/", colorClass: "text-muted" },
+      { text: "templates/", colorClass: "text-muted" },
+      { text: "hkex/", colorClass: "text-muted" },
+      { text: "hype/", colorClass: "text-muted" },
+      { text: "lessons/", colorClass: "text-muted" },
+      { text: "simulations/", colorClass: "text-muted" },
+      { text: "test-prep/", colorClass: "text-muted" },
+    ],
+  },
   { kind: "prompt", command: "open profile" },
   { kind: "link", href: "/profile", label: "Open Company Profile" },
 ];

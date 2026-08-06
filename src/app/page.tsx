@@ -131,7 +131,7 @@ export default function Home() {
         <h2 className="text-xs font-medium uppercase tracking-widest text-muted">
           About this project
         </h2>
-        <p className="mt-4 text-sm leading-relaxed text-muted">
+        <p className="mt-4 text-sm leading-relaxed text-foreground">
           I&apos;m Adam, a UCL Economics student — building this long-term to get better at
           markets and asset management by actually building something, not just reading about it.
           Free, independent, and unaffiliated with any company, exchange, or institution mentioned
