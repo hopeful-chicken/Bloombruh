@@ -88,11 +88,9 @@ export default function PitchToolkitGate({ pitchId }: { pitchId: string }) {
     return (
       <div className="mt-8 rounded-lg border border-dashed border-border p-5">
         <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
-          This entry is locked
+          My own work — locked while I build it
         </h3>
-        <p className="mt-2 text-sm text-muted">
-          Kept out of public view, unlocked with a code — same code as the rest of My Analysis.
-        </p>
+        <p className="mt-2 text-sm text-muted">Enter the code to view.</p>
         <div className="mt-3 flex flex-wrap gap-2">
           <input
             type="text"

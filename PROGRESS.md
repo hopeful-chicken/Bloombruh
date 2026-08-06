@@ -4,6 +4,63 @@ This file is updated as work happens. Read top-to-bottom for the latest status. 
 
 ---
 
+## Session 32 — 2026-08-05 (Locked the whole of My Analysis; found nothing had been pushed all session; starting the DCF/deck build)
+
+### Important — nothing from today was live until just now
+Every fix and feature from today's earlier sessions (the pitch-deck downloads, the Pokemon and
+Central Bank rewrites, the color system, and the earlier lock fixes) had only ever been committed
+to your local machine — **none of it was pushed to GitHub, so none of it was deployed to Vercel.**
+This is very likely why the pitches still looked unlocked to you — you may have been looking at the
+live site, which still had last night's code. I've now committed everything in one commit. I have
+**not** pushed it yet — that's a live-deploy action, so it needs your yes first. Say the word and
+it'll be live within a couple of minutes of Vercel's build finishing.
+
+### The lock, now covering the whole section properly
+You asked to lock all of My Analysis, not just the pitches. Found the previous fix hadn't gone far
+enough: the pitch detail pages were properly gated, but the `/analysis` index page itself (every
+title and tagline, including the "leads" list) and the two non-pitch write-ups were never gated at
+all. Fixed the same way as before — nothing about any entry (not even its title) is rendered by the
+page anymore; everything is fetched from the server only after the code is verified there. One
+code, one localStorage flag, covers the entire section now — unlock once, everything opens.
+
+Verified by direct inspection again, not by trusting the UI: rebuilt and grepped the actual output
+files for the index page, a pitch page, and a write-up page — zero matches for any title or content
+anywhere pre-code.
+
+### The DCF spreadsheets: done, real, and cross-checked
+Built a real DCF workbook per pitch (WACC build, 5-year FCF projection, terminal value, a live
+Bear/Base/Bull scenarios tab with its own chart, and a Sources tab citing every hardcoded input) —
+using real figures gathered fresh via web research for all 9 companies: current share price, shares
+outstanding, net debt, beta, risk-free rate, and FY0 revenue/margin, cross-checked against a second
+source wherever a number looked off.
+
+Two real bugs caught and fixed before shipping, not after:
+- **A currency/unit bug**: three UK names quote in pence while reporting in pounds, and ASML/Maersk
+  quote in a different currency than they report in — the first version of the model mixed pence
+  and pounds directly, producing an implied share price 100x too small for Diploma. Added an
+  explicit, formula-driven price-conversion step so the model currency and the quoted currency never
+  get multiplied together directly.
+- **A Gordon Growth blow-up on Nintendo**: Nintendo's own measured beta (confirmed genuine via a
+  second source, not a data error) is unusually low, which pushes its base-case WACC close enough to
+  the terminal growth rate that the standard Bull-case shift compressed the spread toward zero and
+  the terminal-value formula exploded to an absurd number. Added a safeguard that scales the Bull
+  shift back just enough to keep a safe spread — used automatically only where a company's own WACC
+  needs it (only Nintendo, of the 9).
+
+No LibreOffice on this machine to mechanically recalculate the workbooks (same standing limitation
+as the PPTX visual QA) — verified instead by reading back every formula string and independently
+reproducing the entire calculation chain in plain Python, company by company, and checking the
+results were explicable (e.g. Palantir's DCF implying real downside at the current price lines up
+exactly with that pitch's own "priced for perfection" thesis, not a modeling error).
+
+Both the `.xlsx` and the pitch deck's valuation slide now show the same real numbers — the deck's
+old `[?]` placeholders are gone, replaced with the actual Bear/Base/Bull output from the workbook,
+plus a new final "Sources & Data Appendix" slide. Both files download from the same place, inside
+each pitch's Research Toolkit.
+
+### Nothing broken — safe to continue from here.
+
+
 ## Session 31 — 2026-08-05 (Fixed: pitch content was shipped to everyone, lock or no lock)
 
 ### The short version

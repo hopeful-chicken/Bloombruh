@@ -91,12 +91,9 @@ export default function AnalysisIndexGate() {
     return (
       <div className="mt-8 rounded-lg border border-dashed border-border p-5">
         <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
-          My Analysis is locked
+          My own work — locked while I build it
         </h3>
-        <p className="mt-2 text-sm text-muted">
-          Write-ups, stock pitches, and the leads list — kept out of public view, unlocked with a
-          code. One code unlocks the whole section.
-        </p>
+        <p className="mt-2 text-sm text-muted">Enter the code to view.</p>
         <div className="mt-3 flex flex-wrap gap-2">
           <input
             type="text"
