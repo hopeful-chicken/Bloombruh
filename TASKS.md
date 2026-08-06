@@ -1630,6 +1630,137 @@ code prompt. You asked for the code to appear right when you click into a pitch 
       reveals body and toolkit together in one action; the index page shows exactly 9 "Locked"
       badges (the pitches) and 0 on the 2 write-ups. `npm run build` and `tsc --noEmit` clean.
 
+## Phase 50 — PPTX pitch decks + DCF data, Pokemon/central-bank research rewrites, a module color system
+
+You uploaded two real competition-grade pitch decks (Global Payments long thesis, Altria short
+thesis) as the actual quality bar, and asked for six things: a downloadable PowerPoint template per
+stock pitch modeled on their structure; real DCF input data and a step-by-step build guide per
+pitch; deeper "Goldman Sachs associate level" research on the Pokemon card market's competitive
+landscape; deeper research on making central-bank rate explanations accessible to non-econ readers;
+and a visual pass so the site reads as less monochrome. You said to take your time.
+
+- [x] Built a `pptxgenjs` generator (in a scratch directory, not a project dependency) producing an
+      8-slide deck per pitch: title → pitch summary → industry/business overview → 2 thesis slides
+      → bear case & rebuttal → DCF scenario table → catalysts/risks/appendix checklist. Every real
+      fact already established in that pitch's write-up is pre-filled; everything else is marked
+      `[INSERT]`.
+- [x] Generated and QA'd all 9 decks (Diploma, Nintendo, BAT, ASML, TSMC, Maersk, Domino's,
+      Palantir, Microsoft) — verified every file opens cleanly and has the right slide count via
+      `python-pptx`, and a `markitdown` text scan confirmed no leftover placeholder junk. **Visual
+      QA was not possible** — this machine has no LibreOffice/`pdftoppm` installed — disclosed
+      plainly rather than claimed. Copied into `public/downloads/pitch-templates/`.
+- [x] Added a "Pitch deck template" download link and a "DCF starting inputs" section (real,
+      sourced numbers already established on this site, plus exactly where to find the rest — a
+      live risk-free rate, a real beta) to all 9 pitches' Research Toolkits in `src/data/analysis.ts`.
+- [x] Ran a deep research pass on the Pokemon card market's institutional landscape: dedicated
+      price-tracking platforms and what each actually measures, the failed 2020-22 wave of
+      fractional-card-investing startups, and what Wall Street/academia have actually published
+      (including a real undergraduate study that found *negative* Pokemon-specific returns over its
+      window — a genuinely different answer than the WSJ's oft-quoted headline figure, from a
+      different time period).
+- [x] Rewrote `src/app/pokemon/page.tsx` with a new "Who Else Is Actually Doing This" section built
+      from that research, each claim's confidence level stated explicitly, full source list included.
+- [x] Ran a second deep research pass on how central banks and good journalism make interest-rate
+      transmission accessible (checked against the Bank of England's, Fed's, and ECB's own public
+      explainers) — found the fix isn't a better chart, it's concrete dollar-denominated worked
+      examples plus stating the transmission lag plainly.
+- [x] Built `src/components/macro/RateImpactExplainer.tsx` — translates the current policy rate into
+      a real worked cost/benefit example for a borrower and a saver, states the single most-surveyed
+      public misconception (rate ≠ mortgage rate), and states Milton Friedman's 4-to-29-month lag
+      finding. Wired into `CountrySituation.tsx` right after the existing index-vs-rate chart.
+- [x] Added a small "module signature color" system — one additional accent color for each of the 4
+      live modules (Central Bank Room: teal, Pokemon Cards: amber, My Analysis: violet, Company
+      Profile: original brand color), used only for that module's own label, active nav tab, and
+      chart accents. New CSS variables in `globals.css`, new `accentColor` field on `ModuleInfo`,
+      updated `ModuleGrid.tsx`/`TerminalNav.tsx`/each module's page header and charts. Also fixed a
+      small pre-existing bug along the way: several charts used a hardcoded hex color instead of the
+      theme's CSS variable, so they weren't actually following dark/light mode — now they do.
+- [x] Verified live in the browser (not just build-clean): both new research sections render with
+      correct text; the rate-impact worked example's math checked by hand against the live rate on
+      screen; the new module colors confirmed rendering correctly in both light and dark mode across
+      the homepage, Central Bank Room, Pokemon Cards, and My Analysis. `npm run build` clean.
+- [ ] **Not done, flagged honestly:** live WACC inputs (current beta, risk-free rate, share count,
+      net debt) were not fetched fresh for each of the 9 companies — the toolkit tells you exactly
+      where to get them rather than guessing. And the pitch decks' visual polish (spacing, overflow)
+      is unverified for the LibreOffice reason above — worth a quick look in real PowerPoint.
+
+## Phase 51 — Fixed: pitch decks weren't actually locked, an AI-sounding tagline, a real slide bug
+
+You reported three real problems with Phase 50's work directly. All three fixed:
+
+- [x] Moved the 9 `.pptx` files out of `public/downloads/pitch-templates/` (a guessable static URL
+      that skipped the unlock gate entirely — no code, no click, not even a page load required) to
+      `src/data/pitch-templates/`, and added a new `/api/pitch-template` route that checks the same
+      unlock code before serving a file. New `src/lib/pitchUnlock.ts` is now the single source of
+      truth for the code, storage key, and a template-id allowlist (both `PitchToolkitGate.tsx` and
+      the new route import from it — previously the code was only hardcoded in the gate component).
+- [x] The `id` query param is checked against a fixed allowlist before it ever touches the
+      filesystem, closing off a real path-traversal risk (`id=../../etc/passwd`-style input),
+      independent of the unlock-code check.
+- [x] Found and fixed a real bug in the deck generator while investigating: the title slide's
+      LONG/SHORT badge used `rectRadius` on a plain `rect` shape instead of `roundRect` — the
+      pptxgenjs skill explicitly documents this combination doesn't work. Fixed and all 9 decks
+      regenerated. Still no LibreOffice/`pdftoppm` on this machine to visually confirm by eye —
+      disclosed, not glossed over.
+- [x] Rewrote the flagged tagline ("Not a replacement story — ... more interesting") and the same
+      "not X — it's Y" rhetorical construction elsewhere in that entry, plus two headers written in
+      the same style last session (Pokemon Cards' new section subtitle, the Central Bank Room's
+      rate-impact header) — stated plainly instead of setting up a framing just to invert it.
+- [x] Verified end-to-end in the browser, not just build-clean: unlocked a real pitch with the real
+      code, confirmed the download link's actual network request returns 200 with a valid file
+      (`python-pptx` opened it, correct slide count); confirmed the old public URL now 404s;
+      confirmed a wrong code returns 403 and a path-traversal `id` returns 404. `npm run build`
+      clean.
+
+## Phase 52 — Pokemon: who owns it (finance-framed); stock pitches: real news + AI summary
+
+- [x] Researched and added a "Follow the Money — Who Actually Owns This" section to
+      `src/app/pokemon/page.tsx`: the Pokemon Company's real JV ownership and FY26 financials
+      (Nintendo/Game Freak/Creatures; $3.34bn revenue +29.3%, $754m net profit +70.7%), the grading
+      infrastructure adjacent to it (PSA/Collectors Universe's 2021 take-private and current
+      backers, CGC's Blackstone ownership and growth), and the industry beyond cards (515m+ lifetime
+      game units, anime/film viewership and box office, Guinness's ~$150bn cumulative-franchise
+      figure alongside the wider range other sources cite). Framed around investability specifically
+      per the "make it finance profily" follow-up — every real infrastructure layer here is
+      privately held, so Nintendo stock (this site's own pitch) is the only real public exposure.
+- [x] Added a real "Recent News" section to every stock pitch: live-fetched Google News headlines
+      plus a short, source-grounded AI summary, reusing the exact discipline already used for the
+      Central Bank Room's news panels rather than inventing a new pattern. New
+      `src/lib/pitchNewsNarrative.ts` and `src/components/research/PitchNewsSection.tsx`; wired into
+      `src/app/analysis/[slug]/page.tsx` inside the existing `PitchToolkitGate`, between the pitch
+      body and the Research Toolkit.
+- [x] Re-verified (not re-built) that the pitch lock from Phase 51 still correctly covers this new
+      content: unlocked a real pitch in the browser, confirmed the news section renders inside the
+      gate, not outside it.
+- [x] Verified live: real, dated headlines with working links render; the AI summary is genuinely
+      grounded (named specific real stories, explicitly flagged which headlines were only
+      tangentially relevant rather than padding). `npm run build` clean.
+
+## Phase 53 — Fixed, properly: locked pitch content was shipped to every visitor regardless of the lock
+
+You asked to lock the stock pitches a third time. Instead of assuming Phase 51's fix already
+covered it, checked directly — built the site and grepped the actual generated HTML for a locked
+pitch. Real pitch text was sitting right there next to the "locked" message: the previous fix
+closed the `.pptx`-download leak but not the much bigger one — the page itself was still shipping
+the full body/toolkit/news to every visitor and only hiding it with JavaScript afterward.
+
+- [x] Confirmed the bug directly before "fixing" anything: `grep`'d the built `.html` and `.rsc`
+      output for a locked pitch page and found real sentences from the write-up present, despite
+      the visible "This pitch is locked" box.
+- [x] New `src/app/api/pitch-content/route.ts` — checks the unlock code and looks up the pitch id
+      against `STOCK_PITCHES` server-side, and only then computes and returns the body, toolkit, and
+      the real news + AI summary (the news/AI-summary logic that used to run at page-build time now
+      runs on-demand inside this route instead).
+- [x] Rewrote `PitchToolkitGate.tsx` to fetch content itself from that route only after the code is
+      entered, instead of receiving the content as pre-rendered `children` that shipped to the
+      client regardless of lock state. Simplified `src/app/analysis/[slug]/page.tsx` accordingly —
+      it no longer contains a pitch's body/toolkit/news anywhere in its own output.
+- [x] Verified by direct inspection, not inference: rebuilt and re-grepped the output — zero
+      occurrences of real pitch text for a locked page (previously several); confirmed live in the
+      browser from a genuinely cleared unlock state that only the lock prompt shows, and that the
+      real code correctly loads the full pitch; confirmed the new route returns 403 for a wrong code
+      and 404 for an unknown id when hit directly. `npm run build` clean.
+
 ## Backlog — ideas raised but not started
 
 Not built, not scoped, not scheduled — just captured so they don't get

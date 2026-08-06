@@ -7,8 +7,17 @@
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { modules } from "@/lib/modules";
+import { modules, type ModuleInfo } from "@/lib/modules";
 import ThemeToggle from "@/components/ThemeToggle";
+
+// Module signature colors (see docs/DECISIONS.md, Aug 2026) — same
+// mapping as ModuleGrid, spelled out because Tailwind can't resolve a
+// dynamic `text-module-${x}` class string at build time.
+const ACTIVE_TEXT: Record<NonNullable<ModuleInfo["accentColor"]>, string> = {
+  macro: "text-module-macro",
+  pokemon: "text-module-pokemon",
+  analysis: "text-module-analysis",
+};
 
 export default function TerminalNav() {
   const router = useRouter();
@@ -83,6 +92,7 @@ export default function TerminalNav() {
             .filter((m) => m.status === "live")
             .map((m) => {
             const isActive = pathname?.startsWith(m.slug);
+            const activeTextClass = m.accentColor ? ACTIVE_TEXT[m.accentColor] : "text-accent";
             return (
               <Link
                 key={m.slug}
@@ -90,7 +100,7 @@ export default function TerminalNav() {
                 className={[
                   "shrink-0 rounded-full px-3.5 py-1.5 text-sm transition-colors",
                   isActive
-                    ? "bg-surface text-accent"
+                    ? `bg-surface ${activeTextClass}`
                     : "text-muted hover:bg-surface hover:text-foreground",
                 ].join(" ")}
               >

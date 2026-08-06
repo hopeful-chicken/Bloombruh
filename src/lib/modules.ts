@@ -11,6 +11,12 @@ export type ModuleInfo = {
   status: "live" | "beta" | "soon";
   tagline: string;
   description: string;
+  // Optional module "signature color" (see docs/DECISIONS.md, Aug 2026) —
+  // used for this module's own eyebrow label, active nav pill, and card
+  // accent on the homepage. Omitted = falls back to the shared brand
+  // accent. Kept to the four "live" modules only, deliberately, so this
+  // stays a small function-coded palette rather than one color per card.
+  accentColor?: "macro" | "pokemon" | "analysis";
 };
 
 export const modules: ModuleInfo[] = [
@@ -29,6 +35,7 @@ export const modules: ModuleInfo[] = [
     tagline: "Fed / ECB / BoE / BoJ and more — real rates, history, news, and Adam's take",
     description:
       "Pick a central bank and see its actual policy rate, a history chart, a timeline of past rate decisions, plain-English context on monetary and fiscal policy, real sourced news headlines, and Adam's own written commentary — each kept clearly separate so you always know what's data, what's education, and what's opinion.",
+    accentColor: "macro",
   },
   {
     name: "Markets Overview",
@@ -69,6 +76,7 @@ export const modules: ModuleInfo[] = [
     tagline: "The collectible commodity — real production data, a real volatility case study, and an honest SWOT",
     description:
       "A market-level analysis of Pokemon TCG cards as an asset class: real 3-decade production data, a real price-volatility case study (PSA 10 Charizard, 2018-2025), a direct comparison to the 1990s sports-card crash, and a SWOT on investing in the category — treated as a genuine commodity-like market, not a search tool for individual cards.",
+    accentColor: "pokemon",
   },
   {
     name: "Lessons",
@@ -101,5 +109,6 @@ export const modules: ModuleInfo[] = [
     tagline: "Independent research, stock pitches, and a running leads list — Adam's own opinions, on the record",
     description:
       "Adam's own running research notebook: dated, sourced write-ups on breaking macro and market stories as they happen, 10 stock pitches, and a lighter-weight \"worth digging into\" leads list — one real sentence and a source each, not yet deep-researched, kept as a starting point rather than a finished conclusion. Written for himself first, kept here because it's worth coming back to.",
+    accentColor: "analysis",
   },
 ];

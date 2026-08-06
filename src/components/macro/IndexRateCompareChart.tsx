@@ -79,7 +79,7 @@ export default function IndexRateCompareChart({
   indexHistory,
   indexName,
   range,
-  ratePercentColor = "var(--accent)",
+  ratePercentColor = "var(--module-macro)",
 }: {
   rateHistory: RateObservation[];
   indexHistory: IndexPoint[];

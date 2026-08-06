@@ -113,7 +113,7 @@ export default function GlobalRatesOverview({
               onClick={() => setRange(r.value)}
               className={`rounded-md px-2.5 py-1 font-mono text-xs transition-colors ${
                 range === r.value
-                  ? "bg-accent text-accent-foreground"
+                  ? "bg-module-macro text-accent-foreground"
                   : "text-muted hover:bg-surface hover:text-foreground"
               }`}
             >

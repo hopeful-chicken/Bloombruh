@@ -57,9 +57,9 @@ export default function CharizardChart({ data }: { data: PriceDataPoint[] }) {
           <Line
             type="monotone"
             dataKey="usd"
-            stroke="#bc5b33"
+            stroke="var(--module-pokemon)"
             strokeWidth={1.8}
-            dot={{ r: 3, fill: "#bc5b33" }}
+            dot={{ r: 3, fill: "var(--module-pokemon)" }}
           />
         </LineChart>
       </ResponsiveContainer>

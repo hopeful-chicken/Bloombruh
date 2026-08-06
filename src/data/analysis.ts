@@ -60,11 +60,11 @@ Whether the Seoul/Nasdaq price gap closes into a stable arbitrage band over the 
   {
     id: "ai-hedge-fund-analyst-roles",
     title: "What AI Is Actually Doing to Hedge Fund and Bank Analyst Roles",
-    tagline: "Not a replacement story — a real labor-market study says the picture is more specific than that, and more interesting",
+    tagline: "Goldman and Morgan Stanley's own 2026 labor-market studies, and what they actually found for analyst roles",
     date: "2026-08-05",
     body: `# What AI is actually doing to hedge fund and bank analyst roles
 
-The "AI is coming for analyst jobs" headline is everywhere. I wanted to check what the actual labor-market data says, rather than just repeat the headline — and it turns out the real picture is more specific, and more useful, than a flat "replace or not."
+The "AI is coming for analyst jobs" headline is everywhere. I wanted to check what the actual labor-market data says, rather than just repeat the headline, so this pulls together what Goldman's and Morgan Stanley's own 2026 studies found.
 
 ## What Goldman Sachs and Morgan Stanley's own research actually found
 
@@ -85,7 +85,7 @@ Some industry commentary (mostly from AI-research-tool vendors themselves) makes
 
 ## My actual read
 
-The realistic shape for someone starting out in this industry isn't "will I be replaced" — it's "the standardized parts of the job are shrinking, and the judgment/interpretation/client-facing parts are where the value (and the entry-level seats) will concentrate." That's a genuinely different thing to prepare for than either the doom headlines or the vendor hype suggest.
+For someone starting out in this industry, the useful question is which parts of the job are shrinking and which aren't: the standardized parts (pitch-book drafting, first-pass document review) are the ones going first, and the judgment, interpretation, and client-facing parts are where the value — and the entry-level seats — will concentrate.
 
 **Sources:** [AI's impact on the job market is starting to show up in the data — Axios](https://www.axios.com/2026/04/07/ai-jobs-goldman-sach-morgan-stanley), [Can AI Replace Wall Street Analysts in 2026? — Impact Wealth](https://impactwealth.org/ai-replace-wall-street-analysts/), [AI in Hedge Funds: Use Cases, Risks, and Best Practices — AlphaSense](https://www.alpha-sense.com/blog/trends/generative-ai-in-hedge-funds/)
 `,
@@ -128,7 +128,19 @@ The model depends on continuing to find and integrate acquisitions at sensible p
 
 **Sources:** [Diploma Q1/H1 2026 results and acquisitions](https://www.tipranks.com/news/company-announcements/diploma-plc-expands-with-strategic-acquisition), [Diploma share price](https://www.investing.com/equities/diploma--plc), [Peerless Aerospace Fastener acquisition](https://www.tipranks.com/news/global-markets/uk-stocks-diploma-dplm-shares-rally-on-peerless-acquisition)
 `,
-    toolkit: `## Primary filings
+    toolkit: `## Pitch deck template
+Download the [Diploma PLC pitch-deck template (.pptx)](/api/pitch-template?id=diploma-plc&code=vq55jh68%26*) — 8 slides structured like a real long/short pitch (summary → industry/business overview → 2 thesis slides → bear case & rebuttal → DCF scenario table → catalysts, risks & appendix checklist), modeled on real Varsity/OAF-style competition decks. Every real fact already established on this page is pre-filled; everything marked [INSERT] is a prompt telling you exactly what to go research and drop in.
+
+## DCF starting inputs
+Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh, since this page is a dated snapshot, not a live feed:
+- Share price ~7,525p as of 22 July 2026 (52-week range 4,558p–7,295p)
+- Q1 FY2026 revenue growth: +17% total, +15% organic
+- Operating margin: 24.5%, +300bps year-on-year
+- FY2026 guidance: operating profit growth >30%
+- Peerless Aerospace Fastener acquisition: £236m, ~+8% EPS accretion in year one
+- WACC inputs: use the current 10-year UK gilt yield as your risk-free rate; pull Diploma's beta from stockanalysis.com or a data terminal — don't guess a beta.
+
+## Primary filings
 - [London Stock Exchange news explorer](https://www.londonstockexchange.com/news?tab=news-explorer) — search "Diploma" for every RNS (regulatory news) release: trading updates, results, acquisition announcements, directors' dealings.
 - [Diploma plc investor relations](https://www.diplomaplc.com/investors) — annual reports, interim results, investor presentations.
 - [Companies House](https://find-and-update.company-information.service.gov.uk/) — UK statutory filings for Diploma and any UK acquisition target you want to check.
@@ -169,7 +181,18 @@ Console cycles are lumpy and hit-driven. Nintendo's model depends on hardware at
 
 **Sources:** [Nintendo FY26 financial results](https://nintendoeverything.com/nintendo-financial-results-may-2026-switch-2-at-19-86-million-units-switch-at-155-92-million-more/), [Pokemon's best year ever](https://gamerant.com/pokemon-2026-highest-sales-ever/), [Nintendo share price decline on price hike](https://www.cnbc.com/2026/05/11/nintendo-stock-switch-2-price-rise-weak-sales-forecast.html), [June 2026 Direct disappointment](https://gamerant.com/nintendo-stock-price-down-why-february-2026/)
 `,
-    toolkit: `## Primary filings
+    toolkit: `## Pitch deck template
+Download the [Nintendo pitch-deck template (.pptx)](/api/pitch-template?id=nintendo&code=vq55jh68%26*) — 8 slides structured like a real long/short pitch (summary → industry/business overview → 2 thesis slides → bear case & rebuttal → DCF scenario table → catalysts, risks & appendix checklist). Every real fact already established on this page is pre-filled; everything marked [INSERT] tells you exactly what to research and drop in.
+
+## DCF starting inputs
+Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh:
+- FY26 (year to March 2026) net sales: ¥2.313tn, +98.6% year-on-year
+- Switch 2 unit sales: 19.86m in its first 10 months
+- The Pokemon Company FY (to Feb 2026): $3.33bn revenue, $752m net profit
+- Share price down ~53% from its 52-week high, despite the above
+- WACC inputs: use the current 10-year Japanese government bond (JGB) yield as your risk-free rate; pull Nintendo's beta from stockanalysis.com or a data terminal.
+
+## Primary filings
 - [Nintendo IR (English)](https://www.nintendo.co.jp/ir/en/) — quarterly/annual financial results, investor presentations, and the actual FY26 results deck.
 - [EDINET](https://disclosure2.edinet-fsa.go.jp/) — Japan's official disclosure system (like SEC EDGAR), for the underlying statutory Japanese filings if you want to go past the English summary.
 
@@ -208,7 +231,18 @@ Structural decline in combustible cigarette volumes across developed markets is 
 
 **Sources:** [BAT FY2026 buyback and dividend guidance](https://www.stocktitan.net/sec-filings/BTI/6-k-british-american-tobacco-p-l-c-current-report-foreign-issuer-65bb444665c2.html), [BAT New Categories/Vuse strategy](https://www.bat.com/media/press-releases/_2026/february/preliminary-results-for-the-year-ended-31-december-2025), [NBIM's ethical exclusions and Council on Ethics](https://www.nbim.no/en/responsible-investment/our-expectations/)
 `,
-    toolkit: `## Primary filings
+    toolkit: `## Pitch deck template
+Download the [British American Tobacco pitch-deck template (.pptx)](/api/pitch-template?id=british-american-tobacco&code=vq55jh68%26*) — 8 slides structured like a real long/short pitch, modeled on real competition decks (the Altria OAF deck this template draws on is a genuine short thesis on a tobacco peer — useful to read against your own long case). Every real fact already established on this page is pre-filled; everything marked [INSERT] tells you exactly what to research.
+
+## DCF starting inputs
+Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh:
+- 2026 buyback programme: £1.3bn
+- Next dividend: 61.26p per share
+- Management's own growth algorithm: +3-5% revenue, +4-6% profit, +5-8% EPS
+- 2026 guidance: low end of that range
+- WACC / cost-of-equity inputs: use the current 10-year UK gilt yield as your risk-free rate; pull BAT's beta from stockanalysis.com. Given how much of BAT's total return is the dividend itself, also build a simple dividend-discount cross-check (current yield + management's guided dividend growth rate) alongside your DCF, not instead of it.
+
+## Primary filings
 - [BAT investor relations](https://www.bat.com/investors) — annual report, interim results, RNS announcements.
 - [London Stock Exchange news explorer](https://www.londonstockexchange.com/news?tab=news-explorer) — search "British American Tobacco" for the raw RNS feed.
 - [NBIM's own expectation documents](https://www.nbim.no/en/responsible-investment/our-expectations/) and its published exclusion list — the primary source for the ESG-exclusion angle, not a secondhand summary.
@@ -248,7 +282,17 @@ Escalating export controls are a structural headwind to what was roughly a third
 
 **Sources:** [ASML China export restrictions and revenue mix](https://marketwise.com/investing/asml-earnings-china-export-restrictions-ai-chip-demand/), [ASML backlog and EUV monopoly](https://www.heygotrade.com/en/blog/asml-investment-case-euv-monopoly-semi-capex/), [ASML denies EUV shipments to China](https://techcrunch.com/2026/06/19/the-us-says-asmls-top-chip-tool-may-be-in-china-asml-says-it-isnt/)
 `,
-    toolkit: `## Primary filings
+    toolkit: `## Pitch deck template
+Download the [ASML pitch-deck template (.pptx)](/api/pitch-template?id=asml&code=vq55jh68%26*) — 8 slides structured like a real long/short pitch (summary → industry/business overview → 2 thesis slides → bear case & rebuttal → DCF scenario table → catalysts, risks & appendix checklist). Every real fact already established on this page is pre-filled; everything marked [INSERT] tells you exactly what to research.
+
+## DCF starting inputs
+Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh:
+- Backlog at year-end 2025: €38.8bn, including €7.4bn of EUV bookings specifically
+- China revenue share: down from 33% (2025) to roughly 20% (2026); quarterly China sales down to 19% of total, from 36% the prior quarter
+- WACC inputs: ASML is dual-listed (Nasdaq/AEX) — use either the US 10-year Treasury or the German 10-year Bund yield as your risk-free rate (pick one and be consistent), and pull ASML's beta from stockanalysis.com.
+- Build the bear/base/bull scenario table explicitly around the China-revenue-mix assumption — that's the single number this whole thesis pivots on, not a generic growth rate.
+
+## Primary filings
 - [ASML investor relations](https://www.asml.com/en/investors) — quarterly results, annual report (20-F), investor presentations with the backlog/bookings detail.
 - [SEC EDGAR full-text search](https://www.sec.gov/edgar/search/) — ASML files a 20-F as a foreign private issuer; search "ASML Holding" directly.
 - [US Bureau of Industry and Security (BIS)](https://www.bis.doc.gov/) — the actual source for entity-list changes and export-control rule updates, rather than relying on news summaries of them.
@@ -288,7 +332,18 @@ The vast majority of TSMC's most advanced capacity remains concentrated in Taiwa
 
 **Sources:** [TSMC Q2 2026 results and raised outlook](https://www.techtimes.com/articles/320696/20260716/tsmc-posts-record-quarter-ai-chip-demand-pushes-full-year-growth-outlook-past-40.htm), [TSMC Q2 2026 slides — AI demand and HPC mix](https://www.investing.com/news/company-news/tsmc-q2-2026-slides-ai-demand-drives-record-margins-hpc-surges-20-93CH-4794789), [TSMC raises capex and Arizona investment](https://finance.yahoo.com/markets/article/tsmc-raises-capex-and-revenue-forecast-highlighting-growing-ai-chip-demand-113101950.html)
 `,
-    toolkit: `## Primary filings
+    toolkit: `## Pitch deck template
+Download the [TSMC pitch-deck template (.pptx)](/api/pitch-template?id=tsmc&code=vq55jh68%26*) — 8 slides structured like a real long/short pitch (summary → industry/business overview → 2 thesis slides → bear case & rebuttal → DCF scenario table → catalysts, risks & appendix checklist). Every real fact already established on this page is pre-filled; everything marked [INSERT] tells you exactly what to research.
+
+## DCF starting inputs
+Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh:
+- Q2 2026 revenue: $40.2bn, +34% year-on-year; full-year growth guidance raised past 40%
+- 2026 capex: raised to $60-64bn, plus an additional $100bn Arizona investment
+- HPC (AI/data-center) share of wafer revenue: 66%, up from a smartphone-dominated mix (smartphones now 22%)
+- Management's long-term guidance: ~25% compound annual growth overall, AI-processor revenue growing >50% annually
+- WACC inputs: use the current US 10-year Treasury yield as your risk-free rate (TSM trades as a NYSE ADR); pull TSMC's beta from stockanalysis.com. Build the bear case explicitly around a Taiwan-geopolitical scenario, not just a demand slowdown — that's the risk no comp set can price for you.
+
+## Primary filings
 - [TSMC investor relations](https://investor.tsmc.com) — quarterly earnings call transcripts and slides (the actual source of the HPC/wafer-revenue-mix breakdown).
 - [SEC EDGAR full-text search](https://www.sec.gov/edgar/search/) — TSMC's NYSE-listed ADR files a 20-F; search "Taiwan Semiconductor."
 - [Taiwan MOPS (Market Observation Post System)](https://mops.twse.com.tw/mops/web/index) — Taiwan's official disclosure system, for the underlying TWSE filings if you want to go past the ADR-level English disclosure.
@@ -328,7 +383,16 @@ A faster, more complete normalization of Red Sea transit than the market current
 
 **Sources:** [Maersk's Suez Canal return](https://www.maritimenews.com/red-sea/maersk-return-red-sea-carrier-shift), [Red Sea freight rate premium](https://suaidglobal.com/insights/red-sea-shipping-crisis-2026/), [Rate collapse risk from the Suez return](https://gulfnews.com/business/markets/container-shipping-heads-toward-a-harder-2026-as-red-sea-reopening-pressures-rates-1.500441624)
 `,
-    toolkit: `## Primary filings
+    toolkit: `## Pitch deck template
+Download the [Maersk pitch-deck template (.pptx)](/api/pitch-template?id=maersk&code=vq55jh68%26*) — 8 slides structured like a real long/short pitch (summary → industry/business overview → 2 thesis slides → bear case & rebuttal → DCF scenario table → catalysts, risks & appendix checklist). Every real fact already established on this page is pre-filled; everything marked [INSERT] tells you exactly what to research.
+
+## DCF starting inputs
+Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh:
+- Red Sea-diversion freight-rate premium: Asia-Europe rates estimated 25-40% higher, Asia-US East Coast 15-25% higher, than they would otherwise be
+- Expected capacity release from the Suez return: 6-8% of global container capacity
+- WACC inputs: use the current 10-year Danish or German government bond yield as your risk-free rate; pull Maersk's beta from stockanalysis.com. Container shipping is a genuinely cyclical business — sensitize your terminal-value assumption to a normalized mid-cycle freight rate, not the current (elevated) one, or your DCF will just be recreating today's price.
+
+## Primary filings
 - [Maersk investor relations](https://www.maersk.com/investor-relations) — quarterly reports, annual report, capital markets day materials.
 - [CVR (Danish Business Authority company register)](https://datacvr.virk.dk/) — Danish statutory filings, the Danish equivalent of Companies House.
 - Nasdaq Copenhagen's own company news feed for Maersk (MAERSK-B) for real-time announcements.
@@ -368,7 +432,18 @@ Input cost inflation and a genuinely competitive UK delivery market (Deliveroo a
 
 **Sources:** [Domino's H1 2026 results](https://www.investing.com/news/transcripts/earnings-call-transcript-dominos-pizza-group-posts-steady-h1-2026-growth-93CH-4833195), [Domino's H1 2026 — Chick 'N' Dip and system sales detail](https://www.thegrocer.co.uk/news/dominos-delivers-strong-first-half-as-chick-n-dip-drives-growth/722049.article), [Domino's H1 2026 trading update](https://www.restaurantonline.co.uk/Article/2026/08/04/dominos-reports-strong-half-year-trading/)
 `,
-    toolkit: `## Primary filings
+    toolkit: `## Pitch deck template
+Download the [Domino's Pizza Group pitch-deck template (.pptx)](/api/pitch-template?id=dominos-pizza-group&code=vq55jh68%26*) — 8 slides structured like a real long/short pitch (summary → industry/business overview → 2 thesis slides → bear case & rebuttal → DCF scenario table → catalysts, risks & appendix checklist). Every real fact already established on this page is pre-filled; everything marked [INSERT] tells you exactly what to research.
+
+## DCF starting inputs
+Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh:
+- H1 2026 system sales: £825.3m for the 26 weeks to 28 June 2026, +6.1%
+- Like-for-like sales: accelerated to +4.9%
+- Chick 'N' Dip average order value: £36, vs. £26 for pizza-only orders; 87% of chicken customers also buy pizza
+- Domino's Rewards loyalty programme: 2.2m enrolled customers ahead of a full national rollout planned for Q4 2026
+- WACC inputs: use the current 10-year UK gilt yield as your risk-free rate; pull the stock's beta from stockanalysis.com.
+
+## Primary filings
 - [London Stock Exchange news explorer](https://www.londonstockexchange.com/news?tab=news-explorer) — search "Domino's Pizza Group" for RNS trading updates and results.
 - [Companies House](https://find-and-update.company-information.service.gov.uk/) — UK statutory filings.
 - **Important distinction to get right:** Domino's Pizza Group plc (LSE: DOM) is the UK/Ireland master franchisee — a different, separately listed company from Domino's Pizza, Inc. (NYSE: DPZ), which owns the global brand. Don't mix up their filings or financials.
@@ -408,7 +483,18 @@ This is the most explicit "priced for perfection" name in this set — genuinely
 
 **Sources:** [Palantir valuation and Rule of 40](https://www.ainvest.com/news/palantir-stock-valuation-growth-sustainability-2026-government-contracts-ai-adoption-justify-hype-2512/), [Palantir government contract concentration](https://intellectia.ai/news/stock/palantir-secures-major-government-contracts-amid-valuation-concerns), [Michael Burry's disclosed bet against Palantir/Nvidia](https://www.ainvest.com/news/palantir-stock-buy-2026-balancing-ai-ambition-valuation-regulatory-risks-2512/)
 `,
-    toolkit: `## Primary filings
+    toolkit: `## Pitch deck template
+Download the [Palantir pitch-deck template (.pptx)](/api/pitch-template?id=palantir&code=vq55jh68%26*) — 8 slides structured like a real long/short pitch, including a dedicated bear-case-and-rebuttal slide built directly around Michael Burry's own publicly disclosed argument. Every real fact already established on this page is pre-filled; everything marked [INSERT] tells you exactly what to research.
+
+## DCF starting inputs
+Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh:
+- Valuation: ~200x trailing earnings, ~80x forward 2026 earnings, vs. 25-40x for most enterprise software peers
+- Commercial AI revenue: $1.31bn, +342% year-on-year, 47% free cash flow margin
+- Rule of 40 score: >140% (growth rate + FCF margin)
+- Government revenue: 55% of total, anchored by a $10bn multi-year US Army deal
+- WACC inputs: use the current US 10-year Treasury yield as your risk-free rate; pull Palantir's beta from stockanalysis.com — expect it to be high, which matters a lot at this valuation. This is the one pitch in this set where the **exit-multiple assumption**, not the growth-rate assumption, should be the main lever in your bear/base/bull table — build a genuine multiple-compression sensitivity, since that's literally Burry's whole argument.
+
+## Primary filings
 - [SEC EDGAR full-text search](https://www.sec.gov/edgar/search/) — search "Palantir Technologies" for 10-K/10-Q and 8-K filings.
 - [Palantir investor relations](https://investors.palantir.com) — quarterly shareholder letters, which are unusually candid and worth reading in full rather than just the press release.
 - [USASpending.gov](https://www.usaspending.gov/) — the official, free US government contract-spending database. Search "Palantir" directly to see the real value and agency breakdown of its government contracts, rather than relying on news summaries.
@@ -448,7 +534,18 @@ If Copilot adoption and monetization don't scale meaningfully faster than they h
 
 **Sources:** [Microsoft OpenAI stake and FY2026 capex](https://www.kalkine.com/news/artificial-intelligence/microsoft-stock-msft-analysis-2026-azure-acceleration-copilot-scale-and-the-190b-capex-question), [Copilot monetization math](https://www.vaasblock.com/research/microsoft-copilot-monetization-capex-return-timeline-2026/), [Anthropic's AI models breached three companies during testing](https://techcrunch.com/2026/07/30/anthropic-says-its-own-ai-models-breached-three-companies-during-security-tests/), [OpenAI model breached evaluation boundaries](https://www.bloomberg.com/news/articles/2026-08-04/openai-says-models-breached-boundaries-during-outside-testing)
 `,
-    toolkit: `## Primary filings
+    toolkit: `## Pitch deck template
+Download the [Microsoft pitch-deck template (.pptx)](/api/pitch-template?id=microsoft-ai-industry&code=vq55jh68%26*) — 8 slides structured like a real long/short pitch (summary → industry/business overview → 2 thesis slides → bear case & rebuttal → DCF scenario table → catalysts, risks & appendix checklist). Every real fact already established on this page is pre-filled; everything marked [INSERT] tells you exactly what to research.
+
+## DCF starting inputs
+Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh:
+- OpenAI stake: ~27% as-converted, valued at ~$135bn after the 2025-2026 recapitalization; produced a $7.6bn accounting gain in Q2 FY2026
+- AI annual revenue run-rate: >$37bn, +123% year-on-year
+- 2026 guided capex: ~$190bn, +61% on 2025
+- Microsoft 365 Copilot: just over 20m paid seats, generating an estimated $3-5bn a year
+- WACC inputs: use the current US 10-year Treasury yield as your risk-free rate; pull Microsoft's beta from stockanalysis.com. Model the capex and the Copilot-revenue ramp as two separate line items rather than netting them into one growth rate — the whole thesis is a question of which one is scaling faster.
+
+## Primary filings
 - [SEC EDGAR full-text search](https://www.sec.gov/edgar/search/) — search "Microsoft Corporation" for 10-K/10-Q, including the OpenAI-stake accounting disclosures.
 - [Microsoft investor relations](https://www.microsoft.com/en-us/investor) — quarterly earnings call transcripts, where Copilot seat counts and Azure AI revenue detail actually get disclosed.
 - [OpenAI's own blog](https://openai.com/news) and [Anthropic's own blog](https://www.anthropic.com/news) — the primary source for the AI-safety-incident story itself, rather than relying on secondhand news coverage of it.

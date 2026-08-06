@@ -20,7 +20,7 @@ export default async function PokemonPage() {
 
   return (
     <div>
-      <p className="font-mono text-xs uppercase tracking-widest text-accent">Pokemon Cards</p>
+      <p className="font-mono text-xs uppercase tracking-widest text-module-pokemon">Pokemon Cards</p>
       <h1 className="font-display mt-1 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
         The collectible commodity
       </h1>
@@ -58,6 +58,313 @@ export default async function PokemonPage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Institutional landscape */}
+      <section className="mt-10">
+        <h2 className="font-mono text-sm uppercase tracking-widest text-muted">
+          Who Else Is Actually Doing This
+        </h2>
+        <p className="mt-0.5 text-xs text-muted/70">
+          Dedicated price-tracking infrastructure, a failed wave of fractional-investing startups, and what
+          Wall Street and academia have actually published, sourced and confidence-rated below.
+        </p>
+
+        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+          <h3 className="text-sm font-semibold text-foreground">
+            The price-tracking infrastructure is real, and it&apos;s more fragmented than it looks
+          </h3>
+          <p className="mt-2 text-sm text-muted">
+            There is no single &ldquo;stock exchange&rdquo; for trading cards, but there is genuine,
+            purpose-built infrastructure behind the numbers this page (and every other source) relies on —
+            it&apos;s just split across a few products that each cover a different slice of the market.
+          </p>
+          <ul className="mt-3 space-y-2 text-sm text-muted">
+            <li>
+              <span className="font-semibold text-foreground">Card Ladder</span> — the source most often
+              cited for Pokemon-specific index performance (WSJ, CNBC). Builds nightly &ldquo;player/character
+              indexes&rdquo; from every card tied to a character, weighted by last-sold value, across ~13
+              marketplaces. Runs a dedicated Pokemon index.
+            </li>
+            <li>
+              <span className="font-semibold text-foreground">PWCC / Fanatics Collect</span> — PWCC built the
+              PWCC 500, the best-known trading-card price index, but it&apos;s worth being precise here: that
+              index covers pre-2000 <em>sports</em> cards only, sourced from PSA-graded auction data. PWCC was
+              acquired by Fanatics in 2023 and folded into Fanatics Collect in 2024 — it isn&apos;t, and never
+              was, a Pokemon-specific product.
+            </li>
+            <li>
+              <span className="font-semibold text-foreground">GemRate</span> — tracks grading <em>volume</em>,
+              not price: its most recent full-year report counted 26.6 million cards graded industry-wide in
+              2025 (+32% year-over-year), with PSA holding 72% overall share. Its most relevant finding for
+              this page: TCG submissions have overtaken sports cards, and 9 of the top 10 most-graded TCG cards
+              in 2025 were Pokemon (Pikachu and Charizard leading).
+            </li>
+            <li>
+              <span className="font-semibold text-foreground">TCGplayer</span> — a transaction-based
+              &ldquo;Market Price&rdquo; (a filtered average of actual recent sales, not asking prices), and
+              the de facto standard for <em>raw, ungraded, modern</em> Pokemon singles specifically — a
+              different segment from the graded-vintage focus of Card Ladder and PWCC.
+            </li>
+            <li>
+              <span className="font-semibold text-foreground">PriceCharting</span> — aggregates eBay and its
+              own marketplace sales into set-specific indexes, but its card indexes explicitly cover only
+              ungraded base-set cards, no parallels — narrower in scope than it&apos;s sometimes presented as.
+            </li>
+          </ul>
+          <p className="mt-3 text-xs text-muted">
+            The honest read: every index above measures something genuinely real, but a different, specific
+            slice of the market (graded vs. raw, vintage vs. modern, price vs. volume). Any single headline
+            number — including the ones later in this section — is only as good as knowing which of these it
+            actually came from.
+          </p>
+        </div>
+
+        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+          <h3 className="text-sm font-semibold text-foreground">
+            Fractional card-investing platforms have, so far, mostly failed
+          </h3>
+          <p className="mt-2 text-sm text-muted">
+            Between 2020 and 2022 a wave of startups let retail investors buy fractional shares of individual
+            cards, the way you&apos;d buy a share of a REIT. It&apos;s a more useful data point than it might
+            seem — a real, market-tested answer to &ldquo;can this be securitized cleanly,&rdquo; and so far
+            the answer has mostly been no:
+          </p>
+          <ul className="mt-3 space-y-2 text-sm text-muted">
+            <li>
+              <span className="font-semibold text-foreground">Otis</span> fractionalized a Charizard at a
+              $236,800 valuation, was acquired by Public.com in 2022, then liquidated — investors reportedly
+              took a loss.
+            </li>
+            <li>
+              <span className="font-semibold text-foreground">Collectable</span>, an SEC Regulation A+
+              platform, discloses (per aggregator MoneyMade, not its own primary filing) roughly 3.1%
+              annualized returns since launch — against an estimated 6-8% for the broader blue-chip card
+              category over the same period, i.e. the actual product underperformed the market it was built to
+              track, after fees.
+            </li>
+            <li>
+              <span className="font-semibold text-foreground">Dibbs</span> pivoted away from fractional
+              ownership in 2024 and was acquired by Bastion in 2025. <span className="font-semibold text-foreground">Rally</span>{" "}
+              is still operating, but per industry trade coverage most of its sports-card assets remain
+              underwater, having been acquired near the 2020-2021 price peak.
+            </li>
+          </ul>
+          <p className="mt-3 text-xs text-muted">
+            The pattern across all of them: platforms bought inventory near the 2020-21 peak, secondary-market
+            liquidity for the fractional shares themselves never really showed up, and layered fees (cited
+            estimates run 15-25% of returns across acquisition, management, and sale) ate further into any
+            gain. That&apos;s a real, specific reason to distinguish &ldquo;the underlying card market has done
+            well&rdquo; from &ldquo;a retail investment product wrapped around it worked&rdquo; — historically,
+            those have not been the same claim.
+          </p>
+        </div>
+
+        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+          <h3 className="text-sm font-semibold text-foreground">
+            What Wall Street coverage and academic research actually say
+          </h3>
+          <p className="mt-2 text-sm text-muted">
+            The <span className="font-semibold text-foreground">Wall Street Journal</span> (citing Card
+            Ladder) reported a 3,821% cumulative return for its Pokemon index from 2004 to August 2025, against
+            483% for the S&amp;P 500 over the same span. Separately, <span className="font-semibold text-foreground">CNBC</span>{" "}
+            cited the same index up 145% trailing-year after AJ Scaramucci paid $16.49m for the only PSA-10
+            &ldquo;Pikachu Illustrator&rdquo; card and went on air arguing collectibles are now a legitimate
+            asset class. Worth being precise about both: they&apos;re two different time windows that shouldn&apos;t
+            be blended into one headline figure, and the second is one buyer&apos;s argument after a record
+            purchase, not a bank or analyst publishing research.
+          </p>
+          <p className="mt-2 text-sm text-muted">
+            The pushback is real too. <span className="font-semibold text-foreground">24/7 Wall St.</span> ran
+            a piece arguing the &ldquo;beats the S&amp;P 500&rdquo; framing is a category error — a card
+            produces no cash flow or dividend, so comparing it to an equity index the way you&apos;d compare
+            two stocks is methodologically off; a financial adviser quoted called it a &ldquo;math
+            crime.&rdquo; Two Northeastern University finance professors, on record, land on opposite sides:
+            one cautiously open (value drawn from scarcity and cultural appeal, similar to art), one openly
+            skeptical (&ldquo;this is a very speculative market&hellip; there&apos;s no proven multi-decade
+            outperformance track record&rdquo;).
+          </p>
+          <p className="mt-2 text-sm text-muted">
+            The most rigorous work found is from <span className="font-semibold text-foreground">CAIA</span>{" "}
+            (the Chartered Alternative Investment Analyst Association) — a 2021 study by Andrew Keenan (CAIA,
+            CFA, Credit Suisse) analyzing 109 cards in the PWCC 500 found buyers pay an average ~1,487% premium
+            for a PSA 10 over a PSA 9 of the identical card, and that PSA-10 portfolios returned ~42%
+            annualized over the study window versus ~35% for PSA-9. It&apos;s sports cards, not Pokemon, but
+            it&apos;s the clearest quantitative treatment of the &ldquo;grading changes everything&rdquo;
+            effect that this page&apos;s own Charizard case study above illustrates anecdotally.
+          </p>
+          <p className="mt-2 text-sm text-muted">
+            For Pokemon specifically, the peer-reviewed literature doesn&apos;t really exist yet. The one
+            direct, methodical attempt found is an undergraduate independent study at the College of Wooster
+            (2024) using PriceCharting data from 2021-2023 — it found a portfolio of Pokemon cards returned
+            <span className="font-semibold text-foreground"> -4.72% annualized</span> over that specific
+            window, underperforming the S&amp;P 500. It&apos;s a real, named, institution-affiliated study —
+            just not a peer-reviewed one, and a different three-year window than the WSJ&apos;s 20-year figure
+            above. Both can be true at once: this is a genuinely young, volatile market where the answer
+            depends heavily on which years you happen to measure.
+          </p>
+          <p className="mt-3 text-xs text-muted">
+            One claim repeated across industry commentary — that trading cards have &ldquo;low correlation to
+            equities&rdquo; — could not be traced to any actual computed correlation coefficient or published
+            study in this research. Treat it as an unverified industry talking point, not an established fact,
+            until a source that actually shows the math turns up.
+          </p>
+        </div>
+
+        <p className="mt-4 text-xs text-muted/70">
+          Sources for this section:{" "}
+          <a href="https://www.gemrate.com/november-2025-recap" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">GemRate 2025 grading recap</a>,{" "}
+          <a href="https://www.cardladder.com/about" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">Card Ladder</a>,{" "}
+          <a href="https://help.tcgplayer.com/hc/en-us/articles/213588017-TCGplayer-Market-Price" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">TCGplayer Market Price methodology</a>,{" "}
+          <a href="https://www.moneymade.io/discover/collectable" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">Collectable returns (via MoneyMade)</a>,{" "}
+          <a href="https://www.securitiesdocket.com/2025/09/12/the-hot-investment-with-a-3000-return-pokemon-cards-wsj/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">WSJ, &ldquo;The Hot Investment With a 3,000% Return&rdquo;</a>,{" "}
+          <a href="https://www.cnbc.com/2026/02/25/pokmon-card-winner-scaramucci-says-collectibles-are-asset-class.html" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">CNBC, Scaramucci interview</a>,{" "}
+          <a href="https://247wallst.com/investing/2026/07/18/pokemon-cards-beat-the-sp-500-by-2-5x-but-the-math-is-a-lie/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">24/7 Wall St. critique</a>,{" "}
+          <a href="https://news.northeastern.edu/2026/03/20/pokemon-cards-should-you-invest/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">Northeastern faculty commentary</a>,{" "}
+          <a href="https://caia.org/blog/2021/12/02/collectibles-trading-cards-and-price-perfection/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">CAIA, &ldquo;Price of Perfection&rdquo;</a>, and the{" "}
+          <a href="https://openworks.wooster.edu/independentstudy/10979/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">College of Wooster independent study</a>.
+        </p>
+      </section>
+
+      {/* Follow the money: the company, its adjacent infrastructure, and the industry beyond cards */}
+      <section className="mt-10">
+        <h2 className="font-mono text-sm uppercase tracking-widest text-muted">
+          Follow the Money — Who Actually Owns This
+        </h2>
+        <p className="mt-0.5 text-xs text-muted/70">
+          The IP holder, the grading infrastructure that prices what it certifies, and the industry beyond
+          cards entirely — and, for an investor, who you actually can and can&apos;t buy a share of.
+        </p>
+
+        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+          <h3 className="text-sm font-semibold text-foreground">
+            The IP holder is a private joint venture, not a company you can buy
+          </h3>
+          <p className="mt-2 text-sm text-muted">
+            Pokemon itself is owned in roughly equal thirds by <span className="font-semibold text-foreground">Nintendo, Game Freak, and Creatures Inc.</span>,
+            with <span className="font-semibold text-foreground">The Pokemon Company</span> run as their joint venture to manage the brand day to day —
+            Game Freak builds the core games, Creatures co-created the character designs and the trading card
+            game specifically and handles a large share of licensing. None of the three is separately
+            investable; only Nintendo (TYO: 7974 / OTC: NTDOY) is public, and Nintendo doesn&apos;t break out a
+            Pokemon-specific revenue line in its own segment reporting — so even that exposure is real but
+            blended, not a clean pure-play read (see this site&apos;s own Nintendo stock pitch for the full case).
+          </p>
+          <p className="mt-3 text-sm text-muted">
+            The Pokemon Company&apos;s own financials, for what they&apos;re worth as a private-company
+            disclosure, were a record in its most recent fiscal year (to Feb 2026): revenue of{" "}
+            <span className="font-semibold text-foreground">¥531.4bn (~$3.34bn), up 29.3%</span>; operating
+            profit of <span className="font-semibold text-foreground">¥144.0bn (~$904m), up 43.0%</span>; net
+            profit of <span className="font-semibold text-foreground">¥120.1bn (~$754m), up 70.7%</span> — profit
+            growing meaningfully faster than revenue, which is the kind of operating leverage a licensing
+            business with low incremental cost is supposed to show.
+          </p>
+        </div>
+
+        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+          <h3 className="text-sm font-semibold text-foreground">
+            The grading infrastructure is private too — and consolidating fast
+          </h3>
+          <p className="mt-2 text-sm text-muted">
+            <span className="font-semibold text-foreground">PSA</span>, the dominant grader by volume (see the
+            GemRate share data above), is owned by Collectors Universe — taken private in February 2021 by an
+            investor group led by Nat Turner with D1 Capital Partners and Cohen Private Ventures (Steve Cohen),
+            for roughly <span className="font-semibold text-foreground">$853m</span> after a bidding process
+            pushed the price up from an initial $700m offer. By 2022 the renamed Collectors Holdings had raised
+            a further $100m at a <span className="font-semibold text-foreground">$4.3bn valuation</span>{" "}
+            (Sportico) — a real, if private, mark of how much capital now sits behind the authentication layer
+            of this market, not just the cards themselves.
+          </p>
+          <p className="mt-2 text-sm text-muted">
+            <span className="font-semibold text-foreground">CGC</span>, the fastest-growing challenger, is
+            owned by Certified Collectibles Group, majority-acquired by{" "}
+            <span className="font-semibold text-foreground">Blackstone&apos;s Tactical Opportunities</span> arm
+            in a deal valuing CCG north of $500m. CGC&apos;s card-grading volume was up 631% in H1 2025
+            year-on-year off a small base, and it has reportedly built roughly 7% sports-card share in four
+            years — real, fast growth, but still a distant second to PSA&apos;s scale.
+          </p>
+          <p className="mt-3 text-xs text-muted">
+            The pattern across both threads above: every layer of this market&apos;s actual infrastructure —
+            the IP owner, the dominant grader, and its main challenger — is privately held or PE/hedge-fund
+            backed. There is no clean public equity for the grading side of this trade either, which is itself
+            a relevant data point if you&apos;re trying to size up how &ldquo;investable&rdquo; this space
+            really is beyond buying the cards directly.
+          </p>
+        </div>
+
+        <div className="mt-4 rounded-xl border border-border bg-surface/40 p-5">
+          <h3 className="text-sm font-semibold text-foreground">
+            Cards are a fraction of a much bigger franchise
+          </h3>
+          <p className="mt-2 text-sm text-muted">
+            Guinness World Records — which says its figure is built from The Pokemon Company&apos;s own
+            audited statements plus licensee-reported merchandise sales, not a single clean number — credits
+            Pokemon with roughly <span className="font-semibold text-foreground">$150bn in cumulative revenue</span> through
+            December 2024, split roughly $30bn+ from video games and $100bn+ from licensed merchandise (toys,
+            apparel, and the rest — cards are a sliver of that merchandise figure, not the majority of it).
+            Other trackers land on different totals depending on methodology and cutoff date — figures as low
+            as $100bn and as high as $288bn are both in circulation — so treat the exact number the way this
+            page treats every other disputed market-size figure: directionally enormous, not a single audited
+            fact.
+          </p>
+          <p className="mt-2 text-sm text-muted">
+            The two components with real, countable numbers behind them:
+          </p>
+          <ul className="mt-2 space-y-1.5 text-sm text-muted">
+            <li>
+              <span className="font-semibold text-foreground">Games:</span> the mainline series has shipped{" "}
+              <span className="font-semibold text-foreground">515m+ units lifetime</span> as of March 2026 (up
+              from 489m a year earlier); Scarlet/Violet alone has sold 28.28m copies — the second best-selling
+              entry ever after the original Red/Green/Blue (31.38m) — and sold 10m copies in its first three
+              days, the fastest launch of any Nintendo title.
+            </li>
+            <li>
+              <span className="font-semibold text-foreground">Anime and film:</span> the TV series is estimated
+              to reach 1bn+ viewers across 183 countries over its run; the film spinoffs have sold 190m+ tickets
+              and grossed over $1.8bn worldwide, with <em>Detective Pikachu</em> the highest-grossing single
+              entry in North America (~$144m).
+            </li>
+          </ul>
+          <p className="mt-3 text-sm text-muted">
+            On the licensing side specifically, The Pokemon Company International was ranked among the
+            industry&apos;s top global licensors in <span className="font-semibold text-foreground">License
+            Global&apos;s Top Global Licensors report</span> (7th globally in the 2024 edition), with the most
+            recent clean breakout found putting Pokemon-licensed retail sales at{" "}
+            <span className="font-semibold text-foreground">$10.8bn in 2023</span> — its second-highest year on
+            record, below the $11.6bn peak in 2022 and above the pandemic-era $8.5bn in 2021. That&apos;s a real,
+            trade-publication-sourced number for the licensing business specifically, distinct from (and much
+            smaller than) the all-time cumulative franchise figures above.
+          </p>
+        </div>
+
+        <div className="mt-4 rounded-lg border border-border bg-background/60 p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
+            The finance takeaway
+          </p>
+          <p className="mt-1.5 text-xs text-muted">
+            Every layer of this ecosystem that actually captures the economics — the IP joint venture, the
+            dominant grader, its main challenger — is privately held. Nintendo stock is the only real, liquid,
+            public way to underwrite a view on any of this, and even that is an imperfect proxy: Pokemon is one
+            input into a diversified hardware-and-software business, not a segment Nintendo discloses on its
+            own. That gap between &ldquo;a genuinely massive, growing franchise&rdquo; and &ldquo;no clean way
+            to buy it&rdquo; is arguably the single most important thing an equity-minded reader should take
+            from this page — see this site&apos;s own Nintendo pitch for how that specific trade is actually
+            framed.
+          </p>
+        </div>
+
+        <p className="mt-4 text-xs text-muted/70">
+          Sources for this section:{" "}
+          <a href="https://legalclarity.org/who-owns-pokemon-nintendo-game-freak-creatures/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">Pokemon ownership structure</a>,{" "}
+          <a href="https://www.serkantoto.com/2026/06/01/pokemon-company-financial-numbers-2/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">The Pokemon Company FY26 financial results</a>,{" "}
+          <a href="https://legalclarity.org/who-owns-psa-grading-parent-company-and-investors/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">PSA/Collectors Universe take-private</a>,{" "}
+          <a href="https://www.sportico.com/business/finance/2022/collectors-chernin-cohen-1234670529/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">Collectors Holdings $4.3bn valuation — Sportico</a>,{" "}
+          <a href="https://www.blackstone.com/news/press/blackstone-tactical-opportunities-to-acquire-the-certified-collectibles-group-a-leading-provider-of-tech-enabled-authentication-grading-and-conservation-services-for-the-global-collectibles-industry/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">Blackstone acquires CCG — press release</a>,{" "}
+          <a href="https://www.sportico.com/business/commerce/2025/cgc-cards-grading-collectibles-blackstone-1234865659/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">CGC Cards growth vs. PSA — Sportico</a>,{" "}
+          <a href="https://www.guinnessworldrecords.com/world-records/738103-highest-grossing-anime-franchise" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">Guinness World Records, highest-grossing media franchise</a>,{" "}
+          <a href="https://www.vgchartz.com/article/467940/pokemon-series-has-sold-over-515-million-units/" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">515m+ lifetime game units — VGChartz</a>,{" "}
+          <a href="https://www.statista.com/statistics/1347322/pokemon-scarlet-and-violet-units-sold" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">Scarlet/Violet unit sales — Statista</a>, and the{" "}
+          <a href="https://www.pocketmonsters.net/news/7784" target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">License Global Top Global Licensors ranking</a>.
+        </p>
       </section>
 
       {/* Case study */}

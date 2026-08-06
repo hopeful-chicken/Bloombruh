@@ -78,7 +78,7 @@ export default function RateChart({
             onClick={() => setRange(r.value)}
             className={`rounded-md px-2.5 py-1 font-mono text-xs transition-colors ${
               range === r.value
-                ? "bg-accent text-accent-foreground"
+                ? "bg-module-macro text-accent-foreground"
                 : "text-muted hover:bg-surface hover:text-foreground"
             }`}
           >
@@ -92,8 +92,8 @@ export default function RateChart({
           <AreaChart data={points} margin={{ left: 0, right: 8, top: 8, bottom: 0 }}>
             <defs>
               <linearGradient id="rateFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="var(--accent)" stopOpacity={0.25} />
-                <stop offset="100%" stopColor="var(--accent)" stopOpacity={0} />
+                <stop offset="0%" stopColor="var(--module-macro)" stopOpacity={0.25} />
+                <stop offset="100%" stopColor="var(--module-macro)" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#e3e0d3" vertical={false} />
@@ -125,7 +125,7 @@ export default function RateChart({
             <Area
               type="stepAfter"
               dataKey="rate"
-              stroke="var(--accent)"
+              stroke="var(--module-macro)"
               strokeWidth={1.5}
               fill="url(#rateFill)"
             />

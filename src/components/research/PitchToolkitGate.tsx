@@ -2,25 +2,77 @@
 
 // Code gate for stock pitches — shown immediately (right where you land
 // after clicking a pitch on /analysis), before any of the pitch content.
-// Same pattern as AiGrader.tsx (this site's only other gated feature):
-// one shared, hardcoded code, unlock state in localStorage. This is NOT
-// real security — anyone reading the client bundle can find the code —
-// it's a friction gate, not a real access-control system.
+// Same friction-gate pattern as AiGrader.tsx elsewhere on this site: one
+// shared, hardcoded code, unlock state cached in localStorage so you don't
+// have to retype it on every pitch. NOT real security — anyone reading the
+// client bundle can find the code — but that was always meant to be the
+// only gap.
+//
+// This component used to take the pitch content as `children` and simply
+// hide them until `unlocked` was true. That had a real bug: React Server
+// Components serialize `children` into the page's HTML/RSC payload
+// regardless of whether the client ever renders them, so the full pitch
+// text was sitting in plain "view source" for anyone, whether or not they
+// ever touched the code. Fixed by not shipping the content to the client
+// at all until after the code is verified server-side: once unlocked,
+// this component fetches the actual body/toolkit/news from
+// /api/pitch-content (which checks the code again, server-side, before
+// returning anything) rather than revealing something it already had.
 
 import { useEffect, useState } from "react";
+import { PITCH_UNLOCK_CODE as UNLOCK_CODE, PITCH_UNLOCK_STORAGE_KEY as STORAGE_KEY } from "@/lib/pitchUnlock";
+import MarkdownContent from "@/components/research/MarkdownContent";
+import PitchNewsSection from "@/components/research/PitchNewsSection";
+import type { NewsArticle } from "@/lib/news";
 
-const UNLOCK_CODE = "vq55jh68&*";
-const STORAGE_KEY = "bloombruh-pitch-toolkit-unlocked";
+type PitchContent = {
+  title: string;
+  tagline: string;
+  date: string;
+  body: string;
+  toolkit: string | null;
+  news: { articles: NewsArticle[]; narrative: string | null; narrativeError: string | null } | null;
+};
 
-export default function PitchToolkitGate({ children }: { children: React.ReactNode }) {
+export default function PitchToolkitGate({ pitchId }: { pitchId: string }) {
   const [unlocked, setUnlocked] = useState(false);
   const [codeInput, setCodeInput] = useState("");
   const [codeError, setCodeError] = useState(false);
+  const [content, setContent] = useState<PitchContent | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [fetchError, setFetchError] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.localStorage.getItem(STORAGE_KEY) === "1") setUnlocked(true);
   }, []);
+
+  useEffect(() => {
+    if (!unlocked || content) return;
+    let cancelled = false;
+    setLoading(true);
+    setFetchError(false);
+
+    const params = new URLSearchParams({ id: pitchId, code: UNLOCK_CODE });
+    fetch(`/api/pitch-content?${params.toString()}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Request failed");
+        return res.json();
+      })
+      .then((body: PitchContent) => {
+        if (!cancelled) setContent(body);
+      })
+      .catch(() => {
+        if (!cancelled) setFetchError(true);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [unlocked, pitchId, content]);
 
   function handleUnlock() {
     if (codeInput === UNLOCK_CODE) {
@@ -36,11 +88,10 @@ export default function PitchToolkitGate({ children }: { children: React.ReactNo
     return (
       <div className="mt-8 rounded-lg border border-dashed border-border p-5">
         <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
-          This pitch is locked
+          This entry is locked
         </h3>
         <p className="mt-2 text-sm text-muted">
-          The full pitch, plus the research toolkit behind it (tools, sources, and a
-          step-by-step build guide) — kept out of public view, unlocked with a code.
+          Kept out of public view, unlocked with a code — same code as the rest of My Analysis.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <input
@@ -67,5 +118,43 @@ export default function PitchToolkitGate({ children }: { children: React.ReactNo
     );
   }
 
-  return <>{children}</>;
+  if (loading) {
+    return <p className="mt-8 text-sm text-muted">Loading the full pitch…</p>;
+  }
+
+  if (fetchError || !content) {
+    return (
+      <p className="mt-8 text-sm text-muted">
+        Couldn&apos;t load this pitch right now — refresh to try again.
+      </p>
+    );
+  }
+
+  return (
+    <>
+      <p className="font-mono mt-4 text-[11px] text-muted">{content.date}</p>
+      <h1 className="font-display mt-1 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+        {content.title}
+      </h1>
+      <p className="mt-1 text-sm text-muted">{content.tagline}</p>
+      <div className="mt-8 border-t border-border pt-6">
+        <MarkdownContent markdown={content.body} />
+      </div>
+      {content.news && (
+        <PitchNewsSection
+          narrative={content.news.narrative}
+          narrativeError={content.news.narrativeError}
+          articles={content.news.articles}
+        />
+      )}
+      {content.toolkit && (
+        <div className="mt-8 border-t border-border pt-6">
+          <p className="font-mono text-xs uppercase tracking-widest text-module-analysis">
+            Research Toolkit
+          </p>
+          <MarkdownContent markdown={content.toolkit} />
+        </div>
+      )}
+    </>
+  );
 }

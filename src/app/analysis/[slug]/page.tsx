@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ANALYSIS_ENTRIES, STOCK_PITCHES } from "@/data/analysis";
-import MarkdownContent from "@/components/research/MarkdownContent";
 import PitchToolkitGate from "@/components/research/PitchToolkitGate";
 
 const ALL_ENTRIES = [...ANALYSIS_ENTRIES, ...STOCK_PITCHES];
@@ -16,9 +15,8 @@ export default async function AnalysisEntryPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const entry = ALL_ENTRIES.find((e) => e.id === slug);
-  if (!entry) notFound();
-  const isPitch = STOCK_PITCHES.some((p) => p.id === entry.id);
+  const exists = ALL_ENTRIES.some((e) => e.id === slug);
+  if (!exists) notFound();
 
   return (
     <div>
@@ -29,31 +27,15 @@ export default async function AnalysisEntryPage({
         ← All of My Analysis
       </Link>
 
-      <p className="font-mono mt-4 text-[11px] text-muted">{entry.date}</p>
-      <h1 className="font-display mt-1 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-        {entry.title}
-      </h1>
-      <p className="mt-1 text-sm text-muted">{entry.tagline}</p>
-
-      {isPitch ? (
-        <PitchToolkitGate>
-          <div className="mt-8 border-t border-border pt-6">
-            <MarkdownContent markdown={entry.body} />
-          </div>
-          {entry.toolkit && (
-            <div className="mt-8 border-t border-border pt-6">
-              <p className="font-mono text-xs uppercase tracking-widest text-accent">
-                Research Toolkit
-              </p>
-              <MarkdownContent markdown={entry.toolkit} />
-            </div>
-          )}
-        </PitchToolkitGate>
-      ) : (
-        <div className="mt-8 border-t border-border pt-6">
-          <MarkdownContent markdown={entry.body} />
-        </div>
-      )}
+      {/* The whole of My Analysis is gated now — nothing about this entry,
+          not even its title, is rendered here. This is a server component
+          whose output is shipped to every visitor regardless of the
+          gate's visual state, so putting real content (including a
+          title/tagline) in this tree at all would leak it — that's
+          exactly what happened before this was fixed. PitchToolkitGate
+          fetches everything itself, client-side, only after the code is
+          verified server-side; see docs/DECISIONS.md. */}
+      <PitchToolkitGate pitchId={slug} />
     </div>
   );
 }

@@ -4,6 +4,200 @@ This file is updated as work happens. Read top-to-bottom for the latest status. 
 
 ---
 
+## Session 31 — 2026-08-05 (Fixed: pitch content was shipped to everyone, lock or no lock)
+
+### The short version
+You asked to "lock the access to all the stock pitch details" for a third time, which was the
+right call — the previous fix (moving the `.pptx` downloads behind a code-checked route) closed
+one real leak but not the actual biggest one. I checked properly this time instead of assuming it
+was already handled, and found it: **the full text of every locked pitch — the write-up, the DCF
+numbers, the toolkit, even the new AI news summary — was sitting in plain view in the page's raw
+HTML and data payload, readable by anyone who viewed page source, regardless of whether they ever
+touched the unlock code.** The on-screen "locked" box was real, but it was only ever hiding the
+content with JavaScript after the fact — the content itself had already been sent to the browser.
+
+I confirmed this directly (not just in theory): built the site, grepped the actual generated HTML
+file for a locked pitch, and found real sentences from Diploma's write-up sitting right there next
+to the "This pitch is locked" text.
+
+### The fix
+The pitch page no longer contains the body, toolkit, or news at all. It now only fetches that
+content from a server route (`/api/pitch-content`) *after* you enter the code — and that route
+checks the code itself, server-side, before it will return anything. Same shape as the fix already
+applied to the `.pptx` downloads: don't just hide the content in the browser, don't send it in the
+first place until the code checks out on the server.
+
+### Verified properly this time
+Rebuilt the site and grepped the actual output files again — zero matches for real pitch text in
+either the static HTML or the underlying data payload for a locked pitch. Confirmed in the browser,
+starting from a genuinely empty (never-unlocked) browser state: the locked view shows only the lock
+prompt, unlocking with the real code loads the full pitch (write-up, real news, toolkit) correctly,
+and the API route itself returns 403 for a wrong code and 404 for an unknown pitch id when hit
+directly. `npm run build` clean.
+
+### Why this took three tries
+The first fix (last session) addressed the part I checked — the downloadable file — and I said so
+plainly rather than claiming the whole thing was airtight. I hadn't actually checked whether the
+*page content itself* had the same class of bug until you asked a third time, which is what finally
+prompted me to inspect the raw build output directly instead of trusting that the visual lock meant
+the content was gated. That's the standard this should have been checked against from the start.
+
+### Nothing broken — safe to continue from here.
+
+
+## Session 30 — 2026-08-05 (Pokemon: who owns it; stock pitches: real news + AI summary)
+
+### The short version
+Two things, both landed:
+
+1. **Added a "Follow the Money" section to Pokemon Cards** — the piece you asked for: who actually
+   owns the Pokemon Company (Nintendo/Game Freak/Creatures, a private joint venture — its real FY26
+   numbers are in there: $3.34bn revenue +29.3%, $754m net profit +70.7%), who owns the grading
+   infrastructure adjacent to it (PSA, taken private for ~$853m in 2021, since raised more at a
+   $4.3bn valuation; CGC, majority-owned by Blackstone), and the industry beyond cards (515m+
+   lifetime game units, the anime's 1bn+ viewers and $1.8bn+ in film grosses, Guinness's ~$150bn
+   cumulative-franchise figure with the same "don't trust one clean number" caveat this page
+   already applies elsewhere). Framed the way you asked — finance-first: the actual takeaway is
+   that every layer of this ecosystem is privately held, so Nintendo stock (already covered by this
+   site's own pitch) is the only real, if imperfect, public way to have a view on any of it.
+2. **Every stock pitch now has a real "Recent News" section** — live-fetched headlines (Google
+   News, same free feed the rest of the site uses) plus a short AI summary of them, grounded
+   strictly in those headlines and stating plainly when there isn't much to say — same discipline
+   as the Central Bank Room's news panels. Sits inside the same code gate as the rest of the pitch,
+   between the write-up and the Research Toolkit.
+
+### On "make my stock pitches locked"
+Already true as of last session's fix (see Session 29) — verified again this session that the new
+news section renders correctly *inside* that same gate, not bypassing it. If something about the
+pitches still isn't reading as locked, tell me exactly what you're seeing and I'll chase it down
+specifically rather than re-guessing at the fix.
+
+### Verified
+Pokemon page checked in the browser. The news feature was fully exercised end-to-end: unlocked a
+real pitch (Nintendo), confirmed real, dated headlines appear with working links, and confirmed the
+AI summary is genuinely grounded — it named specific real stories (a Gamescom lineup, a Fire Emblem
+Direct, Monster Hunter Wilds' docked framerate) and explicitly flagged which headlines were only
+tangentially relevant, rather than padding. `npm run build` clean.
+
+### One thing worth knowing about the news feature
+It's fetched at build time (this page is statically generated), with Next.js set to quietly
+regenerate it in the background about once an hour on real traffic — so it's fresh-ish, not
+literally live, consistent with how every other number on a pitch page is already a dated snapshot,
+not a live feed.
+
+### Nothing broken — safe to continue from here.
+
+
+## Session 29 — 2026-08-05 (Fixed: pitch decks weren't actually locked, a leftover AI-sounding tagline, a real slide bug)
+
+### The short version
+You flagged three real problems with the last session's work, and all three are fixed:
+
+1. **The pitch-deck downloads weren't actually locked.** The 9 `.pptx` files were sitting in
+   `public/downloads/pitch-templates/`, a predictable, guessable URL that skipped the pitch's own
+   code prompt entirely — you didn't even need to load the pitch page, let alone unlock it.
+   Fixed properly: the files moved out of `public/` (to `src/data/pitch-templates/`, which Next.js
+   never serves directly) and now go through a new `/api/pitch-template` route that checks the
+   same unlock code before returning the file. Same "friction, not real security" honesty as the
+   rest of this gate — the code still lives in the client bundle — but the file no longer sits at
+   a public URL that bypasses the gate altogether, which was the actual bug. Also allowlisted the
+   valid template ids server-side so the route can't be used to read an arbitrary file off disk.
+2. **A real bug in the deck generator itself:** the title slide's "LONG"/"SHORT" badge used
+   `rectRadius` (rounded corners) on a plain rectangle shape instead of a `roundRect` — the
+   pptxgenjs skill explicitly warns this combination doesn't work. Fixed and all 9 decks
+   regenerated. I still don't have LibreOffice/`pdftoppm` on this machine to visually confirm the
+   fix by eye — flagging that limitation again rather than claiming a check I couldn't do.
+3. **The AI-sounding tagline** ("Not a replacement story — ... more interesting") on the AI/analyst-jobs
+   write-up, and the same "X, not Y" rhetorical construction in that entry's body and in two headers
+   I wrote last session (Pokemon Cards' new section subtitle, the Central Bank Room's new "What X%
+   actually does" header) — all rewritten to state things plainly instead of setting up a
+   dismissive framing just to knock it down.
+
+### Verified
+The full path was tested for real, not just assumed: unlocked a pitch in the browser with the real
+code, confirmed the download link's actual network request returns a valid 200 with the correct
+file (`python-pptx` opened it, 8 slides). Confirmed the *old* public URL now 404s. Confirmed the
+new route rejects a wrong code (403) and rejects a path-traversal attempt in `id` (404, blocked by
+the allowlist, never touches the filesystem with untrusted input). `npm run build` clean.
+
+### Nothing broken — safe to continue from here.
+
+## Session 28 — 2026-08-05 (PPTX pitch decks + DCF data, deep Pokemon/central-bank research, a module color system)
+
+### The short version
+This was the big one from the two reference pitch decks you uploaded (Global Payments and Altria).
+Six things happened, in order:
+
+1. Every one of the 9 stock pitches now has a **downloadable PowerPoint template** — 8 slides,
+   structured to match the real decks you sent (title → pitch summary → industry/business overview
+   → 2 thesis slides → bear case & rebuttal → DCF scenario table → catalysts/risks/appendix
+   checklist), pre-filled with every real fact already established in that pitch's write-up, and
+   marked `[INSERT]` everywhere you still need to do the work yourself.
+2. Every pitch's Research Toolkit got a new "DCF starting inputs" section — the real, sourced
+   numbers already sitting in this site to build a model from (revenue growth, margins, backlog,
+   buyback size, etc.), plus exactly where to pull the rest (which risk-free rate to use, where to
+   get a real beta) instead of guessing.
+3. Sent off two long research passes in parallel: one on who else actually tracks/invests in
+   Pokemon cards as an asset class (price-tracking platforms, the failed fractional-investing
+   wave, what Wall Street and academia have actually published), one on how central banks and
+   good journalism explain interest rates to people who don't study economics.
+4. Rewrote the Pokemon Cards page with a new "Who Else Is Actually Doing This" section built from
+   that research — Card Ladder/PWCC/GemRate/TCGplayer/PriceCharting (and what each one actually
+   measures), the Otis/Collectable/Dibbs fractional-investing failures, and a fair fight between
+   the WSJ's "3,821% return" framing and the 24/7 Wall St./Northeastern pushback on it, plus the
+   one undergraduate study that actually measured Pokemon-specific returns (and found they were
+   negative over its window).
+5. Rebuilt the weak part of the Central Bank Room — the chart of the stock index against the
+   policy rate now has real substance underneath it: a worked example of what a 1-point rate move
+   actually costs a borrower and pays a saver on a real balance, the single most common thing
+   people get wrong (that the central bank sets mortgage rates directly — it doesn't), and why the
+   chart won't show an instant reaction (Milton Friedman's 4-to-29-month lag finding).
+6. Gave the site a bit more color. Not a repaint — a small, deliberate "module signature color"
+   system, explained below.
+
+### The PowerPoint templates
+Built with `pptxgenjs` in a scratch directory (not a project dependency — a one-off generator, not
+something the live site needs at runtime), then the 9 finished `.pptx` files were copied into
+`public/downloads/pitch-templates/`. Each toolkit in `src/data/analysis.ts` now links to its own
+file. **Honest limitation:** this machine doesn't have LibreOffice or `pdftoppm` installed, so I
+could not visually render the slides to check them by eye the way I normally would for a document
+like this. What I could and did check: every file opens cleanly and has the expected 8 slides
+(verified programmatically with `python-pptx`), and a text-content scan confirmed no leftover
+placeholder junk (`markitdown` + grep for `TODO`/`lorem`/etc. — clean). If a slide's spacing looks
+off when you actually open one in PowerPoint, that's the one class of bug this session's QA
+genuinely could not catch — worth a quick look before you rely on them.
+
+### The color system
+You said the site felt "dead" and asked if there was a way to make it cooler without losing the
+theme. Real Bloomberg terminals don't actually use one color for everything either — amber for
+security data, cyan for menus, red/green for gains/losses. I borrowed that idea in miniature: the
+brand color (terracotta/blue) still owns every button and link site-wide, and each of your four
+"live" modules gets one additional signature color, used only for that module's own label, active
+nav tab, and chart accents — Central Bank Room is teal, Pokemon Cards is amber/gold, My Analysis is
+violet, Company Profile stays the original brand color. Six colors total across the whole site
+(brand + 3 signature + the existing green/red for gains/losses) — enough to stop it reading as
+monochrome without turning it into a rainbow. New CSS variables in `globals.css`, a new
+`accentColor` field on `ModuleInfo`, updated in `ModuleGrid.tsx`, `TerminalNav.tsx`, and each
+module's own page header and charts. Checked in both light and dark mode — good contrast in both.
+
+### Verified live
+Both new Pokemon and Central Bank sections load and read correctly in the browser (checked their
+actual rendered text, not just that the build passed). The rate-impact worked examples were
+checked by hand: at the Fed's real 3.75%, a $10,000 balance at a stated +8pt spread comes to
+$1,175/year, a further 1-point rise takes it to $1,275/year — the math on screen matches. The new
+module colors were confirmed rendering correctly on the homepage, Central Bank Room, Pokemon Cards,
+and My Analysis, in both themes. `npm run build` clean throughout.
+
+### What's still open
+Two things from your original request aren't done: the DCF toolkit additions give you real
+starting numbers and tell you where to find the rest, but I did not go pull a live beta, WACC, or
+current share count for each of the 9 companies myself — that's genuinely live market data this
+session didn't fetch fresh, so it's marked as "go get this" rather than guessed. And the pitch
+decks' visual polish is unverified for the reason above — take a look at one in real PowerPoint
+when you get a chance.
+
+### Nothing broken — safe to continue from here.
+
 ## Session 18 — 2026-07-21 (Central Bank Room: Global Overview card)
 
 ### The short version

@@ -18,7 +18,7 @@ import {
 } from "recharts";
 import type { ComparisonPoint } from "@/lib/pokemonMarket";
 
-const CHARIZARD_COLOR = "#bc5b33";
+const CHARIZARD_COLOR = "var(--module-pokemon)";
 const SP500_COLOR = "#2f6f9f";
 
 function CharizardDot(props: {

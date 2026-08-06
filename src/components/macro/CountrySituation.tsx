@@ -21,6 +21,7 @@ import IndexRateCompareChart, {
   type IndexPoint,
   type CompareRange,
 } from "./IndexRateCompareChart";
+import RateImpactExplainer from "./RateImpactExplainer";
 
 const RANGES: { value: CompareRange; label: string }[] = [
   { value: "1W", label: "Week" },
@@ -46,6 +47,7 @@ type FetchResult = {
 
 export default function CountrySituation({
   bankId,
+  bankName,
   region,
   indexName,
   proxyName,
@@ -55,6 +57,7 @@ export default function CountrySituation({
   indexHistory,
 }: {
   bankId: CentralBankId;
+  bankName: string;
   region: string;
   indexName: string;
   proxyName: string;
@@ -133,7 +136,7 @@ export default function CountrySituation({
               onClick={() => setRange(r.value)}
               className={`rounded-md px-2.5 py-1 font-mono text-xs transition-colors ${
                 range === r.value
-                  ? "bg-accent text-accent-foreground"
+                  ? "bg-module-macro text-accent-foreground"
                   : "text-muted hover:bg-surface hover:text-foreground"
               }`}
             >
@@ -156,6 +159,7 @@ export default function CountrySituation({
           shown side by side for comparison — no correlation is implied; judge
           for yourself.
         </p>
+        <RateImpactExplainer bankId={bankId} bankName={bankName} currentRate={currentRate} />
       </div>
 
       <div className="mt-5 border-t border-border pt-4">

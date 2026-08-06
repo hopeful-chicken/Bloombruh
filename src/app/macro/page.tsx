@@ -79,7 +79,7 @@ export default async function CentralBankRoomPage({
     <div>
       <GlobalRatesOverview banks={globalBanks} news={globalNews} />
 
-      <p className="font-mono text-xs uppercase tracking-widest text-accent">
+      <p className="font-mono text-xs uppercase tracking-widest text-module-macro">
         Central Bank Room
       </p>
       <h1 className="font-display mt-1 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
@@ -96,8 +96,8 @@ export default async function CentralBankRoomPage({
             href={`/macro?bank=${b.id}`}
             className={`rounded-md border px-3 py-1.5 text-xs ${
               b.id === bank.id
-                ? "border-accent bg-accent/10 text-accent"
-                : "border-border text-muted hover:border-accent hover:text-accent"
+                ? "border-module-macro bg-module-macro/10 text-module-macro"
+                : "border-border text-muted hover:border-module-macro hover:text-module-macro"
             }`}
           >
             {b.shortName}
@@ -190,6 +190,7 @@ export default async function CentralBankRoomPage({
       {(indexHistory.length > 0 || rateData) && (
         <CountrySituation
           bankId={bank.id}
+          bankName={bank.name}
           region={bank.region}
           indexName={regionalIndex.indexName}
           proxyName={regionalIndex.proxyName}

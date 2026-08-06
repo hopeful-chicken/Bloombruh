@@ -23,8 +23,8 @@ export default function MarketChart({ data }: { data: ProductionMilestone[] }) {
         <AreaChart data={data} margin={{ left: 0, right: 8, top: 8, bottom: 0 }}>
           <defs>
             <linearGradient id="marketFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#bc5b33" stopOpacity={0.25} />
-              <stop offset="100%" stopColor="#bc5b33" stopOpacity={0} />
+              <stop offset="0%" stopColor="var(--module-pokemon)" stopOpacity={0.25} />
+              <stop offset="100%" stopColor="var(--module-pokemon)" stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#e3e0d3" vertical={false} />
@@ -57,10 +57,10 @@ export default function MarketChart({ data }: { data: ProductionMilestone[] }) {
           <Area
             type="monotone"
             dataKey="cumulativeBillion"
-            stroke="#bc5b33"
+            stroke="var(--module-pokemon)"
             strokeWidth={1.8}
             fill="url(#marketFill)"
-            dot={{ r: 3, fill: "#bc5b33" }}
+            dot={{ r: 3, fill: "var(--module-pokemon)" }}
           />
         </AreaChart>
       </ResponsiveContainer>

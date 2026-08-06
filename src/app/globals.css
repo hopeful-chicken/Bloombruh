@@ -14,6 +14,18 @@
   Theme is toggled by adding/removing the `.dark` class on <html> (see
   ThemeToggle.tsx) — light is the default, unauthenticated look.
 */
+/*
+  Module signature colors — added Aug 2026 (see docs/DECISIONS.md). Real
+  Bloomberg terminals don't use one color for everything either: amber for
+  security data, cyan for menus, red/green for gain/loss, white for text.
+  We borrow that idea in miniature rather than going monochrome or
+  rainbow: the brand accent (terracotta/blue) still owns buttons, links,
+  and anything cross-module, and each of the four modules Adam stands
+  behind gets ONE additional signature color, used only for that module's
+  own eyebrow label, active nav pill, and card accents on the homepage —
+  so the site reads as more alive without losing the single-accent
+  discipline CLAUDE.md called for originally.
+*/
 :root {
   --background: #faf9f5;
   --surface: #f3f1ea;
@@ -26,6 +38,9 @@
   --accent-foreground: #ffffff;
   --positive: #3e7d57;
   --negative: #c0392b;
+  --module-macro: #2b7a78;
+  --module-pokemon: #a9781f;
+  --module-analysis: #7c5295;
   color-scheme: light;
 }
 
@@ -41,6 +56,9 @@
   --accent-foreground: #201e1a;
   --positive: #55b685;
   --negative: #e2685a;
+  --module-macro: #5fd1c5;
+  --module-pokemon: #e0b84a;
+  --module-analysis: #b48fd1;
   color-scheme: dark;
 }
 
@@ -56,6 +74,9 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
+  --color-module-macro: var(--module-macro);
+  --color-module-pokemon: var(--module-pokemon);
+  --color-module-analysis: var(--module-analysis);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   /* Used for page/company titles and the logo via `font-display`/`font-logo`
