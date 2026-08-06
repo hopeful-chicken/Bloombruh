@@ -32,7 +32,6 @@ export const modules: ModuleInfo[] = [
     tagline: "Ticker in, full profile — and your own pitch — out",
     description:
       "A clean company snapshot — price chart, full financials, and a plain-English description, with context on whether the multiples look cheap or expensive — plus the option to build your own rating, thesis, and target price on top and export it as a PDF.",
-    note: "the flagship",
   },
   {
     name: "Central Bank Room",

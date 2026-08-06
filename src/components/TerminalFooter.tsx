@@ -45,12 +45,13 @@ export default function TerminalFooter() {
           </a>
           <span aria-hidden="true">·</span>
           <a
-            href="#"
+            href="https://github.com/hopeful-chicken"
+            target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-dotted underline-offset-2 hover:text-accent"
           >
             GitHub
           </a>
-          {/* EDITORIAL: Adam to swap these placeholder links for real profile URLs */}
         </p>
       </div>
     </footer>

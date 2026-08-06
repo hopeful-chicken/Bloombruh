@@ -155,12 +155,13 @@ export default function Home() {
           </a>{" "}
           ·{" "}
           <a
-            href="#"
+            href="https://github.com/hopeful-chicken"
+            target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-dotted underline-offset-2 hover:text-accent"
           >
             GitHub
           </a>
-          {/* EDITORIAL: Adam to add real links and, if he wants, a short personal note here */}
         </p>
 
         <DataSourcesAppendix sources={HOME_SOURCES} />
