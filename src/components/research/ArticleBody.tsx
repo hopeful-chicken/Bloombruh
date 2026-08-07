@@ -45,7 +45,7 @@ export default function ArticleBody({ body, chart }: { body: string; chart?: Ana
     <div className="lg:grid lg:grid-cols-[1fr_180px] lg:items-start lg:gap-10">
       <nav
         aria-label="Sections"
-        className="-mx-4 mb-6 overflow-x-auto px-4 pb-1 lg:hidden [&::-webkit-scrollbar]:hidden"
+        className="sticky top-16 z-10 -mx-4 mb-6 overflow-x-auto border-b border-border bg-background/95 px-4 py-2 backdrop-blur lg:hidden [&::-webkit-scrollbar]:hidden"
       >
         <div className="flex w-max gap-2">
           {sections.map((s) => (

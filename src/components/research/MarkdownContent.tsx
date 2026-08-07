@@ -25,7 +25,7 @@ export default function MarkdownContent({ markdown }: { markdown: string }) {
           h2: ({ children }) => (
             <h2
               id={slugify(headingText(children))}
-              className="font-display mt-8 scroll-mt-24 text-lg font-semibold text-foreground first:mt-0"
+              className="font-display mt-8 scroll-mt-32 text-lg font-semibold text-foreground first:mt-0 lg:scroll-mt-24"
             >
               {children}
             </h2>
