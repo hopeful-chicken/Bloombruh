@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { ANALYSIS_ENTRIES, STOCK_PITCHES } from "@/data/analysis";
 import PitchToolkitGate from "@/components/research/PitchToolkitGate";
 import ArticleBody from "@/components/research/ArticleBody";
-import CompanyBadgeRow from "@/components/research/CompanyBadge";
 import MarketChart from "@/components/pokemon/MarketChart";
 import CharizardChart from "@/components/pokemon/CharizardChart";
 import ThirtyDollarChart from "@/components/pokemon/ThirtyDollarChart";
@@ -21,19 +20,6 @@ export function generateStaticParams() {
 // markers in that entry's own markdown body (see ArticleBody). Can't live
 // in analysis.ts itself since that's a plain data file, not JSX.
 async function getWriteUpBlocks(slug: string): Promise<Record<string, ReactNode> | undefined> {
-  if (slug === "sk-hynix-nasdaq-kospi-volatility") {
-    return {
-      COMPANY_BADGES: (
-        <CompanyBadgeRow
-          companies={[
-            { mark: "SK", name: "SK Hynix", tickers: "000660.KS · SKHY (Nasdaq ADR)" },
-            { mark: "MU", name: "Micron", tickers: "NASDAQ: MU", color: "#2f6f9f" },
-          ]}
-        />
-      ),
-    };
-  }
-
   if (slug === "pokemon-cards-as-an-asset-class") {
     const charizard = await getCard("en", "base1-4");
     return {

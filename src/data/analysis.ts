@@ -115,7 +115,7 @@ For Pokemon specifically, peer-reviewed research basically doesn't exist yet. Th
 
 Pokemon is owned in roughly equal thirds by Nintendo, Game Freak, and Creatures Inc, run day to day through their joint venture, The Pokemon Company. None of the three is separately investable. Only Nintendo (TYO: 7974 / OTC: NTDOY) is public, and Nintendo doesn't break out a Pokemon-specific revenue line, so even that exposure is real but blended, not a clean pure-play read.
 
-The Pokemon Company's own most recent fiscal year (to February 2026) was a record: revenue of ¥531.4bn (~$3.34bn), up 29.3%; operating profit ¥144.0bn (~$904m), up 43.0%; net profit ¥120.1bn (~$754m), up 70.7%. Profit growing faster than revenue is exactly what a licensing business with low incremental cost is supposed to show.
+The Pokemon Company's own most recent fiscal year (to February 2026) was a record: revenue of ¥531.4bn (\~$3.34bn), up 29.3%; operating profit ¥144.0bn (\~$904m), up 43.0%; net profit ¥120.1bn (\~$754m), up 70.7%. Profit growing faster than revenue is exactly what a licensing business with low incremental cost is supposed to show.
 
 The grading infrastructure is private too, and consolidating fast. PSA's parent was taken private in 2021 for roughly $853m by an investor group including Steve Cohen, and by 2022 had raised further capital at a $4.3bn valuation. Its main challenger, CGC, was majority-acquired by Blackstone's Tactical Opportunities arm. There is no clean public equity for the grading side of this trade either.
 
@@ -127,13 +127,23 @@ At the peak of the early-1990s baseball card craze, manufacturers printed an est
 
 Being honest about the parallel: Pokemon's own print runs are accelerating too, the exact same "print more to chase demand" instinct that broke the sports-card market. What's different so far is that demand has kept pace instead of declining. A real structural stress test, a recession or a sharp drop in new-collector demand, is something this specific boom hasn't faced yet.
 
+## It's already splitting in two, not hypothetically
+
+Everything above treats "is this a bubble" as a future question. Checking the most recent data changed that for me, because for one part of this market it isn't a future question anymore. It's already happening, just not evenly.
+
+Modern cards, released in the last two to three years, have corrected hard since late 2025. An Obsidian Flames Charizard fell from $126 to $79. A Prismatic Evolutions Umbreon SIR fell from $1,600 to $832, a 48% drop, in a matter of weeks. Elite Trainer Boxes are down about 25% (Phantasmal Flames booster boxes went from $305 to $275), and sealed product broadly is down 15-25% since March 2025. Independent trackers put modern singles down somewhere between 20% and 60% from their 2024-2025 peaks. Actual sales volume for booster and sealed product, not just asking prices, fell from an index reading of 410.5 in January 2026 to 270.77 by March, a real drop in how much of this stuff is actually changing hands.
+
+Vintage did the opposite over those same months. The Charizard case study above hit its own all-time high in December 2025. The Pikachu Illustrator sale mentioned earlier happened on 16 February 2026, a new world record for any Pokemon card, while modern cards were still falling. That's not a coincidence of timing, and I don't think it's really two separate stories either. It's the same mechanism producing opposite results. A modern chase card's supply can grow to meet demand, because The Pokemon Company can print more of that exact set, and that's exactly what's been happening. A 1st Edition Base Set card printed in 1999 cannot be reprinted. Its supply is fixed in a way no card from a 2024 set's supply is, no matter how hot that set gets.
+
 ## My view
 
-I don't think this is a fad, and I don't think it's a clean financial asset either. It's something in between, and conflating it with either extreme is where most of the bad takes on this topic come from.
+I don't think this is a fad, and I don't think it's a clean financial asset either. But by 2026 I also don't think "is Pokemon overvalued" has one answer, because it isn't one market, and the data above makes that split too real to keep treating it as one question.
 
-The production and grading data make a real case that this is structurally different from a normal collectible wave: three decades of accelerating, not fading, demand, backed by genuine third-party authentication infrastructure rather than self-reported numbers. That part of the bull case is real. But the actual, computed academic returns on Pokemon cards specifically range from -4.72% annualized (Wooster, 2021-2023) to numbers that beat the S&P 500 many times over (WSJ/Card Ladder, 2004-2025), and the honest reason for that gap isn't fraud on anyone's part, it's that this market's real returns are dominated by a small number of ultra-rare, perfectly graded cards, and almost everyone's actual holding isn't one of those.
+The modern segment was overvalued, and it's already proving that in real time rather than waiting for some future correction. I'd expect that gap to widen, not close, through the rest of 2026 and into 2027. The Pokemon Company is still printing at record volume right now (85bn+ lifetime, roughly 40% of that in the last three fiscal years alone), so every new set adds fresh supply competing against everyone who bought a 2024-2025 chase card near the top and wants out. Vintage has the opposite setup, and I think it actually gets more scarce over time in a way most people don't account for: the surviving raw population of a 1999 card only shrinks as more of it gets handled, damaged, or lost before ever reaching a grader, so the PSA 10 population of a fixed vintage print run can really only go down, never up. That's a genuinely different supply curve from a modern card the company can reprint on demand, and it's the actual reason I don't expect vintage to follow modern down.
 
-If I were actually putting money into this, the CAIA finding is the one I'd take most seriously: grading, not the card itself, is most of what drives return. A PSA 10 versus a PSA 9 of the identical card is a roughly 1,487% price gap on sports cards, and the Charizard case study above shows the same pattern anecdotally. That means the real skill this "investment" requires isn't picking the right character, it's correctly assessing condition before you buy, which is a genuinely hard, specialized skill most people writing enthusiastically about this asset class don't actually have. The junk-wax comparison is the risk I'd actually watch going forward, not because it's happening yet, but because the exact mechanism that caused it, printing more to chase demand, is visibly running again right now. It just hasn't broken anything so far.
+The production and grading data make a real case that this whole category is structurally different from a normal collectible wave: three decades of accelerating, not fading, demand, backed by genuine third-party authentication infrastructure rather than self-reported numbers. That part of the bull case is real, for vintage specifically. But the actual, computed academic returns on Pokemon cards range from -4.72% annualized (Wooster, 2021-2023) to numbers that beat the S&P 500 many times over (WSJ/Card Ladder, 2004-2025), and now I think I know why that gap is so wide: one of those studies was mostly measuring modern cards during a window that looks a lot like today's correction, and the other was dominated by the small number of ultra-rare, perfectly graded vintage cards that are still setting records. Almost everyone's actual holding is a modern card, not one of those.
+
+If I were actually putting money into this, the CAIA finding is the one I'd take most seriously: grading, not the card itself, is most of what drives return. A PSA 10 versus a PSA 9 of the identical card is a roughly 1,487% price gap on sports cards, and the vintage-versus-modern split above is that same idea at the level of an entire market segment, not just one card. The real skill this "investment" requires isn't picking the right character or the right set. It's correctly telling, before you buy, whether you're holding something with genuinely fixed supply or something the company can print more of the moment demand asks for it, which is a distinction most people writing enthusiastically about this asset class right now aren't making.
 
 ## Sources
 
@@ -150,6 +160,11 @@ If I were actually putting money into this, the CAIA finding is the one I'd take
 - [PSA/Collectors Universe take-private](https://legalclarity.org/who-owns-psa-grading-parent-company-and-investors/)
 - [Collectors Holdings $4.3bn valuation — Sportico](https://www.sportico.com/business/finance/2022/collectors-chernin-cohen-1234670529/)
 - [Blackstone acquires CGC's parent — press release](https://www.blackstone.com/news/press/blackstone-tactical-opportunities-to-acquire-the-certified-collectibles-group-a-leading-provider-of-tech-enabled-authentication-grading-and-conservation-services-for-the-global-collectibles-industry/)
+- [Pokemon Card Market Crash 2026: What Really Happened — PokemonPriceTracker](https://www.pokemonpricetracker.com/blog/posts/pokemon-card-market-crash-2026-what-really-happened)
+- [Pokemon Card Market Crash 2026: Signs & How to Prepare — PokemonPriceTracker](https://www.pokemonpricetracker.com/blog/posts/pokemon-card-market-crash-2026-signs-how-to-prepare)
+- [Why Are Pokemon Card Prices Dropping? — Misprint](https://www.misprint.com/posts/why-are-pokemon-card-prices-dropping)
+- [Pokemon Card Market Trends 2026 — CardScan AI](https://cardscannertcg.com/blog/pokemon-card-market-trends-2026)
+- [Logan Paul's Pikachu Illustrator sells for record $16.5M at auction — KSAT](https://www.ksat.com/entertainment/2026/02/16/logan-pauls-pikachu-illustrator-pokemon-card-sells-for-record-165m-at-auction/)
 `,
   },
   {
@@ -160,8 +175,6 @@ If I were actually putting money into this, the CAIA finding is the one I'd take
     body: `# Korea's leverage crash: SK Hynix, the KOSPI, and what actually broke
 
 I wrote the first version of this piece after four days of a story that looked done. It wasn't close to done. What started as a record Nasdaq listing turned, over the following four weeks, into South Korea's single worst month for equities on record (worse, by some measures, than any single month of the 1997 Asian Financial Crisis or 2008), with 1.2 million retail accounts hit by margin calls, a president's disapproval rating cracking 50% for the first time, and a market still whipsawing violently as of this week. This is the full version: the real timeline, the mechanics of how a brand-new financial product turned a normal correction into a crisis, and a check on the headline number itself. Every outlet covering this cites some version of a large SK Hynix drawdown (30%, 35%, or worse). None of them are fabricating anything; the underlying reporting on the leverage and the margin calls is solid. But a headline reaches for the biggest number you can still justify, not necessarily the most accurate one. Once I checked SK Hynix's own Nasdaq-listed stock against an honest starting point, rather than the one that produces the biggest number, the real figure turned out to be smaller, and more interesting, than what's been reported. It's also not the only place this story doesn't quite line up with how it's been told: almost every account of this crash, including my own first draft, starts the clock on 14 July. The index itself says otherwise.
-
-{{COMPANY_BADGES}}
 
 ## Timeline
 
@@ -175,9 +188,9 @@ I wrote the first version of this piece after four days of a story that looked d
 
 **13-14 July** — Seoul-listed SK Hynix common shares fall 15.37% on the 14th, the KOSPI drops over 9% intraday and trips trading halts. This is the point everyone, including my own earlier write-up, treated as "the crash." It wasn't. It was the opening act. (More on what actually happened to the ADR that same day below, since it's the most interesting single data point in this story.)
 
-**Through mid-July** — the real mechanism driving this turns out to be a specific, dateable regulatory choice, not an inevitable market outcome. Korea had previously *prohibited* single-stock leveraged ETFs. Funds had to hold at least 10 stocks, with any single name capped at 30%. On **28 April 2026**, regulators amended that rule, raising the single-stock concentration limit to 100%. The first 2x-daily single-stock products tied to Samsung and SK Hynix launched a month later, on 27 May. Korean retail investors bought a net ₩14tn of them versus roughly ₩2tn from foreign investors. Outstanding leveraged bets peaked at ₩29.2tn (~$19.7bn) in early July. By 13 July, more than 1.2 million retail leveraged accounts had triggered margin calls; 320,000-360,000 were forcibly liquidated, totaling ₩2.3tn in forced selling in about two and a half months.
+**Through mid-July** — the real mechanism driving this turns out to be a specific, dateable regulatory choice, not an inevitable market outcome. Korea had previously *prohibited* single-stock leveraged ETFs. Funds had to hold at least 10 stocks, with any single name capped at 30%. On **28 April 2026**, regulators amended that rule, raising the single-stock concentration limit to 100%. The first 2x-daily single-stock products tied to Samsung and SK Hynix launched a month later, on 27 May. Korean retail investors bought a net ₩14tn of them versus roughly ₩2tn from foreign investors. Outstanding leveraged bets peaked at ₩29.2tn (\~$19.7bn) in early July. By 13 July, more than 1.2 million retail leveraged accounts had triggered margin calls; 320,000-360,000 were forcibly liquidated, totaling ₩2.3tn in forced selling in about two and a half months.
 
-**27-28 July** — two things land almost simultaneously. First, reports that a Chinese state-backed firm (Shanghai Aishengna) had begun mass-producing homegrown immersion DUV lithography tools (domestically-made chipmaking machines that reduce China's dependence on Dutch supplier ASML). Second, SK Hynix reports Q2 results: revenue of ₩79.32tn, up 257% year-on-year, with a 76% operating margin. It was a genuinely record quarter that still missed consensus (~₩84tn revenue expected), largely because some HBM4 shipment recognition slipped into Q3. Bank of Korea also raised rates into this same window.
+**27-28 July** — two things land almost simultaneously. First, reports that a Chinese state-backed firm (Shanghai Aishengna) had begun mass-producing homegrown immersion DUV lithography tools (domestically-made chipmaking machines that reduce China's dependence on Dutch supplier ASML). Second, SK Hynix reports Q2 results: revenue of ₩79.32tn, up 257% year-on-year, with a 76% operating margin. It was a genuinely record quarter that still missed consensus (\~₩84tn revenue expected), largely because some HBM4 shipment recognition slipped into Q3. Bank of Korea also raised rates into this same window.
 
 **July, in full** — the KOSPI posts its worst month on record, though "worst" depends on how you measure it, and most coverage doesn't say which way it's measuring. Using the index's own closing prices: from the 9,385.59 peak on 19 June to the closing low of 5,593.56 on 30 July, that's a 40.4% decline, a number I calculated directly from the daily closes rather than taking anyone's word for it. Some outlets report smaller figures, closer to 22-23%, which lines up with a standard calendar-month comparison (July's own start-of-month level to its end-of-month close) rather than peak-to-trough, and that number looks smaller mainly because the historic 31 July rebound landed inside the same calendar month and pulled the month-end close back up. Both numbers are real; they're just answering different questions. The "worse than 1997 and 2008" claims usually use the bigger, peak-to-trough figure, and compare it to 1997's and 2008's calendar-month declines (27% and 23%), which is a comparison worth knowing the terms of before repeating it. Seven circuit breakers triggered across the month; one two-day stretch alone wiped out ₩864.5tn, enough to force an emergency government meeting on the evening of 29 July.
 
@@ -185,7 +198,7 @@ I wrote the first version of this piece after four days of a story that looked d
 
 **31 July** — the single most violent reversal in this entire story, and one worth knowing on its own. The KOSPI closed up **17.91%**, the largest single-day percentage gain and point gain in the index's 70-year history, beating the prior record of 11.95% set during the 2008 financial crisis. Samsung Electronics surged 28%; SK Hynix's Seoul-listed shares soared 30%. It came three trading days after the index had fallen 17.2% in that same short window. A market that can move nearly 18% in either direction inside a single week is not a market that has repriced calmly to a new equilibrium. It's a market still being pushed around by exactly the same forced-flow mechanics (this time unwinding *short* positions and margin-call-driven selling pressure, in reverse) that caused the crash in the first place.
 
-**Late July into August** — the government responds: the Financial Services Commission suspends new single-stock leveraged ETF listings, bans their marketing, and triples the minimum deposit for new leveraged investors to ₩30m (~$20,000). It's also weighing a cap limiting any investor's leveraged exposure to 20% of their total portfolio. None of it stops President Lee Jae-myung's disapproval rating from breaking 50% for the first time in his term. Korea's own National Pension Service, drawn into the stabilization effort, has been publicly criticized as "an amplifier, not a stabilizer."
+**Late July into August** — the government responds: the Financial Services Commission suspends new single-stock leveraged ETF listings, bans their marketing, and triples the minimum deposit for new leveraged investors to ₩30m (\~$20,000). It's also weighing a cap limiting any investor's leveraged exposure to 20% of their total portfolio. None of it stops President Lee Jae-myung's disapproval rating from breaking 50% for the first time in his term. Korea's own National Pension Service, drawn into the stabilization effort, has been publicly criticized as "an amplifier, not a stabilizer."
 
 **This week** — the market is still nowhere near settled, and the 6 August selloff has a specific, telling trigger of its own. The KOSPI rose 3.76% to 6,598 on 5 August on hopes of a US-Iran deal, then fell 4.58% to 6,296.38 on 6 August as Samsung closed down 6.3% and SK Hynix fell nearly 9%. The actual proximate cause: US storage chipmakers SanDisk and Western Digital both *beat* Q4 revenue and earnings estimates the same week, but gave forward guidance that fell short of the sky-high bar their own stock prices had set (SanDisk was up 469% year-to-date heading into the print, Western Digital up 202%). Western Digital fell 14-16%, SanDisk 8-11%, and the disappointment dragged SK Hynix and Micron down with it in sympathy. That's the third time in this story the exact same pattern shows up: a company beats real, substantial estimates, and gets sold off anyway because the *guidance* didn't clear a bar that had already priced in perfection. SK Hynix's own 28 July print was the first instance; this is the second. This is not a market that has found a floor and stopped moving. It's still trading like a market with real fear in it, and the fear is specifically about valuation and guidance, not about underlying results.
 
@@ -232,7 +245,7 @@ SK Hynix's Seoul-listed shares closed at ₩1,718,000 on 6 August. At that price
 | Metric | Figure |
 | --- | --- |
 | Close, 6 Aug 2026 | ₩1,718,000 |
-| Forward P/E | ~5.3-5.9x |
+| Forward P/E | \~5.3-5.9x |
 | 5-year average P/E (2021-2025) | 6.5x mean / 11.2x median |
 | Peak P/E, March 2026 | 17.8x |
 | 37-analyst consensus target (12-month) | ₩3,189,340 (+86%) |
@@ -293,7 +306,7 @@ What I don't think fades: the multiple. Even once the forced selling is fully do
 `,
     chart: {
       title: "SKHY (SK Hynix ADR) vs. Micron — indexed to 100 on 10 July 2026 (SKHY's Nasdaq debut)",
-      note: "Real daily closes, Nasdaq-listed securities, fetched live via Twelve Data on 2026-08-07. Indexed to day one (10 July, SKHY's first trading day as an ADR, since there's no earlier data to show), so a ~$150 ADR and a ~$900 US stock compare on one honest axis. Micron is the unlevered control: same AI/memory demand cycle, no Korean leverage machinery attached. Watch where the lines separate around 14 July (SKHY's own IPO-week pop, unrelated to Korea) and where they land together at the trough. Both series fell almost exactly the same amount by 29 July.",
+      note: "Real daily closes, Nasdaq-listed securities, fetched live via Twelve Data on 2026-08-07. Indexed to day one (10 July, SKHY's first trading day as an ADR, since there's no earlier data to show), so a \~$150 ADR and a \~$900 US stock compare on one honest axis. Micron is the unlevered control: same AI/memory demand cycle, no Korean leverage machinery attached. Watch where the lines separate around 14 July (SKHY's own IPO-week pop, unrelated to Korea) and where they land together at the trough. Both series fell almost exactly the same amount by 29 July.",
       indexBase: "2026-07-10",
       series: [
         {
@@ -438,11 +451,11 @@ Download the [Diploma PLC DCF workbook (.xlsx)](/api/pitch-template?id=diploma-p
 
 ## DCF starting inputs
 Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh, since this page is a dated snapshot, not a live feed:
-- Share price ~7,525p as of 22 July 2026 (52-week range 4,558p–7,295p)
+- Share price \~7,525p as of 22 July 2026 (52-week range 4,558p–7,295p)
 - Q1 FY2026 revenue growth: +17% total, +15% organic
 - Operating margin: 24.5%, +300bps year-on-year
 - FY2026 guidance: operating profit growth >30%
-- Peerless Aerospace Fastener acquisition: £236m, ~+8% EPS accretion in year one
+- Peerless Aerospace Fastener acquisition: £236m, \~+8% EPS accretion in year one
 - WACC inputs: use the current 10-year UK gilt yield as your risk-free rate; pull Diploma's beta from stockanalysis.com or a data terminal — don't guess a beta.
 
 ## Primary filings
@@ -496,7 +509,7 @@ Real, sourced figures to build from — pull the rest (live share price, shares 
 - FY26 (year to March 2026) net sales: ¥2.313tn, +98.6% year-on-year
 - Switch 2 unit sales: 19.86m in its first 10 months
 - The Pokemon Company FY (to Feb 2026): $3.33bn revenue, $752m net profit
-- Share price down ~53% from its 52-week high, despite the above
+- Share price down \~53% from its 52-week high, despite the above
 - WACC inputs: use the current 10-year Japanese government bond (JGB) yield as your risk-free rate; pull Nintendo's beta from stockanalysis.com or a data terminal.
 
 ## Primary filings
@@ -653,7 +666,7 @@ Real, sourced figures to build from — pull the rest (live share price, shares 
 - Q2 2026 revenue: $40.2bn, +34% year-on-year; full-year growth guidance raised past 40%
 - 2026 capex: raised to $60-64bn, plus an additional $100bn Arizona investment
 - HPC (AI/data-center) share of wafer revenue: 66%, up from a smartphone-dominated mix (smartphones now 22%)
-- Management's long-term guidance: ~25% compound annual growth overall, AI-processor revenue growing >50% annually
+- Management's long-term guidance: \~25% compound annual growth overall, AI-processor revenue growing >50% annually
 - WACC inputs: use the current US 10-year Treasury yield as your risk-free rate (TSM trades as a NYSE ADR); pull TSMC's beta from stockanalysis.com. Build the bear case explicitly around a Taiwan-geopolitical scenario, not just a demand slowdown — that's the risk no comp set can price for you.
 
 ## Primary filings
@@ -807,7 +820,7 @@ Download the [Palantir DCF workbook (.xlsx)](/api/pitch-template?id=palantir&cod
 
 ## DCF starting inputs
 Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh:
-- Valuation: ~200x trailing earnings, ~80x forward 2026 earnings, vs. 25-40x for most enterprise software peers
+- Valuation: \~200x trailing earnings, \~80x forward 2026 earnings, vs. 25-40x for most enterprise software peers
 - Commercial AI revenue: $1.31bn, +342% year-on-year, 47% free cash flow margin
 - Rule of 40 score: >140% (growth rate + FCF margin)
 - Government revenue: 55% of total, anchored by a $10bn multi-year US Army deal
@@ -860,9 +873,9 @@ Download the [Microsoft DCF workbook (.xlsx)](/api/pitch-template?id=microsoft-a
 
 ## DCF starting inputs
 Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh:
-- OpenAI stake: ~27% as-converted, valued at ~$135bn after the 2025-2026 recapitalization; produced a $7.6bn accounting gain in Q2 FY2026
+- OpenAI stake: \~27% as-converted, valued at \~$135bn after the 2025-2026 recapitalization; produced a $7.6bn accounting gain in Q2 FY2026
 - AI annual revenue run-rate: >$37bn, +123% year-on-year
-- 2026 guided capex: ~$190bn, +61% on 2025
+- 2026 guided capex: \~$190bn, +61% on 2025
 - Microsoft 365 Copilot: just over 20m paid seats, generating an estimated $3-5bn a year
 - WACC inputs: use the current US 10-year Treasury yield as your risk-free rate; pull Microsoft's beta from stockanalysis.com. Model the capex and the Copilot-revenue ramp as two separate line items rather than netting them into one growth rate — the whole thesis is a question of which one is scaling faster.
 

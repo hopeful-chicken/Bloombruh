@@ -21,7 +21,13 @@ export default function MarkdownContent({ markdown }: { markdown: string }) {
   return (
     <div className="space-y-4 text-sm leading-relaxed text-foreground">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        // singleTilde: false — remark-gfm defaults to treating a single "~"
+        // as a strikethrough delimiter, which silently ate real prose that
+        // used "~" for "approximately" (e.g. "~$3.34bn" paired up with a
+        // later "~$904m" and everything between vanished into a <del>).
+        // Real GFM strikethrough needs "~~" now; a lone "~" always renders
+        // as a literal character.
+        remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
         components={{
           h1: () => null, // the entry's own title is rendered by the page, not repeated here
           h2: ({ children }) => (
