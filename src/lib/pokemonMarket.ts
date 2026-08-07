@@ -17,8 +17,8 @@ export type ProductionMilestone = { date: string; cumulativeBillion: number; lab
 export const PRODUCTION_MILESTONES: ProductionMilestone[] = [
   { date: "2020-03", cumulativeBillion: 34.1, label: "34.1bn lifetime cards sold" },
   { date: "2023-03", cumulativeBillion: 52.9, label: "52.9bn lifetime cards produced" },
-  { date: "2024-03", cumulativeBillion: 64.8, label: "64.8bn lifetime — 11.9bn sold in FY23/24 alone" },
-  { date: "2025-03", cumulativeBillion: 75.0, label: "75bn lifetime — 10.2bn sold in FY24/25 alone" },
+  { date: "2024-03", cumulativeBillion: 64.8, label: "64.8bn lifetime, 11.9bn sold in FY23/24 alone" },
+  { date: "2025-03", cumulativeBillion: 75.0, label: "75bn lifetime, 10.2bn sold in FY24/25 alone" },
   { date: "2026-05", cumulativeBillion: 85.0, label: "85bn+ lifetime cards printed" },
 ];
 
@@ -121,7 +121,7 @@ export const MARKET_STATS: MarketStat[] = [
   {
     label: "PSA daily grading volume",
     value: "90,000 cards/day",
-    note: "vs. ~15,000/day in 2021 — a 6x increase, with a reported 10M+ card backlog as of mid-2026.",
+    note: "vs. ~15,000/day in 2021, a 6x increase, with a reported 10M+ card backlog as of mid-2026.",
   },
   {
     label: "PSA TCG submission growth",
@@ -136,7 +136,7 @@ export const MARKET_STATS: MarketStat[] = [
   {
     label: "Lifetime cards printed",
     value: "85bn+",
-    note: "Crossed 85 billion in May 2026 — roughly 40% of that total printed in just the last 3 fiscal years.",
+    note: "Crossed 85 billion in May 2026, roughly 40% of that total printed in just the last 3 fiscal years.",
   },
 ];
 
@@ -150,31 +150,31 @@ export const SWOT = {
     },
     {
       point: "Real, independent authentication infrastructure",
-      detail: "PSA's grading volume has grown 6x since 2021 — a genuine, third-party-verified market, not a self-reported one, which is a meaningfully higher bar than most collectibles clear.",
+      detail: "PSA's grading volume has grown 6x since 2021, a genuine, third-party-verified market, not a self-reported one, which is a meaningfully higher bar than most collectibles clear.",
     },
     {
       point: "Brand permanence, not a single hit product",
-      detail: "Games, anime, and merchandising have run continuously for 30 years and are still growing (Switch 2's Pokemon software drove Nintendo's biggest-ever sales year) — the card game rides a brand that doesn't depend on the cards themselves to stay culturally relevant.",
+      detail: "Games, anime, and merchandising have run continuously for 30 years and are still growing (Switch 2's Pokemon software drove Nintendo's biggest-ever sales year). The card game rides a brand that does not depend on the cards themselves to stay culturally relevant.",
     },
   ] as SwotEntry[],
   weaknesses: [
     {
       point: "Zero cash flow, ever",
-      detail: "A card pays no dividend and generates no income — the entire return case rests on someone else paying more for it later, the same structural weakness every collectible shares with none of the yield.",
+      detail: "A card pays no dividend and generates no income. The entire return case rests on someone else paying more for it later, the same structural weakness every collectible shares with none of the yield.",
     },
     {
       point: "Value is extremely concentrated",
-      detail: "The 85 billion cards printed are overwhelmingly commons and near-worthless bulk — the real value sits in a tiny fraction of graded, rare, vintage cards, not the asset class as printed.",
+      detail: "The 85 billion cards printed are overwhelmingly commons and near-worthless bulk. The real value sits in a tiny fraction of graded, rare, vintage cards, not the asset class as printed.",
     },
     {
       point: "Condition and counterfeit risk",
-      detail: "A card's value can be destroyed by a bent corner or a fake slab — risks with no equivalent in a real financial security.",
+      detail: "A card's value can be destroyed by a bent corner or a fake slab: risks with no equivalent in a real financial security.",
     },
   ] as SwotEntry[],
   opportunities: [
     {
       point: "Grading is still scaling, not maturing",
-      detail: "PSA's own backlog (10M+ cards) suggests submission demand is currently ahead of the market's ability to process and verify it — a growing-pains signal, not a saturation one.",
+      detail: "PSA's own backlog (10M+ cards) suggests submission demand is currently ahead of the market's ability to process and verify it. A growing-pains signal, not a saturation one.",
     },
     {
       point: "International and Asia-Pacific growth",
@@ -184,11 +184,11 @@ export const SWOT = {
   threats: [
     {
       point: "The exact same 'too much supply' story that killed sports cards",
-      detail: "The 1990s baseball-card crash was caused by manufacturers massively overprinting to chase demand — 81 billion cards/year at the peak — which is structurally the same dynamic now playing out with Pokemon's own accelerating print runs, just not yet at a level that's broken the market.",
+      detail: "The 1990s baseball-card crash was caused by manufacturers massively overprinting to chase demand (81 billion cards/year at the peak), which is structurally the same dynamic now playing out with Pokemon's own accelerating print runs, just not yet at a level that has broken the market.",
     },
     {
       point: "Discretionary-spending sensitivity",
-      detail: "Card collecting is a discretionary hobby purchase — a real recession would be a genuine test this asset class hasn't faced yet during its current boom.",
+      detail: "Card collecting is a discretionary hobby purchase. A real recession would be a genuine test this asset class has not faced yet during its current boom.",
     },
   ] as SwotEntry[],
 };

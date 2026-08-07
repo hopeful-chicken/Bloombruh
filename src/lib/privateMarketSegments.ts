@@ -26,7 +26,7 @@ export const PRIVATE_MARKET_SEGMENTS: PrivateMarketSegment[] = [
     tickerSymbol: "PSP",
     proxyName: "Invesco Global Listed Private Equity ETF (PSP)",
     newsQuery: "private equity buyout firms dealmaking",
-    blurb: "Tracks a basket of publicly listed private-equity firms and vehicles — not actual fund NAVs.",
+    blurb: "Tracks a basket of publicly listed private-equity firms and vehicles, not actual fund NAVs.",
   },
   {
     id: "private-credit",
@@ -47,7 +47,7 @@ export const PRIVATE_MARKET_SEGMENTS: PrivateMarketSegment[] = [
 ];
 
 export const PRIVATE_MARKET_PROXY_DISCLAIMER =
-  "These are real, listed public-market ETFs used as stand-ins for private-market activity — not actual private-fund NAVs or returns, which aren't published anywhere free. Treat the price moves below as sentiment, not as a private fund's actual performance.";
+  "These are real, listed public-market ETFs used as stand-ins for private-market activity, not actual private-fund NAVs or returns, which are not published anywhere free. Treat the price moves below as sentiment, not as a private fund's actual performance.";
 
 export function getPrivateMarketSegment(id: string): PrivateMarketSegment | undefined {
   return PRIVATE_MARKET_SEGMENTS.find((s) => s.id === id);

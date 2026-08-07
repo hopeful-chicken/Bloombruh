@@ -326,14 +326,14 @@ export async function getCentralBankRateData(
       return fetchRba();
     case "boj":
       return fetchFredSeries("IRSTCI01JPM156N", {
-        seriesLabel: "Interbank call money rate — proxy for the BoJ's policy rate target",
+        seriesLabel: "Interbank call money rate: proxy for the BoJ's policy rate target",
         resolution: "monthly",
         isProxy: true,
         sourceUrl: "https://fred.stlouisfed.org/series/IRSTCI01JPM156N",
       });
     case "pboc":
       return fetchFredSeries("IR3TIB01CNM156N", {
-        seriesLabel: "3-month interbank rate — proxy (the PBoC doesn't publish one single daily policy rate)",
+        seriesLabel: "3-month interbank rate: proxy (the PBoC does not publish one single daily policy rate)",
         resolution: "monthly",
         isProxy: true,
         sourceUrl: "https://fred.stlouisfed.org/series/IR3TIB01CNM156N",

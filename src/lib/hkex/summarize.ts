@@ -9,7 +9,7 @@ import type { NewsItem } from "./news";
 function getClient(): Anthropic {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) {
-    throw new Error("ANTHROPIC_API_KEY is not set — copy .env.local.example to .env.local and add a key.");
+    throw new Error("ANTHROPIC_API_KEY is not set. Copy .env.local.example to .env.local and add a key.");
   }
   return new Anthropic({ apiKey: key });
 }

@@ -23,7 +23,7 @@ function getApiKey(): string {
   const key = process.env.EODHD_API_KEY;
   if (!key) {
     throw new Error(
-      "EODHD_API_KEY is not set. Copy .env.local.example to .env.local and add a free key from https://eodhd.com — this is only needed for Hong Kong Stock Exchange coverage; every other exchange on this site works without it."
+      "EODHD_API_KEY is not set. Copy .env.local.example to .env.local and add a free key from https://eodhd.com. This is only needed for Hong Kong Stock Exchange coverage; every other exchange on this site works without it."
     );
   }
   return key;
