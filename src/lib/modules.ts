@@ -75,15 +75,6 @@ export const modules: ModuleInfo[] = [
       "Real historical cases (the dot-com bubble, the meme-stock mania, the cannabis stock boom) with real computed run-up/drawdown stats and hindsight — then real current themes (AI & semiconductors, quantum computing) with real price returns and revenue growth side by side. The current-themes AI narrative is explicitly instructed to present evidence, never a verdict on whether something is a bubble.",
   },
   {
-    name: "Pokemon Cards",
-    slug: "/pokemon",
-    status: "live",
-    tagline: "Real production data, a real volatility case study, and an honest SWOT on the collectible",
-    description:
-      "A market-level analysis of Pokemon TCG cards as an asset class: real 3-decade production data, a real price-volatility case study (PSA 10 Charizard, 2018-2025), a direct comparison to the 1990s sports-card crash, and a SWOT on investing in the category — treated as a genuine commodity-like market, not a search tool for individual cards.",
-    accentColor: "pokemon",
-  },
-  {
     name: "Lessons",
     slug: "/lessons",
     status: "live",

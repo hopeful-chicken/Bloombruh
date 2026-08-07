@@ -69,11 +69,15 @@ This part isn't in dispute. Cumulative Pokemon TCG cards printed worldwide cross
 | March 2025 | 75.0bn (10.2bn sold that fiscal year alone) |
 | May 2026 | 85.0bn+ |
 
+{{POKEMON_PRODUCTION_CHART}}
+
 Grading volume backs it up from the demand side: PSA is now grading around 90,000 cards a day, up from roughly 15,000/day in 2021, with a reported backlog of 10 million-plus cards. Trading-card submissions (Pokemon, Magic, Yu-Gi-Oh) are up 95% year-over-year and now outpace sports-card submissions more than 2-to-1 at PSA. That's not the shape of a fad cooling off. It's a demand curve still bending upward three decades in.
 
 ## The card that's supposed to prove this is stable. It doesn't, quite.
 
 The single most-tracked individual card in the hobby is the PSA 10, 1st Edition Base Set Charizard, and its real sale history is the honest test of "is this actually a boring, stable store of value."
+
+{{POKEMON_CARD_IMAGE}}
 
 | Date | Price | Note |
 | --- | --- | --- |
@@ -85,6 +89,8 @@ The single most-tracked individual card in the hobby is the PSA 10, 1st Edition 
 | November 2022 | $250,000 | Post-peak correction, roughly -40% |
 | December 2025 | $550,000 | New all-time public auction record, Heritage Auctions |
 
+{{POKEMON_CHARIZARD_CHART}}
+
 That's not a boring asset. It's a card that went four years with no recorded sale at all, then round-tripped through a 40% drawdown, inside a longer uptrend that did eventually make a new high. Anyone selling this as "stable" is quietly skipping the middle of that table.
 
 ## $30 in 1999
@@ -92,6 +98,8 @@ That's not a boring asset. It's a card that went four years with no recorded sal
 The comparison everyone eventually wants: what if you'd put a small amount into a Charizard in 1999 instead of the index. $30 in the S&P 500 in January 1999, dividends reinvested, using Yahoo Finance's real adjusted-close data, is worth about $261 today, roughly 9x. The same $30 toward a Charizard that later graded a PSA 10 would be worth $550,000 today, over 18,000x.
 
 That gap is real, and it's also the least representative comparison possible. It's the single most valuable specific outcome in the entire hobby, not a typical one, and the honest caveat matters here: a specific, dated PSA 10 sale record for this card doesn't exist anywhere from 1999 through mid-2017. $30 is a stated assumption about what a raw copy or a few packs cost at release, not a documented sale. Every point on this comparison from July 2017 onward is a real, publicly reported transaction. The 1999 entry point is not.
+
+{{POKEMON_THIRTYDOLLAR_CHART}}
 
 ## Nobody researching this professionally actually agrees
 
@@ -152,6 +160,8 @@ If I were actually putting money into this, the CAIA finding is the one I'd take
     body: `# Korea's leverage crash: SK Hynix, the KOSPI, and what actually broke
 
 I wrote the first version of this piece after four days of a story that looked done. It wasn't close to done. What started as a record Nasdaq listing turned, over the following four weeks, into South Korea's single worst month for equities on record (worse, by some measures, than any single month of the 1997 Asian Financial Crisis or 2008), with 1.2 million retail accounts hit by margin calls, a president's disapproval rating cracking 50% for the first time, and a market still whipsawing violently as of this week. This is the full version: the real timeline, the mechanics of how a brand-new financial product turned a normal correction into a crisis, and a check on the headline number itself. Every outlet covering this cites some version of a large SK Hynix drawdown (30%, 35%, or worse). None of them are fabricating anything; the underlying reporting on the leverage and the margin calls is solid. But a headline reaches for the biggest number you can still justify, not necessarily the most accurate one. Once I checked SK Hynix's own Nasdaq-listed stock against an honest starting point, rather than the one that produces the biggest number, the real figure turned out to be smaller, and more interesting, than what's been reported. It's also not the only place this story doesn't quite line up with how it's been told: almost every account of this crash, including my own first draft, starts the clock on 14 July. The index itself says otherwise.
+
+{{COMPANY_BADGES}}
 
 ## Timeline
 

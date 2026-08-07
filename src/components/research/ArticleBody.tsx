@@ -1,30 +1,43 @@
+import type { ReactNode } from "react";
 import MarkdownContent from "./MarkdownContent";
 import AnalysisPriceChart from "./AnalysisPriceChart";
 import { extractSections } from "@/lib/extractSections";
 import type { AnalysisChart } from "@/data/analysis";
 
-// Entries can drop this literal token into their markdown body to place the
-// price chart inline (e.g. right after "the chart below" is mentioned)
-// instead of always appending it after the full body.
-const CHART_MARKER = "{{CHART}}";
+// Entries can drop tokens like {{CHART}} or {{SOME_NAME}} into their
+// markdown body to place rich content inline, right where the prose refers
+// to it, instead of always appending everything after the full text.
+// {{CHART}} is built in (renders the entry's own AnalysisChart, if any);
+// any other {{TOKEN}} is looked up in the `blocks` map, which the page
+// component supplies — real React content (charts, images) can't live in
+// analysis.ts itself, since that's a plain data file, not JSX.
+const MARKER_RE = /\{\{([A-Z0-9_]+)\}\}/g;
 
-function ChartSplitBody({ body, chart }: { body: string; chart?: AnalysisChart | null }) {
-  if (chart && body.includes(CHART_MARKER)) {
-    return (
-      <>
-        {body.split(CHART_MARKER).map((part, i) => (
-          <div key={i}>
-            {i > 0 && <AnalysisPriceChart chart={chart} />}
-            <MarkdownContent markdown={part} />
-          </div>
-        ))}
-      </>
-    );
-  }
+function ChartSplitBody({
+  body,
+  chart,
+  blocks,
+}: {
+  body: string;
+  chart?: AnalysisChart | null;
+  blocks?: Record<string, ReactNode>;
+}) {
+  const parts = body.split(MARKER_RE);
+  // String.split with a capturing group interleaves the token names between
+  // the surrounding text chunks: [text, token, text, token, ..., text].
+  if (parts.length === 1) return <MarkdownContent markdown={body} />;
+
   return (
     <>
-      <MarkdownContent markdown={body} />
-      {chart && <AnalysisPriceChart chart={chart} />}
+      {parts.map((part, i) => {
+        if (i % 2 === 0) {
+          return part ? <MarkdownContent key={i} markdown={part} /> : null;
+        }
+        if (part === "CHART") {
+          return chart ? <AnalysisPriceChart key={i} chart={chart} /> : null;
+        }
+        return blocks?.[part] ? <div key={i}>{blocks[part]}</div> : null;
+      })}
     </>
   );
 }
@@ -33,16 +46,30 @@ function ChartSplitBody({ body, chart }: { body: string; chart?: AnalysisChart |
 // scrolling row of pills above the text on mobile, a sticky list beside it
 // on desktop. Built from the raw markdown's ## headings, so it stays in
 // sync with the piece automatically instead of needing to be hand-maintained.
-export default function ArticleBody({ body, chart }: { body: string; chart?: AnalysisChart | null }) {
+export default function ArticleBody({
+  body,
+  chart,
+  blocks,
+}: {
+  body: string;
+  chart?: AnalysisChart | null;
+  blocks?: Record<string, ReactNode>;
+}) {
   const sections = extractSections(body);
 
   if (sections.length < 2) {
     // Not worth a nav for a piece with only one or zero real sections.
-    return <ChartSplitBody body={body} chart={chart} />;
+    // Capped width even without a sidebar — otherwise body text stretches
+    // to the full page shell's width, which is too wide to read comfortably.
+    return (
+      <div className="max-w-3xl">
+        <ChartSplitBody body={body} chart={chart} blocks={blocks} />
+      </div>
+    );
   }
 
   return (
-    <div className="lg:grid lg:grid-cols-[1fr_180px] lg:items-start lg:gap-10">
+    <div className="lg:grid lg:grid-cols-[minmax(0,44rem)_180px] lg:items-start lg:gap-10">
       <nav
         aria-label="Sections"
         className="sticky top-16 z-10 -mx-4 mb-6 overflow-x-auto border-b border-border bg-background/95 px-4 py-2 backdrop-blur lg:hidden [&::-webkit-scrollbar]:hidden"
@@ -61,7 +88,7 @@ export default function ArticleBody({ body, chart }: { body: string; chart?: Ana
       </nav>
 
       <div className="min-w-0">
-        <ChartSplitBody body={body} chart={chart} />
+        <ChartSplitBody body={body} chart={chart} blocks={blocks} />
       </div>
 
       <nav aria-label="Sections" className="hidden lg:sticky lg:top-24 lg:block lg:self-start">

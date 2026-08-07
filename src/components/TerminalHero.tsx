@@ -23,7 +23,7 @@ const LINES: Line[] = [
     items: [
       { text: "company-profile/", colorClass: "text-accent" },
       { text: "central-bank-room/", colorClass: "text-module-macro" },
-      { text: "pokemon-cards/", colorClass: "text-module-pokemon" },
+      { text: "lessons/", colorClass: "text-foreground" },
       { text: "my-analysis/", colorClass: "text-module-analysis" },
     ],
   },

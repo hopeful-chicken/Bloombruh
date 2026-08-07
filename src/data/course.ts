@@ -373,7 +373,7 @@ Plot commodity futures prices against how far out they expire, and you get a fut
 
 **Worked example:** oil's spot price is $70/barrel; the 6-month futures price is $73/barrel. Since futures ($73) > spot ($70), this is **contango** — here, roughly reflecting the cost of storing that oil for six months. If the futures price were instead $67 (below the $70 spot), that would be **backwardation**.
 
-This site's own Pokemon Cards module treats trading cards as a genuine collectible-commodity case study — real production data, a real price-volatility episode, and a direct comparison to a past physical-collectible market crash. Worth a look as a concrete, low-stakes example of commodity-like supply/demand dynamics before you apply the same thinking to oil or gold.
+This site's own Pokemon Cards write-up (in My Analysis) treats trading cards as a genuine collectible-commodity case study — real production data, a real price-volatility episode, and a direct comparison to a past physical-collectible market crash. Worth a look as a concrete, low-stakes example of commodity-like supply/demand dynamics before you apply the same thinking to oil or gold.
 
 ## FX: the quoting convention that trips people up
 
@@ -403,10 +403,10 @@ If the Fed holds rates meaningfully higher than the ECB, that tends to support U
 Naming these four inputs, and being explicit about which one you're weighting most and why, is a dramatically stronger interview answer than a directional guess with no framework behind it.`,
     tryIt: [
       {
-        label: "Open Pokemon Cards",
-        href: "/pokemon",
+        label: "Read the Pokemon Cards write-up",
+        href: "/analysis/pokemon-cards-as-an-asset-class",
         moduleColor: "pokemon",
-        description: "A real, concrete commodity-like market — production data, a real volatility case study, treated as a genuine asset class, not a search tool.",
+        description: "A real, concrete commodity-like market — production data, a real volatility case study, and an actual verdict on whether it's worth treating as an asset class.",
       },
       {
         label: "Open Central Bank Room",
