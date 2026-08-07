@@ -71,10 +71,10 @@ function buildStandardDcf(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Work
     howToUse: [
       "1. Assumptions sheet: work top to bottom. Revenue growth fades linearly from your year-1 rate to your final-year rate; margins and capex hold at the levels you set.",
       "2. The WACC builds from CAPM (risk-free + beta × equity risk premium) blended with after-tax cost of debt at your chosen capital-structure weights.",
-      "3. DCF sheet: watch the implied share price and upside/(downside) at the bottom recompute as you change assumptions. Check what share of value sits in the terminal term — if it dominates, your answer is mostly a terminal-assumptions story.",
+      "3. DCF sheet: watch the implied share price and upside/(downside) at the bottom recompute as you change assumptions. Check what share of value sits in the terminal term. If it dominates, your answer is mostly a terminal-assumptions story.",
       req.includeSensitivity !== false
-        ? "4. Sensitivity sheet: the implied price across a WACC × terminal-growth grid. Cells where WACC ≤ terminal growth show an error — that combination is mathematically meaningless (perpetuity growing faster than its discount rate), not a bug."
-        : "4. (Sensitivity grid not included in this download — re-download with it enabled to stress your answer.)",
+        ? "4. Sensitivity sheet: the implied price across a WACC × terminal-growth grid. Cells where WACC ≤ terminal growth show an error. That combination is mathematically meaningless (perpetuity growing faster than its discount rate), not a bug."
+        : "4. (Sensitivity grid not included in this download. Re-download with it enabled to stress your answer.)",
     ],
   });
 
@@ -85,8 +85,8 @@ function buildStandardDcf(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Work
   ws.getColumn(3).width = 90;
   sheetTitle(
     ws,
-    p.ticker ? `Assumptions — ${p.companyName} (${p.ticker})` : "Assumptions",
-    "Blue cells are yours to change. Blank blue cells had no real data available — enter your own."
+    p.ticker ? `Assumptions: ${p.companyName} (${p.ticker})` : "Assumptions",
+    "Blue cells are yours to change. Blank blue cells had no real data available: enter your own."
   );
 
   sectionLabel(ws, 4, "Company");
@@ -103,24 +103,24 @@ function buildStandardDcf(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Work
   labelCell(ws.getCell(10, 1), `Base-year revenue (FY${f?.fiscalYear ?? "—"}, actual)`);
   inputCell(ws.getCell(10, 2), latestRevenue, FMT.usdM);
   const cagr = f ? historyCagr(f.revenueHistory) : null;
-  labelCell(ws.getCell(11, 1), "Revenue growth — year 1");
+  labelCell(ws.getCell(11, 1), "Revenue growth: year 1");
   inputCell(ws.getCell(11, 2), cagr, FMT.pct1);
   noteCell(
     ws.getCell(11, 3),
     cagr !== null
-      ? "Prefilled with the company's own multi-year revenue CAGR from its filings — a starting point, not a forecast. Make it yours."
-      : "No revenue history available to suggest a starting rate — enter your own researched growth assumption."
+      ? "Prefilled with the company's own multi-year revenue CAGR from its filings, a starting point, not a forecast. Make it yours."
+      : "No revenue history available to suggest a starting rate. Enter your own researched growth assumption."
   );
-  labelCell(ws.getCell(12, 1), `Revenue growth — year ${years} (fade target)`);
+  labelCell(ws.getCell(12, 1), `Revenue growth: year ${years} (fade target)`);
   inputCell(ws.getCell(12, 2), 0.03, FMT.pct1);
-  noteCell(ws.getCell(12, 3), "Growth fades linearly from year 1 to this rate — near-GDP by the final year is the usual discipline.");
+  noteCell(ws.getCell(12, 3), "Growth fades linearly from year 1 to this rate. Near-GDP by the final year is the usual discipline.");
   const ebitMargin =
     f?.operatingIncome != null && f?.revenue ? f.operatingIncome / f.revenue : null;
   labelCell(ws.getCell(13, 1), "EBIT margin (held flat)");
   inputCell(ws.getCell(13, 2), ebitMargin, FMT.pct1);
   labelCell(ws.getCell(14, 1), "Tax rate");
   inputCell(ws.getCell(14, 2), 0.21, FMT.pct1);
-  noteCell(ws.getCell(14, 3), "Default = 21% US federal statutory rate, a labeled convention — replace with the company's real effective rate from its filings.");
+  noteCell(ws.getCell(14, 3), "Default = 21% US federal statutory rate, a labeled convention. Replace with the company's real effective rate from its filings.");
   const daPct = f?.depreciationAmortization != null && f?.revenue ? f.depreciationAmortization / f.revenue : null;
   labelCell(ws.getCell(15, 1), "D&A (% of revenue)");
   inputCell(ws.getCell(15, 2), daPct, FMT.pct1);
@@ -129,12 +129,12 @@ function buildStandardDcf(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Work
   inputCell(ws.getCell(16, 2), capexPct, FMT.pct1);
   labelCell(ws.getCell(17, 1), "Δ Net working capital (% of revenue growth)");
   inputCell(ws.getCell(17, 2), 0.05, FMT.pct1);
-  noteCell(ws.getCell(17, 3), "Cash absorbed as the business grows — 5% of each year's incremental revenue is a placeholder convention; tune to the company's actual working-capital intensity.");
+  noteCell(ws.getCell(17, 3), "Cash absorbed as the business grows: 5% of each year's incremental revenue is a placeholder convention; tune to the company's actual working-capital intensity.");
 
   sectionLabel(ws, 19, "WACC");
   labelCell(ws.getCell(20, 1), "Risk-free rate (10-yr govt yield)");
   inputCell(ws.getCell(20, 2), 0.04, FMT.pct1);
-  noteCell(ws.getCell(20, 3), "Convention default — look up today's actual 10-year Treasury yield and replace.");
+  noteCell(ws.getCell(20, 3), "Convention default: look up today's actual 10-year Treasury yield and replace.");
   labelCell(ws.getCell(21, 1), "Equity risk premium");
   inputCell(ws.getCell(21, 2), 0.05, FMT.pct1);
   labelCell(ws.getCell(22, 1), "Beta");
@@ -143,7 +143,7 @@ function buildStandardDcf(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Work
     ws.getCell(22, 3),
     p.beta !== null
       ? "Real: regressed by Bloombruh from 1 year of daily returns vs. SPY (see Data & Sources)."
-      : "No computed beta available for this ticker — 1.00 = market average, a labeled convention. Replace with your own estimate."
+      : "No computed beta available for this ticker. 1.00 = market average, a labeled convention. Replace with your own estimate."
   );
   labelCell(ws.getCell(23, 1), "Cost of equity (CAPM)", { bold: true });
   formulaCell(ws.getCell(23, 2), "B20+B22*B21", FMT.pct1, true);
@@ -154,8 +154,8 @@ function buildStandardDcf(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Work
   noteCell(
     ws.getCell(24, 3),
     costDebt !== null
-      ? "Prefilled as interest expense ÷ total debt from the latest filings — a rough effective rate."
-      : "No interest/debt data available — enter the company's approximate borrowing rate."
+      ? "Prefilled as interest expense ÷ total debt from the latest filings, a rough effective rate."
+      : "No interest/debt data available. Enter the company's approximate borrowing rate."
   );
   labelCell(ws.getCell(25, 1), "After-tax cost of debt", { bold: true });
   formulaCell(ws.getCell(25, 2), "B24*(1-B14)", FMT.pct1, true);
@@ -169,7 +169,7 @@ function buildStandardDcf(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Work
     ws.getCell(26, 3),
     equityWeight !== null
       ? "Prefilled from the real current capital structure (market cap vs. filed total debt)."
-      : "No capital-structure data — 80% equity is a placeholder; set it from the company's real balance sheet."
+      : "No capital-structure data. 80% equity is a placeholder; set it from the company's real balance sheet."
   );
   labelCell(ws.getCell(27, 1), "WACC", { bold: true });
   formulaCell(ws.getCell(27, 2), "B26*B23+(1-B26)*B25", FMT.pct1, true);
@@ -177,7 +177,7 @@ function buildStandardDcf(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Work
   sectionLabel(ws, 29, "Terminal value");
   labelCell(ws.getCell(30, 1), "Terminal growth rate");
   inputCell(ws.getCell(30, 2), 0.025, FMT.pct1);
-  noteCell(ws.getCell(30, 3), "Perpetuity growth — must sit below long-run nominal GDP (~2–3%) to be defensible, and below WACC to be mathematically valid.");
+  noteCell(ws.getCell(30, 3), "Perpetuity growth: must sit below long-run nominal GDP (~2–3%) to be defensible, and below WACC to be mathematically valid.");
 
   // --- DCF sheet --------------------------------------------------------
   const d = wb.addWorksheet("DCF");
@@ -262,7 +262,7 @@ function buildStandardDcf(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Work
   formulaCell(d.getCell(29, 2), "B21/B22", FMT.pct0);
   noteCell(
     d.getCell(29, 3),
-    "If this is above ~80%, your answer is mostly a terminal-assumptions story — say so in your write-up."
+    "If this is above ~80%, your answer is mostly a terminal-assumptions story. Say so in your write-up."
   );
 
   // --- Sensitivity ------------------------------------------------------
@@ -272,7 +272,7 @@ function buildStandardDcf(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Work
     for (let i = 2; i <= 7; i++) s.getColumn(i).width = 13;
     sheetTitle(
       s,
-      "Implied share price — WACC × terminal growth",
+      "Implied share price: WACC × terminal growth",
       "Rows: WACC. Columns: terminal growth. Errors where WACC ≤ growth are mathematically meaningless combinations, not bugs."
     );
 
@@ -298,7 +298,7 @@ function buildStandardDcf(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Work
     });
     noteCell(
       s.getCell(11, 1),
-      "Each cell fully recomputes the model at that WACC/growth pair, using the same projected cash flows — the honest output of a DCF is this range, not any single number."
+      "Each cell fully recomputes the model at that WACC/growth pair, using the same projected cash flows. The honest output of a DCF is this range, not any single number."
     );
     s.mergeCells(11, 1, 11, 6);
   }
@@ -321,9 +321,9 @@ function buildDdm(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Workbook {
     templateName: "Dividend Discount Model (FIG variant of the DCF)",
     sector,
     howToUse: [
-      "1. This is the FIG version: banks and insurers are valued on the equity directly — project earnings per share, apply a payout ratio, discount the dividend stream at the cost of equity. There is no WACC and no enterprise value here on purpose (see the sector guidance below).",
+      "1. This is the FIG version: banks and insurers are valued on the equity directly, project earnings per share, apply a payout ratio, discount the dividend stream at the cost of equity. There is no WACC and no enterprise value here on purpose (see the sector guidance below).",
       "2. Assumptions sheet: earnings growth fades linearly from your year-1 rate to your final-year rate; the payout ratio holds at the level you set.",
-      "3. Model sheet: implied share price = PV of projected dividends + PV of a Gordon-growth terminal value. Cross-check the implied price-to-book against the bank's ROE — a bank earning above its cost of equity should trade above book.",
+      "3. Model sheet: implied share price = PV of projected dividends + PV of a Gordon-growth terminal value. Cross-check the implied price-to-book against the bank's ROE. A bank earning above its cost of equity should trade above book.",
       req.includeSensitivity !== false
         ? "4. Sensitivity sheet: implied price across cost-of-equity × terminal-growth. Errors where Ke ≤ growth are meaningless combinations, not bugs."
         : "4. (Sensitivity grid not included in this download.)",
@@ -336,8 +336,8 @@ function buildDdm(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Workbook {
   ws.getColumn(3).width = 90;
   sheetTitle(
     ws,
-    p.ticker ? `Assumptions — ${p.companyName} (${p.ticker})` : "Assumptions",
-    "Blue cells are yours to change. Blank blue cells had no real data available — enter your own."
+    p.ticker ? `Assumptions: ${p.companyName} (${p.ticker})` : "Assumptions",
+    "Blue cells are yours to change. Blank blue cells had no real data available: enter your own."
   );
 
   sectionLabel(ws, 4, "Company");
@@ -352,15 +352,15 @@ function buildDdm(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Workbook {
 
   sectionLabel(ws, 10, "Earnings & payout");
   const niCagr = f ? historyCagr(f.netIncomeHistory) : null;
-  labelCell(ws.getCell(11, 1), "Earnings growth — year 1");
+  labelCell(ws.getCell(11, 1), "Earnings growth: year 1");
   inputCell(ws.getCell(11, 2), niCagr, FMT.pct1);
   noteCell(
     ws.getCell(11, 3),
     niCagr !== null
-      ? "Prefilled with the multi-year net-income CAGR from the company's own filings — bank earnings are cyclical, so treat with care."
-      : "No earnings history available — enter your own researched growth assumption."
+      ? "Prefilled with the multi-year net-income CAGR from the company's own filings, bank earnings are cyclical, so treat with care."
+      : "No earnings history available. Enter your own researched growth assumption."
   );
-  labelCell(ws.getCell(12, 1), `Earnings growth — year ${years} (fade target)`);
+  labelCell(ws.getCell(12, 1), `Earnings growth: year ${years} (fade target)`);
   inputCell(ws.getCell(12, 2), 0.025, FMT.pct1);
   const payout =
     f?.dividendsPaid != null && f?.netIncome ? Math.min(f.dividendsPaid / f.netIncome, 1) : null;
@@ -369,14 +369,14 @@ function buildDdm(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Workbook {
   noteCell(
     ws.getCell(13, 3),
     payout !== null
-      ? "Prefilled from the latest filed dividends ÷ net income. Regulatory capital constrains what a bank can really pay out — treat this as the model's main lever."
-      : "No dividend data available — enter the bank's actual payout ratio from its filings."
+      ? "Prefilled from the latest filed dividends ÷ net income. Regulatory capital constrains what a bank can really pay out. Treat this as the model's main lever."
+      : "No dividend data available. Enter the bank's actual payout ratio from its filings."
   );
 
   sectionLabel(ws, 15, "Cost of equity (CAPM)");
   labelCell(ws.getCell(16, 1), "Risk-free rate (10-yr govt yield)");
   inputCell(ws.getCell(16, 2), 0.04, FMT.pct1);
-  noteCell(ws.getCell(16, 3), "Convention default — look up today's actual 10-year yield and replace.");
+  noteCell(ws.getCell(16, 3), "Convention default: look up today's actual 10-year yield and replace.");
   labelCell(ws.getCell(17, 1), "Equity risk premium");
   inputCell(ws.getCell(17, 2), 0.05, FMT.pct1);
   labelCell(ws.getCell(18, 1), "Beta");
@@ -385,7 +385,7 @@ function buildDdm(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Workbook {
     ws.getCell(18, 3),
     p.beta !== null
       ? "Real: regressed by Bloombruh from 1 year of daily returns vs. SPY."
-      : "No computed beta — 1.00 = market average, a labeled convention. Replace with your own estimate."
+      : "No computed beta. 1.00 = market average, a labeled convention. Replace with your own estimate."
   );
   labelCell(ws.getCell(19, 1), "Cost of equity", { bold: true });
   formulaCell(ws.getCell(19, 2), "B16+B18*B17", FMT.pct1, true);
@@ -465,7 +465,7 @@ function buildDdm(req: TemplateRequest, p: CompanyPrefill): ExcelJS.Workbook {
     for (let i = 2; i <= 7; i++) s.getColumn(i).width = 13;
     sheetTitle(
       s,
-      "Implied share price — cost of equity × terminal growth",
+      "Implied share price: cost of equity × terminal growth",
       "Rows: cost of equity. Columns: terminal growth."
     );
     const gOffsets = [-0.01, -0.005, 0, 0.005, 0.01];

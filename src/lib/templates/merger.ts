@@ -38,12 +38,12 @@ export function buildMergerWorkbook(
     sector,
     howToUse: [
       "1. Two companies: the acquirer (whose shareholders we care about) and the target (being bought at a premium to its market price). Prefill both by choosing tickers at download, or type the inputs yourself.",
-      "2. Financing mix is the heart of the model: cash on hand gives up the interest it was earning, new debt adds interest cost, new stock adds shares. The three percentages must sum to 100% — the model checks.",
+      "2. Financing mix is the heart of the model: cash on hand gives up the interest it was earning, new debt adds interest cost, new stock adds shares. The three percentages must sum to 100%. The model checks.",
       "3. The key output is pro-forma EPS vs. the acquirer's standalone EPS. Accretive means the combined company earns more per acquirer share; dilutive means less.",
-      "4. The classic trap, stated plainly: accretion is arithmetic, not value creation. Overpaying with cheap debt can still look 'accretive' — whether the deal creates value depends on what the target is actually worth and whether synergies are real. Never present accretion alone as the answer.",
+      "4. The classic trap, stated plainly: accretion is arithmetic, not value creation. Overpaying with cheap debt can still look 'accretive'. Whether the deal creates value depends on what the target is actually worth and whether synergies are real. Never present accretion alone as the answer.",
       withSynergies
-        ? "5. Synergies default to zero — a deliberate discipline. Enter a number you can defend (cost synergies are bankable; revenue synergies mostly aren't) and note they're taxed like any other profit."
-        : "5. (Synergies block not included in this download — re-download with it enabled to model them.)",
+        ? "5. Synergies default to zero: a deliberate discipline. Enter a number you can defend (cost synergies are bankable; revenue synergies mostly are not) and note they are taxed like any other profit."
+        : "5. (Synergies block not included in this download. Re-download with it enabled to model them.)",
     ],
   });
 
@@ -58,11 +58,11 @@ export function buildMergerWorkbook(
     acquirer.ticker || target.ticker
       ? `${acquirer.companyName || "Acquirer"} acquires ${target.companyName || "Target"}`
       : "M&A accretion / dilution",
-    "Blue cells are yours to change. Blank blue cells had no real data available — enter your own."
+    "Blue cells are yours to change. Blank blue cells had no real data available: enter your own."
   );
 
   sectionLabel(ws, 4, "Acquirer");
-  labelCell(ws.getCell(5, 1), `Share price (USD)${acquirer.ticker ? ` — ${acquirer.ticker}` : ""}`);
+  labelCell(ws.getCell(5, 1), `Share price (USD)${acquirer.ticker ? ` (${acquirer.ticker})` : ""}`);
   inputCell(ws.getCell(5, 2), acquirer.usdSharePrice, FMT.usd2);
   labelCell(ws.getCell(6, 1), "Diluted shares outstanding");
   inputCell(ws.getCell(6, 2), fA?.sharesOutstandingDiluted ?? fA?.sharesOutstanding ?? null, FMT.num0);
@@ -72,7 +72,7 @@ export function buildMergerWorkbook(
   formulaCell(ws.getCell(8, 2), "B7/B6", FMT.usd2, true);
 
   sectionLabel(ws, 10, "Target");
-  labelCell(ws.getCell(11, 1), `Share price (USD)${target.ticker ? ` — ${target.ticker}` : ""}`);
+  labelCell(ws.getCell(11, 1), `Share price (USD)${target.ticker ? ` (${target.ticker})` : ""}`);
   inputCell(ws.getCell(11, 2), target.usdSharePrice, FMT.usd2);
   labelCell(ws.getCell(12, 1), "Diluted shares outstanding");
   inputCell(ws.getCell(12, 2), fT?.sharesOutstandingDiluted ?? fT?.sharesOutstanding ?? null, FMT.num0);
@@ -96,12 +96,12 @@ export function buildMergerWorkbook(
   labelCell(ws.getCell(23, 1), "% funded with new stock");
   inputCell(ws.getCell(23, 2), 0.3, FMT.pct0);
   labelCell(ws.getCell(24, 1), "Check: total");
-  formulaCell(ws.getCell(24, 2), 'IF(B21+B22+B23=1,"OK ✓","≠100% — fix the mix")', undefined, true);
+  formulaCell(ws.getCell(24, 2), 'IF(B21+B22+B23=1,"OK ✓","≠100%: fix the mix")', undefined, true);
   labelCell(ws.getCell(25, 1), "Interest rate on new debt");
   inputCell(ws.getCell(25, 2), 0.06, FMT.pct1);
   labelCell(ws.getCell(26, 1), "Yield lost on cash used");
   inputCell(ws.getCell(26, 2), 0.04, FMT.pct1);
-  noteCell(ws.getCell(26, 3), "Cash spent on the deal was earning something — that foregone interest is a real cost of the cash-funded slice.");
+  noteCell(ws.getCell(26, 3), "Cash spent on the deal was earning something. That foregone interest is a real cost of the cash-funded slice.");
   labelCell(ws.getCell(27, 1), "Tax rate");
   inputCell(ws.getCell(27, 2), 0.21, FMT.pct1);
 
@@ -112,7 +112,7 @@ export function buildMergerWorkbook(
     inputCell(ws.getCell(row + 1, 2), 0, FMT.usdM);
     noteCell(
       ws.getCell(row + 1, 3),
-      "Deliberately zero by default — enter only what you can defend. Cost synergies (overlap you can actually cut) are bankable; revenue synergies usually aren't."
+      "Deliberately zero by default. Enter only what you can defend. Cost synergies (overlap you can actually cut) are bankable; revenue synergies usually are not."
     );
     row += 3;
   }
@@ -142,14 +142,14 @@ export function buildMergerWorkbook(
   keyOutputCell(ws.getCell(r0 + 9, 2), `B${r0 + 8}/B8-1`, FMT.pct1);
   noteCell(
     ws.getCell(r0 + 10, 1),
-    "Positive = accretive, negative = dilutive — to the acquirer's EPS, at these financing assumptions. It says nothing by itself about whether the price paid was right."
+    "Positive = accretive, negative = dilutive: to the acquirer's EPS, at these financing assumptions. It says nothing by itself about whether the price paid was right."
   );
   ws.mergeCells(r0 + 10, 1, r0 + 10, 3);
 
   // Merge both companies' source lines, labeled per side.
   const sources = [
-    ...acquirer.sources.map((s) => ({ ...s, item: `Acquirer — ${s.item}` })),
-    ...target.sources.map((s) => ({ ...s, item: `Target — ${s.item}` })),
+    ...acquirer.sources.map((s) => ({ ...s, item: `Acquirer: ${s.item}` })),
+    ...target.sources.map((s) => ({ ...s, item: `Target: ${s.item}` })),
   ];
   addSourcesSheet(wb, sources);
   return wb;

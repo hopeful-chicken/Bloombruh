@@ -43,10 +43,10 @@ export function buildLboWorkbook(req: TemplateRequest, p: CompanyPrefill): Excel
     templateName: "LBO Model",
     sector,
     howToUse: [
-      "1. The deal: buy the company at an entry EV/EBITDA multiple, funding most of the price with debt. The sponsor's return comes from three sources — EBITDA growth, debt paydown, and any change in the exit multiple. This model shows all three.",
-      "2. Assumptions sheet: entry and exit multiples, leverage, the interest rate, EBITDA growth, and FCF conversion (the % of EBITDA left for debt paydown after tax and capex — a documented simplification standing in for a full three-statement build).",
-      "3. Model sheet: the debt schedule pays down year by year from real formulas; the returns block computes exit equity, MOIC, and IRR. Exit multiple defaults to entry (flat) — that's discipline, not pessimism: underwriting multiple expansion means betting someone will pay more per dollar of earnings than you did.",
-      "4. A quick read on the output: sponsors typically target ~20%+ IRR / ~2x+ MOIC over 5 years. If your assumptions can't get there, the deal doesn't work at that price — that's the model telling you something real.",
+      "1. The deal: buy the company at an entry EV/EBITDA multiple, funding most of the price with debt. The sponsor's return comes from three sources: EBITDA growth, debt paydown, and any change in the exit multiple. This model shows all three.",
+      "2. Assumptions sheet: entry and exit multiples, leverage, the interest rate, EBITDA growth, and FCF conversion (the % of EBITDA left for debt paydown after tax and capex, a documented simplification standing in for a full three-statement build).",
+      "3. Model sheet: the debt schedule pays down year by year from real formulas; the returns block computes exit equity, MOIC, and IRR. Exit multiple defaults to entry (flat). That is discipline, not pessimism: underwriting multiple expansion means betting someone will pay more per dollar of earnings than you did.",
+      "4. A quick read on the output: sponsors typically target ~20%+ IRR / ~2x+ MOIC over 5 years. If your assumptions cannot get there, the deal does not work at that price. That is the model telling you something real.",
     ],
   });
 
@@ -57,8 +57,8 @@ export function buildLboWorkbook(req: TemplateRequest, p: CompanyPrefill): Excel
   ws.getColumn(3).width = 90;
   sheetTitle(
     ws,
-    p.ticker ? `Assumptions — ${p.companyName} (${p.ticker})` : "Assumptions",
-    "Blue cells are yours to change. Blank blue cells had no real data available — enter your own."
+    p.ticker ? `Assumptions: ${p.companyName} (${p.ticker})` : "Assumptions",
+    "Blue cells are yours to change. Blank blue cells had no real data available: enter your own."
   );
 
   sectionLabel(ws, 4, "Entry");
@@ -67,8 +67,8 @@ export function buildLboWorkbook(req: TemplateRequest, p: CompanyPrefill): Excel
   noteCell(
     ws.getCell(5, 3),
     p.ebitda !== null
-      ? "Prefilled from the company's own filings (operating income + D&A — an estimate, since EBITDA isn't a filed line)."
-      : "No EBITDA data available — enter your own from the company's filings."
+      ? "Prefilled from the company's own filings (operating income + D&A, an estimate, since EBITDA is not a filed line)."
+      : "No EBITDA data available. Enter your own from the company's filings."
   );
   const realMultiple = p.valuation?.evToEbitda ?? null;
   labelCell(ws.getCell(6, 1), "Entry EV / EBITDA multiple");
@@ -76,8 +76,8 @@ export function buildLboWorkbook(req: TemplateRequest, p: CompanyPrefill): Excel
   noteCell(
     ws.getCell(6, 3),
     realMultiple !== null
-      ? "Prefilled with the multiple the market currently pays for this company — a real LBO would need a premium above this."
-      : "No market multiple available — 10.0x is a placeholder convention; anchor to real comparable deals."
+      ? "Prefilled with the multiple the market currently pays for this company. A real LBO would need a premium above this."
+      : "No market multiple available. 10.0x is a placeholder convention; anchor to real comparable deals."
   );
   labelCell(ws.getCell(7, 1), "Entry enterprise value", { bold: true });
   formulaCell(ws.getCell(7, 2), "B5*B6", FMT.usdM, true);
@@ -97,12 +97,12 @@ export function buildLboWorkbook(req: TemplateRequest, p: CompanyPrefill): Excel
   noteCell(
     ws.getCell(13, 3),
     ebitdaGrowth !== null
-      ? "Prefilled with the company's own latest year-over-year EBITDA growth — one data point, not a trend. Make it defensible."
-      : "No EBITDA history available — 5%/yr is a placeholder convention; research the company's real trajectory."
+      ? "Prefilled with the company's own latest year-over-year EBITDA growth: one data point, not a trend. Make it defensible."
+      : "No EBITDA history available. 5%/yr is a placeholder convention; research the company's real trajectory."
   );
   labelCell(ws.getCell(14, 1), "Interest rate on debt");
   inputCell(ws.getCell(14, 2), 0.08, FMT.pct1);
-  noteCell(ws.getCell(14, 3), "Placeholder convention — leveraged-loan pricing moves with base rates and credit quality; check current market levels.");
+  noteCell(ws.getCell(14, 3), "Placeholder convention: leveraged-loan pricing moves with base rates and credit quality; check current market levels.");
   labelCell(ws.getCell(15, 1), "FCF conversion (% of EBITDA after tax & capex)");
   inputCell(ws.getCell(15, 2), 0.4, FMT.pct0);
   noteCell(
@@ -113,12 +113,12 @@ export function buildLboWorkbook(req: TemplateRequest, p: CompanyPrefill): Excel
   sectionLabel(ws, 17, "Exit");
   labelCell(ws.getCell(18, 1), "Holding period (years)");
   valueCell(ws.getCell(18, 2), years, FMT.num0, true);
-  noteCell(ws.getCell(18, 3), "Chosen at download — re-download the template to change it (the model columns are built for this length).");
+  noteCell(ws.getCell(18, 3), "Chosen at download. Re-download the template to change it (the model columns are built for this length).");
   labelCell(ws.getCell(19, 1), "Exit EV / EBITDA multiple");
   formulaCell(ws.getCell(19, 2), "B6", FMT.x1);
   noteCell(
     ws.getCell(19, 3),
-    "Defaults to the entry multiple (flat exit — the disciplined base case). Overwrite with a number to test multiple expansion or compression."
+    "Defaults to the entry multiple (flat exit, the disciplined base case). Overwrite with a number to test multiple expansion or compression."
   );
 
   // --- Model sheet ------------------------------------------------------
@@ -157,7 +157,7 @@ export function buildLboWorkbook(req: TemplateRequest, p: CompanyPrefill): Excel
   }
   noteCell(
     d.getCell(11, 1),
-    "If 'cash available' goes negative, the company can't cover its interest from operations at these assumptions — in reality that's distress, and here it simply stops paying debt down."
+    "If 'cash available' goes negative, the company cannot cover its interest from operations at these assumptions. In reality that is distress, and here it simply stops paying debt down."
   );
   d.mergeCells(11, 1, 11, years + 2);
 
@@ -178,7 +178,7 @@ export function buildLboWorkbook(req: TemplateRequest, p: CompanyPrefill): Excel
   keyOutputCell(d.getCell(20, 2), `(B17/B18)^(1/${years})-1`, FMT.pct1);
   noteCell(
     d.getCell(21, 1),
-    "IRR here is the simple compound rate from one cash flow in (entry) to one out (exit) — real deals with interim dividends need a full XIRR."
+    "IRR here is the simple compound rate from one cash flow in (entry) to one out (exit). Real deals with interim dividends need a full XIRR."
   );
   d.mergeCells(21, 1, 21, years + 2);
 
@@ -191,7 +191,7 @@ export function buildLboWorkbook(req: TemplateRequest, p: CompanyPrefill): Excel
   formulaCell(d.getCell(26, 2), `${A}!$B$9-${lastL}10`, FMT.usdM);
   noteCell(
     d.getCell(27, 1),
-    "The classic interview question — where did the return come from? Growth, multiple, or leverage. A deal that only works through multiple expansion is a bet on markets, not on the business."
+    "The classic interview question: where did the return come from? Growth, multiple, or leverage. A deal that only works through multiple expansion is a bet on markets, not on the business."
   );
   d.mergeCells(27, 1, 27, years + 2);
 
