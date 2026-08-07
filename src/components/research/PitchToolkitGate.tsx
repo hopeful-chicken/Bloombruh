@@ -27,6 +27,11 @@ import AnalysisPriceChart from "@/components/research/AnalysisPriceChart";
 import type { NewsArticle } from "@/lib/news";
 import type { AnalysisChart } from "@/data/analysis";
 
+// Entries can drop this literal token into their markdown body to place the
+// price chart inline (e.g. right after "the chart below" is mentioned)
+// instead of always appending it after the full body.
+const CHART_MARKER = "{{CHART}}";
+
 type PitchContent = {
   title: string;
   tagline: string;
@@ -139,9 +144,18 @@ export default function PitchToolkitGate({ pitchId }: { pitchId: string }) {
       </h1>
       <p className="mt-1 text-sm text-muted">{content.tagline}</p>
       <div className="mt-8 border-t border-border pt-6">
-        <MarkdownContent markdown={content.body} />
+        {content.chart && content.body.includes(CHART_MARKER) ? (
+          content.body.split(CHART_MARKER).map((part, i) => (
+            <div key={i}>
+              {i > 0 && <AnalysisPriceChart chart={content.chart!} />}
+              <MarkdownContent markdown={part} />
+            </div>
+          ))
+        ) : (
+          <MarkdownContent markdown={content.body} />
+        )}
       </div>
-      {content.chart && <AnalysisPriceChart chart={content.chart} />}
+      {content.chart && !content.body.includes(CHART_MARKER) && <AnalysisPriceChart chart={content.chart} />}
       {content.news && (
         <PitchNewsSection
           narrative={content.news.narrative}
