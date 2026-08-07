@@ -170,7 +170,7 @@ Give simple, short economic context for this region right now and how it's been 
 
     result = text
       ? { narrative: text, narrativeError: null }
-      : { narrative: null, narrativeError: "The AI didn't return a summary." };
+      : { narrative: null, narrativeError: "The AI did not return a summary." };
   } catch (err) {
     result = {
       narrative: null,

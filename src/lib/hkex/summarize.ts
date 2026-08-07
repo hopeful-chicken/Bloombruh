@@ -61,7 +61,7 @@ Recap what these say.`;
     .trim();
 
   if (!text) {
-    throw new Error("The AI didn't return a summary.");
+    throw new Error("The AI did not return a summary.");
   }
   return text;
 }

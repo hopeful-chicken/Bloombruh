@@ -97,7 +97,7 @@ export async function buildMarketUpdateWorkbook(req: TemplateRequest): Promise<E
     sector,
     howToUse: [
       "1. The Dashboard sheet is a snapshot of real data as of the moment you downloaded this file: sector performance and central bank policy rates. It does not update itself; re-download for fresh numbers (that is how a morning sheet works anyway).",
-      "2. The Morning Note sheet is the structure of a daily desk note: overnight moves, the rates picture, what you're watching today, and the risk that would change your mind. The discipline is writing it before the market opens, in complete sentences.",
+      "2. The Morning Note sheet is the structure of a daily desk note: overnight moves, the rates picture, what you are watching today, and the risk that would change your mind. The discipline is writing it before the market opens, in complete sentences.",
       "3. A good morning note connects the dashboard to a view: not 'tech was up', but 'tech outperformed because X, and if Y happens today that reverses'. The data is the start of the sentence, never the whole sentence.",
     ],
   });
@@ -153,8 +153,8 @@ export async function buildMarketUpdateWorkbook(req: TemplateRequest): Promise<E
   const sections = [
     "Overnight & where we are (2–3 sentences: what moved, why, what it means for today)",
     "Rates & macro (what the dashboard's central-bank picture implies for positioning)",
-    "What I'm watching today (specific names/events, with the level or print that matters)",
-    "The risk that changes my mind (and what I'd do about it)",
+    "What I am watching today (specific names/events, with the level or print that matters)",
+    "The risk that changes my mind (and what I would do about it)",
   ];
   let mr = 4;
   for (const s of sections) {

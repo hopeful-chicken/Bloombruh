@@ -477,7 +477,7 @@ export const BLOCK_LIBRARY: {
     create: () =>
       createTextBlock(
         "Valuation & Catalysts",
-        "Value the company across at least two methods (e.g. a comps multiple and a DCF/FCF-yield check), then list the near-term catalysts that could move the stock and roughly when they'll happen."
+        "Value the company across at least two methods (e.g. a comps multiple and a DCF/FCF-yield check), then list the near-term catalysts that could move the stock and roughly when they will happen."
       ),
   },
   {
@@ -587,7 +587,7 @@ export const BLOCK_LIBRARY: {
     create: () =>
       createTextBlock(
         "Exit Assumptions",
-        "State your assumed holding period, exit multiple, and exit route (strategic sale, sponsor-to-sponsor, IPO). Justify why the exit multiple you've chosen is reasonable relative to entry."
+        "State your assumed holding period, exit multiple, and exit route (strategic sale, sponsor-to-sponsor, IPO). Justify why the exit multiple you have chosen is reasonable relative to entry."
       ),
   },
 ];

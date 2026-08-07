@@ -70,7 +70,7 @@ export const modules: ModuleInfo[] = [
     name: "Hype vs Fundamentals",
     slug: "/hype",
     status: "beta",
-    tagline: "Historical cases with known outcomes, current themes that aren't",
+    tagline: "Historical cases with known outcomes, current themes that are not",
     description:
       "Real historical cases (the dot-com bubble, the meme-stock mania, the cannabis stock boom) with real computed run-up/drawdown stats and hindsight, then real current themes (AI & semiconductors, quantum computing) with real price returns and revenue growth side by side. The current-themes AI narrative is explicitly instructed to present evidence, never a verdict on whether something is a bubble.",
   },
