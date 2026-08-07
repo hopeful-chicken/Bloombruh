@@ -77,9 +77,9 @@ I wrote the first version of this piece after four days of a story that looked d
 
 ## The comparison the headlines are skipping: Micron fell almost as hard, with zero Korean leverage anywhere near it
 
-Here's what actually made me want to rebuild this piece rather than just extend the old one. Every article on this crash leads with the leveraged ETFs — reasonably, since they're the reason 1.2 million Korean households got margin calls and a president's approval rating cratered. But I pulled the real, live daily price series for SK Hynix's own ADR (ticker SKHY, Nasdaq-listed, so genuinely fetchable — this isn't an estimate) and for Micron, a comparable US-listed memory chipmaker with zero exposure to Korea's leveraged-ETF market, over the identical window, and put them on the same chart, indexed to the same starting point.
+Here's what actually made me want to rebuild this piece rather than just extend the old one. Every article on this crash leads with the leveraged ETFs — reasonably, since they're the reason 1.2 million Korean households got margin calls and a president's approval rating cratered. But leverage explains why Korean retail accounts got wiped out; it doesn't by itself tell you how much of the *price move* was Korea-specific versus a global chip-stock correction that would have hit SK Hynix anyway. To separate those two things you need a comparable stock with none of Korea's leverage machinery attached to it, so I pulled the real, live daily price series for SK Hynix's own ADR (ticker SKHY, Nasdaq-listed, so genuinely fetchable — this isn't an estimate) and for Micron — the closest defensible comparable: a large-cap, US-listed memory chipmaker riding the same AI/HBM demand cycle, with zero exposure to Korea's leveraged-ETF market, margin calls, or forced retail liquidations, because it simply isn't a Korean stock. Both series are indexed to 100 on 10 July — SKHY's actual first trading day, since its Nasdaq ADR only began trading that morning; there's no earlier price history for this specific security to show, so the window can't start any earlier than that.
 
-From their shared local peak on 14 July to the market trough on 29 July: **SK Hynix's ADR fell 34.6%. Micron — unlevered, US-listed, none of Korea's retail-ETF machinery anywhere near it — fell 24.8% over the exact same fifteen days.**
+Using 14 July — the day this story's headlines actually begin — as the reference point through the 29 July trough: **SK Hynix's ADR fell 34.6%. Micron — unlevered, US-listed, none of Korea's retail-ETF machinery anywhere near it — fell 24.8% over the exact same fifteen days.** (14 July isn't literally Micron's own peak in this window — it closed slightly higher, at $990.21, on 23 July, before its own decline began. Measured from that actual high instead, Micron's drop to the 29 July trough is 25.4%, barely different. The conclusion doesn't depend on picking a flattering date.)
 
 That's the real story underneath the leverage headlines. Roughly two-thirds to three-quarters of SK Hynix's drawdown is explained by the same global AI-and-memory-stock repricing that hit Micron, a stock with none of Korea's structural fragility. The leverage didn't cause the crash. What it did was take a real, already-painful global semiconductor correction and turn the *last* incremental ten points of price decline, plus effectively all of the social and political fallout — the margin calls, the forced liquidations, the presidential approval collapse — into something uniquely, structurally Korean. A Micron shareholder in the US took a genuinely brutal hit over those fifteen trading days too. They just didn't get a margin call from a 2x product that had existed for six weeks, because that product doesn't exist in the US market in the same form.
 
@@ -148,9 +148,9 @@ What I don't think fades: the multiple. Even once the forced selling is fully do
 - [Kospi falls 4.6% as Samsung, SK hynix lead tech selloff on AI spending fears — Korea JoongAng Daily](https://www.koreajoongangdaily.com/business/kospi-slides-over-4-as-tech-shares-take-a-tumble/12812355)
 `,
     chart: {
-      title: "SKHY (SK Hynix ADR) vs. Micron — indexed to 100 on 14 July 2026",
-      note: "Real daily closes, Nasdaq-listed securities, fetched live via Twelve Data on 2026-08-07. Indexed so a ~$150 ADR and a ~$900 US stock compare on one honest axis — both fell hard; SKHY fell meaningfully further, the gap being the genuinely Korea-specific piece of this story.",
-      indexBase: "2026-07-14",
+      title: "SKHY (SK Hynix ADR) vs. Micron — indexed to 100 on 10 July 2026 (SKHY's Nasdaq debut)",
+      note: "Real daily closes, Nasdaq-listed securities, fetched live via Twelve Data on 2026-08-07. Indexed to day one — 10 July, SKHY's first trading day as an ADR, so there's no earlier data to show — so a ~$150 ADR and a ~$900 US stock compare on one honest axis. Micron is the unlevered control: same AI/memory demand cycle, no Korean leverage machinery attached. Both fell hard; SKHY fell meaningfully further, the gap being the genuinely Korea-specific piece of this story.",
+      indexBase: "2026-07-10",
       series: [
         {
           symbol: "SKHY",
@@ -209,7 +209,7 @@ What I don't think fades: the multiple. Even once the forced selling is fully do
       ],
       annotations: [
         { date: "2026-07-10", label: "SK Hynix's $26.5bn Nasdaq ADR debut" },
-        { date: "2026-07-14", label: "Seoul shares -15% same day ADR +27% — the split" },
+        { date: "2026-07-14", label: "Seoul shares -15% same day ADR +27% — the split, and the drawdown reference date" },
         { date: "2026-07-28", label: "China DUV news + Q2 results (record quarter, missed consensus)" },
         { date: "2026-07-29", label: "Trough: SKHY -34.6% from 7/14 peak, MU -24.8%" },
         { date: "2026-08-06", label: "Fresh selloff tracking a broad Wall Street tech pullback" },
