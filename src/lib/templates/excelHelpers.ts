@@ -29,7 +29,7 @@ export const FONT = "Calibri";
 
 export function makeWorkbook(): ExcelJS.Workbook {
   const wb = new ExcelJS.Workbook();
-  wb.creator = "Bloombruh (student project — bloombruh)";
+  wb.creator = "Bloombruh (student project: bloombruh)";
   wb.created = new Date();
   return wb;
 }
@@ -148,9 +148,9 @@ export function addGuidanceSheet(
     sector: SectorGuidance;
   }
 ) {
-  const ws = wb.addWorksheet("Read Me — Guidance");
+  const ws = wb.addWorksheet("Read Me: Guidance");
   ws.getColumn(1).width = 110;
-  sheetTitle(ws, `${params.templateName} — how to use this model`);
+  sheetTitle(ws, `${params.templateName}: how to use this model`);
 
   let row = 3;
   const put = (text: string, opts?: { bold?: boolean; muted?: boolean }) => {
@@ -169,10 +169,10 @@ export function addGuidanceSheet(
 
   put("Conventions", { bold: true });
   put(
-    "Blue cells on a pale-yellow background are assumptions — change them and the model recalculates. Everything else is either real prefilled data or a live formula; edit those only if you know why."
+    "Blue cells on a pale-yellow background are assumptions: change them and the model recalculates. Everything else is either real prefilled data or a live formula; edit those only if you know why."
   );
   put(
-    "Blank blue cells mean no real data was available to prefill — enter your own researched figure. Nothing in this file is estimated or invented; see the “Data & sources” sheet for where every prefilled number came from."
+    "Blank blue cells mean no real data was available to prefill. Enter your own researched figure. Nothing in this file is estimated or invented; see the “Data & sources” sheet for where every prefilled number came from."
   );
   row += 1;
 
@@ -180,13 +180,13 @@ export function addGuidanceSheet(
   for (const line of params.howToUse) put(line);
   row += 1;
 
-  put(`Sector guidance — ${params.sector.label}`, { bold: true });
+  put(`Sector guidance: ${params.sector.label}`, { bold: true });
   for (const note of params.sector.notes) put(note);
   row += 1;
 
   put("Honesty notes", { bold: true });
   put(
-    "Built with Bloombruh (a free student project) for learning — this is an educational template, not investment advice, and its output is only as good as the assumptions you type into it."
+    "Built with Bloombruh (a free student project) for learning. This is an educational template, not investment advice, and its output is only as good as the assumptions you type into it."
   );
 }
 
@@ -210,7 +210,7 @@ export function addSourcesSheet(wb: ExcelJS.Workbook, sources: SourceLine[]) {
   const noteRow = 5 + sources.length;
   noteCell(
     ws.getCell(noteRow, 1),
-    `Generated ${new Date().toISOString().slice(0, 10)} by Bloombruh — free public data only; quotes may be delayed. Anything not listed here was left blank for you to research, never estimated.`
+    `Generated ${new Date().toISOString().slice(0, 10)} by Bloombruh, free public data only; quotes may be delayed. Anything not listed here was left blank for you to research, never estimated.`
   );
   ws.mergeCells(noteRow, 1, noteRow, 2);
 }

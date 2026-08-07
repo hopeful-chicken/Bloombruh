@@ -32,10 +32,10 @@ export function buildPortfolioWorkbook(req: TemplateRequest, p: CompanyPrefill):
     templateName: "Portfolio One-Pager",
     sector,
     howToUse: [
-      "1. Type positions into the blue cells — ticker, name, shares, price. Value, weight, and the summary stats recalculate as you go. Keep prices current by hand (or via your own data source): this is a snapshot sheet, not a live feed.",
+      "1. Type positions into the blue cells: ticker, name, shares, price. Value, weight, and the summary stats recalculate as you go. Keep prices current by hand (or via your own data source): this is a snapshot sheet, not a live feed.",
       "2. The cash row matters: cash is a position with a weight, and 'fully invested vs. holding dry powder' is a real portfolio decision, not an afterthought.",
-      "3. Watch the concentration stats: the top-5 weight tells you how much of the portfolio's fate sits in its five biggest ideas. There's no right number — but you should know yours and be able to defend it.",
-      "4. The thesis column is the discipline: one line per holding on why you own it. If you can't fill it in, that's the sheet telling you something.",
+      "3. Watch the concentration stats: the top-5 weight tells you how much of the portfolio's fate sits in its five biggest ideas. There is no right number, but you should know yours and be able to defend it.",
+      "4. The thesis column is the discipline: one line per holding on why you own it. If you cannot fill it in, that is the sheet telling you something.",
     ],
   });
 
@@ -47,7 +47,7 @@ export function buildPortfolioWorkbook(req: TemplateRequest, p: CompanyPrefill):
   ws.getColumn(5).width = 14;
   ws.getColumn(6).width = 10;
   ws.getColumn(7).width = 52;
-  sheetTitle(ws, "Portfolio one-pager", `As of ${new Date().toISOString().slice(0, 10)} — update prices by hand to keep it current.`);
+  sheetTitle(ws, "Portfolio one-pager", `As of ${new Date().toISOString().slice(0, 10)}: update prices by hand to keep it current.`);
 
   const headRow = 4;
   ["Ticker", "Name", "Shares", "Price", "Value", "Weight", "Why we own it (one line)"].forEach(

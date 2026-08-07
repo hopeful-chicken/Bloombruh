@@ -37,13 +37,13 @@ export function buildInitiationWorkbook(req: TemplateRequest, p: CompanyPrefill)
     templateName: "Equity Research Initiation Note",
     sector,
     howToUse: [
-      "1. This is a writing skeleton with live numbers, not a calculator: the sections mirror how a real initiation is structured — rating and target first, then the thesis that earns it, then valuation, catalysts, and risks.",
-      "2. Set your rating and 12-month target price in the header — the implied-upside cell computes against the real current price. A target without a thesis is a guess; write the thesis until the target feels inevitable.",
-      "3. The thesis prompts are deliberate: what does the market believe, where exactly do you disagree, and what evidence would change your mind? If you can't fill the third one in, you have a position, not a thesis.",
+      "1. This is a writing skeleton with live numbers, not a calculator: the sections mirror how a real initiation is structured. Rating and target first, then the thesis that earns it, then valuation, catalysts, and risks.",
+      "2. Set your rating and 12-month target price in the header. The implied-upside cell computes against the real current price. A target without a thesis is a guess; write the thesis until the target feels inevitable.",
+      "3. The thesis prompts are deliberate: what does the market believe, where exactly do you disagree, and what evidence would change your mind? If you cannot fill the third one in, you have a position, not a thesis.",
       withValuation
         ? "4. Valuation summary: the company's real current multiples are prefilled; type your target multiples and the sheet converts them into implied share prices. Your target price should be explainable by at least one of them."
         : "4. (Valuation summary table not included in this download.)",
-      "5. Catalysts need dates (an event that can't be scheduled is a hope); risks need your response (what would each one do to your target?).",
+      "5. Catalysts need dates (an event that cannot be scheduled is a hope); risks need your response (what would each one do to your target?).",
     ],
   });
 
@@ -54,8 +54,8 @@ export function buildInitiationWorkbook(req: TemplateRequest, p: CompanyPrefill)
   ws.getColumn(4).width = 70;
   sheetTitle(
     ws,
-    p.ticker ? `${p.companyName} (${p.ticker}) — Initiation of Coverage` : "Initiation of Coverage",
-    `Drafted ${new Date().toISOString().slice(0, 10)} — student research, built with Bloombruh. Not investment advice.`
+    p.ticker ? `${p.companyName} (${p.ticker}): Initiation of Coverage` : "Initiation of Coverage",
+    `Drafted ${new Date().toISOString().slice(0, 10)}: student research, built with Bloombruh. Not investment advice.`
   );
 
   sectionLabel(ws, 4, "Rating & target");
@@ -85,8 +85,8 @@ export function buildInitiationWorkbook(req: TemplateRequest, p: CompanyPrefill)
   noteCell(
     ws.getCell(11, 4),
     f
-      ? "Prefilled from the company's real filings and current price — see the Data & Sources sheet."
-      : "No filed fundamentals were available for this ticker — research and fill these in; nothing was estimated."
+      ? "Prefilled from the company's real filings and current price. See the Data & Sources sheet."
+      : "No filed fundamentals were available for this ticker. Research and fill these in; nothing was estimated."
   );
 
   sectionLabel(ws, 18, "Investment thesis");

@@ -55,7 +55,7 @@ export function blankPrefill(): CompanyPrefill {
       {
         item: "No company selected",
         source:
-          "This template was downloaded blank — every input is yours to fill in. Re-download with a ticker chosen to prefill real data.",
+          "This template was downloaded blank. Every input is yours to fill in. Re-download with a ticker chosen to prefill real data.",
       },
     ],
   };
@@ -100,14 +100,14 @@ export async function getCompanyPrefill(rawTicker: string): Promise<CompanyPrefi
     sources.push({
       item: `Share price (${quote.currency} ${quotePrice?.toFixed(2) ?? "—"}, as of ${today})`,
       source: isHk
-        ? "EODHD (eodhd.com) — Hong Kong Stock Exchange, may be delayed"
+        ? "EODHD (eodhd.com): Hong Kong Stock Exchange, may be delayed"
         : "Twelve Data (twelvedata.com), may be delayed",
     });
     if (isHk || hkListingForAdr) {
       sources.push({
         item: "USD per-share price used in valuation cells",
         source:
-          "HK ordinary-share price converted at the current HKD→USD rate (Frankfurter/ECB) — ADR prices are per ADS bundle and would distort per-share math",
+          "HK ordinary-share price converted at the current HKD→USD rate (Frankfurter/ECB); ADR prices are per ADS bundle and would distort per-share math",
       });
     }
   }
@@ -117,20 +117,20 @@ export async function getCompanyPrefill(rawTicker: string): Promise<CompanyPrefi
       item: `Fundamentals (FY${fundamentals.fiscalYear}: revenue, margins, balance sheet, cash flow)`,
       source:
         isHk && adrForHk
-          ? `SEC EDGAR (data.sec.gov) — the same company's filings via its US listing ${adrForHk}`
-          : "SEC EDGAR (data.sec.gov) — the company's own filed annual reports",
+          ? `SEC EDGAR (data.sec.gov): the same company's filings via its US listing ${adrForHk}`
+          : "SEC EDGAR (data.sec.gov): the company's own filed annual reports",
     });
     if (fundamentals.originalCurrency !== "USD") {
       sources.push({
         item: `Currency conversion (${fundamentals.originalCurrency} → USD)`,
-        source: `All monetary fundamentals converted at one current rate (${fundamentals.fxRateToUsd.toFixed(4)}), Frankfurter/ECB — not per-fiscal-year historical rates`,
+        source: `All monetary fundamentals converted at one current rate (${fundamentals.fxRateToUsd.toFixed(4)}), Frankfurter/ECB; not per-fiscal-year historical rates`,
       });
     }
   } else {
     sources.push({
       item: "Fundamentals",
       source:
-        "None found — this company doesn't file with the SEC (or has no SEC-filing US listing), so those inputs are left blank for you to research and enter. Nothing was estimated.",
+        "None found. This company does not file with the SEC (or has no SEC-filing US listing), so those inputs are left blank for you to research and enter. Nothing was estimated.",
     });
   }
 
@@ -138,7 +138,7 @@ export async function getCompanyPrefill(rawTicker: string): Promise<CompanyPrefi
     sources.push({
       item: `Beta (${beta.beta.toFixed(2)})`,
       source:
-        "Computed by Bloombruh: regression of 1 year of daily returns vs. SPY (Twelve Data prices) — not a looked-up figure",
+        "Computed by Bloombruh: regression of 1 year of daily returns vs. SPY (Twelve Data prices), not a looked-up figure",
     });
   }
 

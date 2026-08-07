@@ -38,13 +38,13 @@ export function buildCompsWorkbook(
     templateName: "Trading Comps",
     sector,
     howToUse: [
-      "1. The skill in comps is the peer set, not the arithmetic: peers should share the subject's business model, growth/margin profile, and rough scale. A 'peer' that's twice the growth at half the margin isn't a peer — it's a different bet that happens to share a sector label.",
-      "2. Every multiple in the table is a live formula off the raw columns to its left — edit any input (they're all blue) and the multiples, medians, and implied values recalculate. Multiples that can't be computed (loss-making P/E, missing EBITDA) stay blank and drop out of the medians automatically.",
-      "3. Median beats mean for the summary row — one stretched peer distorts a mean but barely moves a median. Both are shown; know why they differ when they do.",
-      "4. The implied-value block reprices the subject at the peer medians. A subject trading below its peers isn't automatically cheap — the market may be pricing lower growth, thinner margins, or worse governance. The gap is where your work starts, not where it ends.",
+      "1. The skill in comps is the peer set, not the arithmetic: peers should share the subject's business model, growth/margin profile, and rough scale. A 'peer' that is twice the growth at half the margin is not a peer. It is a different bet that happens to share a sector label.",
+      "2. Every multiple in the table is a live formula off the raw columns to its left. Edit any input (they are all blue) and the multiples, medians, and implied values recalculate. Multiples that cannot be computed (loss-making P/E, missing EBITDA) stay blank and drop out of the medians automatically.",
+      "3. Median beats mean for the summary row: one stretched peer distorts a mean but barely moves a median. Both are shown; know why they differ when they do.",
+      "4. The implied-value block reprices the subject at the peer medians. A subject trading below its peers is not automatically cheap. The market may be pricing lower growth, thinner margins, or worse governance. The gap is where your work starts, not where it ends.",
       req.sector === "fig"
-        ? "5. FIG note: for banks and insurers, read P/E and P/B — the EV columns (net debt, EV/EBITDA, EV/Sales) are meaningless for financials and will mostly be blank; that's correct, not missing data."
-        : "5. If your subject and peers report in different accounting regimes or currencies, this site has already normalized everything to USD — but check fiscal-year ends: a January year-end retailer against December peers is comparing different macro periods.",
+        ? "5. FIG note: for banks and insurers, read P/E and P/B. The EV columns (net debt, EV/EBITDA, EV/Sales) are meaningless for financials and will mostly be blank; that is correct, not missing data."
+        : "5. If your subject and peers report in different accounting regimes or currencies, this site has already normalized everything to USD, but check fiscal-year ends: a January year-end retailer against December peers is comparing different macro periods.",
     ],
   });
 
@@ -55,7 +55,7 @@ export function buildCompsWorkbook(
   for (let c = 3; c <= 17; c++) ws.getColumn(c).width = 13;
   sheetTitle(
     ws,
-    subject.ticker ? `Trading comps — ${subject.companyName} (${subject.ticker})` : "Trading comps",
+    subject.ticker ? `Trading comps: ${subject.companyName} (${subject.ticker})` : "Trading comps",
     "All values USD. Blue cells are editable inputs; multiples are live formulas and recalculate."
   );
 
@@ -131,7 +131,7 @@ export function buildCompsWorkbook(
   }
   noteCell(
     ws.getCell(meanRow + 1, 1),
-    "Medians/means cover the peer rows only (not the subject) and automatically skip peers whose multiple couldn't be computed."
+    "Medians/means cover the peer rows only (not the subject) and automatically skip peers whose multiple could not be computed."
   );
   ws.mergeCells(meanRow + 1, 1, meanRow + 1, 8);
 
@@ -171,14 +171,14 @@ export function buildCompsWorkbook(
   keyOutputCell(ws.getCell(s + 5, 3), `C${firstRow}`, FMT.usd2);
   noteCell(
     ws.getCell(s + 6, 1),
-    "Three routes to an implied price — when they disagree sharply, the disagreement is the insight: the market weighs earnings, cash generation, and revenue differently for this subject than for its peers."
+    "Three routes to an implied price. When they disagree sharply, the disagreement is the insight: the market weighs earnings, cash generation, and revenue differently for this subject than for its peers."
   );
   ws.mergeCells(s + 6, 1, s + 6, 8);
 
   const sources = [
-    ...subject.sources.map((x) => ({ ...x, item: `Subject (${subject.ticker || "—"}) — ${x.item}` })),
+    ...subject.sources.map((x) => ({ ...x, item: `Subject (${subject.ticker || "—"}): ${x.item}` })),
     ...peers.flatMap((p) =>
-      p.sources.map((x) => ({ ...x, item: `Peer (${p.ticker || "—"}) — ${x.item}` }))
+      p.sources.map((x) => ({ ...x, item: `Peer (${p.ticker || "—"}): ${x.item}` }))
     ),
   ];
   addSourcesSheet(wb, sources);

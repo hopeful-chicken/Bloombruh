@@ -96,7 +96,7 @@ export async function buildMarketUpdateWorkbook(req: TemplateRequest): Promise<E
     templateName: "Market Update Sheet",
     sector,
     howToUse: [
-      "1. The Dashboard sheet is a snapshot of real data as of the moment you downloaded this file — sector performance and central bank policy rates. It does not update itself; re-download for fresh numbers (that's how a morning sheet works anyway).",
+      "1. The Dashboard sheet is a snapshot of real data as of the moment you downloaded this file: sector performance and central bank policy rates. It does not update itself; re-download for fresh numbers (that is how a morning sheet works anyway).",
       "2. The Morning Note sheet is the structure of a daily desk note: overnight moves, the rates picture, what you're watching today, and the risk that would change your mind. The discipline is writing it before the market opens, in complete sentences.",
       "3. A good morning note connects the dashboard to a view: not 'tech was up', but 'tech outperformed because X, and if Y happens today that reverses'. The data is the start of the sentence, never the whole sentence.",
     ],
@@ -107,7 +107,7 @@ export async function buildMarketUpdateWorkbook(req: TemplateRequest): Promise<E
   ws.getColumn(2).width = 44;
   ws.getColumn(3).width = 12;
   ws.getColumn(4).width = 12;
-  sheetTitle(ws, "Market dashboard", `Real data as of ${today} — see Data & Sources. Re-download for fresh numbers.`);
+  sheetTitle(ws, "Market dashboard", `Real data as of ${today}: see Data & Sources. Re-download for fresh numbers.`);
 
   sectionLabel(ws, 4, "Equity sectors (via real sector ETFs)");
   ["Sector", "Proxy", "1W", "1M"].forEach((h, i) => headerCell(ws.getCell(5, 1 + i), h));
@@ -142,14 +142,14 @@ export async function buildMarketUpdateWorkbook(req: TemplateRequest): Promise<E
   });
   noteCell(
     ws.getCell(rStart + 2 + rateResults.length, 1),
-    "BoJ and PBoC publish no single daily policy rate — those rows are the closest free market-rate proxies, labeled as such (same convention as the Central Bank Room)."
+    "BoJ and PBoC publish no single daily policy rate. Those rows are the closest free market-rate proxies, labeled as such (same convention as the Central Bank Room)."
   );
   ws.mergeCells(rStart + 2 + rateResults.length, 1, rStart + 2 + rateResults.length, 4);
 
   // Morning note sheet.
   const m = wb.addWorksheet("Morning Note");
   m.getColumn(1).width = 110;
-  sheetTitle(m, `Morning note — ${today}`, "Write in the blue cells. Complete sentences: this is a note someone else should be able to trade off.");
+  sheetTitle(m, `Morning note: ${today}`, "Write in the blue cells. Complete sentences: this is a note someone else should be able to trade off.");
   const sections = [
     "Overnight & where we are (2–3 sentences: what moved, why, what it means for today)",
     "Rates & macro (what the dashboard's central-bank picture implies for positioning)",
@@ -170,16 +170,16 @@ export async function buildMarketUpdateWorkbook(req: TemplateRequest): Promise<E
     {
       item: "Sector & private-market performance (1W/1M)",
       source:
-        "Computed from Twelve Data daily closes of each real proxy ETF (may be delayed) — same series the Markets Overview module charts. Private-market rows are public listed proxies, not actual private-fund returns.",
+        "Computed from Twelve Data daily closes of each real proxy ETF (may be delayed), same series the Markets Overview module charts. Private-market rows are public listed proxies, not actual private-fund returns.",
     },
     {
       item: "Central bank policy rates",
       source:
-        "Each bank's own statistics API (FRED for the Fed and the BoJ/PBoC proxies, ECB SDW, BoE IADB, BoC Valet, SNB, RBA) — same sources as the Central Bank Room, fetched at download time.",
+        "Each bank's own statistics API (FRED for the Fed and the BoJ/PBoC proxies, ECB SDW, BoE IADB, BoC Valet, SNB, RBA), same sources as the Central Bank Room, fetched at download time.",
     },
     {
       item: `Snapshot date`,
-      source: `All figures as of ${today} at generation time — this file does not self-update.`,
+      source: `All figures as of ${today} at generation time. This file does not self-update.`,
     },
   ];
   addSourcesSheet(wb, sources);

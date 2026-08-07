@@ -62,7 +62,7 @@ export const TEMPLATES: TemplateInfo[] = [
     name: "DCF Valuation Model",
     desk: "Investment Banking / Equity Research",
     description:
-      "Project free cash flow from revenue-growth and margin assumptions, discount at a WACC you build from real inputs, and get an implied share price against today's. Picking the FIG sector switches the whole model to a dividend-discount variant — EV-based DCFs don't work for banks.",
+      "Project free cash flow from revenue-growth and margin assumptions, discount at a WACC you build from real inputs, and get an implied share price against today's. Picking the FIG sector switches the whole model to a dividend-discount variant. EV-based DCFs do not work for banks.",
     recommendedFor: ["generic", "tmt", "healthcare", "industrials", "consumer", "energy"],
   },
   {
@@ -70,7 +70,7 @@ export const TEMPLATES: TemplateInfo[] = [
     name: "Trading Comps",
     desk: "Investment Banking / Equity Research",
     description:
-      "The most-used analysis in banking: your subject company against a peer set you choose, every multiple a live formula off real filed data, peer medians, and what the subject would be worth at those medians. Picking the peer set well is the actual skill — the guidance sheet says how.",
+      "The most-used analysis in banking: your subject company against a peer set you choose, every multiple a live formula off real filed data, peer medians, and what the subject would be worth at those medians. Picking the peer set well is the actual skill. The guidance sheet says how.",
     recommendedFor: ["generic", "tmt", "fig", "consumer", "industrials"],
   },
   {
@@ -78,7 +78,7 @@ export const TEMPLATES: TemplateInfo[] = [
     name: "LBO Model",
     desk: "Private Equity / Leveraged Finance",
     description:
-      "Entry and exit multiples, a debt schedule that pays down from free cash flow year by year, and the sponsor's MOIC and IRR — the core mechanics of a buyout, with every assumption an editable cell.",
+      "Entry and exit multiples, a debt schedule that pays down from free cash flow year by year, and the sponsor's MOIC and IRR: the core mechanics of a buyout, with every assumption an editable cell.",
     recommendedFor: ["industrials", "consumer", "healthcare"],
   },
   {
@@ -86,7 +86,7 @@ export const TEMPLATES: TemplateInfo[] = [
     name: "M&A Accretion / Dilution Model",
     desk: "Investment Banking (M&A)",
     description:
-      "Acquirer buys target: offer premium, cash/stock/debt financing mix, optional synergies — does the deal add to or dilute the acquirer's EPS? Prefill both sides with real company data.",
+      "Acquirer buys target: offer premium, cash/stock/debt financing mix, optional synergies. Does the deal add to or dilute the acquirer's EPS? Prefill both sides with real company data.",
     recommendedFor: ["generic", "fig", "tmt"],
   },
   {
@@ -94,7 +94,7 @@ export const TEMPLATES: TemplateInfo[] = [
     name: "Equity Research Initiation Note",
     desk: "Equity Research",
     description:
-      "The structured skeleton of a real initiation: rating and target price up top, investment thesis, a valuation summary built from the company's real multiples, catalysts, and risks — ready to fill in with your own view.",
+      "The structured skeleton of a real initiation: rating and target price up top, investment thesis, a valuation summary built from the company's real multiples, catalysts, and risks, ready to fill in with your own view.",
     recommendedFor: ["generic", "tmt", "fig", "healthcare"],
   },
   {
@@ -102,7 +102,7 @@ export const TEMPLATES: TemplateInfo[] = [
     name: "Portfolio One-Pager",
     desk: "Asset Management",
     description:
-      "A holdings sheet where value, weight, and concentration stats compute themselves as you type positions in — the one-page portfolio summary an AM analyst keeps current.",
+      "A holdings sheet where value, weight, and concentration stats compute themselves as you type positions in: the one-page portfolio summary an AM analyst keeps current.",
     recommendedFor: ["generic"],
   },
   {
@@ -110,7 +110,7 @@ export const TEMPLATES: TemplateInfo[] = [
     name: "Market Update Sheet",
     desk: "Sales & Trading / Macro",
     description:
-      "Prefilled with this site's real data at the moment you download it: sector ETF performance and every tracked central bank's current policy rate — plus a structured commentary section for your own morning-note take.",
+      "Prefilled with this site's real data at the moment you download it: sector ETF performance and every tracked central bank's current policy rate, plus a structured commentary section for your own morning-note take.",
     recommendedFor: ["generic"],
   },
 ];
