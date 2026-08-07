@@ -20,19 +20,6 @@ export default function AnalysisPage() {
         all of it. This is what I stopped on, the ones I went and actually worked out properly.
       </p>
 
-      <div className="mt-6 max-w-2xl rounded-sm border border-border bg-surface/40 p-4">
-        <p className="font-mono text-[11px] uppercase tracking-widest text-module-analysis">
-          The point of this section
-        </p>
-        <p className="mt-2 text-sm leading-relaxed text-foreground/90">
-          These aren&apos;t news summaries. They&apos;re my own opinion, not neutral reporting.
-          Every piece starts from something real, a headline, a number, a chart, but the actual
-          point is always what I think it means, checked against the real data first. Mostly
-          markets and the economy. Sometimes something else, if the numbers behind it are real
-          enough to actually say something with.
-        </p>
-      </div>
-
       <section className="mt-10">
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">Write-Ups</h2>
         <div className="mt-3 space-y-2.5">
