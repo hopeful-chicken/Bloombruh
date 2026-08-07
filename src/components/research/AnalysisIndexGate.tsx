@@ -11,7 +11,7 @@ import { PITCH_UNLOCK_CODE as UNLOCK_CODE, PITCH_UNLOCK_STORAGE_KEY as STORAGE_K
 import AnalysisEntryRow, { type AnalysisIndexEntry } from "@/components/research/AnalysisEntryRow";
 
 type Lead = { id: string; date: string; sentence: string; source: { label: string; url: string } };
-type IndexContent = { philosophy: string; pitches: AnalysisIndexEntry[]; leads: Lead[] };
+type IndexContent = { pitches: AnalysisIndexEntry[]; leads: Lead[] };
 
 export default function AnalysisIndexGate() {
   const [unlocked, setUnlocked] = useState(false);
@@ -108,13 +108,6 @@ export default function AnalysisIndexGate() {
 
   return (
     <>
-      <div className="mt-8 max-w-2xl rounded-sm border border-border bg-surface/40 p-4">
-        <p className="font-mono text-[11px] uppercase tracking-widest text-module-analysis">
-          The point of this section
-        </p>
-        <p className="mt-2 text-sm leading-relaxed text-foreground/90">{content.philosophy}</p>
-      </div>
-
       <section className="mt-10">
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">Stock Pitches</h2>
         <div className="mt-3 space-y-2.5">
