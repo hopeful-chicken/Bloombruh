@@ -79,7 +79,7 @@ export default function AiGrader(props: Props) {
       }
       setResult(data.result);
     } catch {
-      setError("Couldn't reach the AI grader — check your connection and try again.");
+      setError("Could not reach the AI grader. Check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -89,11 +89,11 @@ export default function AiGrader(props: Props) {
     return (
       <div className="mt-5 rounded-lg border border-dashed border-border p-5">
         <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
-          Pro — AI report grading
+          Pro: AI report grading
         </h3>
         <p className="mt-2 text-sm text-muted">
           Get specific, fact-checked feedback on your written sections from
-          Claude — a paid feature, unlocked with a code for now while this
+          Claude, a paid feature, unlocked with a code for now while this
           is still in testing.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -117,7 +117,7 @@ export default function AiGrader(props: Props) {
           </button>
         </div>
         {codeError && (
-          <p className="mt-2 text-xs text-negative">Wrong code — try again.</p>
+          <p className="mt-2 text-xs text-negative">Wrong code. Try again.</p>
         )}
       </div>
     );
@@ -127,7 +127,7 @@ export default function AiGrader(props: Props) {
     <div className="mt-5 rounded-lg border border-accent/30 bg-accent/5 p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h3 className="font-mono text-xs uppercase tracking-widest text-accent">
-          Pro — AI report grading
+          Pro: AI report grading
         </h3>
         <button
           type="button"

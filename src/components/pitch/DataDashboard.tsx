@@ -164,7 +164,7 @@ export default function DataDashboard(props: Props) {
           factual "at a glance" chips, all from lib/signals.ts. */}
       <div className="mt-8">
         <p className="text-xs text-muted">
-          A quick, factual read on the price trend and the underlying business — not a
+          A quick, factual read on the price trend and the underlying business, not a
           recommendation, and not a substitute for reading the numbers below yourself.
         </p>
         <div className="mt-3 grid gap-4 sm:grid-cols-3">
@@ -300,8 +300,8 @@ export default function DataDashboard(props: Props) {
         </h2>
         {!hasFundamentalsData ? (
           <p className="text-xs text-muted/70">
-            No SEC fundamentals data available for {symbol} — either it
-            isn&apos;t a US SEC filer, or its filings don&apos;t use a
+            No SEC fundamentals data available for {symbol}. Either it
+            is not a US SEC filer, or its filings do not use a
             recognized tagging format. Price, volatility, and beta above are
             unaffected.
           </p>

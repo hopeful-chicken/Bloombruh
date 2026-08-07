@@ -32,8 +32,8 @@ function magnitudeLabel(bp: number): string {
 function genericNote(d: RateDecision): string {
   const size = magnitudeLabel(d.changeBp);
   return d.type === "hike"
-    ? `${size} hike — moves like this are typically used to cool inflation or an overheating economy by making borrowing more expensive.`
-    : `${size} cut — moves like this are typically used to support a slowing economy by making borrowing and spending cheaper.`;
+    ? `${size} hike: moves like this are typically used to cool inflation or an overheating economy by making borrowing more expensive.`
+    : `${size} cut: moves like this are typically used to support a slowing economy by making borrowing and spending cheaper.`;
 }
 
 type DecisionDetail = {
@@ -106,7 +106,7 @@ function DecisionItem({ decision, bankName }: { decision: RateDecision; bankName
           {loading && <p className="text-xs text-muted">Loading…</p>}
           {!loading && error && (
             <p className="text-xs text-muted">
-              Couldn&apos;t load details for this decision — try again later.
+              Could not load details for this decision. Try again later.
             </p>
           )}
           {!loading && !error && detail && (
@@ -240,7 +240,7 @@ export default function RateTimeline({
       </div>
       <p className="mt-3 text-xs text-muted/70">
         The one-line note next to each move is a general description of what
-        that type of decision typically does — not this bank&apos;s own stated
+        that type of decision typically does, not this bank&apos;s own stated
         reason for that specific move. &quot;Explain more&quot; generates a
         short AI summary grounded only in the real, dated news articles
         listed as sources beneath it (never the bank&apos;s official

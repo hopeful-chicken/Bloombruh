@@ -66,7 +66,7 @@ export default function AnalysisIndexGate() {
     return (
       <div className="mt-8 rounded-lg border border-dashed border-border p-5">
         <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
-          Stock pitches — locked while I build them
+          Stock pitches: locked while I build them
         </h3>
         <p className="mt-2 text-sm text-muted">Enter the code to view.</p>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -89,7 +89,7 @@ export default function AnalysisIndexGate() {
             Unlock
           </button>
         </div>
-        {codeError && <p className="mt-2 text-xs text-negative">Wrong code — try again.</p>}
+        {codeError && <p className="mt-2 text-xs text-negative">Wrong code. Try again.</p>}
       </div>
     );
   }
@@ -101,7 +101,7 @@ export default function AnalysisIndexGate() {
   if (fetchError || !content) {
     return (
       <p className="mt-8 text-sm text-muted">
-        Couldn&apos;t load this right now — refresh to try again.
+        Could not load this right now. Refresh to try again.
       </p>
     );
   }
@@ -123,7 +123,7 @@ export default function AnalysisIndexGate() {
           A running leads list
         </h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-          One sentence, one source, dropped here as-is — not deep-researched or cross-checked the
+          One sentence, one source, dropped here as-is, not deep-researched or cross-checked the
           way the pieces above are. A single source can be wrong, outdated, or missing context,
           so treat every line below as a starting point, not a finished fact.
         </p>

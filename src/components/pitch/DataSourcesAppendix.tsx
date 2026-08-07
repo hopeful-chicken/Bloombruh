@@ -24,13 +24,13 @@ export const COMPANY_PROFILE_SOURCES: DataSource[] = [
   {
     title: "Price & historical chart",
     detail:
-      "Current price, day's change, 52-week high/low, volume, and the daily closing history behind the chart come from Twelve Data's free quote and time-series endpoints. Quotes may be delayed a little versus a live terminal, and are cached for 60 seconds (quote) or 15 minutes (price history). Hong Kong Stock Exchange tickers (“.HK” suffix) are the one exception — Twelve Data's plan doesn't cover HKEX, so those instead use EODHD's free tier; the 52-week high/low and average volume shown for HK tickers are computed by this site from EODHD's daily history rather than returned directly, since EODHD's live-quote endpoint doesn't include either.",
+      "Current price, day's change, 52-week high/low, volume, and the daily closing history behind the chart come from Twelve Data's free quote and time-series endpoints. Quotes may be delayed a little versus a live terminal, and are cached for 60 seconds (quote) or 15 minutes (price history). Hong Kong Stock Exchange tickers (“.HK” suffix) are the one exception. Twelve Data's plan does not cover HKEX, so those instead use EODHD's free tier; the 52-week high/low and average volume shown for HK tickers are computed by this site from EODHD's daily history rather than returned directly, since EODHD's live-quote endpoint does not include either.",
     link: { label: "twelvedata.com", url: "https://twelvedata.com" },
   },
   {
     title: "Company fundamentals",
     detail:
-      "Revenue, margins, balance sheet, and cash flow line items come straight from the company's own filed 10-Ks (or 20-F/6-K for foreign private issuers reporting under US-GAAP, e.g. Alibaba), via SEC EDGAR's free XBRL data — no paid plan or key involved. Banks and insurers report their top line under industry-specific concepts (net revenues, net premiums earned, interest income) rather than a normal sales line — when one of those is used, a caption under the revenue figure says exactly which. Hong Kong listings with a US-listed twin that files with the SEC (Alibaba, HSBC, JD.com and others) show that same company's filings; a note here on those pages says so explicitly. Companies that don't file with the SEC at all show “Unavailable” rather than a guessed number.",
+      "Revenue, margins, balance sheet, and cash flow line items come straight from the company's own filed 10-Ks (or 20-F/6-K for foreign private issuers reporting under US-GAAP, e.g. Alibaba), via SEC EDGAR's free XBRL data, no paid plan or key involved. Banks and insurers report their top line under industry-specific concepts (net revenues, net premiums earned, interest income) rather than a normal sales line. When one of those is used, a caption under the revenue figure says exactly which. Hong Kong listings with a US-listed twin that files with the SEC (Alibaba, HSBC, JD.com and others) show that same company's filings; a note here on those pages says so explicitly. Companies that do not file with the SEC at all show “Unavailable” rather than a guessed number.",
     link: { label: "sec.gov/edgar", url: "https://www.sec.gov/edgar" },
   },
   {
@@ -42,13 +42,13 @@ export const COMPANY_PROFILE_SOURCES: DataSource[] = [
   {
     title: "News headlines",
     detail:
-      "Recent headlines come from Google News' public RSS search feed, filtered to the company's name — no account or key required, cached for an hour.",
+      "Recent headlines come from Google News' public RSS search feed, filtered to the company's name, no account or key required, cached for an hour.",
     link: { label: "news.google.com", url: "https://news.google.com" },
   },
   {
     title: "Computed analytics",
     detail:
-      "Beta is a real regression, not a looked-up figure: daily returns for this stock and the S&P 500 (via SPY) over the last year, beta = covariance ÷ variance. Moving averages and annualised volatility are computed directly from the price history above. Credit metrics (estimated EBITDA, net debt/EBITDA, interest coverage), ROIC, every valuation multiple (P/E, EV/EBITDA, EV/Sales, P/B, FCF yield, dividend yield), and growth/return rates (ROE, ROA, revenue/EBITDA/EPS growth) are all calculated by this site from the raw fundamentals and price data above — none of them are looked up from a provider directly.",
+      "Beta is a real regression, not a looked-up figure: daily returns for this stock and the S&P 500 (via SPY) over the last year, beta = covariance ÷ variance. Moving averages and annualised volatility are computed directly from the price history above. Credit metrics (estimated EBITDA, net debt/EBITDA, interest coverage), ROIC, every valuation multiple (P/E, EV/EBITDA, EV/Sales, P/B, FCF yield, dividend yield), and growth/return rates (ROE, ROA, revenue/EBITDA/EPS growth) are all calculated by this site from the raw fundamentals and price data above, none of them are looked up from a provider directly.",
   },
 ];
 
@@ -57,7 +57,7 @@ export default function DataSourcesAppendix({
   note,
 }: {
   sources: DataSource[];
-  /** Optional short note shown above the source list — e.g. "no
+  /** Optional short note shown above the source list, e.g. "no
    * fundamentals found for this ticker" on the Company Profile page. */
   note?: string | null;
 }) {

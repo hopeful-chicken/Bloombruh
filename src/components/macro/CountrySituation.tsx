@@ -125,7 +125,7 @@ export default function CountrySituation({
             Markets &amp; the economy
           </h2>
           <p className="mt-0.5 text-xs text-muted/70">
-            {region}&apos;s stock market next to the policy rate — pick a period.
+            {region}&apos;s stock market next to the policy rate. Pick a period.
           </p>
         </div>
         <div className="flex gap-1">
@@ -156,7 +156,7 @@ export default function CountrySituation({
         <p className="mt-2 text-xs text-muted/70">
           Left axis: policy rate (%). Right axis: {indexName}
           {isExactIndex ? "" : `, tracked via ${proxyName}`}. The two lines are
-          shown side by side for comparison — no correlation is implied; judge
+          shown side by side for comparison. No correlation is implied; judge
           for yourself.
         </p>
         <RateImpactExplainer bankId={bankId} bankName={bankName} currentRate={currentRate} />
@@ -164,14 +164,14 @@ export default function CountrySituation({
 
       <div className="mt-5 border-t border-border pt-4">
         <p className="mb-2 text-[11px] uppercase tracking-widest text-muted/70">
-          The situation over {PERIOD_PHRASE[range]} — AI-generated, grounded in the
+          The situation over {PERIOD_PHRASE[range]}: AI-generated, grounded in the
           {changePercent !== null ? " real index move and " : " "}sources below
         </p>
         {loading ? (
           <p className="text-sm text-muted">Reading recent coverage…</p>
         ) : fetchError ? (
           <p className="text-sm text-muted">
-            Couldn&apos;t load a summary right now — see the real coverage below in the meantime.
+            Could not load a summary right now. See the real coverage below in the meantime.
           </p>
         ) : result?.narrative ? (
           <p className="text-sm leading-relaxed text-foreground">{result.narrative}</p>
