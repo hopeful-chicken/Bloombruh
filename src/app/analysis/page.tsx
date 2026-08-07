@@ -1,11 +1,12 @@
 import AnalysisIndexGate from "@/components/research/AnalysisIndexGate";
+import AnalysisEntryRow from "@/components/research/AnalysisEntryRow";
+import { ANALYSIS_ENTRIES } from "@/data/analysis";
 
-// Deliberately no entry data imported or rendered here — this is a server
-// component, and its output ships to every visitor regardless of the
-// gate's visual state. AnalysisIndexGate fetches the real listing itself,
-// client-side, only after the code is verified server-side. See
-// docs/DECISIONS.md for the incident that made this the rule for
-// everything under /analysis, not just the pitch detail pages.
+// Write-ups are public — real data imported and rendered directly, right
+// here, server-side. Stock pitches and the leads list are still gated:
+// AnalysisIndexGate fetches those client-side, only after the code is
+// verified server-side. See docs/DECISIONS.md for why the split works this
+// way now instead of everything sitting behind one gate.
 export default function AnalysisPage() {
   return (
     <div>
@@ -18,6 +19,15 @@ export default function AnalysisPage() {
         headline, a 20-second video between everything else on Instagram. I scroll past almost
         all of it. This is what I stopped on — the ones I went and actually worked out properly.
       </p>
+
+      <section className="mt-10">
+        <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">Write-Ups</h2>
+        <div className="mt-3 space-y-2.5">
+          {ANALYSIS_ENTRIES.map((entry) => (
+            <AnalysisEntryRow key={entry.id} entry={entry} />
+          ))}
+        </div>
+      </section>
 
       <AnalysisIndexGate />
     </div>

@@ -1,42 +1,17 @@
 "use client";
 
-// Gate for the /analysis index itself — the write-ups list, the stock
-// pitches list, and the leads list are not rendered by the page at all;
-// this component fetches them from /api/analysis-index only after the
-// code checks out server-side. Same shared code/localStorage key as
-// PitchToolkitGate, so unlocking once here also unlocks the individual
-// pitch and write-up pages (and vice versa) — one gate for the whole
-// section, not nine separate ones.
+// Gate for the still-locked half of /analysis — the stock pitches list and
+// the leads list. Write-ups are public now (rendered directly by
+// src/app/analysis/page.tsx, no gate), so this component no longer fetches
+// or renders them. Same shared code/localStorage key as PitchToolkitGate,
+// so unlocking a pitch page also unlocks this list (and vice versa).
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { PITCH_UNLOCK_CODE as UNLOCK_CODE, PITCH_UNLOCK_STORAGE_KEY as STORAGE_KEY } from "@/lib/pitchUnlock";
+import AnalysisEntryRow, { type AnalysisIndexEntry } from "@/components/research/AnalysisEntryRow";
 
-type IndexEntry = { id: string; title: string; tagline: string; date: string };
 type Lead = { id: string; date: string; sentence: string; source: { label: string; url: string } };
-type IndexContent = { entries: IndexEntry[]; pitches: IndexEntry[]; leads: Lead[] };
-
-function EntryRow({ entry, locked }: { entry: IndexEntry; locked?: boolean }) {
-  return (
-    <Link
-      href={`/analysis/${entry.id}`}
-      className="block rounded-lg border border-border bg-surface/40 p-4 transition-colors hover:border-module-analysis/60 hover:bg-surface/70"
-    >
-      <div className="flex items-center justify-between gap-2">
-        <p className="font-mono text-[11px] text-muted">{entry.date}</p>
-        {locked && (
-          <span className="rounded-full bg-muted/15 px-2 py-0.5 text-[10px] uppercase tracking-wide text-muted">
-            Locked
-          </span>
-        )}
-      </div>
-      <h3 className="font-display mt-0.5 text-base font-semibold text-foreground group-hover:text-module-analysis">
-        {entry.title}
-      </h3>
-      <p className="mt-1 text-sm text-muted">{entry.tagline}</p>
-    </Link>
-  );
-}
+type IndexContent = { pitches: AnalysisIndexEntry[]; leads: Lead[] };
 
 export default function AnalysisIndexGate() {
   const [unlocked, setUnlocked] = useState(false);
@@ -91,7 +66,7 @@ export default function AnalysisIndexGate() {
     return (
       <div className="mt-8 rounded-lg border border-dashed border-border p-5">
         <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
-          My own work — locked while I build it
+          Stock pitches — locked while I build them
         </h3>
         <p className="mt-2 text-sm text-muted">Enter the code to view.</p>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -134,19 +109,10 @@ export default function AnalysisIndexGate() {
   return (
     <>
       <section className="mt-10">
-        <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">Write-Ups</h2>
-        <div className="mt-3 space-y-2.5">
-          {content.entries.map((entry) => (
-            <EntryRow key={entry.id} entry={entry} />
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-10">
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">Stock Pitches</h2>
         <div className="mt-3 space-y-2.5">
           {content.pitches.map((entry) => (
-            <EntryRow key={entry.id} entry={entry} locked />
+            <AnalysisEntryRow key={entry.id} entry={entry} locked />
           ))}
         </div>
       </section>

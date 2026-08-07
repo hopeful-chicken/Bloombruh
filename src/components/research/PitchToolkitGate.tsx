@@ -21,16 +21,11 @@
 
 import { useEffect, useState } from "react";
 import { PITCH_UNLOCK_CODE as UNLOCK_CODE, PITCH_UNLOCK_STORAGE_KEY as STORAGE_KEY } from "@/lib/pitchUnlock";
+import ArticleBody from "@/components/research/ArticleBody";
 import MarkdownContent from "@/components/research/MarkdownContent";
 import PitchNewsSection from "@/components/research/PitchNewsSection";
-import AnalysisPriceChart from "@/components/research/AnalysisPriceChart";
 import type { NewsArticle } from "@/lib/news";
 import type { AnalysisChart } from "@/data/analysis";
-
-// Entries can drop this literal token into their markdown body to place the
-// price chart inline (e.g. right after "the chart below" is mentioned)
-// instead of always appending it after the full body.
-const CHART_MARKER = "{{CHART}}";
 
 type PitchContent = {
   title: string;
@@ -144,18 +139,8 @@ export default function PitchToolkitGate({ pitchId }: { pitchId: string }) {
       </h1>
       <p className="mt-1 text-sm text-muted">{content.tagline}</p>
       <div className="mt-8 border-t border-border pt-6">
-        {content.chart && content.body.includes(CHART_MARKER) ? (
-          content.body.split(CHART_MARKER).map((part, i) => (
-            <div key={i}>
-              {i > 0 && <AnalysisPriceChart chart={content.chart!} />}
-              <MarkdownContent markdown={part} />
-            </div>
-          ))
-        ) : (
-          <MarkdownContent markdown={content.body} />
-        )}
+        <ArticleBody body={content.body} chart={content.chart} />
       </div>
-      {content.chart && !content.body.includes(CHART_MARKER) && <AnalysisPriceChart chart={content.chart} />}
       {content.news && (
         <PitchNewsSection
           narrative={content.news.narrative}

@@ -3,6 +3,18 @@
 // instead of react-markdown's unstyled defaults.
 
 import ReactMarkdown from "react-markdown";
+import { slugify } from "@/lib/slugify";
+
+// Flattens react-markdown's children (usually a plain string, but can nest
+// bold/italic nodes) into text, so headings with inline formatting still
+// get a usable id for the section nav to link to.
+function headingText(children: React.ReactNode): string {
+  return Array.isArray(children)
+    ? children.map((c) => (typeof c === "string" ? c : headingText((c as { props?: { children?: React.ReactNode } })?.props?.children))).join("")
+    : typeof children === "string"
+      ? children
+      : "";
+}
 
 export default function MarkdownContent({ markdown }: { markdown: string }) {
   return (
@@ -11,7 +23,10 @@ export default function MarkdownContent({ markdown }: { markdown: string }) {
         components={{
           h1: () => null, // the entry's own title is rendered by the page, not repeated here
           h2: ({ children }) => (
-            <h2 className="font-display mt-8 text-lg font-semibold text-foreground first:mt-0">
+            <h2
+              id={slugify(headingText(children))}
+              className="font-display mt-8 scroll-mt-24 text-lg font-semibold text-foreground first:mt-0"
+            >
               {children}
             </h2>
           ),

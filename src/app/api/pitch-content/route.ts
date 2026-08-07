@@ -18,12 +18,14 @@
 // (client-supplied, but server-verified) code matches.
 
 import { NextRequest, NextResponse } from "next/server";
-import { ANALYSIS_ENTRIES, STOCK_PITCHES } from "@/data/analysis";
+import { STOCK_PITCHES } from "@/data/analysis";
 import { PITCH_UNLOCK_CODE } from "@/lib/pitchUnlock";
 import { getCompanyNews } from "@/lib/news";
 import { explainPitchNews } from "@/lib/pitchNewsNarrative";
 
-const ALL_ENTRIES = [...ANALYSIS_ENTRIES, ...STOCK_PITCHES];
+// Write-ups are public now (rendered directly by the [slug] page, no code
+// needed), so this route only ever serves stock pitches — the still-locked
+// half of My Analysis.
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -34,22 +36,18 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Wrong or missing unlock code." }, { status: 403 });
   }
 
-  const entry = ALL_ENTRIES.find((p) => p.id === id);
+  const entry = STOCK_PITCHES.find((p) => p.id === id);
   if (!entry) {
     return NextResponse.json({ error: "Unknown entry." }, { status: 404 });
   }
-  const isPitch = STOCK_PITCHES.some((p) => p.id === entry.id);
 
-  let news: { articles: Awaited<ReturnType<typeof getCompanyNews>>; narrative: string | null; narrativeError: string | null } | null = null;
-  if (isPitch) {
-    const articles = await getCompanyNews(entry.title, 8);
-    const { narrative, narrativeError } = await explainPitchNews({
-      pitchId: entry.id,
-      companyName: entry.title,
-      articles,
-    });
-    news = { articles, narrative, narrativeError };
-  }
+  const articles = await getCompanyNews(entry.title, 8);
+  const { narrative, narrativeError } = await explainPitchNews({
+    pitchId: entry.id,
+    companyName: entry.title,
+    articles,
+  });
+  const news = { articles, narrative, narrativeError };
 
   return NextResponse.json(
     {
