@@ -36,7 +36,7 @@ export default function NewsBlockEditor({
   if (articles.length === 0) {
     return (
       <p className="text-xs text-muted">
-        No headlines were found for this company — nothing to quote here.
+        No headlines were found for this company. Nothing to quote here.
       </p>
     );
   }

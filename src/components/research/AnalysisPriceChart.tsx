@@ -115,7 +115,7 @@ export default function AnalysisPriceChart({ chart }: { chart: AnalysisChart }) 
         </ResponsiveContainer>
       </div>
       <p className="mt-1 text-[11px] text-muted/70">
-        Indexed to 100 on {chart.indexBase} — lines compare relative movement, not dollar price.
+        Indexed to 100 on {chart.indexBase}. Lines compare relative movement, not dollar price.
       </p>
       <ol className="mt-3 space-y-1 text-[11px] text-muted">
         {chart.annotations.map((a, i) => (

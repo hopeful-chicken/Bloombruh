@@ -91,7 +91,7 @@ export default function HistoricalCaseCard({
 
       <div className="mt-5 border-t border-border pt-4">
         <p className="mb-2 text-[11px] uppercase tracking-widest text-muted/70">
-          What happened, in hindsight — AI-generated, grounded in the real figures above and the sources below
+          What happened, in hindsight: AI-generated, grounded in the real figures above and the sources below
         </p>
         {narrative ? (
           <p className="text-sm leading-relaxed text-foreground">{narrative}</p>

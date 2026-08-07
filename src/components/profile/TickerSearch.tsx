@@ -137,7 +137,7 @@ export default function TickerSearch({
                     {!freeData && (
                       <span
                         className="block text-[10px] text-negative/80"
-                        title="This site's free data plan doesn't cover quotes for this exchange, so this isn't clickable — shown for visibility only."
+                        title="This site's free data plan does not cover quotes for this exchange, so this is not clickable. Shown for visibility only."
                       >
                         limited data
                       </span>

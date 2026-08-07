@@ -84,7 +84,7 @@ export default function TerminalNav() {
 
         <nav className="hidden flex-wrap items-center gap-6 md:flex">
           {/* Only the modules Adam stands behind get a permanent spot in
-              nav — beta modules are real and reachable, but only from
+              nav. Beta modules are real and reachable, but only from
               their own homepage section, not the persistent top bar. */}
           {modules
             .filter((m) => m.status === "live")

@@ -108,7 +108,7 @@ export default function IndexedCaseChart({
         </LineChart>
       </ResponsiveContainer>
       <p className="mt-1 text-[11px] text-muted/70">
-        Indexed to 100 at the start of the window shown — lines compare relative
+        Indexed to 100 at the start of the window shown. Lines compare relative
         movement, not dollar price (see the real prices in the stats below).
       </p>
     </div>

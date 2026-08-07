@@ -65,8 +65,8 @@ export default function MarketChart({ data }: { data: ProductionMilestone[] }) {
         </AreaChart>
       </ResponsiveContainer>
       <p className="mt-1 text-[11px] text-muted/70">
-        Every point is a real, disclosed figure — this only covers 2020 onward because
-        that&apos;s as far back as continuous public data actually goes (see below).
+        Every point is a real, disclosed figure. This only covers 2020 onward because
+        that is as far back as continuous public data actually goes (see below).
       </p>
     </div>
   );

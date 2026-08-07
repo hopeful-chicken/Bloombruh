@@ -53,7 +53,7 @@ export default function TerminalHero() {
         <span className="h-2.5 w-2.5 rounded-full bg-[#e2685a]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#e0b84a]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#55b685]" />
-        <span className="ml-2 font-mono text-[11px] text-muted">adam@bloombruh — zsh</span>
+        <span className="ml-2 font-mono text-[11px] text-muted">adam@bloombruh: zsh</span>
       </div>
 
       {/* body */}

@@ -45,7 +45,7 @@ export default async function UsEconomicIndicators() {
         Beyond the policy rate
       </h2>
       <p className="mt-1 text-xs text-muted">
-        Real monthly data from Alpha Vantage — US-specific, so shown only here rather than the
+        Real monthly data from Alpha Vantage, US-specific, so shown only here rather than the
         cross-bank overview above.
       </p>
 

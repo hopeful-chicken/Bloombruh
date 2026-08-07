@@ -91,9 +91,9 @@ export default function HkexPriceChart({
           ))}
         </div>
         {loading && <span className="text-xs text-muted">Loading…</span>}
-        {error && !loading && <span className="text-xs text-negative">Couldn&apos;t load this range</span>}
+        {error && !loading && <span className="text-xs text-negative">Could not load this range</span>}
         {partial && !loading && !error && (
-          <span className="text-xs text-muted">Only ~1Y available right now — full range temporarily unavailable</span>
+          <span className="text-xs text-muted">Only ~1Y available right now: full range temporarily unavailable</span>
         )}
       </div>
 

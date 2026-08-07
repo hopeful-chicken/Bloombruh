@@ -125,7 +125,7 @@ export default function GlobalRatesOverview({
 
       {summaries.length === 0 ? (
         <p className="mt-4 text-sm text-muted">
-          Rate data is unavailable for all tracked banks right now — try again
+          Rate data is unavailable for all tracked banks right now. Try again
           shortly.
         </p>
       ) : (
@@ -149,7 +149,7 @@ export default function GlobalRatesOverview({
               <p className="text-sm text-muted">Reading recent coverage…</p>
             ) : narrativeFetchError ? (
               <p className="text-sm text-muted">
-                Couldn&apos;t load a summary right now — see the real coverage below in the meantime.
+                Could not load a summary right now. See the real coverage below in the meantime.
               </p>
             ) : narrativeResult?.narrative ? (
               <p className="text-sm leading-relaxed text-foreground">{narrativeResult.narrative}</p>

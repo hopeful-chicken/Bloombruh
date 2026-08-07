@@ -91,7 +91,7 @@ export default function PitchToolkitGate({ pitchId }: { pitchId: string }) {
     return (
       <div className="mt-8 rounded-lg border border-dashed border-border p-5">
         <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
-          My own work — locked while I build it
+          My own work: locked while I build it
         </h3>
         <p className="mt-2 text-sm text-muted">Enter the code to view.</p>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -114,7 +114,7 @@ export default function PitchToolkitGate({ pitchId }: { pitchId: string }) {
             Unlock
           </button>
         </div>
-        {codeError && <p className="mt-2 text-xs text-negative">Wrong code — try again.</p>}
+        {codeError && <p className="mt-2 text-xs text-negative">Wrong code. Try again.</p>}
       </div>
     );
   }
@@ -126,7 +126,7 @@ export default function PitchToolkitGate({ pitchId }: { pitchId: string }) {
   if (fetchError || !content) {
     return (
       <p className="mt-8 text-sm text-muted">
-        Couldn&apos;t load this pitch right now — refresh to try again.
+        Could not load this pitch right now. Refresh to try again.
       </p>
     );
   }

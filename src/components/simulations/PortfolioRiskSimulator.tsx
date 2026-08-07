@@ -71,7 +71,7 @@ export default function PortfolioRiskSimulator() {
     <div className="rounded-sm border border-border bg-surface/40 p-5">
       <p className="text-xs text-muted">
         Starting portfolio: <span className="font-mono text-foreground">${STARTING_VALUE.toLocaleString()}</span>.
-        Set weights below (they&apos;ll be normalized to 100% automatically), then run 500 simulated
+        Set weights below (they will be normalized to 100% automatically), then run 500 simulated
         1-year paths.
       </p>
 
@@ -131,7 +131,7 @@ export default function PortfolioRiskSimulator() {
           </p>
 
           <p className="mt-5 mb-2 text-xs uppercase tracking-widest text-muted/70">
-            Simulated value over 1 year — median, 25th-75th percentile band, 5th-95th percentile band
+            Simulated value over 1 year: median, 25th-75th percentile band, 5th-95th percentile band
           </p>
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">

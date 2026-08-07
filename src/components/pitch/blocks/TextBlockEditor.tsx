@@ -16,7 +16,7 @@ export default function TextBlockEditor({
       rows={6}
       placeholder={
         data.placeholder ??
-        "Write freely — thesis, a deep dive on one topic, anything."
+        "Write freely: thesis, a deep dive on one topic, anything."
       }
       className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground focus:border-accent focus:outline-none"
     />

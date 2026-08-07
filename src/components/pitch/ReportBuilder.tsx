@@ -145,7 +145,7 @@ export default function ReportBuilder({
 
       {blocks.length === 0 && (
         <p className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-muted">
-          No blocks yet — add one below to start building your report.
+          No blocks yet. Add one below to start building your report.
         </p>
       )}
 

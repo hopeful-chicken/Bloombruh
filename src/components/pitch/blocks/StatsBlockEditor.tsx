@@ -30,7 +30,7 @@ export default function StatsBlockEditor({
       <p className="mb-3 text-xs text-muted">
         Pick which numbers to include. Anything marked{" "}
         <span className="text-negative">Unavailable</span> has no free data
-        source — type in your own figure or estimate instead.
+        source. Type in your own figure or estimate instead.
       </p>
       <div className="grid gap-2 sm:grid-cols-2">
         {availableStats.map((stat) => {

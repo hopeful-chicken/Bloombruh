@@ -104,7 +104,7 @@ export default function PriceChart({
         </div>
         {loading && <span className="text-xs text-muted">Loading…</span>}
         {error && !loading && (
-          <span className="text-xs text-negative">Couldn&apos;t load this range</span>
+          <span className="text-xs text-negative">Could not load this range</span>
         )}
       </div>
 

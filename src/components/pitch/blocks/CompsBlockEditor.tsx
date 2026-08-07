@@ -67,7 +67,7 @@ export default function CompsBlockEditor({
 
       {error && (
         <p className="mt-2 text-xs text-negative">
-          Couldn&apos;t load one or more tickers. Check the symbols and try again.
+          Could not load one or more tickers. Check the symbols and try again.
         </p>
       )}
 

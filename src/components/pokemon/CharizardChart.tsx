@@ -50,7 +50,7 @@ export default function CharizardChart({ data }: { data: PriceDataPoint[] }) {
             }}
             labelStyle={{ color: "#26241f" }}
             formatter={(value, _name, item) => [
-              `$${Number(value).toLocaleString()} — ${item.payload.label}`,
+              `$${Number(value).toLocaleString()}: ${item.payload.label}`,
               "",
             ]}
           />
@@ -64,7 +64,7 @@ export default function CharizardChart({ data }: { data: PriceDataPoint[] }) {
         </LineChart>
       </ResponsiveContainer>
       <p className="mt-1 text-[11px] text-muted/70">
-        Log scale — the price range spans nearly 700x. Real reported sale/valuation
+        Log scale: the price range spans nearly 700x. Real reported sale/valuation
         points; gaps between them are real reporting gaps, not smoothed.
       </p>
     </div>

@@ -125,9 +125,9 @@ export default function BalloonGame() {
           </p>
           <p className="mt-2 text-xs text-muted">
             More pumps on average, and more pops, generally reads as higher risk tolerance in the
-            real game&apos;s framework — fewer pumps and consistent early cash-outs reads as more
+            real game&apos;s framework. Fewer pumps and consistent early cash-outs reads as more
             risk-averse. This is a simplified illustration of the mechanic, not Pymetrics&apos;
-            real scoring algorithm, and it isn&apos;t telling you anything diagnostic about
+            real scoring algorithm, and it is not telling you anything diagnostic about
             yourself.
           </p>
           <button

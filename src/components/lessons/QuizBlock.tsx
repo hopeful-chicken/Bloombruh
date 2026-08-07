@@ -111,7 +111,7 @@ export default function QuizBlock({
                       selected === q.correctIndex ? "font-semibold text-positive" : "font-semibold text-negative"
                     }
                   >
-                    {selected === q.correctIndex ? "Correct — " : "Not quite — "}
+                    {selected === q.correctIndex ? "Correct: " : "Not quite: "}
                   </span>
                   {q.explanation}
                 </p>

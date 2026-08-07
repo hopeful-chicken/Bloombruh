@@ -102,7 +102,7 @@ export default function SegmentNarrative({
           <p className="text-sm text-muted">Reading recent coverage…</p>
         ) : fetchError ? (
           <p className="text-sm text-muted">
-            Couldn&apos;t load a narrative right now — see the real headlines below in the meantime.
+            Could not load a narrative right now. See the real headlines below in the meantime.
           </p>
         ) : result?.narrative ? (
           <p className="text-sm leading-relaxed text-foreground">{result.narrative}</p>

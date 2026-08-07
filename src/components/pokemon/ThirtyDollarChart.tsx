@@ -100,9 +100,9 @@ export default function ThirtyDollarChart({ data }: { data: ComparisonPoint[] })
         </LineChart>
       </ResponsiveContainer>
       <p className="mt-1 text-[11px] text-muted/70">
-        Log scale — the two lines end nearly 2,000x apart. Hollow/dashed dot = the
+        Log scale: the two lines end nearly 2,000x apart. Hollow/dashed dot = the
         stated $30 entry assumption, not a documented sale; filled dots are real
-        reported sales. See below for exactly what is and isn&apos;t verifiable here.
+        reported sales. See below for exactly what is and is not verifiable here.
       </p>
     </div>
   );

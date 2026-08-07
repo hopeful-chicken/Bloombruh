@@ -48,8 +48,8 @@ export default function MarketIntelSection({
         Ownership, activity &amp; sentiment
       </h2>
       <p className="mt-1 max-w-2xl text-sm text-muted">
-        Who&apos;s buying and selling, who owns the float, and how recent news is scoring on
-        sentiment — real data from Alpha Vantage, alongside (not replacing) the news above.
+        Who is buying and selling, who owns the float, and how recent news is scoring on
+        sentiment: real data from Alpha Vantage, alongside (not replacing) the news above.
       </p>
 
       {nextEarnings && (

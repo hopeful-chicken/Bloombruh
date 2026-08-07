@@ -88,7 +88,7 @@ export default function SegmentChart({
   if (error || points.length < 2) {
     return (
       <p className="text-sm text-muted">
-        Couldn&apos;t load price data for this segment right now — see the news below in the meantime.
+        Could not load price data for this segment right now. See the news below in the meantime.
       </p>
     );
   }

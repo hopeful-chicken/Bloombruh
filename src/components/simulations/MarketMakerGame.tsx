@@ -226,7 +226,7 @@ export default function MarketMakerGame() {
 
           {breaches > 0 && (
             <p className="mt-3 rounded-md border border-accent/40 bg-accent/10 px-3 py-1.5 text-xs text-accent">
-              Risk limit breached {breaches}x — desk forcibly hedged part of your position at a
+              Risk limit breached {breaches}x. Desk forcibly hedged part of your position at a
               penalty price.
             </p>
           )}

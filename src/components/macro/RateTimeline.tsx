@@ -124,7 +124,7 @@ function DecisionItem({ decision, bankName }: { decision: RateDecision; bankName
               )}
               {!detail.explanation && detail.explanationError && (
                 <p className="mb-3 text-xs text-muted">
-                  Couldn&apos;t generate an AI explanation for this decision —
+                  Could not generate an AI explanation for this decision,
                   showing the real source articles below instead.
                 </p>
               )}
@@ -244,7 +244,7 @@ export default function RateTimeline({
         reason for that specific move. &quot;Explain more&quot; generates a
         short AI summary grounded only in the real, dated news articles
         listed as sources beneath it (never the bank&apos;s official
-        statement, and it may say there isn&apos;t enough coverage to explain
+        statement, and it may say there is not enough coverage to explain
         confidently).
       </p>
     </div>

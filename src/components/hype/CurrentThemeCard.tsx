@@ -181,18 +181,18 @@ export default function CurrentThemeCard({
       </div>
       <p className="mt-2 text-[11px] text-muted/70">
         Price return is over the period selected above; revenue growth is the latest
-        full fiscal year — different time bases, both real, not directly comparable.
+        full fiscal year, different time bases, both real, not directly comparable.
       </p>
 
       <div className="mt-5 border-t border-border pt-4">
         <p className="mb-2 text-[11px] uppercase tracking-widest text-muted/70">
-          The evidence, both sides — AI-generated, grounded in the real figures above and the sources below (no verdict rendered)
+          The evidence, both sides: AI-generated, grounded in the real figures above and the sources below (no verdict rendered)
         </p>
         {loading ? (
           <p className="text-sm text-muted">Reading recent coverage…</p>
         ) : fetchError ? (
           <p className="text-sm text-muted">
-            Couldn&apos;t load a summary right now — see the real coverage below in the meantime.
+            Could not load a summary right now. See the real coverage below in the meantime.
           </p>
         ) : result?.narrative ? (
           <p className="text-sm leading-relaxed text-foreground">{result.narrative}</p>
