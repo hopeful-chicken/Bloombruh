@@ -101,25 +101,23 @@ The "35% vs 25%" gap that's been cited everywhere, including in my own first dra
 
 What *is* real, and actually Korea-specific, is everything that happened on the other listing: the 1.2 million margin calls, the 320,000+ forced liquidations, the political fallout. All of it ran through the Seoul-listed shares and Korea's leveraged-ETF plumbing, which is mechanically separate from the Nasdaq ADR. The leverage crisis is real. It just isn't what shows up in the ADR's own price chart once you measure it from an honest starting point.
 
-## Sizing the China shock honestly
+## The China shock
 
 The Shanghai Aishengna DUV news is real and worth taking seriously as a multi-year signal, but it's currently much smaller than the market's one-day reaction implied. The Chinese firm is expected to deliver roughly five immersion DUV units in 2026, rising to about 20 more in 2027. ASML alone expects to ship around 130 immersion systems in 2026. The domestic Chinese tools reportedly still lag ASML's technology and depend on some non-domestic components. This is a real, credible first step toward Chinese self-sufficiency in a category it has never mass-produced before, and a genuine long-term reason for Korean chipmakers to keep investing in staying ahead. But it changes essentially nothing about 2026 or 2027 memory-chip supply and demand. The market's violent reaction to it looks much more like an already-fragile, over-levered market treating a symbolic headline as a reason to sell than a rational repricing of near-term competitive risk.
 
-## Why this isn't 1997
+## Comparing to historical cases
 
 It's tempting to reach for Korea's last great financial crisis, and some of the July numbers genuinely did exceed single-month declines from that era. But the mechanism is close to the opposite. 1997 was an *external* funding crisis. Foreign banks stopped rolling over loans to Korean banks and companies, who found they couldn't secure new financing at any price. 2026 is a *domestic* leverage crisis, manufactured almost entirely at home: a financial product regulators approved in late May, bought overwhelmingly by Korean retail investors rather than foreign capital, unwinding through margin calls rather than a sovereign funding freeze. Foreign investors did pull real money out in July (widely reported around $13bn), but as a consequence of the crash, not its original cause. It's a different disease, and I think a much shorter one, because a leverage-driven crash burns out once the forced sellers are gone, and the 1.2 million margin calls and 320,000+ liquidations by mid-July did most of that flushing already. A funding crisis doesn't resolve nearly that fast.
-
-## Why this isn't quite 2018 either
 
 The 2018 memory-chip downturn is the other obvious comparison, and it's also a poor match for what just happened, but for a reason worth noting, because I think it points at the actual forward risk. 2018 was a *supply-side* glut: hyperscalers had over-ordered during the first big cloud buildout, and DRAM prices then fell roughly 60% over the following four quarters as that excess capacity actually arrived. Nothing about July 2026 resembles that. Real demand data from this same window all point at demand that is still real and still accelerating, not a 2018-style glut arriving into a saturated market. Amazon, Microsoft, Alphabet and Meta are guiding to a combined $725bn of 2026 AI capex, up 77% year-on-year, with Evercore and Bank of America now modeling over $1tn combined for 2027. S&P Global's July PMI showed the fastest tech-equipment output growth since May 2021.
 
 But new fab capacity from Samsung, SK Hynix, Micron and Kioxia isn't due to reach volume production until late 2027 or 2028. Every one of them is expanding capacity right now, at the same time, into a demand curve that even the bulls describe as a "supercycle," a word that basically admits growth this fast isn't permanent, even while everyone's still riding it. That's not this crash. It's a real, specific, later risk. If 2027-2028 capacity additions land just as hyperscaler capex growth naturally decelerates off this year's exceptional base, you get something that could look a lot more like 2018 than anything that happened in July 2026.
 
-## The bull case, stated plainly
+## The bull case
 
 SK Hynix just posted 257% revenue growth and a 76% operating margin, and "missed" only because consensus had run even further ahead of an already-extraordinary number. That's a sign of a market pricing in near-perfection, not a business in trouble. J.P. Morgan's own read, published the same week as the fresh 6 August selloff, was that the sell-off "had not derailed" the AI investment cycle, and "we do not see any fundamental indicators that signal meaningful weakness in the next 6-12 months." Real hyperscaler capex guidance backs that up directly. On this view, July was a leverage-and-positioning accident laid on top of a genuinely intact fundamental story, and the current multiple compression is a buying opportunity for anyone willing to sit through the volatility.
 
-## The bear case, stated plainly
+## The bear case
 
 Michael Burry's own framing, from a 4 August note, a day before the market's next leg down: "I continue to believe it is possible we are near a major top, and possibly a 1987-type fall." The bear case isn't really about SK Hynix's own numbers. It's about crowding and leverage across the entire AI trade, of which Korea's retail leveraged-ETF mania was one particularly visible, particularly Korean symptom, not a uniquely Korean disease. If the same positioning fragility exists in less visible forms elsewhere in the AI trade (margin debt, options-driven flows, concentrated index weights), then a Korea-style unwind could recur anywhere sentiment cracks next, and the 2027-2028 capacity-glut risk above sits waiting underneath all of it regardless of how the next twelve months of sentiment go.
 
