@@ -65,7 +65,7 @@ export default async function HkexCompanyPage({
             rel="noopener noreferrer"
             className="text-sm text-accent hover:underline"
           >
-            {quote.name} — key financials on Yahoo Finance →
+            {quote.name}: key financials on Yahoo Finance →
           </a>
           <a
             href={hkexCompanyPageUrl(code)}
@@ -73,15 +73,15 @@ export default async function HkexCompanyPage({
             rel="noopener noreferrer"
             className="text-sm text-accent hover:underline"
           >
-            {quote.name} — company profile on HKEX →
+            {quote.name}: company profile on HKEX →
           </a>
         </div>
         <p className="mt-2 text-sm text-muted">
           HKEX&apos;s own site can be slow or briefly unavailable (it sits behind bot
-          protection that sometimes blocks even normal browsing) — Yahoo Finance is the more
+          protection that sometimes blocks even normal browsing). Yahoo Finance is the more
           reliable of the two. For the full regulatory filing history (annual reports, results
-          announcements): HKEXnews has no direct link into a single company&apos;s filings —
-          search <span className="font-mono text-foreground">{code}</span> yourself on{" "}
+          announcements): HKEXnews has no direct link into a single company&apos;s filings.
+          Search <span className="font-mono text-foreground">{code}</span> yourself on{" "}
           <a href={hkexNewsSearchUrl()} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
             HKEXnews
           </a>
@@ -93,8 +93,8 @@ export default async function HkexCompanyPage({
         <NewsFeedSection
           title="Press Releases (last 3 months)"
           fetchUrl={`/api/hkex/press-releases?code=${encodeURIComponent(code)}&name=${encodeURIComponent(quote.name)}`}
-          unmappedMessage="Couldn't find an official press-release page for this company — see the regulatory filings link above for its official announcements instead."
-          emptyMessage="Checked the company's official press-release page but didn't find anything dated in the last 3 months."
+          unmappedMessage="Could not find an official press-release page for this company. See the regulatory filings link above for its official announcements instead."
+          emptyMessage="Checked the company's official press-release page but did not find anything dated in the last 3 months."
         />
       </section>
 

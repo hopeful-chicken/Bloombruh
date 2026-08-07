@@ -39,7 +39,7 @@ const caveat = Caveat({
 
 const title = "Bloombruh";
 const description =
-  "A free, web-based Bloomberg-lite for students — look up any public company's price, chart, and fundamentals, or build your own investment pitch report and export it as a PDF.";
+  "A free, web-based Bloomberg-lite for students: look up any public company's price, chart, and fundamentals, or build your own investment pitch report and export it as a PDF.";
 
 // Real deployed URL, set via NEXT_PUBLIC_SITE_URL once the site is live
 // (see .env.local.example) — this is what search engines use to resolve

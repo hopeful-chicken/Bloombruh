@@ -82,12 +82,12 @@ export default async function CompanyProfilePage({
           ← Back to search
         </Link>
         <h1 className="font-display mt-4 text-2xl font-medium text-foreground">
-          Couldn&apos;t load &ldquo;{symbol}&rdquo;
+          Could not load &ldquo;{symbol}&rdquo;
         </h1>
         {isHongKong ? (
           <p className="mt-2 max-w-xl text-sm text-muted">
-            &ldquo;{symbol}&rdquo; didn&apos;t return real data from the
-            Hong Kong Stock Exchange feed — double check the ticker code
+            &ldquo;{symbol}&rdquo; did not return real data from the
+            Hong Kong Stock Exchange feed. Double check the ticker code
             (e.g. &ldquo;0700.HK&rdquo; for Tencent), or the free-tier
             request limit may have been hit for today.
           </p>
@@ -97,13 +97,13 @@ export default async function CompanyProfilePage({
               &ldquo;{symbol}&rdquo; is a real ticker, but this site&apos;s
               free market-data plan (Twelve Data&apos;s Basic tier) only
               covers quotes for US-listed stocks (NYSE/NASDAQ) and US OTC
-              listings — not companies whose primary listing is on a
+              listings, not companies whose primary listing is on a
               foreign exchange (e.g. the London, Australian, Toronto, or
               Frankfurt exchanges).
             </p>
             <p className="mt-2 max-w-xl text-sm text-muted">
-              If this company also trades in the US — as an ADR, or a
-              secondary US listing — try searching for that ticker instead.
+              If this company also trades in the US (as an ADR, or a
+              secondary US listing), try searching for that ticker instead.
               Otherwise this is a genuine free-tier limit, not a bug; see{" "}
               <span className="font-mono text-xs">docs/DATA_SOURCES.md</span>{" "}
               for the full explanation.
@@ -262,10 +262,10 @@ export default async function CompanyProfilePage({
   // line. Keys match the FIG tags in secEdgar.ts's CONCEPTS.revenue.
   const FIG_REVENUE_CAPTIONS: Record<string, string> = {
     RevenuesNetOfInterestExpense:
-      "Net revenues (incl. interest, net of interest expense) — how banks report their top line",
-    PremiumsEarnedNet: "Net premiums earned — how insurers report their top line",
+      "Net revenues (incl. interest, net of interest expense): how banks report their top line",
+    PremiumsEarnedNet: "Net premiums earned: how insurers report their top line",
     InterestAndDividendIncomeOperating:
-      "Interest & dividend income — the closest tagged top line for this lender",
+      "Interest & dividend income: the closest tagged top line for this lender",
   };
   const figRevenueCaption = fundamentals?.revenueConcept
     ? FIG_REVENUE_CAPTIONS[fundamentals.revenueConcept] ?? null
@@ -661,10 +661,10 @@ export default async function CompanyProfilePage({
   // and ADR pages whose per-share multiples come from the HK price.
   const fundamentalsSourceNote = isHongKong
     ? adrForHk
-      ? `Fundamentals for ${symbol} come from ${quote.name}'s own SEC filings, accessed via its US listing (${adrForHk}) — one company, two listings, same accounts. Price-based multiples convert this page's HK$ ordinary-share price to USD at the current exchange rate.`
+      ? `Fundamentals for ${symbol} come from ${quote.name}'s own SEC filings, accessed via its US listing (${adrForHk}): one company, two listings, same accounts. Price-based multiples convert this page's HK$ ordinary-share price to USD at the current exchange rate.`
       : `No fundamentals shown: ${quote.name} has no US listing that files with the SEC, and no free source publishes HKEX companies' structured financials. Price, chart, and news above are real; nothing is estimated to fill the gap.`
     : hkListingForAdr
-      ? `Price-based multiples (P/E, EV/EBITDA, market cap...) are computed from this company's Hong Kong ordinary-share price (${hkListingForAdr}, converted to USD) rather than the ADR price shown above — ADR quotes are per ADS bundle (several ordinary shares each), which would overstate every per-share multiple.`
+      ? `Price-based multiples (P/E, EV/EBITDA, market cap...) are computed from this company's Hong Kong ordinary-share price (${hkListingForAdr}, converted to USD) rather than the ADR price shown above. ADR quotes are per ADS bundle (several ordinary shares each), which would overstate every per-share multiple.`
       : null;
 
   return (

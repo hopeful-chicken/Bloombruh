@@ -16,13 +16,13 @@ const HOME_SOURCES: DataSource[] = [
   {
     title: "World-situation news",
     detail:
-      "The real headlines underneath the AI narrative come from Google News' public RSS search feed — no account or key required.",
+      "The real headlines underneath the AI narrative come from Google News' public RSS search feed: no account or key required.",
     link: { label: "news.google.com", url: "https://news.google.com" },
   },
   {
     title: "World-situation narrative",
     detail:
-      "The short AI-generated summary above those headlines is Claude (Anthropic), grounded strictly in the real news articles shown directly beneath it — it's never allowed to state something the articles don't support, and says so plainly when the coverage isn't enough to explain something confidently.",
+      "The short AI-generated summary above those headlines is Claude (Anthropic), grounded strictly in the real news articles shown directly beneath it. It is never allowed to state something the articles do not support, and says so plainly when the coverage is not enough to explain something confidently.",
     link: { label: "anthropic.com", url: "https://www.anthropic.com" },
   },
 ];
@@ -81,9 +81,9 @@ export default function Home() {
           </h2>
           <div className="p-5">
             <p className="text-sm leading-relaxed text-muted">
-              Grab a working Excel template — a DCF, an LBO, an M&amp;A model,
+              Grab a working Excel template: a DCF, an LBO, an M&amp;A model,
               an equity research note, a portfolio one-pager, or a trading-floor
-              morning sheet — prefilled with real data for any company on this
+              morning sheet, prefilled with real data for any company on this
               site, with sector-by-sector guidance built in. Then use the
               Markets Overview, the Central Bank Room, and the company profiles
               to do what analysts actually do: turn data into a defensible view.
@@ -116,7 +116,7 @@ export default function Home() {
 
       <ScrollReveal as="section" className="mt-14">
         <h2 className="border-l-2 border-border pl-3 font-mono text-xs font-medium uppercase tracking-widest text-muted">
-          In development — beta
+          In development: beta
         </h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
           Fully working, same live data as everything else above. Just not polished or

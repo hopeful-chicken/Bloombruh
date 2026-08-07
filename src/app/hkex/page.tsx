@@ -16,18 +16,18 @@ export default function HkexScreenerPage() {
   return (
     <div>
       <p className="font-mono text-xs uppercase tracking-widest text-accent">
-        HKEX Screener — for accounting &amp; advisory firms
+        HKEX Screener: for accounting &amp; advisory firms
       </p>
       <h1 className="font-display mt-1 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
         Hong Kong Stock Exchange, company by company
       </h1>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
         A focused lookup where every company is Hong Kong Stock Exchange-listed,
-        real, and free — useful for accounting and advisory teams screening HK
+        real, and free, useful for accounting and advisory teams screening HK
         names. Pick one and you get a dedicated HKEX research page: a real
         price chart (up to 10 years), direct links to official filings, the
         company&apos;s own scraped press releases where a source is curated,
-        and reliable third-party news — each with a strictly source-grounded
+        and reliable third-party news, each with a strictly source-grounded
         AI recap.
       </p>
 

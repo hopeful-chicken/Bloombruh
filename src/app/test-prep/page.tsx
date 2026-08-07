@@ -11,7 +11,7 @@ export default function TestPrepPage() {
         First-round assessments, for real
       </h1>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
-        Banks, asset managers, and consulting firms don&apos;t just interview you — increasingly
+        Banks, asset managers, and consulting firms do not just interview you. Increasingly
         the first real filter is a game-based psychometric test (Pymetrics) or a timed recorded
         video (HireVue), before you ever speak to a human. This page covers all three phases:
         what each firm type&apos;s process actually looks like, a technical/case question bank,
@@ -56,7 +56,7 @@ export default function TestPrepPage() {
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-muted">
           Accounting and three-statement questions, valuation/technical questions (DCF, LBO, M&amp;A,
-          options, fixed income, FX), and consulting-style case and deal questions — filter by
+          options, fixed income, FX), and consulting-style case and deal questions. Filter by
           category or firm type below. Full context for each topic lives in{" "}
           <a href="/lessons" className="underline decoration-dotted underline-offset-2 hover:text-accent">
             Lessons
@@ -71,13 +71,13 @@ export default function TestPrepPage() {
       {/* Pymetrics */}
       <section className="mt-12">
         <h2 className="font-display text-lg font-semibold text-foreground">
-          Pymetrics — the real games
+          Pymetrics: the real games
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-muted">
           Pymetrics (now owned by Harver) is a set of 12 short neuroscience-based games used as a
           first-stage filter by firms including JPMorgan, Unilever, Mastercard, Blackstone, PwC,
-          Bain, and Accenture (office-dependent). <strong>McKinsey does not use Pymetrics</strong> —
-          it uses its own game-based tool called &ldquo;Solve&rdquo; instead. Below are all 12 real
+          Bain, and Accenture (office-dependent). <strong>McKinsey does not use Pymetrics</strong>.
+          It uses its own game-based tool called &ldquo;Solve&rdquo; instead. Below are all 12 real
           games and what each measures; the Balloon Game (the clearest one to simulate honestly) is
           playable.
         </p>
@@ -107,14 +107,14 @@ export default function TestPrepPage() {
       {/* HireVue */}
       <section className="mt-12">
         <h2 className="font-display text-lg font-semibold text-foreground">
-          HireVue — write it before you say it
+          HireVue: write it before you say it
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-muted">
-          HireVue is timed, one-way recorded video — real users include Goldman Sachs, JPMorgan,
+          HireVue is timed, one-way recorded video. Real users include Goldman Sachs, JPMorgan,
           Morgan Stanley, BlackRock, and (heaviest of all) the Big 4 consulting firms, where it
-          often fully replaces a first-round human interview. You can&apos;t practice video here,
+          often fully replaces a first-round human interview. You cannot practice video here,
           but you can do the part that actually matters most: knowing exactly what you want to say
-          before the camera starts. Draft and time your answers below — they save to this browser.
+          before the camera starts. Draft and time your answers below. They save to this browser.
         </p>
         <div className="mt-4">
           <HireVuePractice />

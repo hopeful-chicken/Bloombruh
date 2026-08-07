@@ -39,13 +39,13 @@ export async function POST(request: NextRequest) {
     // for each known failure mode instead.
     if (error instanceof Anthropic.AuthenticationError) {
       return NextResponse.json(
-        { error: "AI grading isn't configured — the Anthropic API key is missing or invalid." },
+        { error: "AI grading is not configured: the Anthropic API key is missing or invalid." },
         { status: 502 }
       );
     }
     if (error instanceof Anthropic.RateLimitError) {
       return NextResponse.json(
-        { error: "AI grading is rate-limited right now — try again in a minute." },
+        { error: "AI grading is rate-limited right now. Try again in a minute." },
         { status: 429 }
       );
     }

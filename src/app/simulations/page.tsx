@@ -16,7 +16,7 @@ export default function SimulationsPage() {
 
       <section className="mt-10">
         <h2 className="font-display text-lg font-semibold text-foreground">
-          Market Maker — a sales &amp; trading desk
+          Market Maker: a sales &amp; trading desk
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-muted">
           Quote a bid/ask spread around a moving price and see what actually happens to your P&amp;L
@@ -29,11 +29,11 @@ export default function SimulationsPage() {
 
       <section className="mt-14">
         <h2 className="font-display text-lg font-semibold text-foreground">
-          Portfolio Risk Simulator — asset management &amp; risk
+          Portfolio Risk Simulator: asset management &amp; risk
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-muted">
           Build a portfolio across 10 asset classes and run a real 500-path Monte Carlo simulation
-          to see the full distribution of 1-year outcomes — not just an expected return, but the
+          to see the full distribution of 1-year outcomes, not just an expected return, but the
           shape of the risk around it.
         </p>
         <div className="mt-4">

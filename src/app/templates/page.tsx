@@ -17,7 +17,7 @@ export default function TemplatesPage() {
       </h1>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
         Pick a template, choose a company and sector, and download a working
-        Excel model prefilled with real data — then make it yours. DCF and
+        Excel model prefilled with real data, then make it yours. DCF and
         deal models for the banking side, an initiation note for equity
         research, a portfolio one-pager for asset management, a morning
         market sheet for the trading floor. Each one teaches the shape of

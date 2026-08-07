@@ -40,12 +40,12 @@ export default function LessonsPage() {
       </h1>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
 Start with <strong className="text-foreground">Finance 101</strong>{" "}
-        — a start-to-end sequence for anyone new to finance who doesn&apos;t yet know which seat
+        : a start-to-end sequence for anyone new to finance who does not yet know which seat
         they want, thirteen chapters in order, each with a quiz and a real reason to go use another
         module on this site. Then go deeper: <strong className="text-foreground">Deep Dives</strong>{" "}
         are one more advanced article per chapter, and each{" "}
         <strong className="text-foreground">track</strong> below is a focused mini-course on one
-        specific seat — real mechanics, real formulas, worked examples — for whichever path you&apos;re
+        specific seat: real mechanics, real formulas, worked examples, for whichever path you are
         actually considering.
       </p>
 
@@ -117,7 +117,7 @@ Start with <strong className="text-foreground">Finance 101</strong>{" "}
             Section 2 · Deep Dives
           </p>
           <p className="mt-0.5 text-xs text-muted">
-            One more advanced article per chapter — optional, go as deep as you want on whatever
+            One more advanced article per chapter, optional, go as deep as you want on whatever
             actually interests you
           </p>
         </div>

@@ -15,7 +15,7 @@ export default function AnalysisPage() {
         The Feed
       </h1>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
-        Most of what actually reaches me isn&apos;t a newspaper. It&apos;s my feed: a clip, a
+        Most of what actually reaches me is not a newspaper. It is my feed: a clip, a
         headline, a 20-second video between everything else on Instagram. I scroll past almost
         all of it. This is what I stopped on, the ones I went and actually worked out properly.
       </p>

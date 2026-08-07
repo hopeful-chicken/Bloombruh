@@ -20,7 +20,7 @@ export default async function ProfileSearchPage({
       {/* EDITORIAL: Adam to review/replace this framing line with his own voice */}
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
         Type a company name or ticker to pull up its price, chart, full
-        financials, and a plain-English snapshot — then, if you want, build
+        financials, and a plain-English snapshot. Then, if you want, build
         your own rating, thesis, and target price on top of it and export
         the result as a PDF.
       </p>

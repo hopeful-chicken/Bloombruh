@@ -13,7 +13,7 @@ export default function ProfileLayout({
         >
           Twelve Data
         </a>{" "}
-        (may be delayed) — Hong Kong Stock Exchange tickers (e.g.
+        (may be delayed). Hong Kong Stock Exchange tickers (e.g.
         &ldquo;0700.HK&rdquo;) instead use{" "}
         <a
           href="https://eodhd.com"
@@ -29,7 +29,7 @@ export default function ProfileLayout({
           SEC EDGAR
         </a>{" "}
         (US filers only). Insider transactions, institutional holdings,
-        sentiment-scored news, and the next earnings date (US tickers only —
+        sentiment-scored news, and the next earnings date (US tickers only,
         not covered for HKEX) are from{" "}
         <a
           href="https://www.alphavantage.co"
@@ -37,7 +37,7 @@ export default function ProfileLayout({
         >
           Alpha Vantage
         </a>
-        . Not investment advice — see the data sources appendix on each
+        . Not investment advice. See the data sources appendix on each
         company page for full detail.
       </div>
       {children}

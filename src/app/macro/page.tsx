@@ -114,15 +114,15 @@ export default async function CentralBankRoomPage({
 
         {!rateData ? (
           <p className="rounded-lg border border-border bg-surface p-4 text-sm text-muted">
-            Rate data for {bank.shortName} is unavailable right now — the live
-            source didn&apos;t respond. Try again shortly, or see the news
+            Rate data for {bank.shortName} is unavailable right now. The live
+            source did not respond. Try again shortly, or see the news
             below in the meantime.
           </p>
         ) : (
           <div className="space-y-6">
             {rateData.isProxy && (
               <p className="rounded-md border border-border bg-surface/60 px-3 py-2 text-xs text-muted">
-                {bank.shortName} doesn&apos;t publish one single official
+                {bank.shortName} does not publish one single official
                 daily policy rate the way the Fed or ECB do, so this is the
                 closest free market-rate proxy, not an official figure.
               </p>
@@ -217,7 +217,7 @@ export default async function CentralBankRoomPage({
           </h2>
           {opinions.length === 0 ? (
             <p className="text-sm text-muted">
-              No commentary on {bank.shortName} yet — check back soon.
+              No commentary on {bank.shortName} yet. Check back soon.
             </p>
           ) : (
             <div className="space-y-6">
