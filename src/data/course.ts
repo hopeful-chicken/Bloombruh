@@ -264,7 +264,7 @@ That is it. The entire instrument is defined by three numbers: **face value** (u
 
 This is the single most important fixed-income intuition, so get it cold: **when interest rates rise, existing bond prices fall, and vice versa.**
 
-Here's the mechanism: say you own a bond paying a 3% coupon. If new bonds start being issued paying 5% (because interest rates rose), nobody wants to buy your old 3% bond at its original price anymore. Why would they, when they could get a new bond paying more? So the *price* of your old bond has to fall until its effective yield becomes competitive with the new 5% bonds. The coupon payment is fixed. It is the price that has to adjust.
+Here is the mechanism: say you own a bond paying a 3% coupon. If new bonds start being issued paying 5% (because interest rates rose), nobody wants to buy your old 3% bond at its original price anymore. Why would they, when they could get a new bond paying more? So the *price* of your old bond has to fall until its effective yield becomes competitive with the new 5% bonds. The coupon payment is fixed. It is the price that has to adjust.
 
 ## Yield vs. coupon: not the same thing
 
@@ -478,7 +478,7 @@ Chapter 1 introduced S&T as a seat. This chapter is about the actual mechanics: 
 
 ## Making a market: the core S&T mechanic
 
-A **market maker** quotes two prices simultaneously: a **bid** (the price they'll buy at) and an **ask** (the price they'll sell at). The ask is always higher than the bid. That gap, the **bid-ask spread**, is the market maker's compensation for standing ready to trade instantly with whoever shows up next, in either direction.
+A **market maker** quotes two prices simultaneously: a **bid** (the price they will buy at) and an **ask** (the price they will sell at). The ask is always higher than the bid. That gap, the **bid-ask spread**, is the market maker's compensation for standing ready to trade instantly with whoever shows up next, in either direction.
 
 Say a stock's quote is $50.00 bid / $50.05 ask. A market maker buying at $50.00 from one client and selling at $50.05 to the next pockets the $0.05 spread, not by betting on direction, but by providing continuous liquidity and capturing the toll for it. Multiply a few cents by enormous trading volume, all day, and that is a real, non-directional business.
 
@@ -1186,7 +1186,7 @@ A price move can be driven by two very different things: **fundamentals** (an ac
 
 This is precisely the discipline this site's own Hype vs Fundamentals module is built around: real historical cases where a narrative ran ahead of the numbers (and what eventually happened), plus current, unresolved themes tracked the same way, without forcing a premature verdict on which one they are.
 
-## How central bank policy filters through everything you've learned
+## How central bank policy filters through everything you have learned
 
 A single rate decision touches every asset class covered in this course simultaneously: bond prices move immediately (Chapter 3's core mechanism), currencies react through the rate-differential logic from Chapter 4, and equities react both directly (a company's own borrowing costs, and the discount rate in every DCF from Chapter 10) and indirectly (via risk sentiment). Reading "the market" on a rate-decision day means checking all of these together, not just the headline equity index move. This site's own Central Bank Room is built to make exactly that real-time context available in one place.
 

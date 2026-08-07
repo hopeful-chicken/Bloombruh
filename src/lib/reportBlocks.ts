@@ -489,7 +489,7 @@ export const BLOCK_LIBRARY: {
     create: () =>
       createTextBlock(
         "Bear Case / What Would Prove You Wrong",
-        "Steelman the other side. What's the strongest argument against your thesis, and what specific data point or event would tell you that you were wrong?"
+        "Steelman the other side. What is the strongest argument against your thesis, and what specific data point or event would tell you that you were wrong?"
       ),
   },
 
