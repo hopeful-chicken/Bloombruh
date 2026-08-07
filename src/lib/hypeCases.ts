@@ -40,13 +40,13 @@ export const HYPE_CASES: HypeCase[] = [
     name: "The Dot-Com Bubble",
     era: "1998–2002",
     tickers: [
-      { symbol: "CSCO", role: "The bellwether — \"picks and shovels\" for the internet build-out" },
-      { symbol: "QQQ", role: "Nasdaq-100 — the broad index the whole era rode up and down" },
+      { symbol: "CSCO", role: "The bellwether: \"picks and shovels\" for the internet build-out" },
+      { symbol: "QQQ", role: "Nasdaq-100: the broad index the whole era rode up and down" },
     ],
     windowStart: "1998-01-01",
     windowEnd: "2003-01-01",
     blurb:
-      "Internet-adjacent stocks (and the networking hardware behind them) repriced as if the internet's total future profits had already arrived — years before most of the underlying businesses were consistently profitable.",
+      "Internet-adjacent stocks (and the networking hardware behind them) repriced as if the internet's total future profits had already arrived, years before most of the underlying businesses were consistently profitable.",
     newsQuery: "dot-com bubble Cisco Nasdaq what happened lessons",
   },
   {
@@ -54,8 +54,8 @@ export const HYPE_CASES: HypeCase[] = [
     name: "The Meme Stock Mania",
     era: "2020–2022",
     tickers: [
-      { symbol: "GME", role: "GameStop — a struggling physical game retailer, the epicenter" },
-      { symbol: "AMC", role: "AMC Entertainment — a heavily indebted cinema chain, the co-star" },
+      { symbol: "GME", role: "GameStop: a struggling physical game retailer, the epicenter" },
+      { symbol: "AMC", role: "AMC Entertainment: a heavily indebted cinema chain, the co-star" },
     ],
     windowStart: "2020-06-01",
     windowEnd: "2022-06-01",
@@ -68,13 +68,13 @@ export const HYPE_CASES: HypeCase[] = [
     name: "The Cannabis Stock Boom",
     era: "2017–2019",
     tickers: [
-      { symbol: "TLRY", role: "Tilray — the IPO that became the boom's most extreme single case" },
-      { symbol: "CGC", role: "Canopy Growth — the largest cannabis company by market cap at the peak" },
+      { symbol: "TLRY", role: "Tilray: the IPO that became the boom's most extreme single case" },
+      { symbol: "CGC", role: "Canopy Growth: the largest cannabis company by market cap at the peak" },
     ],
     windowStart: "2017-06-01",
     windowEnd: "2020-06-01",
     blurb:
-      "Legalization momentum in Canada and parts of the US drove cannabis growers to valuations pricing in years of rapid, profitable expansion — before most had scaled production, distribution, or a route to actual profit.",
+      "Legalization momentum in Canada and parts of the US drove cannabis growers to valuations pricing in years of rapid, profitable expansion, before most had scaled production, distribution, or a route to actual profit.",
     newsQuery: "cannabis stock boom bust Tilray Canopy Growth what happened",
   },
 ];

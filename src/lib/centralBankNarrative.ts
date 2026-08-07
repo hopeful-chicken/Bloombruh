@@ -28,7 +28,7 @@ function getClient(): Anthropic {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) {
     throw new Error(
-      "ANTHROPIC_API_KEY is not set — AI-generated central bank narratives need the same key as the AI report grader."
+      "ANTHROPIC_API_KEY is not set. AI-generated central bank narratives need the same key as the AI report grader."
     );
   }
   return new Anthropic({ apiKey: key });
@@ -98,7 +98,7 @@ Explain the current global central bank rate situation, grounded only in the fig
     .trim();
 
   if (!text) {
-    throw new Error("The AI didn't return a narrative — try again.");
+    throw new Error("The AI did not return a narrative. Try again.");
   }
   return text;
 }
@@ -249,7 +249,7 @@ Explain this country's economic and stock-market situation over ${params.periodP
     .trim();
 
   if (!text) {
-    throw new Error("The AI didn't return a narrative — try again.");
+    throw new Error("The AI did not return a narrative. Try again.");
   }
   return text;
 }

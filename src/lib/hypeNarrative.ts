@@ -30,7 +30,7 @@ function getClient(): Anthropic {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) {
     throw new Error(
-      "ANTHROPIC_API_KEY is not set — AI-generated hype/fundamentals narratives need the same key as the AI report grader."
+      "ANTHROPIC_API_KEY is not set. AI-generated hype/fundamentals narratives need the same key as the AI report grader."
     );
   }
   return new Anthropic({ apiKey: key });
@@ -104,7 +104,7 @@ Explain this case — what drove it and how it resolved — grounded only in the
     .trim();
 
   if (!text) {
-    throw new Error("The AI didn't return a narrative — try again.");
+    throw new Error("The AI did not return a narrative. Try again.");
   }
   return text;
 }
@@ -203,7 +203,7 @@ Present the real evidence on both sides of whether price action has run ahead of
     .trim();
 
   if (!text) {
-    throw new Error("The AI didn't return a narrative — try again.");
+    throw new Error("The AI did not return a narrative. Try again.");
   }
   return text;
 }

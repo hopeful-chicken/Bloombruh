@@ -22,22 +22,22 @@ export const HYPE_THEMES: HypeTheme[] = [
     id: "ai-semis",
     name: "AI & Semiconductors",
     tickers: [
-      { symbol: "NVDA", role: "Nvidia — the single biggest beneficiary of AI infrastructure spend" },
-      { symbol: "SMH", role: "VanEck Semiconductor ETF — a broader basket, not just one winner" },
+      { symbol: "NVDA", role: "Nvidia: the single biggest beneficiary of AI infrastructure spend" },
+      { symbol: "SMH", role: "VanEck Semiconductor ETF: a broader basket, not just one winner" },
     ],
     blurb:
-      "Capital spending on AI infrastructure has been real and large — the question this section tracks is whether prices have moved further or faster than the revenue and earnings actually delivered so far.",
+      "Capital spending on AI infrastructure has been real and large. The question this section tracks is whether prices have moved further or faster than the revenue and earnings actually delivered so far.",
     newsQuery: "AI stocks valuation bubble concerns semiconductor spending",
   },
   {
     id: "quantum-computing",
     name: "Quantum Computing",
     tickers: [
-      { symbol: "IONQ", role: "IonQ — a pure-play, still pre-scale quantum hardware company" },
-      { symbol: "RGTI", role: "Rigetti Computing — another early-stage quantum hardware bet" },
+      { symbol: "IONQ", role: "IonQ: a pure-play, still pre-scale quantum hardware company" },
+      { symbol: "RGTI", role: "Rigetti Computing: another early-stage quantum hardware bet" },
     ],
     blurb:
-      "Quantum computing is a genuinely early-stage technology — commercially useful, fault-tolerant quantum computers don't exist yet. This section tracks how far the stocks have run relative to the (currently small and early) real revenue.",
+      "Quantum computing is a genuinely early-stage technology. Commercially useful, fault-tolerant quantum computers do not exist yet. This section tracks how far the stocks have run relative to the (currently small and early) real revenue.",
     newsQuery: "quantum computing stocks valuation hype IonQ Rigetti",
   },
 ];

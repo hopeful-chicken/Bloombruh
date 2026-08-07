@@ -53,7 +53,7 @@ export function describeMomentum(
   if (!movingAverage || !Number.isFinite(movingAverage)) return null;
   const diffPct = ((price - movingAverage) / movingAverage) * 100;
   if (Math.abs(diffPct) < 1) {
-    return `Trading close to its ${windowLabel} average price — no strong short-term trend either way.`;
+    return `Trading close to its ${windowLabel} average price, no strong short-term trend either way.`;
   }
   const direction = diffPct > 0 ? "above" : "below";
   const trend = diffPct > 0 ? "upward" : "downward";

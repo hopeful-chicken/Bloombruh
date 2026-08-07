@@ -25,7 +25,7 @@ function getClient(): Anthropic {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) {
     throw new Error(
-      "ANTHROPIC_API_KEY is not set — AI-generated decision explanations need the same key as the AI report grader."
+      "ANTHROPIC_API_KEY is not set. AI-generated decision explanations need the same key as the AI report grader."
     );
   }
   return new Anthropic({ apiKey: key });
@@ -83,7 +83,7 @@ Explain the situation and the likely reasoning for this specific move, grounded 
     .trim();
 
   if (!text) {
-    throw new Error("The AI didn't return an explanation — try again.");
+    throw new Error("The AI did not return an explanation. Try again.");
   }
   return text;
 }

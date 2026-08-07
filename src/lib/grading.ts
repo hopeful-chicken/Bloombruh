@@ -21,7 +21,7 @@ function getClient(): Anthropic {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) {
     throw new Error(
-      "ANTHROPIC_API_KEY is not set. Copy .env.local.example to .env.local and add your own key from https://console.anthropic.com — AI grading is a paid Pro feature, unlike the rest of this site's free data sources."
+      "ANTHROPIC_API_KEY is not set. Copy .env.local.example to .env.local and add your own key from https://console.anthropic.com. AI grading is a paid Pro feature, unlike the rest of this site's free data sources."
     );
   }
   return new Anthropic({ apiKey: key });
@@ -134,7 +134,7 @@ export async function gradeReport(params: {
 
   if (sections.length === 0) {
     throw new Error(
-      "There's nothing written yet to grade — add some text to a Text, SWOT, or Bullet list block first."
+      "There is nothing written yet to grade. Add some text to a Text, SWOT, or Bullet list block first."
     );
   }
 
@@ -159,7 +159,7 @@ export async function gradeReport(params: {
 
   const message = await stream.finalMessage();
   if (!message.parsed_output) {
-    throw new Error("The AI grader didn't return a parsable result — try again.");
+    throw new Error("The AI grader did not return a parsable result. Try again.");
   }
   return message.parsed_output;
 }

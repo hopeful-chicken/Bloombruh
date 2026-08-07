@@ -86,13 +86,13 @@ export function describeROIC(roicPct: number | null): string | null {
   if (roicPct === null || !Number.isFinite(roicPct)) return null;
   const label =
     roicPct >= 15
-      ? "strong — well above a typical cost of capital"
+      ? "strong: well above a typical cost of capital"
       : roicPct >= 8
-        ? "solid — likely above a typical cost of capital"
+        ? "solid: likely above a typical cost of capital"
         : roicPct >= 0
-          ? "modest — may be near or below a typical cost of capital"
-          : "negative — the business is not covering its cost of capital";
-  return `Estimated ROIC (assuming a 21% tax rate) is about ${roicPct.toFixed(1)}%, which is ${label}. This is an approximation — it doesn't know the company's true effective tax rate.`;
+          ? "modest: may be near or below a typical cost of capital"
+          : "negative: the business is not covering its cost of capital";
+  return `Estimated ROIC (assuming a 21% tax rate) is about ${roicPct.toFixed(1)}%, which is ${label}. This is an approximation: it does not know the company's true effective tax rate.`;
 }
 
 export type CapitalAllocation = {
@@ -117,7 +117,7 @@ export function describeCapitalAllocation(c: CapitalAllocation): string | null {
   const hasDividends = c.dividendsPaid !== null && c.dividendsPaid > 0;
   const hasBuybacks = c.buybacks !== null && c.buybacks > 0;
   if (hasDividends && hasBuybacks) {
-    return "Returns cash to shareholders through both dividends and share buybacks — a mature capital-return profile.";
+    return "Returns cash to shareholders through both dividends and share buybacks: a mature capital-return profile.";
   }
   if (hasDividends) {
     return "Returns cash to shareholders through dividends, with no meaningful buyback activity in the latest year.";
@@ -125,5 +125,5 @@ export function describeCapitalAllocation(c: CapitalAllocation): string | null {
   if (hasBuybacks) {
     return "Returns cash to shareholders through share buybacks rather than dividends.";
   }
-  return "No meaningful dividends or buybacks in the latest year — cash is likely being reinvested or retained.";
+  return "No meaningful dividends or buybacks in the latest year. Cash is likely being reinvested or retained.";
 }

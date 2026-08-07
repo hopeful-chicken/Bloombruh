@@ -347,7 +347,7 @@ export const BLOCK_LIBRARY: {
     id: "text-custom",
     type: "text",
     label: "Custom text",
-    description: "Free writing under a title you choose — thesis, notes, anything.",
+    description: "Free writing under a title you choose: thesis, notes, anything.",
     group: "Core",
     create: () => createTextBlock(),
   },
@@ -355,7 +355,7 @@ export const BLOCK_LIBRARY: {
     id: "swot",
     type: "swot",
     label: "SWOT",
-    description: "Strengths, weaknesses, opportunities, threats — your own read.",
+    description: "Strengths, weaknesses, opportunities, threats: your own read.",
     group: "Core",
     create: () => createSwotBlock(),
   },
@@ -363,7 +363,7 @@ export const BLOCK_LIBRARY: {
     id: "list",
     type: "list",
     label: "Bullet list",
-    description: "A titled list — catalysts, risks, anything one-point-per-line.",
+    description: "A titled list: catalysts, risks, anything one-point-per-line.",
     group: "Core",
     create: () => createListBlock(),
   },
@@ -398,7 +398,7 @@ export const BLOCK_LIBRARY: {
     id: "stats-core-financials",
     type: "stats",
     label: "Core financials",
-    description: "Revenue, margins, net income, EPS, balance sheet, and cash flow — the three statements.",
+    description: "Revenue, margins, net income, EPS, balance sheet, and cash flow: the three statements.",
     group: "Financials & valuation",
     create: () => createStatsBlock("Core Financials", CORE_FINANCIAL_STAT_KEYS),
   },
@@ -429,7 +429,7 @@ export const BLOCK_LIBRARY: {
     create: () =>
       createTextBlock(
         "Business & Moat",
-        "What does this company actually sell, and to whom? Break down revenue by product, geography, and customer type if you can find it. Then make the case for (or against) a durable moat — switching costs, network effects, scale, brand — and say clearly whether you think it holds up."
+        "What does this company actually sell, and to whom? Break down revenue by product, geography, and customer type if you can find it. Then make the case for (or against) a durable moat (switching costs, network effects, scale, brand) and say clearly whether you think it holds up."
       ),
   },
   {
@@ -441,7 +441,7 @@ export const BLOCK_LIBRARY: {
     create: () =>
       createTextBlock(
         "Industry & Market Share",
-        "How is this industry structured — a few dominant players or many small ones? Estimate the company's market share and the total addressable market (TAM), and say how much growth runway is left."
+        "How is this industry structured: a few dominant players or many small ones? Estimate the company's market share and the total addressable market (TAM), and say how much growth runway is left."
       ),
   },
   {
@@ -453,7 +453,7 @@ export const BLOCK_LIBRARY: {
     create: () =>
       createTextBlock(
         "Management & Capital Allocation",
-        "What's management's track record on capital allocation — reinvesting, paying dividends, buying back stock, or M&A? Any notable wins or mistakes? Use the dividends/buybacks data in the financials block above as a starting point."
+        "What is management's track record on capital allocation: reinvesting, paying dividends, buying back stock, or M&A? Any notable wins or mistakes? Use the dividends/buybacks data in the financials block above as a starting point."
       ),
   },
   {
@@ -465,7 +465,7 @@ export const BLOCK_LIBRARY: {
     create: () =>
       createTextBlock(
         "Variant View & Estimates",
-        "Where do you differ from consensus? State your own revenue/earnings estimates alongside what the Street expects and management's own guidance, and explain the gap — this is your \"variant view.\""
+        "Where do you differ from consensus? State your own revenue/earnings estimates alongside what the Street expects and management's own guidance, and explain the gap. This is your \"variant view.\""
       ),
   },
   {
@@ -519,7 +519,7 @@ export const BLOCK_LIBRARY: {
     create: () =>
       createTextBlock(
         "Ownership & Shareholder Structure",
-        "Who owns this company — insiders, founders, index funds, activist investors? Note any concentrated stakes, dual-class shares, or recent large ownership changes."
+        "Who owns this company: insiders, founders, index funds, activist investors? Note any concentrated stakes, dual-class shares, or recent large ownership changes."
       ),
   },
 
@@ -541,7 +541,7 @@ export const BLOCK_LIBRARY: {
     create: () =>
       createTextBlock(
         "Deal Terms & Synergies",
-        "Lay out the deal: offer price and premium to the undisturbed share price, financing mix (cash/debt/stock), and the synergies being claimed — split cost vs. revenue synergies and note how credible each side is."
+        "Lay out the deal: offer price and premium to the undisturbed share price, financing mix (cash/debt/stock), and the synergies being claimed. Split cost vs. revenue synergies and note how credible each side is."
       ),
   },
   {

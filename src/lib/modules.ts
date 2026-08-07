@@ -31,7 +31,7 @@ export const modules: ModuleInfo[] = [
     status: "live",
     tagline: "Ticker in, full profile and your own pitch out",
     description:
-      "A clean company snapshot — price chart, full financials, and a plain-English description, with context on whether the multiples look cheap or expensive — plus the option to build your own rating, thesis, and target price on top and export it as a PDF.",
+      "A clean company snapshot: price chart, full financials, and a plain-English description, with context on whether the multiples look cheap or expensive, plus the option to build your own rating, thesis, and target price on top and export it as a PDF.",
   },
   {
     name: "Central Bank Room",
@@ -39,7 +39,7 @@ export const modules: ModuleInfo[] = [
     status: "live",
     tagline: "Real rates, history, news, and Adam's take on the Fed, ECB, BoE, BoJ and more",
     description:
-      "Pick a central bank and see its actual policy rate, a history chart, a timeline of past rate decisions, plain-English context on monetary and fiscal policy, real sourced news headlines, and Adam's own written commentary — each kept clearly separate so you always know what's data, what's education, and what's opinion.",
+      "Pick a central bank and see its actual policy rate, a history chart, a timeline of past rate decisions, plain-English context on monetary and fiscal policy, real sourced news headlines, and Adam's own written commentary, each kept clearly separate so you always know what is data, what is education, and what is opinion.",
     accentColor: "macro",
   },
   {
@@ -48,7 +48,7 @@ export const modules: ModuleInfo[] = [
     status: "beta",
     tagline: "Pick a period, see the numbers, by sector and by private market",
     description:
-      "A plain-English read on how the market is doing: a world-situation summary, then a closer look by equity sector (global equities, TMT, financials, healthcare, energy, industrials, consumer) and by private-market segment (private equity, private credit, real assets, via public proxies) — pick a period (week/month/year/forever) and see real price data, a grounded AI narrative, real news, and Adam's own take, each kept clearly separate.",
+      "A plain-English read on how the market is doing: a world-situation summary, then a closer look by equity sector (global equities, TMT, financials, healthcare, energy, industrials, consumer) and by private-market segment (private equity, private credit, real assets, via public proxies). Pick a period (week/month/year/forever) and see real price data, a grounded AI narrative, real news, and Adam's own take, each kept clearly separate.",
   },
   {
     name: "Model Templates",
@@ -56,7 +56,7 @@ export const modules: ModuleInfo[] = [
     status: "beta",
     tagline: "Downloadable Excel models with live formulas, prefilled with real data",
     description:
-      "The work analysts actually produce, as personalizable Excel downloads: a DCF (with a dividend-discount variant for banks), LBO and M&A deal models, an equity research initiation note, an asset-management portfolio one-pager, and a sales & trading morning sheet. Pick a company and sector on the site, download a working model prefilled with real data, and make it yours — every file carries its own data-sources sheet, and missing data stays blank rather than estimated.",
+      "The work analysts actually produce, as personalizable Excel downloads: a DCF (with a dividend-discount variant for banks), LBO and M&A deal models, an equity research initiation note, an asset-management portfolio one-pager, and a sales & trading morning sheet. Pick a company and sector on the site, download a working model prefilled with real data, and make it yours. Every file carries its own data-sources sheet, and missing data stays blank rather than estimated.",
   },
   {
     name: "HKEX Screener",
@@ -64,7 +64,7 @@ export const modules: ModuleInfo[] = [
     status: "beta",
     tagline: "Real HKEX filings, press releases, and news, AI-summarized",
     description:
-      "A focused Hong Kong Stock Exchange research tool: search any HKEX-listed company and get a dedicated page with a real price chart (up to 10 years, via Yahoo Finance), direct links to official filings, the company's own press releases scraped from its official page where one is curated, and reliable third-party news — each with a strictly source-grounded AI recap. Useful for accounting and advisory teams screening HK names. Independent student project, not affiliated with or endorsed by any firm.",
+      "A focused Hong Kong Stock Exchange research tool: search any HKEX-listed company and get a dedicated page with a real price chart (up to 10 years, via Yahoo Finance), direct links to official filings, the company's own press releases scraped from its official page where one is curated, and reliable third-party news, each with a strictly source-grounded AI recap. Useful for accounting and advisory teams screening HK names. Independent student project, not affiliated with or endorsed by any firm.",
   },
   {
     name: "Hype vs Fundamentals",
@@ -72,7 +72,7 @@ export const modules: ModuleInfo[] = [
     status: "beta",
     tagline: "Historical cases with known outcomes, current themes that aren't",
     description:
-      "Real historical cases (the dot-com bubble, the meme-stock mania, the cannabis stock boom) with real computed run-up/drawdown stats and hindsight — then real current themes (AI & semiconductors, quantum computing) with real price returns and revenue growth side by side. The current-themes AI narrative is explicitly instructed to present evidence, never a verdict on whether something is a bubble.",
+      "Real historical cases (the dot-com bubble, the meme-stock mania, the cannabis stock boom) with real computed run-up/drawdown stats and hindsight, then real current themes (AI & semiconductors, quantum computing) with real price returns and revenue growth side by side. The current-themes AI narrative is explicitly instructed to present evidence, never a verdict on whether something is a bubble.",
   },
   {
     name: "Lessons",
@@ -80,7 +80,7 @@ export const modules: ModuleInfo[] = [
     status: "live",
     tagline: "A 13-chapter course from equities to M&A, plus a deep dive per chapter",
     description:
-      "A start-to-end course for anyone new to finance: equities, fixed income, commodities & FX, how markets actually trade, options, asset management, three-statement modeling, M&A, valuation, and reading the market today — thirteen chapters, each with a quiz, a direct link to go use Company Profile, Central Bank Room, Markets Overview, Simulations, or Model Templates for real, and a deeper-dive companion article for whichever topics actually grab you.",
+      "A start-to-end course for anyone new to finance: equities, fixed income, commodities & FX, how markets actually trade, options, asset management, three-statement modeling, M&A, valuation, and reading the market today. Thirteen chapters, each with a quiz, a direct link to go use Company Profile, Central Bank Room, Markets Overview, Simulations, or Model Templates for real, and a deeper-dive companion article for whichever topics actually grab you.",
   },
   {
     name: "Simulations",
@@ -88,7 +88,7 @@ export const modules: ModuleInfo[] = [
     status: "beta",
     tagline: "Run a trading book, then stress-test a portfolio, the actual job not just the data",
     description:
-      "Two simulations, two seats: a Market Maker game (quote a spread against a randomly generated price feed, manage inventory risk and mark-to-market P&L, get forcibly hedged if you breach the risk limit) and a Portfolio Risk Simulator (build a portfolio across 10 asset classes and run a real 500-path Monte Carlo simulation for a full 1-year distribution, VaR, CVaR, and Sharpe ratio). Generated data, real mechanics — clearly labeled throughout.",
+      "Two simulations, two seats: a Market Maker game (quote a spread against a randomly generated price feed, manage inventory risk and mark-to-market P&L, get forcibly hedged if you breach the risk limit) and a Portfolio Risk Simulator (build a portfolio across 10 asset classes and run a real 500-path Monte Carlo simulation for a full 1-year distribution, VaR, CVaR, and Sharpe ratio). Generated data, real mechanics, clearly labeled throughout.",
   },
   {
     name: "Test Prep",
@@ -104,7 +104,7 @@ export const modules: ModuleInfo[] = [
     status: "live",
     tagline: "Independent research, stock pitches, and a running leads list, all on the record",
     description:
-      "Adam's own running research notebook: dated, sourced write-ups on breaking macro and market stories as they happen, 10 stock pitches, and a lighter-weight \"worth digging into\" leads list — one real sentence and a source each, not yet deep-researched, kept as a starting point rather than a finished conclusion. Written for himself first, kept here because it's worth coming back to.",
+      "Adam's own running research notebook: dated, sourced write-ups on breaking macro and market stories as they happen, 10 stock pitches, and a lighter-weight \"worth digging into\" leads list, one real sentence and a source each, not yet deep-researched, kept as a starting point rather than a finished conclusion. Written for himself first, kept here because it is worth coming back to.",
     accentColor: "analysis",
     note: "my actual opinions",
   },
