@@ -45,6 +45,106 @@ export type AnalysisEntry = {
 
 export const ANALYSIS_ENTRIES: AnalysisEntry[] = [
   {
+    id: "pokemon-cards-as-an-asset-class",
+    title: "Pokemon Cards as an Asset Class: What the Real Numbers Actually Say",
+    tagline: "A 3,821% index return, an $18,900 card that later sold for $550,000, and the one number almost every bullish headline on this leaves out",
+    date: "2026-08-07",
+    body: `# Pokemon cards as an asset class: what the real numbers actually say
+
+I built the full Pokemon Cards module on this site to answer one question: is this a genuine, structurally growing market, or a very good story built around one insanely valuable card. That page is the reference version, deliberately without a personal verdict. This is the shorter version, with one.
+
+## The bull case, in one number
+
+The Wall Street Journal, citing price tracker Card Ladder, reported its Pokemon collectible index up 3,821% cumulatively from 2004 to August 2025, against 483% for the S&P 500 over the same span. That's the number every bullish take on this topic eventually cites, and it's real. It's also doing a lot of work for one number: it's a single index, over a specific 21-year window, built from one tracker's own methodology. Change any of those three things and you get a different story, which is most of what this piece is actually about.
+
+## The production data really does back up "still growing"
+
+This part isn't in dispute. Cumulative Pokemon TCG cards printed worldwide crossed 85 billion in May 2026, and roughly 40% of every card ever printed came out in just the last three fiscal years.
+
+| Date | Cumulative cards printed |
+| --- | --- |
+| March 2020 | 34.1bn |
+| March 2023 | 52.9bn |
+| March 2024 | 64.8bn (11.9bn sold that fiscal year alone) |
+| March 2025 | 75.0bn (10.2bn sold that fiscal year alone) |
+| May 2026 | 85.0bn+ |
+
+Grading volume backs it up from the demand side: PSA is now grading around 90,000 cards a day, up from roughly 15,000/day in 2021, with a reported backlog of 10 million-plus cards. Trading-card submissions (Pokemon, Magic, Yu-Gi-Oh) are up 95% year-over-year and now outpace sports-card submissions more than 2-to-1 at PSA. That's not the shape of a fad cooling off. It's a demand curve still bending upward three decades in.
+
+## The card that's supposed to prove this is stable. It doesn't, quite.
+
+The single most-tracked individual card in the hobby is the PSA 10, 1st Edition Base Set Charizard, and its real sale history is the honest test of "is this actually a boring, stable store of value."
+
+| Date | Price | Note |
+| --- | --- | --- |
+| July 2017 | $18,900 | Real sale, PWCC/eBay (Beckett News) |
+| — | — | No publicly recorded PSA 10 sale of this card anywhere between 2017 and 2021, per data tracker Card Ladder |
+| October 2020 | $220,000 | PSA 10 sale |
+| November 2020 | $295,000 | One month later |
+| March 2022 | $420,000 | Pandemic-era peak |
+| November 2022 | $250,000 | Post-peak correction, roughly -40% |
+| December 2025 | $550,000 | New all-time public auction record, Heritage Auctions |
+
+That's not a boring asset. It's a card that went four years with no recorded sale at all, then round-tripped through a 40% drawdown, inside a longer uptrend that did eventually make a new high. Anyone selling this as "stable" is quietly skipping the middle of that table.
+
+## $30 in 1999
+
+The comparison everyone eventually wants: what if you'd put a small amount into a Charizard in 1999 instead of the index. $30 in the S&P 500 in January 1999, dividends reinvested, using Yahoo Finance's real adjusted-close data, is worth about $261 today, roughly 9x. The same $30 toward a Charizard that later graded a PSA 10 would be worth $550,000 today, over 18,000x.
+
+That gap is real, and it's also the least representative comparison possible. It's the single most valuable specific outcome in the entire hobby, not a typical one, and the honest caveat matters here: a specific, dated PSA 10 sale record for this card doesn't exist anywhere from 1999 through mid-2017. $30 is a stated assumption about what a raw copy or a few packs cost at release, not a documented sale. Every point on this comparison from July 2017 onward is a real, publicly reported transaction. The 1999 entry point is not.
+
+## Nobody researching this professionally actually agrees
+
+CNBC ran the WSJ number too, after AJ Scaramucci paid $16.49m for the only PSA 10 "Pikachu Illustrator" card and argued on air that collectibles are now a legitimate asset class. That's one buyer's argument after a record purchase, not a bank or an academic publishing research, and it shouldn't be read as the latter.
+
+The pushback is real and comes from people with no stake in the outcome. 24/7 Wall St. ran a piece arguing the "beats the S&P 500" framing is a category error, since a card produces no cash flow or dividend and comparing it to an equity index the way you'd compare two stocks is methodologically off. A financial adviser quoted in that piece called it a "math crime." Two Northeastern University finance professors landed on opposite sides on record: one cautiously open (value drawn from scarcity and cultural appeal, similar to art), one openly skeptical, saying there's "no proven multi-decade outperformance track record."
+
+The most rigorous work found on this, from the CAIA Association (a 2021 study by Andrew Keenan, CAIA, CFA, Credit Suisse), found buyers pay an average 1,487% premium for a PSA 10 over a PSA 9 of the identical sports card, and that PSA-10 portfolios returned about 42% annualized over the study window versus 35% for PSA-9. It's sports cards, not Pokemon, but it's the clearest quantitative proof that grading is most of what actually drives this market, which the Charizard case study above shows anecdotally.
+
+For Pokemon specifically, peer-reviewed research basically doesn't exist yet. The one direct attempt is an undergraduate independent study at the College of Wooster (2024), using PriceCharting data from 2021-2023, and it found a portfolio of Pokemon cards returned -4.72% annualized over that window, underperforming the S&P 500. It's a real, named study, just not a peer-reviewed one, and a completely different three-year window than the WSJ's 21-year figure. Both numbers can be true at once. This is a young, volatile market where the answer depends heavily on which years you happen to measure, which is itself the finding.
+
+## Who actually owns this
+
+Pokemon is owned in roughly equal thirds by Nintendo, Game Freak, and Creatures Inc, run day to day through their joint venture, The Pokemon Company. None of the three is separately investable. Only Nintendo (TYO: 7974 / OTC: NTDOY) is public, and Nintendo doesn't break out a Pokemon-specific revenue line, so even that exposure is real but blended, not a clean pure-play read.
+
+The Pokemon Company's own most recent fiscal year (to February 2026) was a record: revenue of ¥531.4bn (~$3.34bn), up 29.3%; operating profit ¥144.0bn (~$904m), up 43.0%; net profit ¥120.1bn (~$754m), up 70.7%. Profit growing faster than revenue is exactly what a licensing business with low incremental cost is supposed to show.
+
+The grading infrastructure is private too, and consolidating fast. PSA's parent was taken private in 2021 for roughly $853m by an investor group including Steve Cohen, and by 2022 had raised further capital at a $4.3bn valuation. Its main challenger, CGC, was majority-acquired by Blackstone's Tactical Opportunities arm. There is no clean public equity for the grading side of this trade either.
+
+Retail investors have already tried to securitize this directly, and it's mostly gone badly. Otis fractionalized a Charizard at a $236,800 valuation, was acquired by Public.com in 2022, then liquidated, with investors reportedly taking a loss. Collectable, an SEC Reg A+ platform, discloses roughly 3.1% annualized returns since launch against an estimated 6-8% for the broader blue-chip card category over the same period, meaning the actual investable product underperformed the market it was built to track, after fees. Dibbs pivoted away from fractional ownership entirely in 2024. That's a real, market-tested answer to "can this be cleanly securitized," and so far the answer has mostly been no.
+
+## The comparison that should worry any bull
+
+At the peak of the early-1990s baseball card craze, manufacturers printed an estimated 81 billion cards a year, about 325 for every person in America, chasing demand with no regard for scarcity. When the 1994 MLB strike broke collector confidence, the market never recovered. Revenue fell to roughly a seventh of its peak, and most of that era's cards are worth about a cent each today.
+
+Being honest about the parallel: Pokemon's own print runs are accelerating too, the exact same "print more to chase demand" instinct that broke the sports-card market. What's different so far is that demand has kept pace instead of declining. A real structural stress test, a recession or a sharp drop in new-collector demand, is something this specific boom hasn't faced yet.
+
+## My view
+
+I don't think this is a fad, and I don't think it's a clean financial asset either. It's something in between, and conflating it with either extreme is where most of the bad takes on this topic come from.
+
+The production and grading data make a real case that this is structurally different from a normal collectible wave: three decades of accelerating, not fading, demand, backed by genuine third-party authentication infrastructure rather than self-reported numbers. That part of the bull case is real. But the actual, computed academic returns on Pokemon cards specifically range from -4.72% annualized (Wooster, 2021-2023) to numbers that beat the S&P 500 many times over (WSJ/Card Ladder, 2004-2025), and the honest reason for that gap isn't fraud on anyone's part, it's that this market's real returns are dominated by a small number of ultra-rare, perfectly graded cards, and almost everyone's actual holding isn't one of those.
+
+If I were actually putting money into this, the CAIA finding is the one I'd take most seriously: grading, not the card itself, is most of what drives return. A PSA 10 versus a PSA 9 of the identical card is a roughly 1,487% price gap on sports cards, and the Charizard case study above shows the same pattern anecdotally. That means the real skill this "investment" requires isn't picking the right character, it's correctly assessing condition before you buy, which is a genuinely hard, specialized skill most people writing enthusiastically about this asset class don't actually have. The junk-wax comparison is the risk I'd actually watch going forward, not because it's happening yet, but because the exact mechanism that caused it, printing more to chase demand, is visibly running again right now. It just hasn't broken anything so far.
+
+## Sources
+
+- [The Hot Investment With a 3,000% Return — WSJ, via Securities Docket](https://www.securitiesdocket.com/2025/09/12/the-hot-investment-with-a-3000-return-pokemon-cards-wsj/)
+- [Scaramucci: collectibles are an asset class — CNBC](https://www.cnbc.com/2026/02/25/pokmon-card-winner-scaramucci-says-collectibles-are-asset-class.html)
+- [Pokemon cards beat the S&P 500, but the math is a lie — 24/7 Wall St.](https://247wallst.com/investing/2026/07/18/pokemon-cards-beat-the-sp-500-by-2-5x-but-the-math-is-a-lie/)
+- [Pokemon cards: should you invest? — Northeastern University](https://news.northeastern.edu/2026/03/20/pokemon-cards-should-you-invest/)
+- [The Price of Perfection — CAIA Association](https://caia.org/blog/2021/12/02/collectibles-trading-cards-and-price-perfection/)
+- [Trading card portfolio returns, 2021-2023 — College of Wooster independent study](https://openworks.wooster.edu/independentstudy/10979/)
+- [November 2025 grading volume recap — GemRate](https://www.gemrate.com/november-2025-recap)
+- [Card Ladder methodology](https://www.cardladder.com/about)
+- [Collectable returns, via MoneyMade](https://www.moneymade.io/discover/collectable)
+- [The Pokemon Company FY26 financial results — Serkan Toto](https://www.serkantoto.com/2026/06/01/pokemon-company-financial-numbers-2/)
+- [PSA/Collectors Universe take-private](https://legalclarity.org/who-owns-psa-grading-parent-company-and-investors/)
+- [Collectors Holdings $4.3bn valuation — Sportico](https://www.sportico.com/business/finance/2022/collectors-chernin-cohen-1234670529/)
+- [Blackstone acquires CGC's parent — press release](https://www.blackstone.com/news/press/blackstone-tactical-opportunities-to-acquire-the-certified-collectibles-group-a-leading-provider-of-tech-enabled-authentication-grading-and-conservation-services-for-the-global-collectibles-industry/)
+`,
+  },
+  {
     id: "sk-hynix-nasdaq-kospi-volatility",
     title: "Korea's Leverage Crash: SK Hynix, the KOSPI, and What Actually Broke",
     tagline: "A record Nasdaq listing, a '35% crash' every headline ran with, 1.2 million margin calls, and a president's approval rating cracking 50%. The real chain of events, and the one headline number that doesn't hold up.",
@@ -113,6 +213,24 @@ The 2018 memory-chip downturn is the other obvious comparison, and it's also a p
 
 But new fab capacity from Samsung, SK Hynix, Micron and Kioxia isn't due to reach volume production until late 2027 or 2028. Every one of them is expanding capacity right now, at the same time, into a demand curve that even the bulls describe as a "supercycle," a word that basically admits growth this fast isn't permanent, even while everyone's still riding it. That's not this crash. It's a real, specific, later risk. If 2027-2028 capacity additions land just as hyperscaler capex growth naturally decelerates off this year's exceptional base, you get something that could look a lot more like 2018 than anything that happened in July 2026.
 
+## Where the valuation sits now
+
+Everything above is about what already happened. Here's where the stock actually sits today, because that's the part most retrospectives skip.
+
+SK Hynix's Seoul-listed shares closed at ₩1,718,000 on 6 August. At that price, the stock trades around 5.3-5.9x forward earnings, well below its own 5-year average (6.5x mean, 11.2x median, 2021-2025) and a long way down from the 17.8x multiple it commanded at its own peak in March 2026, right before the crash. The 37-analyst consensus tracked by Investing.com puts a 12-month price target of ₩3,189,340 on the stock, about 86% above where it closed on 6 August.
+
+| Metric | Figure |
+| --- | --- |
+| Close, 6 Aug 2026 | ₩1,718,000 |
+| Forward P/E | ~5.3-5.9x |
+| 5-year average P/E (2021-2025) | 6.5x mean / 11.2x median |
+| Peak P/E, March 2026 | 17.8x |
+| 37-analyst consensus target (12-month) | ₩3,189,340 (+86%) |
+
+An 86% gap between price and consensus target, on a stock this widely covered, is a real number worth sitting with. It's not automatically a "the stock is cheap" signal though, and this is exactly where the cyclicality point from the section above actually matters. Memory chips are the textbook case of a business where a low forward P/E can mean the opposite of cheap: the market already expects this year's extraordinary earnings not to repeat, so a multiple that looks low against *this* year's earnings can look completely normal, or even expensive, against a normalized, mid-cycle number. A 5x multiple on a peak-cycle year and a 5x multiple on a sustainable year are not the same stock, even when the P/E prints the same.
+
+I'm not building a full discounted cash flow model on top of this, on purpose. A DCF for a business this cyclical needs multi-year revenue and margin assumptions that would mostly be guesses dressed up as precision, especially heading into the 2027-2028 capacity question raised above. What the real numbers here do support is narrower and more useful: the multiple has compressed hard, the consensus gap is real and large, and whether that gap is the market being wrong or the market correctly discounting for reversion depends entirely on which side of the 2027-2028 capacity question you land on.
+
 ## The bull case
 
 SK Hynix just posted 257% revenue growth and a 76% operating margin, and "missed" only because consensus had run even further ahead of an already-extraordinary number. That's a sign of a market pricing in near-perfection, not a business in trouble. J.P. Morgan's own read, published the same week as the fresh 6 August selloff, was that the sell-off "had not derailed" the AI investment cycle, and "we do not see any fundamental indicators that signal meaningful weakness in the next 6-12 months." Real hyperscaler capex guidance backs that up directly. On this view, July was a leverage-and-positioning accident laid on top of a genuinely intact fundamental story, and the current multiple compression is a buying opportunity for anyone willing to sit through the volatility.
@@ -159,6 +277,9 @@ What I don't think fades: the multiple. Even once the forced selling is fully do
 - [Kospi Index Slides 4.6% With Samsung, SK Hynix Falling on Chip Concerns, 23 June — Bloomberg](https://www.bloomberg.com/news/articles/2026-06-23/korean-stocks-fall-more-than-4-from-record-high-on-tech-selloff)
 - [Meta's AI pivot triggers global chip sell-off, sending Kospi below 8,000, 2 July — KED Global](https://www.kedglobal.com/korean-stock-market/newsView/ked202607020001)
 - [KOSPI daily historical closing prices — Investing.com](https://www.investing.com/indices/kospi-historical-data)
+- [SK Hynix consensus estimates, 12-month price target — Investing.com](https://www.investing.com/equities/sk-hynix-inc-consensus-estimates)
+- [SK Hynix forward P/E ratio — GuruFocus](https://www.gurufocus.com/term/forward-pe-ratio/HAM:HY9H)
+- [SK Hynix 5-year P/E history (mean, median, peak) — Wisesheets](https://www.wisesheets.io/pe-ratio/HY9H.F)
 `,
     chart: {
       title: "SKHY (SK Hynix ADR) vs. Micron — indexed to 100 on 10 July 2026 (SKHY's Nasdaq debut)",

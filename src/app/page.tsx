@@ -48,8 +48,8 @@ export default function Home() {
             </span>
           </h1>
           <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
-            A terminal-style research tool I built as a UCL economics student — price data,
-            central-bank rates, and the pitch decks and models to turn any of it into your own view.
+            Real market data and real models, built by a UCL econ student who wanted more than
+            just reading about it.
           </p>
           <div className="relative mt-7 w-fit">
             <span
@@ -119,7 +119,7 @@ export default function Home() {
           In development — beta
         </h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-          Fully working, same live data as everything else above — just not polished or
+          Fully working, same live data as everything else above. Just not polished or
           double-checked to the same standard yet, so treat them as a preview rather than a
           finished product.
         </p>
@@ -132,10 +132,8 @@ export default function Home() {
           About this project
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-foreground">
-          I&apos;m Adam, a UCL Economics student — building this long-term to get better at
-          markets and asset management by actually building something, not just reading about it.
-          Free, independent, and unaffiliated with any company, exchange, or institution mentioned
-          on this site.
+          I&apos;m Adam, a UCL Econ student. I built this myself. Free and independent, not
+          affiliated with any company, exchange, or institution mentioned on this site.
         </p>
         <p className="relative mt-7 text-sm leading-relaxed text-muted">
           <span

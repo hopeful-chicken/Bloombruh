@@ -3,6 +3,7 @@
 // instead of react-markdown's unstyled defaults.
 
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { slugify } from "@/lib/slugify";
 
 // Flattens react-markdown's children (usually a plain string, but can nest
@@ -20,6 +21,7 @@ export default function MarkdownContent({ markdown }: { markdown: string }) {
   return (
     <div className="space-y-4 text-sm leading-relaxed text-foreground">
       <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
         components={{
           h1: () => null, // the entry's own title is rendered by the page, not repeated here
           h2: ({ children }) => (
@@ -55,6 +57,20 @@ export default function MarkdownContent({ markdown }: { markdown: string }) {
           code: ({ children }) => (
             <code className="rounded bg-surface px-1 py-0.5 font-mono text-xs text-accent">{children}</code>
           ),
+          table: ({ children }) => (
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse text-left text-xs sm:text-sm">{children}</table>
+            </div>
+          ),
+          thead: ({ children }) => <thead className="border-b border-border">{children}</thead>,
+          th: ({ children }) => (
+            <th className="whitespace-nowrap px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-wide text-muted">
+              {children}
+            </th>
+          ),
+          tbody: ({ children }) => <tbody>{children}</tbody>,
+          tr: ({ children }) => <tr className="border-b border-border/60 last:border-0">{children}</tr>,
+          td: ({ children }) => <td className="px-3 py-2 align-top text-foreground/90">{children}</td>,
         }}
       >
         {markdown}
