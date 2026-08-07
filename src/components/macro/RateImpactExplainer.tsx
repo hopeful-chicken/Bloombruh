@@ -80,21 +80,21 @@ export default function RateImpactExplainer({
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="rounded-lg border border-border bg-background/60 p-4">
           <p className="text-xs font-semibold uppercase tracking-wide text-negative">
-            If you&apos;re borrowing
+            If you are borrowing
           </p>
           <p className="mt-2 text-sm leading-relaxed text-foreground">
             Say you owe {fmt(ILLUSTRATIVE_BALANCE, currency.symbol)} on a variable-rate loan or
-            card priced at roughly {bankName}&apos;s policy rate plus a typical spread — at
-            today&apos;s {currentRate.toFixed(2)}%, that&apos;s about{" "}
+            card priced at roughly {bankName}&apos;s policy rate plus a typical spread. At
+            today&apos;s {currentRate.toFixed(2)}%, that is about{" "}
             <span className="font-semibold">{fmt(fastInterestNow, currency.symbol)}/year</span>{" "}
             in interest. A further 1-point rate rise would push that to roughly{" "}
-            <span className="font-semibold">{fmt(fastInterestPlus1, currency.symbol)}/year</span> —
+            <span className="font-semibold">{fmt(fastInterestPlus1, currency.symbol)}/year</span>,
             an extra {fmt(fastDelta, currency.symbol)} on just this one balance.
           </p>
         </div>
         <div className="rounded-lg border border-border bg-background/60 p-4">
           <p className="text-xs font-semibold uppercase tracking-wide text-positive">
-            If you&apos;re saving
+            If you are saving
           </p>
           <p className="mt-2 text-sm leading-relaxed text-foreground">
             The same {fmt(ILLUSTRATIVE_BALANCE, currency.symbol)}, this time sitting in a
@@ -102,14 +102,14 @@ export default function RateImpactExplainer({
             <span className="font-semibold">{fmt(saveInterestNow, currency.symbol)}/year</span> at
             today&apos;s rate (banks typically pass through less than the full policy rate). A
             1-point rise would take that to about{" "}
-            <span className="font-semibold">{fmt(saveInterestPlus1, currency.symbol)}/year</span> —
+            <span className="font-semibold">{fmt(saveInterestPlus1, currency.symbol)}/year</span>,
             savers gain from the same move that costs borrowers.
           </p>
         </div>
       </div>
       <p className="mt-2 text-[11px] text-muted/70">
         Both boxes are worked illustrations on a stated {fmt(ILLUSTRATIVE_BALANCE, currency.symbol)}{" "}
-        balance and a typical spread over the policy rate — not a specific bank&apos;s actual
+        balance and a typical spread over the policy rate, not a specific bank&apos;s actual
         advertised rate. The point is the mechanism and direction, not a quote you could take to a
         branch.
       </p>
@@ -121,11 +121,11 @@ export default function RateImpactExplainer({
         <p className="mt-2 text-sm leading-relaxed text-muted">
           Two 2025 US surveys (Rocket Mortgage and Veterans United) found that roughly{" "}
           <span className="font-semibold text-foreground">6 in 10 people believe the central
-          bank directly sets mortgage rates.</span> It doesn&apos;t. Credit cards, overdrafts, and
-          variable-rate loans — like the borrowing example above — move close to 1:1 with the
-          policy rate, often within weeks, because they&apos;re priced directly off it. Fixed
+          bank directly sets mortgage rates.</span> It does not. Credit cards, overdrafts, and
+          variable-rate loans, like the borrowing example above, move close to 1:1 with the
+          policy rate, often within weeks, because they are priced directly off it. Fixed
           mortgage rates are different: they track longer-term bond yields and where investors
-          expect rates to go over the next 10-30 years, not today&apos;s policy rate itself — which
+          expect rates to go over the next 10-30 years, not today&apos;s policy rate itself, which
           is why mortgage rates can sit still, or even move the opposite way, right after a policy
           rate change.
         </p>
@@ -133,16 +133,16 @@ export default function RateImpactExplainer({
 
       <div className="mt-3 rounded-lg border border-border bg-surface p-4">
         <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
-          Why the chart above won&apos;t show an instant reaction
+          Why the chart above will not show an instant reaction
         </p>
         <p className="mt-2 text-sm leading-relaxed text-muted">
-          Economist Milton Friedman's original finding on this — since re-tested many times,
-          including by the St. Louis Fed — is that the gap between a policy move and its full
+          Economist Milton Friedman's original finding on this (since re-tested many times,
+          including by the St. Louis Fed) is that the gap between a policy move and its full
           effect on the real economy has historically ranged from{" "}
           <span className="font-semibold text-foreground">4 to 29 months</span>, with no reliable
-          way to know in advance where in that range a given move will land. That&apos;s exactly
+          way to know in advance where in that range a given move will land. That is exactly
           why a chart of two lines moving together (or not) over a short window can be
-          misleading either way — a real effect can still be working its way through the economy
+          misleading either way. A real effect can still be working its way through the economy
           well after the line on the chart looks flat.
         </p>
       </div>

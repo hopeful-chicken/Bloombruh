@@ -215,7 +215,7 @@ export default function TemplateGallery() {
       a.remove();
       URL.revokeObjectURL(url);
     } catch {
-      setError("Couldn't generate the template right now — try again in a moment.");
+      setError("Could not generate the template right now. Try again in a moment.");
     } finally {
       setDownloading(false);
     }
@@ -261,12 +261,12 @@ export default function TemplateGallery() {
                   <InlineTickerPicker
                     label={
                       t.id === "merger"
-                        ? "Acquirer — prefills with real data"
+                        ? "Acquirer: prefills with real data"
                         : t.id === "comps"
-                          ? "Subject company — prefills with real data"
+                          ? "Subject company: prefills with real data"
                           : t.id === "portfolio"
                             ? "Seed the first holding (optional)"
-                            : "Company — prefills with real data (blank = empty template)"
+                            : "Company: prefills with real data (blank = empty template)"
                     }
                     value={ticker}
                     onChange={setTicker}
@@ -275,7 +275,7 @@ export default function TemplateGallery() {
                 {t.id === "comps" && (
                   <div>
                     <label className="mb-1 block text-xs font-medium text-muted">
-                      Peer tickers — comma-separated, up to 6 (picking the set is the analyst&apos;s job)
+                      Peer tickers: comma-separated, up to 6 (picking the set is the analyst&apos;s job)
                     </label>
                     <input
                       type="text"
@@ -288,7 +288,7 @@ export default function TemplateGallery() {
                 )}
                 {t.id === "merger" && (
                   <InlineTickerPicker
-                    label="Target — prefills with real data"
+                    label="Target: prefills with real data"
                     value={targetTicker}
                     onChange={setTargetTicker}
                   />
@@ -297,7 +297,7 @@ export default function TemplateGallery() {
                 {usesSector(t.id) && (
                   <div>
                     <label className="mb-1 block text-xs font-medium text-muted">
-                      Sector — adapts the template and its guidance
+                      Sector: adapts the template and its guidance
                     </label>
                     <div className="flex flex-wrap gap-1">
                       {TEMPLATE_SECTORS.map((s) => (
@@ -317,8 +317,8 @@ export default function TemplateGallery() {
                     </div>
                     {t.id === "dcf" && sector === "fig" && (
                       <p className="mt-2 text-xs text-muted">
-                        FIG switches this download to a dividend-discount model — EV-based
-                        DCFs don&apos;t work for banks. The template explains why inside.
+                        FIG switches this download to a dividend-discount model. EV-based
+                        DCFs do not work for banks. The template explains why inside.
                       </p>
                     )}
                     {t.recommendedFor.length > 0 && (
@@ -389,7 +389,7 @@ export default function TemplateGallery() {
                   )}
                   {t.id === "market-update" && (
                     <p className="text-sm text-muted">
-                      No company needed — this one downloads prefilled with the site&apos;s
+                      No company needed: this one downloads prefilled with the site&apos;s
                       real sector and central-bank data at this moment.
                     </p>
                   )}

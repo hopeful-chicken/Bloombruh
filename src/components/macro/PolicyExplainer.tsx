@@ -14,8 +14,8 @@ export default function PolicyExplainer({ bankName }: { bankName: string }) {
         <p className="mt-1">
           A policy rate (like the one {bankName} sets) is the interest rate a
           central bank charges or pays on very short-term lending to
-          commercial banks. Every other interest rate in the economy —
-          mortgages, savings accounts, business loans, credit cards — is
+          commercial banks. Every other interest rate in the economy,
+          mortgages, savings accounts, business loans, credit cards, is
           priced off that base rate, so moving it is the main lever a central
           bank has to influence the whole economy.
         </p>
@@ -26,12 +26,12 @@ export default function PolicyExplainer({ bankName }: { bankName: string }) {
         </h3>
         <p className="mt-1">
           Raising the rate ("hiking") makes borrowing more expensive and
-          saving more attractive, which tends to slow spending and investment
-          — used to cool inflation or an overheating economy. Cutting the
+          saving more attractive, which tends to slow spending and investment,
+          used to cool inflation or an overheating economy. Cutting the
           rate does the opposite: cheaper borrowing encourages spending and
           investment, used to support a slowing economy or fight
           deflation/unemployment. Changes typically take months to fully feed
-          through — this is often called the "transmission mechanism."
+          through. This is often called the "transmission mechanism."
         </p>
       </div>
       <div>
@@ -39,14 +39,14 @@ export default function PolicyExplainer({ bankName }: { bankName: string }) {
           Monetary policy vs. budgetary (fiscal) policy
         </h3>
         <p className="mt-1">
-          Monetary policy — interest rates and money supply — is set by the
+          Monetary policy (interest rates and money supply) is set by the
           central bank, which is deliberately kept independent from elected
-          government in most major economies. Budgetary (fiscal) policy —
-          government spending and taxation — is set by the government
+          government in most major economies. Budgetary (fiscal) policy
+          (government spending and taxation) is set by the government
           itself. The two can reinforce each other (both loosening at once to
           boost growth) or work against each other (a government spending
           more while its central bank raises rates to fight the inflation
-          that spending causes) — watching both together usually explains the
+          that spending causes). Watching both together usually explains the
           economy better than either alone.
         </p>
       </div>
@@ -60,7 +60,7 @@ export default function PolicyExplainer({ bankName }: { bankName: string }) {
           bond prices generally move opposite to rate expectations. Equities:
           higher rates raise the discount rate used to value future company
           earnings, which tends to weigh on stock valuations, especially for
-          growth companies. None of this is guaranteed or immediate — it's
+          growth companies. None of this is guaranteed or immediate. It is
           the general direction markets expect, not a formula.
         </p>
       </div>

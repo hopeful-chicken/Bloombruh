@@ -100,16 +100,16 @@ function suggestedBlocksFor(reportType: ReportTypeId, defaultEbitda: string): Bl
         createStatsBlock("Core Financials", CORE_FINANCIAL_STAT_KEYS),
         createTextBlock(
           "Business & Moat",
-          "What does this company actually sell, and to whom? Break down revenue by product, geography, and customer type if you can find it. Then make the case for (or against) a durable moat — switching costs, network effects, scale, brand — and say clearly whether you think it holds up."
+          "What does this company actually sell, and to whom? Break down revenue by product, geography, and customer type if you can find it. Then make the case for (or against) a durable moat (switching costs, network effects, scale, brand) and say clearly whether you think it holds up."
         ),
         createSwotBlock("SWOT"),
         createTextBlock(
           "Valuation & Catalysts",
-          "Value the company across at least two methods (e.g. a comps multiple and a DCF/FCF-yield check), then list the near-term catalysts that could move the stock and roughly when they'll happen."
+          "Value the company across at least two methods (e.g. a comps multiple and a DCF/FCF-yield check), then list the near-term catalysts that could move the stock and roughly when they will happen."
         ),
         createTextBlock(
           "Bear Case / What Would Prove You Wrong",
-          "Steelman the other side. What's the strongest argument against your thesis, and what specific data point or event would tell you that you were wrong?"
+          "Steelman the other side. What is the strongest argument against your thesis, and what specific data point or event would tell you that you were wrong?"
         ),
         createListBlock("Catalysts"),
         createListBlock("Risks"),
@@ -124,7 +124,7 @@ function suggestedBlocksFor(reportType: ReportTypeId, defaultEbitda: string): Bl
         createStatsBlock("Credit Metrics & WACC Inputs", CREDIT_WACC_STAT_KEYS),
         createTextBlock(
           "Ownership & Shareholder Structure",
-          "Who owns this company — insiders, founders, index funds, activist investors? Note any concentrated stakes, dual-class shares, or recent large ownership changes."
+          "Who owns this company: insiders, founders, index funds, activist investors? Note any concentrated stakes, dual-class shares, or recent large ownership changes."
         ),
       ];
     case "manda":
@@ -134,7 +134,7 @@ function suggestedBlocksFor(reportType: ReportTypeId, defaultEbitda: string): Bl
         createMandaBlock(),
         createTextBlock(
           "Deal Terms & Synergies",
-          "Lay out the deal: offer price and premium to the undisturbed share price, financing mix (cash/debt/stock), and the synergies being claimed — split cost vs. revenue synergies and note how credible each side is."
+          "Lay out the deal: offer price and premium to the undisturbed share price, financing mix (cash/debt/stock), and the synergies being claimed. Split cost vs. revenue synergies and note how credible each side is."
         ),
         createTextBlock(
           "Integration & Regulatory Risk",
@@ -152,7 +152,7 @@ function suggestedBlocksFor(reportType: ReportTypeId, defaultEbitda: string): Bl
         ),
         createTextBlock(
           "Exit Assumptions",
-          "State your assumed holding period, exit multiple, and exit route (strategic sale, sponsor-to-sponsor, IPO). Justify why the exit multiple you've chosen is reasonable relative to entry."
+          "State your assumed holding period, exit multiple, and exit route (strategic sale, sponsor-to-sponsor, IPO). Justify why the exit multiple you have chosen is reasonable relative to entry."
         ),
       ];
   }
@@ -345,7 +345,7 @@ export default function PitchWorkbench(props: Props) {
               Want to go further?
             </h2>
             <p className="mt-1 text-sm text-muted">
-              Build your own investment report from this data — pick a report
+              Build your own investment report from this data. Pick a report
               type, add your thesis, and export a PDF.
             </p>
           </div>
@@ -364,7 +364,7 @@ export default function PitchWorkbench(props: Props) {
             props.fundamentalsSourceNote ??
             (props.fundamentals
               ? null
-              : 'No SEC fundamentals were found for this ticker (likely a non-US listing) — figures that depend on it show "Unavailable" rather than a guess.')
+              : 'No SEC fundamentals were found for this ticker (likely a non-US listing). Figures that depend on it show "Unavailable" rather than a guess.')
           }
         />
       </div>
@@ -386,7 +386,7 @@ export default function PitchWorkbench(props: Props) {
           props.fundamentalsSourceNote ??
           (props.fundamentals
             ? null
-            : 'No SEC fundamentals were found for this ticker (likely a non-US listing) — figures that depend on it show "Unavailable" rather than a guess.')
+            : 'No SEC fundamentals were found for this ticker (likely a non-US listing). Figures that depend on it show "Unavailable" rather than a guess.')
         }
       />
     </div>

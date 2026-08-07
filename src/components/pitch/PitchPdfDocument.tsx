@@ -314,8 +314,8 @@ function BlockOutput({
               <Text key={row.symbol} style={{ fontSize: 9, marginBottom: 3 }}>
                 {row.symbol}
                 {row.error
-                  ? ` — ${row.error}`
-                  : ` — Price ${row.price !== null ? formatUSD(row.price) : "—"}, P/E ${
+                  ? `: ${row.error}`
+                  : `: Price ${row.price !== null ? formatUSD(row.price) : "—"}, P/E ${
                       row.peRatio !== null ? row.peRatio.toFixed(1) + "x" : "—"
                     }, Revenue ${row.revenue !== null ? formatUSD(row.revenue) : "—"}, Net margin ${
                       row.netMarginPct !== null ? formatPct(row.netMarginPct) : "—"
@@ -453,7 +453,7 @@ export default function PitchPdfDocument(props: PitchPdfProps) {
 
   return (
     <Document
-      title={`${props.companyName} (${props.symbol}) — Pitch`}
+      title={`${props.companyName} (${props.symbol}): Pitch`}
       author="Bloombruh"
     >
       <Page size="A4" style={styles.page}>
@@ -604,7 +604,7 @@ export default function PitchPdfDocument(props: PitchPdfProps) {
         <Text style={styles.footer}>
           Generated {props.generatedAt} by Bloombruh. Prices from Twelve
           Data, fundamentals from SEC EDGAR (may be delayed).
-          This is student-written analysis, not investment advice — always
+          This is student-written analysis, not investment advice, always
           do your own research.
         </Text>
       </Page>
