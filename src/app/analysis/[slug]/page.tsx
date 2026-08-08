@@ -102,12 +102,9 @@ async function getWriteUpBlocks(slug: string): Promise<Record<string, ReactNode>
             alt="1st Edition Fossil Psyduck"
             widthClass="w-28 sm:w-36"
             caption={
-              <>
-                <p className="font-display text-sm font-semibold text-foreground">
-                  1st Edition Fossil Psyduck (#53/62)
-                </p>
-                <p className="mt-1">My own favorite card growing up, and not one this piece has a strong view on.</p>
-              </>
+              <p className="font-display text-sm font-semibold text-foreground">
+                1st Edition Fossil Psyduck (#53/62)
+              </p>
             }
           />
         </div>

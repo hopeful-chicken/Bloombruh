@@ -21,8 +21,8 @@ import type { PriceDataPoint } from "@/lib/pokemonMarket";
 
 export default function CharizardChart({ data }: { data: PriceDataPoint[] }) {
   return (
-    <div className="h-64 w-full">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="w-full">
+      <ResponsiveContainer width="100%" height={256}>
         <LineChart data={data} margin={{ left: 0, right: 8, top: 8, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e3e0d3" vertical={false} />
           <XAxis

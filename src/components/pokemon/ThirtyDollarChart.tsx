@@ -44,8 +44,8 @@ function CharizardDot(props: {
 
 export default function ThirtyDollarChart({ data }: { data: ComparisonPoint[] }) {
   return (
-    <div className="h-80 w-full">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="w-full">
+      <ResponsiveContainer width="100%" height={320}>
         <LineChart data={data} margin={{ left: 0, right: 8, top: 8, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e3e0d3" vertical={false} />
           <XAxis

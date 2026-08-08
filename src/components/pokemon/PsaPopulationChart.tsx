@@ -22,8 +22,8 @@ const AFTER_COLOR = "var(--module-pokemon)";
 
 export default function PsaPopulationChart({ data }: { data: PsaPopulationPoint[] }) {
   return (
-    <div className="h-72 w-full">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="w-full">
+      <ResponsiveContainer width="100%" height={288}>
         <BarChart data={data} margin={{ left: 0, right: 8, top: 8, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e3e0d3" vertical={false} />
           <XAxis
