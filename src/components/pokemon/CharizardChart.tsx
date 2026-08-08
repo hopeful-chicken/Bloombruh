@@ -1,12 +1,12 @@
 "use client";
 
 // PSA 10, 1st Edition Base Set Charizard — real reported sale/valuation
-// points (see lib/pokemonMarket.ts), log-scaled since the range spans
-// $800 to $550,000. This is the flagship "is this thing actually
-// volatile" case study: a near-vertical 2018-2022 run, a real ~40%
-// correction, then a new all-time high by December 2025 — genuine
-// volatility sitting inside a longer structural uptrend, not a one-way
-// crash the way the 1990s sports-card bust was.
+// points (see lib/pokemonMarket.ts). Linear axis (equal spacing per
+// dollar), by request, rather than log scale. This is the flagship "is
+// this thing actually volatile" case study: a near-vertical 2018-2022
+// run, a real ~40% correction, then a new all-time high by December
+// 2025 — genuine volatility sitting inside a longer structural uptrend,
+// not a one-way crash the way the 1990s sports-card bust was.
 
 import {
   LineChart,
@@ -32,13 +32,12 @@ export default function CharizardChart({ data }: { data: PriceDataPoint[] }) {
             axisLine={{ stroke: "#e3e0d3" }}
           />
           <YAxis
-            scale="log"
-            domain={[500, 700000]}
+            domain={[0, 600000]}
             tick={{ fill: "#6f6b60", fontSize: 11 }}
             tickLine={false}
             axisLine={false}
             width={56}
-            ticks={[1000, 10000, 100000, 500000]}
+            ticks={[0, 100000, 200000, 300000, 400000, 500000, 600000]}
             tickFormatter={(v) => (v >= 1000 ? `$${v / 1000}k` : `$${v}`)}
           />
           <Tooltip
@@ -64,8 +63,8 @@ export default function CharizardChart({ data }: { data: PriceDataPoint[] }) {
         </LineChart>
       </ResponsiveContainer>
       <p className="mt-1 text-[11px] text-muted/70">
-        Log scale: the price range spans nearly 700x. Real reported sale/valuation
-        points; gaps between them are real reporting gaps, not smoothed.
+        Real reported sale/valuation points; gaps between them are real reporting
+        gaps, not smoothed.
       </p>
     </div>
   );
