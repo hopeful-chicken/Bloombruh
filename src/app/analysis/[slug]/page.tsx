@@ -32,14 +32,19 @@ function CardImage({
   alt,
   caption,
   widthClass = "w-28 sm:w-36",
+  layout = "row",
 }: {
   image: string;
   alt: string;
   caption: ReactNode;
   widthClass?: string;
+  /** "row" (image beside caption, the default) or "stack" (image on top,
+   * caption centered below) — "stack" is for narrow grid cells, e.g. the
+   * four-up Base Set population grid, where a side-by-side row is cramped. */
+  layout?: "row" | "stack";
 }) {
   return (
-    <div className="flex items-center gap-4">
+    <div className={layout === "stack" ? "flex flex-col items-center gap-2 text-center" : "flex items-center gap-4"}>
       {/* eslint-disable-next-line @next/next/no-img-element -- external TCGdex CDN, same as the site's existing per-card page */}
       <img
         src={`${image}/high.png`}
@@ -56,11 +61,18 @@ function CardImage({
 // in analysis.ts itself since that's a plain data file, not JSX.
 async function getWriteUpBlocks(slug: string): Promise<Record<string, ReactNode> | undefined> {
   if (slug === "pokemon-cards-as-an-asset-class") {
-    const [charizard, modernCharizard, umbreonSir] = await Promise.all([
-      getCard("en", "base1-4"),
-      getCard("en", "sv03-125"),
-      getCard("en", "sv08.5-161"),
-    ]);
+    const [charizard, modernCharizard, umbreonSir, charizard151, psyduck, charmander, bulbasaur, charmeleon, squirtle] =
+      await Promise.all([
+        getCard("en", "base1-4"),
+        getCard("en", "sv03-125"),
+        getCard("en", "sv08.5-161"),
+        getCard("en", "sv03.5-006"),
+        getCard("en", "base3-53"),
+        getCard("en", "base1-46"),
+        getCard("en", "base1-44"),
+        getCard("en", "base1-24"),
+        getCard("en", "base1-63"),
+      ]);
 
     return {
       POKEMON_CARD_IMAGE: charizard?.image ? (
@@ -83,6 +95,23 @@ async function getWriteUpBlocks(slug: string): Promise<Record<string, ReactNode>
           />
         </div>
       ) : null,
+      POKEMON_PSYDUCK_IMAGE: psyduck?.image ? (
+        <div className="my-6 rounded-sm border border-border bg-surface/60 p-5">
+          <CardImage
+            image={psyduck.image}
+            alt="1st Edition Fossil Psyduck"
+            widthClass="w-28 sm:w-36"
+            caption={
+              <>
+                <p className="font-display text-sm font-semibold text-foreground">
+                  1st Edition Fossil Psyduck (#53/62)
+                </p>
+                <p className="mt-1">My own favorite card growing up, and not one this piece has a strong view on.</p>
+              </>
+            }
+          />
+        </div>
+      ) : null,
       POKEMON_MODERN_CARDS_IMAGE:
         modernCharizard?.image && umbreonSir?.image ? (
           <div className="my-6 grid gap-4 rounded-sm border border-border bg-surface/60 p-5 sm:grid-cols-2">
@@ -95,7 +124,7 @@ async function getWriteUpBlocks(slug: string): Promise<Record<string, ReactNode>
                   <p className="font-display text-sm font-semibold text-foreground">
                     Charizard ex (Obsidian Flames, 2023)
                   </p>
-                  <p className="mt-1">The card that fell from $126 to $79.</p>
+                  <p className="mt-1">The card that fell from $126 to $79 in the same window.</p>
                 </>
               }
             />
@@ -108,9 +137,62 @@ async function getWriteUpBlocks(slug: string): Promise<Record<string, ReactNode>
                   <p className="font-display text-sm font-semibold text-foreground">
                     Umbreon ex SIR (Prismatic Evolutions, 2025)
                   </p>
-                  <p className="mt-1">The card that fell from $1,600 to $832.</p>
+                  <p className="mt-1">The card that fell from $1,600 to $832 in a matter of weeks.</p>
                 </>
               }
+            />
+          </div>
+        ) : null,
+      POKEMON_151_CHARIZARD_IMAGE: charizard151?.image ? (
+        <div className="my-6 rounded-sm border border-border bg-surface/60 p-5">
+          <CardImage
+            image={charizard151.image}
+            alt="Charizard ex, 151"
+            widthClass="w-28 sm:w-36"
+            caption={
+              <>
+                <p className="font-display text-sm font-semibold text-foreground">
+                  Charizard ex (151, 2023)
+                </p>
+                <p className="mt-1">
+                  The other Charizard in the gem-rate comparison below: almost the same submission count
+                  as the 1999 card above, a gem-mint rate more than two hundred times higher.
+                </p>
+              </>
+            }
+          />
+        </div>
+      ) : null,
+      POKEMON_BASE_SET_POP_IMAGES:
+        charmander?.image && bulbasaur?.image && charmeleon?.image && squirtle?.image ? (
+          <div className="my-6 grid grid-cols-2 gap-4 rounded-sm border border-border bg-surface/60 p-5 sm:grid-cols-4">
+            <CardImage
+              image={charmander.image}
+              alt="1st Edition Base Set Charmander"
+              widthClass="w-full"
+              layout="stack"
+              caption={<p className="font-display text-xs font-semibold text-foreground">Charmander</p>}
+            />
+            <CardImage
+              image={bulbasaur.image}
+              alt="1st Edition Base Set Bulbasaur"
+              widthClass="w-full"
+              layout="stack"
+              caption={<p className="font-display text-xs font-semibold text-foreground">Bulbasaur</p>}
+            />
+            <CardImage
+              image={charmeleon.image}
+              alt="1st Edition Base Set Charmeleon"
+              widthClass="w-full"
+              layout="stack"
+              caption={<p className="font-display text-xs font-semibold text-foreground">Charmeleon</p>}
+            />
+            <CardImage
+              image={squirtle.image}
+              alt="1st Edition Base Set Squirtle"
+              widthClass="w-full"
+              layout="stack"
+              caption={<p className="font-display text-xs font-semibold text-foreground">Squirtle</p>}
             />
           </div>
         ) : null,

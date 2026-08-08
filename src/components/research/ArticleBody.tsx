@@ -62,14 +62,14 @@ export default function ArticleBody({
     // Capped width even without a sidebar — otherwise body text stretches
     // to the full page shell's width, which is too wide to read comfortably.
     return (
-      <div className="max-w-3xl">
+      <div className="max-w-4xl">
         <ChartSplitBody body={body} chart={chart} blocks={blocks} />
       </div>
     );
   }
 
   return (
-    <div className="lg:grid lg:grid-cols-[minmax(0,44rem)_180px] lg:items-start lg:gap-10">
+    <div className="lg:grid lg:grid-cols-[minmax(0,56rem)_180px] lg:items-start lg:gap-10">
       <nav
         aria-label="Sections"
         className="sticky top-16 z-10 -mx-4 mb-6 overflow-x-auto border-b border-border bg-background/95 px-4 py-2 backdrop-blur lg:hidden [&::-webkit-scrollbar]:hidden"

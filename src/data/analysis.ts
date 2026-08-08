@@ -46,16 +46,18 @@ export type AnalysisEntry = {
 export const ANALYSIS_ENTRIES: AnalysisEntry[] = [
   {
     id: "pokemon-cards-as-an-asset-class",
-    title: "Are Pokemon Cards an Asset Class? Applying a 1997 Definition to a 2026 Market",
+    title: "Are Pokemon Cards an Asset Class?",
     tagline: "Robert Greer's 1997 asset-class framework, a 3,821% index number that falls apart once you see how it is built, and PSA population data that quietly undercuts the \"vintage is scarce\" argument",
     date: "2026-08-08",
-    body: `# Are Pokemon cards an asset class? Applying a 1997 definition to a 2026 market
+    body: `# Are Pokemon cards an asset class?
 
 Pokemon cards are having a real moment right now. New sets keep landing (the Chaos Rising and Mega Evolution series launched in May 2026, on top of Prismatic Evolutions and the 151 reprint set before it), and the headlines keep getting bigger. In February 2026 a single card, the Pikachu Illustrator, sold at auction for $16.49m, becoming the most expensive trading card ever sold in any category, a record certified by Guinness. Buyers spent an estimated $450m on Pokemon cards in the first quarter of 2026 alone, and PSA, the company that authenticates and grades cards, is now processing roughly 90,000 cards a day, up from about 15,000 a day back in 2021.
 
 That kind of money and attention has pushed cards well past being just a hobby. People are increasingly buying them the way they would buy a stock or a piece of art: as something to hold and hope to sell later for more. So the question worth asking properly is whether Pokemon cards actually are an asset class, in the same sense that stocks, bonds, or gold are, or whether that is a label the current hype is borrowing without really earning.
 
 My short version is this. Pokemon cards do sit inside a real, recognized category of assets, so the classification question is not really the interesting one. What they are not is something worth building a portfolio around the way a stock or bond is, and the headline return figure behind most of the bullish case falls apart once you look at how it is actually built. The part that surprised me most is that the "vintage cards are scarce because they cannot be reprinted" argument, which I believed when I started looking into this, does not hold up against the actual data on how many of them are getting graded.
+
+{{POKEMON_PSYDUCK_IMAGE}}
 
 ## What counts as an asset class
 
@@ -163,6 +165,8 @@ The print run of a 1999 card is fixed, that much is true. But the print run is n
 
 The PSA population report, the running public count of how many copies of each card PSA has graded at each score, is what actually changed my mind on this. Over one recent thirty-day window, Base Set Charmander gained 2,661 newly graded PSA 10s to reach 3,638 total, meaning the number of gem mint copies of a 1999 card grew by around 270% in a single month. Base Set Bulbasaur added 1,860 to reach 2,220, a rise of more than 500%. Charmeleon added 1,261 to reach 1,565. Squirtle added 1,179 to reach 2,131. None of these are modern reprints. They are cards printed in 1999 whose actual tradeable supply more than doubled, in some cases more than quintupled, in under a month.
 
+{{POKEMON_BASE_SET_POP_IMAGES}}
+
 {{POKEMON_PSA_POPULATION_CHART}}
 
 That data deserves a careful read rather than an overreaction. Some of that jump is almost certainly PSA working through a backlog of submissions rather than a steady ongoing rate, and the population report counts each submission, so a card that gets cracked out of its holder and resubmitted can be counted twice. But the direction is not in question: PSA is grading around 90,000 cards a day now, against about 15,000 a day in 2021, and the people who publish this data flag it themselves as fresh supply working its way into a market that assumes scarcity.
@@ -170,6 +174,8 @@ That data deserves a careful read rather than an overreaction. Some of that jump
 What is actually happening is that grading turns a raw card, which nobody has really priced yet, into a graded card, which trades at a specific number. Every ungraded 1999 Charizard sitting in someone's binder is effectively a claim on future supply, and rising prices are exactly what pulls it out and into the graded market. That is a supply curve that responds to price. It is slower and messier than a printing press, but it is not fixed.
 
 The gap becomes obvious once two cards with almost the same number of submissions are compared. The Base Set Charizard has been graded about 101,139 times, and only around 122 of those came back a PSA 10, a gem rate (the share of submitted cards that come back a perfect 10) near 0.1%. The Charizard ex from the 151 set has been graded about 99,517 times, with a gem rate around 28%, close to 28,000 PSA 10s. Same character, almost identical submission numbers, and a gem-mint population more than two hundred times larger for the newer card.
+
+{{POKEMON_151_CHARIZARD_IMAGE}}
 
 {{POKEMON_GEM_RATE_CHART}}
 
@@ -203,7 +209,7 @@ My actual view is that "is Pokemon overvalued" is close to being the wrong quest
 
 Vintage cards, and especially sealed, unopened vintage product, have behaved differently, at least so far. The same months that punished modern chase cards saw the Base Set Charizard set a new all-time high, the Illustrator become the most expensive trading card ever sold in any category, and sealed 1999 Base Set booster boxes clear $400,000 at auction. If I were putting money into this space at all, that is where I would look first: established, high-grade vintage singles and unopened vintage product, not whatever set just launched.
 
-But I would not treat that as a permanent rule, and this is the part most people writing enthusiastically about vintage right now seem to miss. The population data earlier in this piece is a real warning sign specifically for vintage: the number of gem-mint copies of a 1999 card is growing fast, even though the print run itself cannot. Vintage has earned real trust over the past few years, but the one thing actually underpinning that trust, a fixed, countable supply, is quietly less fixed than the price charts suggest. Anyone treating this seriously should be watching the population report the way they would watch share count for a stock: it is the number that tells you whether the scarcity being paid for is actually still there.
+But I would not treat that as a permanent rule, and this is the part most people writing enthusiastically about vintage right now seem to miss. The population data earlier in this piece is a real warning sign specifically for vintage: the number of gem-mint copies of a 1999 card is growing fast, even though the print run itself cannot. Vintage has earned real trust over the past few years, but the one thing actually underpinning that trust, a fixed, countable supply, is quietly less fixed than the price charts suggest.
 
 ## Sources
 
