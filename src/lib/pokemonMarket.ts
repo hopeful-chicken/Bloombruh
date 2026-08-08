@@ -115,6 +115,39 @@ export const THIRTY_DOLLAR_COMPARISON: ComparisonPoint[] = [
   { date: "2026", charizardUsd: null, sp500Usd: 260.92, charizardReal: false },
 ];
 
+// PSA population-report growth, Base Set (1999), over one recent 30-day
+// window (checked 2026-08-08, via CardTrack/GemRate PSA pop tracking).
+// This is the direct evidence behind this write-up's central finding: a
+// vintage card's *printed* supply is fixed, but the number of copies
+// actually sitting in a PSA 10 holder (the specific, priced object that
+// trades at headline prices) is not. It grew by triple digits, in some
+// cases quintupled, in a single month, for cards printed in 1999.
+export type PsaPopulationPoint = { card: string; before: number; after: number };
+
+export const PSA_POPULATION_GROWTH: PsaPopulationPoint[] = [
+  { card: "Charmander", before: 977, after: 3638 },
+  { card: "Bulbasaur", before: 360, after: 2220 },
+  { card: "Charmeleon", before: 304, after: 1565 },
+  { card: "Squirtle", before: 952, after: 2131 },
+];
+
+// Two Charizards with near-identical PSA submission volume, and a wildly
+// different gem-mint (PSA 10) rate — the cleanest single illustration
+// that the "1999 scarcity premium" is really a grading-population premium.
+// Base Set: 1st Edition/Unlimited Base Set Charizard (#4/102, 1999).
+// 151 Charizard ex: the 2023 reprint-set chase card (Scarlet & Violet: 151).
+export type GemRateComparisonPoint = {
+  card: string;
+  totalGraded: number;
+  psa10Count: number;
+  gemRatePct: number;
+};
+
+export const GEM_RATE_COMPARISON: GemRateComparisonPoint[] = [
+  { card: "Base Set Charizard (1999)", totalGraded: 101139, psa10Count: 122, gemRatePct: 0.1 },
+  { card: "151 Charizard ex (2023)", totalGraded: 99517, psa10Count: 27865, gemRatePct: 28 },
+];
+
 export type MarketStat = { label: string; value: string; note: string };
 
 export const MARKET_STATS: MarketStat[] = [

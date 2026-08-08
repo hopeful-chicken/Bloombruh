@@ -7,7 +7,15 @@ import ArticleBody from "@/components/research/ArticleBody";
 import MarketChart from "@/components/pokemon/MarketChart";
 import CharizardChart from "@/components/pokemon/CharizardChart";
 import ThirtyDollarChart from "@/components/pokemon/ThirtyDollarChart";
-import { PRODUCTION_MILESTONES, CHARIZARD_PRICE_HISTORY, THIRTY_DOLLAR_COMPARISON } from "@/lib/pokemonMarket";
+import PsaPopulationChart from "@/components/pokemon/PsaPopulationChart";
+import GemRateChart from "@/components/pokemon/GemRateChart";
+import {
+  PRODUCTION_MILESTONES,
+  CHARIZARD_PRICE_HISTORY,
+  THIRTY_DOLLAR_COMPARISON,
+  PSA_POPULATION_GROWTH,
+  GEM_RATE_COMPARISON,
+} from "@/lib/pokemonMarket";
 import { getCard } from "@/lib/pokemonCards";
 
 const ALL_ENTRIES = [...ANALYSIS_ENTRIES, ...STOCK_PITCHES];
@@ -109,6 +117,8 @@ async function getWriteUpBlocks(slug: string): Promise<Record<string, ReactNode>
       POKEMON_PRODUCTION_CHART: <MarketChart data={PRODUCTION_MILESTONES} />,
       POKEMON_CHARIZARD_CHART: <CharizardChart data={CHARIZARD_PRICE_HISTORY} />,
       POKEMON_THIRTYDOLLAR_CHART: <ThirtyDollarChart data={THIRTY_DOLLAR_COMPARISON} />,
+      POKEMON_PSA_POPULATION_CHART: <PsaPopulationChart data={PSA_POPULATION_GROWTH} />,
+      POKEMON_GEM_RATE_CHART: <GemRateChart data={GEM_RATE_COMPARISON} />,
     };
   }
 

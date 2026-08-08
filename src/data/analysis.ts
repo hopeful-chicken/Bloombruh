@@ -46,36 +46,54 @@ export type AnalysisEntry = {
 export const ANALYSIS_ENTRIES: AnalysisEntry[] = [
   {
     id: "pokemon-cards-as-an-asset-class",
-    title: "Pokemon Cards as an Asset Class: What the Real Numbers Actually Say",
-    tagline: "A 3,821% index return, an $18,900 card that later sold for $550,000, and the one number almost every bullish headline on this leaves out",
-    date: "2026-08-07",
-    body: `# Pokemon cards as an asset class: what the real numbers actually say
+    title: "Are Pokemon Cards an Asset Class? Applying a 1997 Definition to a 2026 Market",
+    tagline: "Robert Greer's 1997 asset-class framework, a 3,821% index number that cannot survive its own methodology, and PSA population data that quietly breaks the entire \"vintage is scarce\" argument",
+    date: "2026-08-08",
+    body: `# Are Pokemon cards an asset class? Applying a 1997 definition to a 2026 market
 
-I built the full Pokemon Cards module on this site to answer one question: is this a genuine, structurally growing market, or a very good story built around one insanely valuable card. That page is the reference version, deliberately without a personal verdict. This is the shorter version, with one.
+Almost every version of this argument skips the same step. People compare a Pokemon index to the S&P 500, one side says the gap is proof and the other says it is a bubble, and nobody stops to define what an asset class actually is. That definition exists, it is fairly settled, and once it is applied properly the answer stops being yes or no and becomes something more useful.
 
-## The bull case, in one number
+My short version is this. Pokemon cards do sit inside a recognized asset superclass, so the taxonomy question is not really the interesting one. What they are not is an investable asset class in the sense that matters for anyone building a portfolio, and the headline return figure behind most of the bull case cannot survive contact with how it is actually constructed. The part that surprised me most is that the "vintage supply is fixed" argument, which I believed when I started, does not hold up against the population data.
 
-The Wall Street Journal, citing price tracker Card Ladder, reported its Pokemon collectible index up 3,821% cumulatively from 2004 to August 2025, against 483% for the S&P 500 over the same span. That is the number every bullish take on this topic eventually cites, and it is real. It is also doing a lot of work for one number: it is a single index, over a specific 21-year window, built from one tracker's own methodology. Change any of those three things and you get a different story, which is most of what this piece is actually about.
+## What an asset class actually means
 
-## The production data really does back up "still growing"
+The reference point I kept coming back to is Robert Greer's 1997 paper in the Journal of Portfolio Management, still the standard definition, which he revisited in 2018 for the J.P. Morgan Center for Commodities. Greer defines an asset class as "a set of assets that bear some fundamental economic similarities to each other" and that are distinct from assets outside the class. Revisiting it two decades later, he added that the discussion should really be about investable assets specifically, which turns out to matter enormously here.
 
-This part is not in dispute. Cumulative Pokemon TCG cards printed worldwide crossed 85 billion in May 2026, and roughly 40% of every card ever printed came out in just the last three fiscal years.
+Greer then splits everything into three superclasses. Capital assets produce an ongoing stream of value, meaning they can be valued with a discounted cash flow model and are sensitive to the investor's discount rate: equities and bonds sit here. Consumable or transformable assets (oil, copper, wheat) have economic value but generate no stream, and are priced by supply and demand rather than by CAPM. Store of value assets can be neither consumed nor discounted, yet are still worth something. Greer's own example of this third group is fine art.
 
-| Date | Cumulative cards printed |
-| --- | --- |
-| March 2020 | 34.1bn |
-| March 2023 | 52.9bn |
-| March 2024 | 64.8bn (11.9bn sold that fiscal year alone) |
-| March 2025 | 75.0bn (10.2bn sold that fiscal year alone) |
-| May 2026 | 85.0bn+ |
+Pokemon cards are store of value assets. That is not a criticism, it is just where they sit, and placing them there settles a few things immediately. A card has no cash flow, so any attempt to value one with a DCF is meaningless. Its price is entirely a function of what the next buyer will pay, which means the tools used on an equity do not apply. When AJ Scaramucci went on CNBC nine days after paying $16.49m for the only PSA 10 Pikachu Illustrator and said cards "should be treated as investments because that is what they are," he was making a claim about the second question, not the first. Something can be genuinely investable and still be a store of value asset. Gold is.
 
-{{POKEMON_PRODUCTION_CHART}}
+The more interesting part of Greer's framework is what he says about which superclasses are vulnerable to irrational exuberance. He argues a speculative episode needs two conditions together: no objective measure of intrinsic value, and a constraint on supply. Capital assets and store of value assets both qualify. Commodities largely do not, because the futures market can create as much paper supply as investors demand and physical prices are anchored by industrial consumption. Hold onto those two conditions, because the whole vintage versus modern split later in this piece is really a question about which of them applies where.
 
-Grading volume backs it up from the demand side: PSA is now grading around 90,000 cards a day, up from roughly 15,000/day in 2021, with a reported backlog of 10 million-plus cards. Trading-card submissions (Pokemon, Magic, Yu-Gi-Oh) are up 95% year-over-year and now outpace sports-card submissions more than 2-to-1 at PSA. That is not the shape of a fad cooling off. It is a demand curve still bending upward three decades in.
+## The number everyone quotes, and how it is built
 
-## The card that is supposed to prove this is stable. It does not, quite.
+The bull case runs on one statistic. Card Ladder's Pokemon index is reported as up 3,821% since 2004 against 483% for the S&P 500 over the same span. Fortune, using data Card Ladder supplied directly, ran a slightly different version: the average Pokemon card gained 3,261% over twenty years while the S&P 500 returned 421%. By April 2026 the same index was being quoted at 6,208% since 2004.
 
-The single most-tracked individual card in the hobby is the PSA 10, 1st Edition Base Set Charizard, and its real sale history is the honest test of "is this actually a boring, stable store of value."
+Those three figures are all attributed to the same tracker and the same underlying market, separated by months. The index did have a genuinely enormous year, up 145% over the twelve months to February 2026 against 15.2% for the S&P 500, so the jump is arithmetically possible rather than an error. But an index that can add more than half of its entire twenty-one-year cumulative return in a few months is not behaving like a benchmark. It is behaving like a single volatile position.
+
+What drew my attention was the methodology, which is where the comparison really comes apart. Card Ladder publishes how its indexes work, and the construction is straightforward: every card in a given index is marked at its last sold value (the average price on the most recent day it traded), and the sum is divided by the number of cards. That produces three problems at once.
+
+The first is stale pricing. A card that last changed hands in 2019 is carried at its 2019 price until someone trades it again. This is the same appraisal smoothing that makes private equity and real estate indices understate volatility, and it flatters risk-adjusted returns mechanically rather than through any real property of the asset.
+
+The second is that the index only marks down when people sell. In a falling market collectors stop listing, because nobody enjoys crystallizing a loss on something they also enjoy owning. The index does not fall, it just stops updating. Anyone who has looked at illiquid asset indices will recognize this as the reason they always look smoother than the underlying.
+
+The third is that it is not investable. The weighting is equal across every card in the database rather than by market value, so the index is not a portfolio anyone could hold, and there is no fund, ETF, or tracker that replicates it. Greer's addition to his own definition, that the discussion should be about investable assets, bites here.
+
+Card Ladder is upfront about the fragility. Their own documentation walks through a worked example where a single million-dollar sale lifts a player index by 50% while no other card in it changes value at all, and they describe that as a non-representative fluctuation that defeats the purpose of the index. That is an honest disclosure from a data provider, and it is also a warning that most people citing the 3,821% figure have not read.
+
+The cleanest statement of the comparison problem came from analyst Bo Hanson, who called the S&P framing a "math crime" on the grounds that it stacks an aggregated collectibles average against a diversified equity index. His point is that if the comparison has to be made, the honest one is to individual equity winners, not to the market. Over roughly the same two decades, SPY returned 509.56% from July 2006 to July 2026, and that number comes with daily liquidity, dividends, and a bid-ask spread measured in basis points.
+
+## What happens when you correct for selection bias
+
+This is where the academic literature on art becomes directly relevant, because art is the store of value asset that has actually been studied properly.
+
+Goetzmann's work in the 1990s established that sales in these markets are endogenous. Owners choose when to sell, and they are far more likely to sell something that has appreciated, so the transactions observed are not a random sample of the market, they are a sample skewed toward winners. His sharpest observation is that in periods with few sales, an index can record high positive returns even while the overall value of the stock is falling.
+
+Korteweg, Kraussl, and Verwijmeren put numbers on this in the Review of Financial Studies using 20,538 paintings that sold repeatedly at auction between 1972 and 2010. Correcting for selection bias cut the average annual index return from 11% to 7%, and cut the Sharpe ratio from 0.4 to 0.1. Their conclusion was blunt: passive index investing in paintings is not a viable investment strategy once selection is accounted for, and they explicitly flagged that the finding extends to other illiquid assets that trade endogenously.
+
+Trading cards are exactly that. They trade endogenously, the index is built only from cards that sold, and the market is far more retail and far more sentiment-driven than the auction market for paintings. If a correction of that size applies to a dataset of twenty thousand paintings across four decades, there is no obvious reason Card Ladder's Pokemon index would need a smaller adjustment. If anything it needs a larger one, since the Sharpe ratio collapse in the art study came mostly from correcting understated volatility, and a last-sale index understates volatility more than a repeat-sales regression does.
+
+The Charizard case study makes the point better than the theory does. The PSA 10 first edition Base Set Charizard is the most tracked single card in the hobby, and its recorded sale history is the honest test of "is this actually a boring, stable store of value."
 
 {{POKEMON_CARD_IMAGE}}
 
@@ -91,82 +109,115 @@ The single most-tracked individual card in the hobby is the PSA 10, 1st Edition 
 
 {{POKEMON_CHARIZARD_CHART}}
 
-That is not a boring asset. It is a card that went four years with no recorded sale at all, then round-tripped through a 40% drawdown, inside a longer uptrend that did eventually make a new high. Anyone selling this as "stable" is quietly skipping the middle of that table.
+There is a four-year window with no observed price at all, followed by a 40% drawdown, inside a longer uptrend that eventually made a new high. During those four silent years the index simply carried the card at $18,900 and reported no volatility whatsoever. That is Goetzmann's point rendered as a single asset, and it is the strongest illustration I found of why the smoothness of these indices is manufactured rather than real.
 
-## $30 in 1999
-
-The comparison everyone eventually wants: what if you had put a small amount into a Charizard in 1999 instead of the index. $30 in the S&P 500 in January 1999, dividends reinvested, using Yahoo Finance's real adjusted-close data, is worth about $261 today, roughly 9x. The same $30 toward a Charizard that later graded a PSA 10 would be worth $550,000 today, over 18,000x.
-
-That gap is real, and it is also the least representative comparison possible. It is the single most valuable specific outcome in the entire hobby, not a typical one, and the honest caveat matters here: a specific, dated PSA 10 sale record for this card does not exist anywhere from 1999 through mid-2017. $30 is a stated assumption about what a raw copy or a few packs cost at release, not a documented sale. Every point on this comparison from July 2017 onward is a real, publicly reported transaction. The 1999 entry point is not.
+The comparison people always want is the $30 one. Thirty dollars in the S&P 500 in January 1999, dividends reinvested, is worth roughly $261 today. Thirty dollars spent on a Charizard that later graded PSA 10 would be worth $550,000, so around 18,000 times the money. I am keeping that number in this piece purely as an illustration of how misleading survivorship is, because it is the single most extreme surviving outcome out of billions of printed cards, and the 1999 entry price is an assumption about what packs cost rather than a documented transaction. Every point from July 2017 onward is a real reported sale. The starting point is not.
 
 {{POKEMON_THIRTYDOLLAR_CHART}}
 
-## Nobody researching this professionally actually agrees
+## The costs that never make it into the comparison
 
-CNBC ran the WSJ number too, after AJ Scaramucci paid $16.49m for the only PSA 10 "Pikachu Illustrator" card and argued on air that collectibles are now a legitimate asset class. That is one buyer's argument after a record purchase, not a bank or an academic publishing research, and it should not be read as the latter.
+Return comparisons between cards and equities are almost always gross of frictions that are trivial in one market and enormous in the other.
 
-The pushback is real and comes from people with no stake in the outcome. 24/7 Wall St. ran a piece arguing the "beats the S&P 500" framing is a category error, since a card produces no cash flow or dividend and comparing it to an equity index the way you would compare two stocks is methodologically off. A financial adviser quoted in that piece called it a "math crime." Two Northeastern University finance professors landed on opposite sides on record: one cautiously open (value drawn from scarcity and cultural appeal, similar to art), one openly skeptical, saying there is "no proven multi-decade outperformance track record."
+At Heritage the buyer's premium is 20% of the hammer price on most lots, and seller commissions for one-off consignments have historically been quoted in the 10% to 15% range. Goldin charges roughly 20% to buyers as well. PSA grading in 2026 runs from about $25 to $600 per card depending on tier and declared value, and once membership and shipping are added, the all-in cost on a bulk submission is closer to $30 to $35. Auctions settle 30 to 60 days after the hammer falls.
 
-The most rigorous work found on this, from the CAIA Association (a 2021 study by Andrew Keenan, CAIA, CFA, Credit Suisse), found buyers pay an average 1,487% premium for a PSA 10 over a PSA 9 of the identical sports card, and that PSA-10 portfolios returned about 42% annualized over the study window versus 35% for PSA-9. It is sports cards, not Pokemon, but it is the clearest quantitative proof that grading is most of what actually drives this market, which the Charizard case study above shows anecdotally.
+Put a round trip through that. Buy at auction and sell at auction at the same hammer price: pay 1.20 times hammer, receive somewhere between 0.85 and 0.90 times hammer. Using the midpoint, the hammer price has to rise about 37% before breaking even. On a three-year hold that is roughly 11% a year of pure friction before any actual gain. The equivalent drag on an S&P 500 ETF is a three basis point expense ratio and a spread barely worth measuring.
 
-For Pokemon specifically, peer-reviewed research basically does not exist yet. The one direct attempt is an undergraduate independent study at the College of Wooster (2024), using PriceCharting data from 2021-2023, and it found a portfolio of Pokemon cards returned -4.72% annualized over that window, underperforming the S&P 500. It is a real, named study, just not a peer-reviewed one, and a completely different three-year window than the WSJ's 21-year figure. Both numbers can be true at once. This is a young, volatile market where the answer depends heavily on which years you happen to measure, which is itself the finding.
+The record sale itself shows what this does to a headline. Logan Paul bought the Illustrator in 2021 for a reported $5.275m and sold it in February 2026 for $16,492,000, which reads as a 3.13x gain and about 28% a year. But the $16.49m figure includes the buyer's premium, so what left the buyer's account is not what arrived in the seller's. At a 20% premium the hammer was closer to $13.7m, and even assuming Paul negotiated a zero seller commission, the realized return drops to roughly 2.6x and about 23% annualized. That is still an excellent trade by any standard. It is also five percentage points a year worse than the number that got reported, on the single highest-profile transaction in the history of the category, where the seller had maximum negotiating leverage. Everyone else does worse.
 
-## Who actually owns this
+## How this compares to collectibles with actual institutional history
 
-Pokemon is owned in roughly equal thirds by Nintendo, Game Freak, and Creatures Inc, run day to day through their joint venture, The Pokemon Company. None of the three is separately investable. Only Nintendo (TYO: 7974 / OTC: NTDOY) is public, and Nintendo does not break out a Pokemon-specific revenue line, so even that exposure is real but blended, not a clean pure-play read.
+If Pokemon cards are a store of value asset, the right peer group is not the S&P 500. It is art, wine, watches, and classic cars, which have decades of price history and institutional participation.
 
-The Pokemon Company's own most recent fiscal year (to February 2026) was a record: revenue of ¥531.4bn (\~$3.34bn), up 29.3%; operating profit ¥144.0bn (\~$904m), up 43.0%; net profit ¥120.1bn (\~$754m), up 70.7%. Profit growing faster than revenue is exactly what a licensing business with low incremental cost is supposed to show.
+Knight Frank's Luxury Investment Index tracks ten of these categories. It fell 3.3% in 2023, 2.7% in 2024, and 0.4% in 2025, which the firm characterized as stabilization after two years of sustained losses rather than a recovery. The Liv-ex Fine Wine 100 dropped another 2.5% in 2025 and sits roughly 25% below its 2022 peak. Over ten years, rare whisky is up about 192% and fine wine about 54%. Meanwhile the broader art market grew 4% in 2025 to $59.6bn in global sales, with US auction sales up 23%.
 
-The grading infrastructure is private too, and consolidating fast. PSA's parent was taken private in 2021 for roughly $853m by an investor group including Steve Cohen, and by 2022 had raised further capital at a $4.3bn valuation. Its main challenger, CGC, was majority-acquired by Blackstone's Tactical Opportunities arm. There is no clean public equity for the grading side of this trade either.
+So the entire established passion-asset complex has been flat to falling for three consecutive years, in the same window that Pokemon cards allegedly returned 145% in twelve months. There are two ways to read that. Either Pokemon is genuinely uncorrelated with every other collectible category, which would make it an extraordinary diversifier and is a very large claim, or the two sets of numbers are measuring different things. I lean toward the second, and the methodology section above is why.
 
-Retail investors have already tried to securitize this directly, and it is mostly gone badly. Otis fractionalized a Charizard at a $236,800 valuation, was acquired by Public.com in 2022, then liquidated, with investors reportedly taking a loss. Collectable, an SEC Reg A+ platform, discloses roughly 3.1% annualized returns since launch against an estimated 6-8% for the broader blue-chip card category over the same period, meaning the actual investable product underperformed the market it was built to track, after fees. Dibbs pivoted away from fractional ownership entirely in 2024. That is a real, market-tested answer to "can this be cleanly securitized," and so far the answer has mostly been no.
+Knight Frank is careful about this in a way card trackers are not. The firm states plainly that the KFLII is a price index built from dealer- and auction-supplied data rather than an investible product. That is the correct disclosure for a store of value index, and its absence from most Pokemon commentary is telling.
 
-## The comparison that should worry any bull
+## The market has already split in two
 
-At the peak of the early-1990s baseball card craze, manufacturers printed an estimated 81 billion cards a year, about 325 for every person in America, chasing demand with no regard for scarcity. When the 1994 MLB strike broke collector confidence, the market never recovered. Revenue fell to roughly a seventh of its peak, and most of that era's cards are worth about a cent each today.
+Treating "is this a bubble" as a future question stopped making sense once I looked at 2026 data, because for one half of this market it has already been answered.
 
-Being honest about the parallel: Pokemon's own print runs are accelerating too, the exact same "print more to chase demand" instinct that broke the sports-card market. What is different so far is that demand has kept pace instead of declining. A real structural stress test, a recession or a sharp drop in new-collector demand, is something this specific boom has not faced yet.
-
-## It is already splitting in two, not hypothetically
-
-Everything above treats "is this a bubble" as a future question. Checking the most recent data changed that for me, because for one part of this market it is not a future question anymore. It is already happening, just not evenly.
-
-Modern cards, released in the last two to three years, have corrected hard since late 2025. An Obsidian Flames Charizard fell from $126 to $79. A Prismatic Evolutions Umbreon SIR fell from $1,600 to $832, a 48% drop, in a matter of weeks. Elite Trainer Boxes are down about 25% (Phantasmal Flames booster boxes went from $305 to $275), and sealed product broadly is down 15-25% since March 2025. Independent trackers put modern singles down somewhere between 20% and 60% from their 2024-2025 peaks. Actual sales volume for booster and sealed product, not just asking prices, fell from an index reading of 410.5 in January 2026 to 270.77 by March, a real drop in how much of this stuff is actually changing hands.
+Modern cards, meaning sets from roughly the last three years, corrected hard from late 2025. A Prismatic Evolutions Umbreon ex Special Illustration Rare fell from about $1,600 to $832. An Obsidian Flames Charizard ex went from $126 to $79. Phantasmal Flames booster boxes dropped from $305 to $275 inside ten days, Elite Trainer Boxes fell from $120 to $90, and sealed product broadly is down 15% to 25% since March 2025. Independent trackers put modern singles somewhere between 20% and 50% below their 2024 to 2025 peaks.
 
 {{POKEMON_MODERN_CARDS_IMAGE}}
 
-Vintage did the opposite over those same months. The Charizard case study above hit its own all-time high in December 2025. The Pikachu Illustrator sale mentioned earlier happened on 16 February 2026, a new world record for any Pokemon card, while modern cards were still falling. That is not a coincidence of timing, and I do not think it is really two separate stories either. It is the same mechanism producing opposite results. A modern chase card's supply can grow to meet demand, because The Pokemon Company can print more of that exact set, and that is exactly what has been happening. A 1st Edition Base Set card printed in 1999 cannot be reprinted. Its supply is fixed in a way no card from a 2024 set's supply is, no matter how hot that set gets.
+Vintage did the opposite over the same months. The Charizard set its record in December 2025. The Illustrator sale in February 2026 became the most expensive trading card ever sold in any category, certified by Guinness. Sealed Base Set booster boxes cleared $400,000. Buyers still spent around $450m on Pokemon cards in the first quarter of 2026, so this is not a market where demand disappeared.
 
-## My view
+The explanation usually offered is supply. The Pokemon Company printed 11.9 billion cards in the year to March 2024 and 10.2 billion in the year to March 2025, cumulative production passed 85 billion in May 2026, and roughly 40% of every Pokemon card ever printed was made in the last three fiscal years.
 
-I do not think this is a fad, and I do not think it is a clean financial asset either. But by 2026 I also do not think "is Pokemon overvalued" has one answer, because it is not one market, and the data above makes that split too real to keep treating it as one question.
+{{POKEMON_PRODUCTION_CHART}}
 
-The modern segment was overvalued, and it is already proving that in real time rather than waiting for some future correction. I would expect that gap to widen, not close, through the rest of 2026 and into 2027. The Pokemon Company is still printing at record volume right now (85bn+ lifetime, roughly 40% of that in the last three fiscal years alone), so every new set adds fresh supply competing against everyone who bought a 2024-2025 chase card near the top and wants out. Vintage has the opposite setup, and I think it actually gets more scarce over time in a way most people do not account for: the surviving raw population of a 1999 card only shrinks as more of it gets handled, damaged, or lost before ever reaching a grader, so the PSA 10 population of a fixed vintage print run can really only go down, never up. That is a genuinely different supply curve from a modern card the company can reprint on demand, and it is the actual reason I do not expect vintage to follow modern down.
+A modern chase card's supply can expand to meet demand because the company can simply print the set again, and a new Millennium Print Group facility is adding capacity. A 1999 card cannot be reprinted.
 
-The production and grading data make a real case that this whole category is structurally different from a normal collectible wave: three decades of accelerating, not fading, demand, backed by genuine third-party authentication infrastructure rather than self-reported numbers. That part of the bull case is real, for vintage specifically. But the actual, computed academic returns on Pokemon cards range from -4.72% annualized (Wooster, 2021-2023) to numbers that beat the S&P 500 many times over (WSJ/Card Ladder, 2004-2025), and now I think I know why that gap is so wide: one of those studies was mostly measuring modern cards during a window that looks a lot like today's correction, and the other was dominated by the small number of ultra-rare, perfectly graded vintage cards that are still setting records. Almost everyone's actual holding is a modern card, not one of those.
+That is where most of the commentary stops. In my view it stops one step too early.
 
-If I were actually putting money into this, the CAIA finding is the one I would take most seriously: grading, not the card itself, is most of what drives return. A PSA 10 versus a PSA 9 of the identical card is a roughly 1,487% price gap on sports cards, and the vintage-versus-modern split above is that same idea at the level of an entire market segment, not just one card. The real skill this "investment" requires is not picking the right character or the right set. It is correctly telling, before you buy, whether you are holding something with genuinely fixed supply or something the company can print more of the moment demand asks for it, which is a distinction most people writing enthusiastically about this asset class right now are not making.
+## Why the vintage scarcity argument is weaker than it looks
+
+The print run of a 1999 card is fixed. The supply that determines its price is not the print run. It is the number of copies in a PSA 10 holder, because that is the specific object that trades at the headline prices, and that population is manufactured by a grading company rather than by Nintendo.
+
+The PSA population report for Base Set is the thing that actually changed my mind on this. Over a recent thirty-day window, Base Set Charmander gained 2,661 new PSA 10s to reach 3,638 total, meaning the gem mint population of a 1999 card grew by around 270% in a month. Base Set Bulbasaur added 1,860 to reach 2,220, a rise of more than 500%. Charmeleon added 1,261 to reach 1,565. Squirtle added 1,179 to reach 2,131. These are not modern reprints. They are cards printed in 1999 whose investable float more than doubled, in some cases more than quintupled, inside four weeks.
+
+{{POKEMON_PSA_POPULATION_CHART}}
+
+That data should be read carefully rather than oversold. Part of that surge is almost certainly PSA clearing a backlog rather than a steady run rate, and pop reports count submissions rather than unique cards, so a card cracked and resubmitted appears twice. But the direction is unambiguous: PSA is grading at roughly 90,000 cards a day against about 15,000 in 2021, and the trackers publishing this data flag it themselves as fresh supply diluting scarcity.
+
+The mechanism is that grading converts raw cards, which are effectively unpriced, into graded cards, which are priced. Every ungraded 1999 Charizard sitting in a binder is a call option on new supply, and higher prices are exactly what pulls it into the market. That is a supply curve that responds to price. It is slower and messier than a printing press, but it is not fixed.
+
+The gap becomes visible by comparing two cards with almost identical submission volumes. Base Set Charizard has been graded about 101,139 times and around 122 of those are PSA 10s, a gem rate near 0.1%. The 151 set's Charizard ex has been graded about 99,517 times with a gem rate of roughly 28%, close to 28,000 PSA 10s. Same character, near identical submission counts, and a difference in gem mint population of more than two hundred times.
+
+{{POKEMON_GEM_RATE_CHART}}
+
+That gap, not the year on the card, is what people are actually buying when they buy vintage.
+
+Now put that back through Greer. Irrational exuberance needs both no objective measure of value and a constraint on supply. Modern cards have the first condition but fail the second, which is precisely why the speculative premium unwound so fast when print runs caught up. Vintage graded cards have the first condition and appear to have the second, which under Greer's framework makes them the segment most exposed to a sentiment-driven repricing, not the safe half. The population data suggests the supply constraint is looser than the story implies, which does not make vintage safer. It means vintage has been getting the valuation premium of fixed supply while the actual float expands underneath it.
+
+## You cannot really own any of this
+
+Even accepting the bull case, the investable expression is poor.
+
+Pokemon is owned in roughly equal thirds by Nintendo, Game Freak, and Creatures Inc, run through their joint venture, The Pokemon Company. Nintendo holds 32% of the voting rights. TPC's own numbers for the year to February 2026 were a record: net sales of ¥531.4bn, up 29.3%, operating profit of ¥144.0bn, up 43.0%, and net profit of ¥120.1bn, up 70.7%. Profit growing faster than revenue is what would be expected from a licensing business with low incremental cost. Those figures reached the public through a filing in Kanpo, the Japanese government gazette, rather than through an investor report, and how revenue and profit are shared between TPC and its three owners is not disclosed.
+
+Only Nintendo is listed, and it does not break out Pokemon. The one place the card boom is visible in a public security is Nintendo's equity method investment income, which reached ¥82.8bn in the year to March 2026, roughly triple the prior year. That is real exposure, but it is blended with a Switch 2 launch year and everything else Nintendo owns.
+
+The grading layer is private and consolidating. PSA's parent went private in 2021 for around $853m with an investor group including Steve Cohen, and raised further capital at a $4.3bn valuation by 2022. Its main challenger CGC was majority acquired by Blackstone's Tactical Opportunities arm. Given that the analysis above suggests grading is the actual supply mechanism for this market, the fact that the two firms controlling it are owned by a hedge fund founder and a private equity giant, and that neither is accessible to a public market investor, is not a small detail.
+
+Attempts to securitize the cards themselves have a poor record. Otis fractionalized a Charizard at a $236,800 valuation, was acquired by Public.com in 2022, then liquidated with investors reportedly taking a loss. Collectable, an SEC Reg A+ platform, has disclosed roughly 3.1% annualized returns since launch against an estimated 6% to 8% for the blue chip card category over the same period, so the actual investable product underperformed the market it was built to track once fees were taken out. Dibbs abandoned fractional ownership in 2024.
+
+The clearest example is attached to the record sale itself. About 5.4% of the Illustrator card had been fractionalized through Liquid Marketplace before that platform collapsed. At the $16.49m sale price that stake would be worth roughly $890,000, and as of April 2026 the claims of the former fractional holders remained unresolved, with Paul's side maintaining the proceeds are his. The single most successful trade in the history of this asset produced a legal dispute for the only people who had tried to own it as a security.
+
+## Where I land
+
+Taxonomically, Pokemon cards are an asset class. They are store of value assets under Greer's framework, they share fundamental economic characteristics with each other, and those characteristics distinguish them from equities and commodities. Anyone arguing they are only a toy is wrong, and the production and grading data settles that comfortably. Three decades in, demand is still accelerating, the franchise's owner just posted its best year ever, and there is genuine third party authentication infrastructure underneath the market rather than self-reported numbers.
+
+As something to actually allocate to, I do not think the case holds. The headline return is produced by a stale priced, equal weighted, non-investable index built only from cards that sold, in a market where people sell winners and hold losers. The one rigorous correction available for that bias, from a much better documented market, cut annual returns by four percentage points and cut the Sharpe ratio by three quarters. Round trip transaction costs require roughly 37% appreciation before breaking even. Every other store of value category with a longer institutional record has been flat or falling for three years.
+
+The evidence I would have expected to be strongest is also weaker than it is usually presented. The CAIA study by Andrew Keenan is the most cited quantitative work on grading premiums, and it did find a large perfection premium, averaging somewhere between roughly 869% and 1,487% over five years, with a PSA 10 portfolio returning about 42% annualized over ten years against 35% for the PSA 9 equivalent. But the two portfolios had a monthly return correlation above 0.9, and the outperformance was concentrated in the 2020 to 2021 window. Before that it was tepid. So grading is not a persistent source of excess return, it is leverage on the same beta that spiked during the mania. It is also a study of sports cards, not Pokemon.
+
+For Pokemon specifically there is essentially no peer reviewed work. The one direct attempt is a 2024 undergraduate independent study at the College of Wooster using PriceCharting data from 2021 to 2023, which found a Pokemon portfolio returned -4.72% annualized and underperformed the S&P 500. It is a real study rather than a peer reviewed one, and it covers a completely different window to the twenty-one year figure. Both numbers are true. A category where the sign of the return depends entirely on which three years get picked is not one worth sizing a position in.
+
+If I had to hold something in this market, I would not be buying the year on the card. I would be buying the gem rate, and watching the population report the way anyone would watch a share count for dilution. The thing most people writing enthusiastically about this asset class have not noticed is that vintage scarcity is not a fact about 1999. It is a fact about how many copies PSA has not yet put in a holder, and that number is falling every single week.
 
 ## Sources
 
-- [The Hot Investment With a 3,000% Return — WSJ, via Securities Docket](https://www.securitiesdocket.com/2025/09/12/the-hot-investment-with-a-3000-return-pokemon-cards-wsj/)
-- [Scaramucci: collectibles are an asset class — CNBC](https://www.cnbc.com/2026/02/25/pokmon-card-winner-scaramucci-says-collectibles-are-asset-class.html)
-- [Pokemon cards beat the S&P 500, but the math is a lie — 24/7 Wall St.](https://247wallst.com/investing/2026/07/18/pokemon-cards-beat-the-sp-500-by-2-5x-but-the-math-is-a-lie/)
-- [Pokemon cards: should you invest? — Northeastern University](https://news.northeastern.edu/2026/03/20/pokemon-cards-should-you-invest/)
-- [The Price of Perfection — CAIA Association](https://caia.org/blog/2021/12/02/collectibles-trading-cards-and-price-perfection/)
-- [Trading card portfolio returns, 2021-2023 — College of Wooster independent study](https://openworks.wooster.edu/independentstudy/10979/)
-- [November 2025 grading volume recap — GemRate](https://www.gemrate.com/november-2025-recap)
-- [Card Ladder methodology](https://www.cardladder.com/about)
-- [Collectable returns, via MoneyMade](https://www.moneymade.io/discover/collectable)
-- [The Pokemon Company FY26 financial results — Serkan Toto](https://www.serkantoto.com/2026/06/01/pokemon-company-financial-numbers-2/)
-- [PSA/Collectors Universe take-private](https://legalclarity.org/who-owns-psa-grading-parent-company-and-investors/)
-- [Collectors Holdings $4.3bn valuation — Sportico](https://www.sportico.com/business/finance/2022/collectors-chernin-cohen-1234670529/)
+- [What is an Asset Class, Anyway? — Robert Greer, Journal of Portfolio Management, 1997](https://www.pm-research.com/content/iijpormgmt/23/2/86)
+- [The Superclasses of Assets Revisited — J.P. Morgan Center for Commodities, 2018](https://www.business.ucdenver.edu/faculty-research/research-institutes/commodities-institute/publications/digest)
+- [Does it Pay to Invest in Art? A Selection-Corrected Returns Perspective — Korteweg, Kraussl, and Verwijmeren, Review of Financial Studies](https://academic.oup.com/rfs/article/29/4/1007/1843376)
+- [How Costly is the Fall From Fashion? Survivorship Bias in the Painting Market — Goetzmann, 1996](https://www.nber.org/papers/w4986)
+- [Collectibles: Trading Cards and the Price of Perfection — Andrew Keenan, CAIA Association, December 2021](https://caia.org/blog/2021/12/02/collectibles-trading-cards-and-price-perfection/)
+- [Card Ladder index and value methodology](https://cardladder.zendesk.com)
+- [Pokemon Cards Beat the S&P 500 by 2.5x, But the Math Is a Lie — 24/7 Wall St., 18 July 2026](https://247wallst.com/investing/2026/07/18/pokemon-cards-beat-the-sp-500-by-2-5x-but-the-math-is-a-lie/)
+- [Are collectibles a viable asset class? The buyer of the $16.5 million Pokemon card thinks so — CNBC, 25 February 2026](https://www.cnbc.com/2026/02/25/pokmon-card-winner-scaramucci-says-collectibles-are-asset-class.html)
+- [Knight Frank Wealth Report 2026 and Luxury Investment Index, April 2026](https://www.knightfrank.com/wealthreport)
+- [Art Basel and UBS Global Art Market Report 2026](https://www.artbasel.com/about/initiatives/the-art-market)
+- [The Pokemon Company FY2026 results, filed in Kanpo — reported by Dr. Serkan Toto, 1 June 2026](https://www.serkantoto.com/2026/06/01/pokemon-company-financial-numbers-2/)
+- [Collectors Holdings (PSA parent) $4.3bn valuation — Sportico](https://www.sportico.com/business/finance/2022/collectors-chernin-cohen-1234670529/)
 - [Blackstone acquires CGC's parent — press release](https://www.blackstone.com/news/press/blackstone-tactical-opportunities-to-acquire-the-certified-collectibles-group-a-leading-provider-of-tech-enabled-authentication-grading-and-conservation-services-for-the-global-collectibles-industry/)
-- [Pokemon Card Market Crash 2026: What Really Happened — PokemonPriceTracker](https://www.pokemonpricetracker.com/blog/posts/pokemon-card-market-crash-2026-what-really-happened)
-- [Pokemon Card Market Crash 2026: Signs & How to Prepare — PokemonPriceTracker](https://www.pokemonpricetracker.com/blog/posts/pokemon-card-market-crash-2026-signs-how-to-prepare)
-- [Why Are Pokemon Card Prices Dropping? — Misprint](https://www.misprint.com/posts/why-are-pokemon-card-prices-dropping)
-- [Pokemon Card Market Trends 2026 — CardScan AI](https://cardscannertcg.com/blog/pokemon-card-market-trends-2026)
 - [Logan Paul's Pikachu Illustrator sells for record $16.5M at auction — KSAT](https://www.ksat.com/entertainment/2026/02/16/logan-pauls-pikachu-illustrator-pokemon-card-sells-for-record-165m-at-auction/)
+- [PSA population data via CardTrack and GemRate, 2026](https://www.gemrate.com)
+- [Trading card portfolio returns 2021 to 2023 — College of Wooster independent study, 2024](https://openworks.wooster.edu/independentstudy/10979/)
+- [PokemonPriceTracker, Nerdbeak, and PullRate market reporting, 2026](https://www.pokemonpricetracker.com)
 `,
   },
   {
