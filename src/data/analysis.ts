@@ -490,11 +490,11 @@ export const STOCK_PITCHES: AnalysisEntry[] = [
   {
     id: "diploma-plc",
     title: "Diploma PLC",
-    tagline: "LSE: DPLM: a quality compounder, freshly re-rated on a US aerospace bolt-on",
-    date: "2026-08-05",
+    tagline: "LSE: DPLM: a quality compounder that just posted a 42% operating-profit quarter",
+    date: "2026-08-13",
     body: `# Diploma PLC (LSE: DPLM)
 
-**The trigger:** Diploma's £236m acquisition of Peerless Aerospace Fastener, announced in 2026 and expected to add roughly 8% to group EPS in its first year, alongside Q1 FY2026 results showing EPS up 36% year-on-year.
+**The trigger:** A Q3 FY2026 trading update (nine months to 30 June 2026) showing operating profit up roughly 42% year-to-date, with full-year guidance raised again, on top of the earlier £236m Peerless Aerospace Fastener acquisition.
 
 ## What it is
 
@@ -502,26 +502,28 @@ A UK-listed distributor of unglamorous, mission-critical technical products, spe
 
 ## The thesis
 
-Diploma is a textbook "quality compounder": a business that does not sound exciting but has compounded shareholder returns for two decades by buying small distributors at reasonable multiples, retaining their existing management, and scaling procurement centrally behind the scenes. As of 22 July 2026 the stock trades around 7,525p, a fresh high inside a 52-week range of 4,558p–7,295p. Q1 FY2026 revenue was up 17% (15% organic, above its own five-year average) and operating margin expanded 300bps to 24.5%; full-year guidance was upgraded to over 30% operating profit growth. The Peerless deal, alongside a £38m bolt-on for UK seals specialist PAR Group and a CDM acquisition aimed at US defense-market exposure, extends the model into aerospace and defense-adjacent distribution, a second, less obvious way to gain exposure to the European/US rearmament cycle beyond prime contractors.
+Diploma is a textbook "quality compounder": a business that does not sound exciting but has compounded shareholder returns for two decades by buying small distributors at reasonable multiples, retaining their existing management, and scaling procurement centrally behind the scenes. As of mid-August 2026 the stock trades around 7,590p, close to a fresh 52-week high, inside a 52-week range of 4,970p–7,663p. The third quarter alone delivered 15% organic revenue growth, with acquisitions adding a further 6 points to reported growth, and operating profit is up roughly 42% for the nine months to 30 June 2026; management raised full-year guidance again, to 14% organic revenue growth (from 12%) and a circa 26.5% operating margin (from circa 25%). The CDM acquisition, completed 25 June 2026, strengthens the group's US interconnect operations with a specific tilt toward defense customers, alongside the earlier Peerless Aerospace Fastener deal and a £38m bolt-on for UK seals specialist PAR Group, extending the model further into aerospace and defense-adjacent distribution, a second, less obvious way to gain exposure to the European/US rearmament cycle beyond prime contractors. The next scheduled catalyst is full-year results on 17 November 2026.
 
 ## Key risk
 
-The model depends on continuing to find and integrate acquisitions at sensible prices. It is, structurally, a roll-up, and roll-ups deteriorate when they overpay, integrate poorly, or run out of good targets. The stock's premium valuation relative to the broader market already prices in a lot of continued execution.
+The model depends on continuing to find and integrate acquisitions at sensible prices. It is, structurally, a roll-up, and roll-ups deteriorate when they overpay, integrate poorly, or run out of good targets. After this latest re-rating, the stock's premium valuation prices in even more continued execution than before, leaving less room for a disappointing update.
 
-**Sources:** [Diploma Q1/H1 2026 results and acquisitions](https://www.tipranks.com/news/company-announcements/diploma-plc-expands-with-strategic-acquisition), [Diploma share price](https://www.investing.com/equities/diploma--plc), [Peerless Aerospace Fastener acquisition](https://www.tipranks.com/news/global-markets/uk-stocks-diploma-dplm-shares-rally-on-peerless-acquisition)
+**Sources:** [Diploma Q3 FY2026 trading update](https://www.tradingview.com/news/reuters.com,2026-07-16:newsml_RSP5243Ma:0), [Diploma share price and 52-week range](https://finance.yahoo.com/quote/DPLM.L/), [Peerless Aerospace Fastener acquisition, official RNS announcement](https://www.investegate.co.uk/announcement/rns/diploma--dplm/acquisition/8108565)
 `,
     toolkit: `## Pitch deck template
-Download the [Diploma PLC pitch-deck template (.pptx)](/api/pitch-template?id=diploma-plc&code=vq55jh68%26*): 10 slides built to match the real Varsity/OAF-style decks these templates are modeled on: dense, chart-driven, colour-coded bear/base/bull, not a bullet-point skeleton. The valuation slide and Sources appendix are already filled in with real numbers; everything marked [INSERT] is a prompt telling you exactly what to go research and drop in yourself.
+Download the [Diploma PLC pitch-deck template (.pptx)](/api/pitch-template?id=diploma-plc&code=vq55jh68%26*): 14 slides modeled on the Varsity/OAF competition-winning decks — claim-style titles, dense charts, colour-coded bear/base/bull, a market-expectations slide, and Q&A-proof appendices. Nothing is pre-filled: every [INSERT] prompt tells you exactly what to research, where to find it, and where it goes on the slide.
 
-Download the [Diploma PLC DCF workbook (.xlsx)](/api/pitch-template?id=diploma-plc&code=vq55jh68%26*&type=xlsx): the real 5-year FCF build, WACC, and Bear/Base/Bull sensitivity behind that slide, every formula live and every hardcoded input sourced on its own Sources tab. This is what the deck's valuation numbers were actually pulled from.
+Download the [Diploma PLC valuation workbook (.xlsx)](/api/pitch-template?id=diploma-plc&code=vq55jh68%26*&type=xlsx): 5-year DCF with live Bear/Base/Bull scenarios, a WACC build, a reverse-DCF tab, a comps tab, and a Sources tab. Yellow cells = you fill in (each row names its source). Blue cells = formulas, don't touch. Every number in your deck must come from this file, never retyped.
 
 ## DCF starting inputs
-Real, sourced figures to build from: pull the rest (live share price, shares outstanding, net debt, beta) fresh, since this page is a dated snapshot, not a live feed:
-- Share price \~7,525p as of 22 July 2026 (52-week range 4,558p–7,295p)
-- Q1 FY2026 revenue growth: +17% total, +15% organic
-- Operating margin: 24.5%, +300bps year-on-year
-- FY2026 guidance: operating profit growth >30%
+Real, sourced figures to build from — pull the rest (live share price, shares outstanding, net debt, beta) fresh, since this page is a dated snapshot, not a live feed:
+- Share price \~7,590p as of mid-August 2026 (52-week range 4,970p–7,663p)
+- Nine months to 30 June 2026: Q3 organic revenue growth +15%, acquisitions added a further 6 points to reported growth
+- Operating profit growth: \~+42% year-to-date over the nine months to 30 June 2026
+- FY2026 guidance (raised again in the Q3 update): organic revenue growth 14% (from 12%), operating margin circa 26.5% (from circa 25%)
+- CDM acquisition completed 25 June 2026: strengthens US interconnect operations, defense-market tilt
 - Peerless Aerospace Fastener acquisition: £236m, \~+8% EPS accretion in year one
+- Next scheduled catalyst: full-year results, 17 November 2026
 - WACC inputs: use the current 10-year UK gilt yield as your risk-free rate; pull Diploma's beta from stockanalysis.com or a data terminal. Do not guess a beta.
 
 ## Primary filings
@@ -535,12 +537,55 @@ Financial Times (UK mid-cap coverage), Investors' Chronicle, Proactive Investors
 ## Comps and data
 Diploma has no direct UK-listed pure-play peer. Build your comp set from Bunzl (LSE: BNZL, another UK distribution "compounder") and US names like Fastenal (NASDAQ: FAST) and W.W. Grainger (NYSE: GWW). Pull multiples from **stockanalysis.com** or **macrotrends.net** (both free, no login).
 
-## Build it yourself
-1. Pull the latest RNS trading update or interim results for organic growth, division-level margins, and net debt.
-2. Read the acquisition announcement RNS for Peerless (and any newer bolt-ons) for the disclosed price, expected EPS accretion, and financing.
-3. Build a 3-5 name comp set (Bunzl, Fastenal, Grainger) and pull EV/EBITDA, P/E, and revenue growth for each.
-4. Download this site's own **DCF and Trading Comps templates** (\`/templates\`): pick "Diploma" if it is in the company search, or manually adjust a comparable industrial's template with Diploma's own numbers.
-5. Sanity-check your target price against the stock's actual 52-week range before finalizing.`,
+## Build it yourself — the full walkthrough (first-timer edition)
+Never built a pitch before? Follow these steps in order. Total time: roughly one focused weekend.
+
+**Step 1 — Get the raw filings (\~1 hour).**
+- Open the [LSE news explorer](https://www.londonstockexchange.com/news?tab=news-explorer), search "Diploma", and scan the last 12 months. Two documents matter most: the **latest trading update / interim results** and the **Peerless acquisition announcement**.
+- From the trading update, write down: organic revenue growth, division-level margins, and net debt.
+- From the Peerless RNS, write down: price paid, expected EPS accretion, and how it's financed (cash, debt, or new shares).
+- Open the latest annual report from [Diploma IR](https://www.diplomaplc.com/investors). Find: full-year revenue, operating profit/margin, effective tax rate, D&A, capex, change in working capital (cash-flow statement), and shares outstanding.
+
+**Step 2 — Fill the workbook's Inputs tab (\~30 min).**
+- stockanalysis.com → search "Diploma" → quote page for the live price; Statistics page for shares outstanding and beta.
+- Bank of England website → current 10-year gilt yield → your risk-free rate.
+- Every yellow input row names its source. As you fill each one, log it on the **Sources** tab (value, source, date) — this becomes the deck's Appendix D later, so do it as you go, not at the end.
+
+**Step 3 — Read your target price, then stress-test your stance (\~15 min).**
+- The **DCF** tab's summary block gives Bear/Base/Bull values per share and a probability-weighted target. (The **Scenarios** tab holds the editable multipliers — you will be asked to defend them.)
+- **Stance check:** target above today's price → LONG. Below → the honest pitch is AVOID or SHORT — the Altria reference deck won OAF *as a short*. Never present a long whose target sits below the price.
+- **Units check:** UK shares price in pence, financials in £m. A target that looks \~100x wrong is a units slip.
+- **Range check:** compare your target to the 52-week range (re-pull it — don't trust the snapshot above). Outside the range needs a very good reason.
+
+**Step 4 — Reverse DCF: the slide that wins competitions (\~20 min).**
+- On the **Reverse DCF** tab, follow the Goal Seek instructions: you solve for the growth rate that makes your Base-case value *equal today's price*. That is "what the market is pricing in".
+- Fill the table: Metric | Historical | Implied by price | Your forecast | Gap — for revenue CAGR, operating margin, EPS growth. This table becomes the deck's **Market Expectations** slide, and your whole pitch is the argument about that gap.
+
+**Step 5 — Build three theses, each with one dense proof chart (the bulk of the work).**
+1. **The M&A engine:** from past annual reports, count acquisitions per year and plot revenue and EPS over 10-20 years — or build a table of Diploma's own past deals (year / target / price / multiple / accretion) from the RNS archive. A roll-up's own deal history is the strongest evidence that exists.
+2. **Aerospace/defense expansion:** the Peerless deal economics from Step 1, plus a defense-spending trend chart (NATO, UK MoD, or Statista) showing the tailwind the deal buys into.
+3. **Capital allocation:** chart ROIC vs WACC over 10 years (ROIC ≈ NOPAT ÷ (equity + debt − cash), computed per year from annual reports), plus an organic-vs-acquired revenue split from results statements — proves the engine isn't only acquisitions.
+- Slide titles are **claims**, not labels: "A 20-year bolt-on engine that has never overpaid through a cycle", not "Thesis 1".
+
+**Step 6 — The bear case and your rebuttal (\~45 min).**
+- Find the strongest bearish argument you can (search for Diploma valuation concerns; check the P/E against its own history). Write it as convincingly as you can — steelman, don't strawman.
+- Rebut with numbered points, each tied to a *checkable fact* or a *dated future event* — e.g. Peerless's disclosed accretion guidance is a 12-month test that will prove who is right.
+
+**Step 7 — Comps (\~45 min).**
+- Fill the **Comps** tab for Bunzl, Fastenal, Grainger (+ an optional 4th you can justify): EV/EBITDA, P/E, revenue growth, EBIT margin — all from stockanalysis.com, all pulled the same day. The median row computes itself.
+- Prepare one sentence: "Diploma deserves a premium/discount to the median because…" (answer with growth, margin, and ROIC differences).
+
+**Step 8 — Appendix armor (\~30 min).**
+- **Porter's Five Forces:** one line each, rated High/Med/Low.
+- **Management & insiders:** insider ownership % (annual report), recent directors' dealings (LSE RNS), and what executive comp rewards (remuneration report). These two slides decide Q&A.
+
+**Step 9 — Assemble the deck (\~2 hours).**
+- Copy every number from the workbook — never retype. Every [INSERT] prompt on the slides says exactly what goes there.
+- Slide 2 needs a 12-month price chart vs the FTSE 250 with the Peerless announcement date annotated — screenshot or rebuild it from stooq.com data.
+- The valuation slide's Bear/Base/Bull chart comes from the workbook's summary block, colour-coded.
+
+**Step 10 — The morning you present.**
+- Re-pull the live quote. Confirm target vs stance consistency. Units checked. Sources tab complete. Practice defending WACC and your scenario weights out loud — and keep the workbook open during Q&A so you can walk a judge through a formula live.`,
   },
   {
     id: "nintendo",
@@ -557,18 +602,18 @@ The Japanese gaming hardware and software company behind Switch/Switch 2, and on
 
 ## The thesis
 
-This is a genuine case where the fundamentals and the share price are telling opposite stories. Nintendo's FY26 (year to March 2026) net sales nearly doubled, up 98.6% year-on-year to ¥2.313 trillion, driven by Switch 2 (19.86 million units sold in its first 10 months, the fastest-selling console in the company's history) and Pokemon-branded software. The Pokemon Company itself reported $3.33bn revenue and $752m net profit for the year to February 2026, one of the franchise's strongest years on record. Despite that, the stock is down roughly 53% from its 52-week high. Two dated, specific catalysts explain the gap: a memory-chip price surge (linked to the same AI-infrastructure buildout competing for DRAM/NAND supply) pushed up Switch 2's bill of materials and forced a price hike in May 2026, and the June 2026 Direct disappointment described above. Together they have pushed the stock to price in a weaker forward outlook than the current operating numbers support.
+This is a genuine case where the fundamentals and the share price are telling opposite stories. Nintendo's FY26 (year to March 2026) net sales nearly doubled, up 98.6% year-on-year to ¥2.313 trillion, driven by Switch 2 (19.86 million units sold in its first 10 months, the fastest-selling console in the company's history) and Pokemon-branded software. The Pokemon Company itself reported $3.33bn revenue and $752m net profit for the year to February 2026, one of the franchise's strongest years on record. Despite that, the stock is down roughly 53% from its 52-week high. Two dated, specific catalysts explain the gap: a memory-chip price surge (linked to the same AI-infrastructure buildout competing for DRAM/NAND supply) pushed up Switch 2's bill of materials and forced a price hike in May 2026, and the June 2026 Direct disappointment described above. Together they have pushed the stock to price in a weaker forward outlook than the current operating numbers support. A first-quarter earnings beat reported in early August 2026 (revenue ¥517.8bn, operating profit up 150.5% to ¥142.6bn, more than double the average analyst estimate) sent the stock up nearly 5% in a single session, early evidence that this gap can close when results are strong enough, though full-year guidance was left unchanged rather than raised.
 
 ## Key risk
 
 Console cycles are lumpy and hit-driven. Nintendo's model depends on hardware attach rates and a strong first-party software pipeline, and the market has just demonstrated how fast sentiment moves when that pipeline looks thin, even against genuinely strong current results.
 
-**Sources:** [Nintendo FY26 financial results](https://nintendoeverything.com/nintendo-financial-results-may-2026-switch-2-at-19-86-million-units-switch-at-155-92-million-more/), [Pokemon's best year ever](https://gamerant.com/pokemon-2026-highest-sales-ever/), [Nintendo share price decline on price hike](https://www.cnbc.com/2026/05/11/nintendo-stock-switch-2-price-rise-weak-sales-forecast.html), [June 2026 Direct disappointment](https://gamerant.com/nintendo-stock-price-down-why-february-2026/)
+**Sources:** [Nintendo FY26 financial results](https://nintendoeverything.com/nintendo-financial-results-may-2026-switch-2-at-19-86-million-units-switch-at-155-92-million-more/), [Pokemon's best year ever](https://gamerant.com/pokemon-2026-highest-sales-ever/), [Nintendo share price decline on price hike](https://www.cnbc.com/2026/05/11/nintendo-stock-switch-2-price-rise-weak-sales-forecast.html), [June 2026 Direct disappointment](https://gamerant.com/nintendo-stock-price-down-why-february-2026/), [Nintendo's early-August 2026 earnings beat](https://www.benzinga.com/markets/earnings/26/08/61010940/nintendo-says-ai-memory-inflation-could-add-nearly-700-million-in-costs)
 `,
     toolkit: `## Pitch deck template
-Download the [Nintendo pitch-deck template (.pptx)](/api/pitch-template?id=nintendo&code=vq55jh68%26*): 10 slides built to match the real Varsity/OAF-style decks these templates are modeled on: dense, chart-driven, colour-coded bear/base/bull, not a bullet-point skeleton. The valuation slide and Sources appendix are already filled in with real numbers; everything marked [INSERT] tells you exactly what to research and drop in yourself.
+Download the [Nintendo pitch-deck template (.pptx)](/api/pitch-template?id=nintendo&code=vq55jh68%26*): 14 slides modeled on the Varsity/OAF competition-winning decks — claim-style titles, dense charts, colour-coded bear/base/bull, a market-expectations slide, and Q&A-proof appendices. Nothing is pre-filled: every [INSERT] prompt tells you exactly what to research, where to find it, and where it goes on the slide. Nintendo's unusually low beta is cross-checked guidance inside, not a data error — open the workbook rather than trusting any single data provider's number.
 
-Download the [Nintendo DCF workbook (.xlsx)](/api/pitch-template?id=nintendo&code=vq55jh68%26*&type=xlsx): the real 5-year FCF build, WACC, and Bear/Base/Bull sensitivity behind that slide, every formula live and every hardcoded input sourced on its own Sources tab. Nintendo's own unusually low beta (cross-checked, not a data error) is exactly why this one is worth opening rather than trusting the deck slide alone.
+Download the [Nintendo valuation workbook (.xlsx)](/api/pitch-template?id=nintendo&code=vq55jh68%26*&type=xlsx): 5-year DCF with live Bear/Base/Bull scenarios, a WACC build, a reverse-DCF tab, a comps tab, and a Sources tab. Yellow cells = you fill in (each row names its source). Blue cells = formulas, don't touch. Every number in your deck must come from this file, never retyped.
 
 ## DCF starting inputs
 Real, sourced figures to build from: pull the rest (live share price, shares outstanding, net debt, beta) fresh:
@@ -588,11 +633,42 @@ Nikkei Asia and Bloomberg's Japan/gaming desks cover Nintendo's numbers directly
 ## Comps and data
 No exact peer (Nintendo is hardware + first-party software + a licensing stake, which is unusual), but Sony's Games & Network Services segment (within 6758.T) and pure software publishers (Take-Two, EA) are the closest reference points for multiples. Pull from **stockanalysis.com**.
 
-## Build it yourself
-1. Read the actual FY26 results presentation (not just the press summary) for the Switch 2 unit-sales trajectory and segment margins.
-2. Track the memory-chip cost story separately. DRAM/NAND spot price trends are covered by DRAMeXchange/TrendForce, relevant to Switch 2's bill of materials.
-3. Note every dated Nintendo Direct showcase going forward. The market's reaction to announced titles is the single biggest swing factor in this thesis.
-4. Use this site's **DCF template** (\`/templates\`) with a Japan/consumer-hardware sector selection, and sensitize the terminal growth assumption to hardware-cycle risk explicitly rather than a flat rate.`,
+## Build it yourself — the full walkthrough (first-timer edition)
+Never built a pitch before? Follow these steps in order. Total time: roughly one focused weekend.
+
+**Step 1 — Get the primary documents (\~1 hour).**
+- [Nintendo IR](https://www.nintendo.co.jp/ir/en/) → the actual FY26 results presentation (not the press summary). Write down: net sales, operating profit, segment margins, Switch 2 unit trajectory, software attach rate.
+- The Pokemon Company's figures come from its own reporting — Nintendo is one of three JV partners, so cite it as a stake, never as consolidated revenue.
+- Note the two dated catalysts precisely: the May 2026 price-hike announcement and the June 2026 Direct showcase. Their dates matter — you will annotate them on your chart.
+
+**Step 2 — Fill the workbook's Inputs tab (\~30 min).**
+- stockanalysis.com → 7974 (Tokyo): live price in ¥, shares outstanding, beta. Cross-check the beta against a second source — Nintendo screens unusually low (net cash + the Pokemon annuity), and that is exactly the kind of thing judges probe.
+- Risk-free: the current 10-year JGB yield. Quote divisor stays at 1 — everything is JPY, no pence conversion.
+- Log every input on the **Sources** tab (value, source, date) as you go — it becomes Appendix D.
+
+**Step 3 — Read your target, then stress-test your stance (\~15 min).**
+- DCF tab summary gives Bear/Base/Bull per share and a weighted target. Stance check (long = target above price), units check, and a range check against the 52-week high/low — remember the stock is \~53% below its high, so decide explicitly whether your pitch is "the drawdown is overdone" or "the drawdown is deserved".
+
+**Step 4 — Reverse DCF (\~20 min).** Use the Reverse DCF tab's Goal Seek instructions to find the growth the *current* price implies — after a 53% drawdown that may be an implied *decline*. Fill Metric | Historical | Implied by price | Your forecast | Gap for revenue CAGR, margin, EPS growth. That table is the Market Expectations slide.
+
+**Step 5 — Build three theses, each with one dense proof chart (the bulk of the work).**
+1. **Record fundamentals:** revenue and operating profit over 10 years from the FY26 deck — the strongest year on record, priced like a bad one.
+2. **Two dated, fixable catalysts:** DRAM/NAND spot-price trend (TrendForce/DRAMeXchange) against the Switch 2 bill-of-materials commentary, plus how the stock reacted to past Directs — showcase sentiment is the swing factor, and it is a dated, recurring checkpoint.
+3. **The IP/Pokemon annuity:** The Pokemon Company's own reported year ($3.33bn revenue, $752m profit) and Nintendo's stake — licensing income versus hardware profit mix, over time.
+- Slide titles are **claims**, not labels.
+
+**Step 6 — The bear case and your rebuttal (\~45 min).**
+- Steelman the strongest version: record results were a cycle peak, memory costs stay elevated through FY27, and the next showcase underwhelms again.
+- Rebut with numbered, checkable points: FY26 is reported fact, BOM pressure is a cost-side event with known resolution paths, and the next Direct is a dated binary catalyst.
+
+**Step 7 — Comps (\~45 min).**
+- Comps tab: Sony's Game & Network Services (6758.T), Take-Two, EA. Say explicitly that no true peer exists (hardware + first-party + the Pokemon stake is an unusual mix) — judges respect the honesty.
+
+**Step 8 — Appendix armor (\~30 min).** Porter's Five Forces, one line each, plus Management & Insiders: ownership structure, buyback/dividend policy, and the corporate-governance report's remuneration detail.
+
+**Step 9 — Assemble the deck (\~2 hours).** Copy numbers from the workbook, never retype. Slide 2 needs a 12-month price chart vs the Nikkei or TOPIX with the May price hike and June Direct annotated.
+
+**Step 10 — The morning you present.** Re-pull the live quote. Confirm stance consistency. Be ready to defend the low beta, your terminal growth under hardware-cycle risk, and your scenario weights out loud.`,
   },
   {
     id: "british-american-tobacco",
@@ -609,18 +685,18 @@ One of the world's largest tobacco companies (Dunhill, Lucky Strike, Vuse, Velo)
 
 ## The thesis
 
-BAT is a value-versus-structural-decline argument. Alongside the buyback, its progressive dividend continues (next dividend 61.26p per share), and Velo, its nicotine-pouch brand, has reached a #2 volume/value position in its category within a year of a key launch. Management's own algorithm targets +3-5% revenue, +4-6% profit, and +5-8% EPS growth; 2026 guidance sits at the low end of that range while the company reinvests in the shift away from combustible cigarettes. The stock has historically traded at a low-single-digit-to-low-teens P/E and a high dividend yield, largely because a meaningful share of the market, including sovereign and pension investors bound by exclusion policies, treats it as structurally off-limits or declining regardless of valuation. Norway's Government Pension Fund Global (managed by NBIM) has explicitly excluded tobacco manufacturers since around 2010 on ethical grounds set by its Council on Ethics, one of the clearest real examples of a product-based exclusion removing a large-cap, high-yield name from an investable universe entirely independent of price.
+BAT is a value-versus-structural-decline argument. Alongside the buyback, its progressive dividend continues (next dividend 61.26p per share), and Velo, its nicotine-pouch brand, has reached a #2 volume/value position in its category within a year of a key launch. Management's own algorithm targets +3-5% revenue, +4-6% profit, and +5-8% EPS growth; 2026 guidance sits at the low end of that range while the company reinvests in the shift away from combustible cigarettes. The stock has historically traded at a low-single-digit-to-low-teens P/E and a high dividend yield, largely because a meaningful share of the market, including sovereign and pension investors bound by exclusion policies, treats it as structurally off-limits or declining regardless of valuation. Norway's Government Pension Fund Global (managed by NBIM) has explicitly excluded tobacco manufacturers since around 2010 on ethical grounds set by its Council on Ethics, one of the clearest real examples of a product-based exclusion removing a large-cap, high-yield name from an investable universe entirely independent of price. Separately, BAT announced in June 2026 a "Fit2Win" restructuring cutting or outsourcing around 9,000 roles globally (excluding its US business, Reynolds American), targeting roughly £600m in annualised savings by the end of 2028, cost discipline layered on top of the buyback and New Categories story above.
 
 ## Key risk
 
 Structural decline in combustible cigarette volumes across developed markets is real and permanent. The entire bull case depends on New Categories growing fast enough, and staying profitable enough, to replace that decline before it erodes the dividend.
 
-**Sources:** [BAT FY2026 buyback and dividend guidance](https://www.stocktitan.net/sec-filings/BTI/6-k-british-american-tobacco-p-l-c-current-report-foreign-issuer-65bb444665c2.html), [BAT New Categories/Vuse strategy](https://www.bat.com/media/press-releases/_2026/february/preliminary-results-for-the-year-ended-31-december-2025), [NBIM's ethical exclusions and Council on Ethics](https://www.nbim.no/en/responsible-investment/our-expectations/)
+**Sources:** [BAT FY2026 buyback and dividend guidance](https://www.stocktitan.net/sec-filings/BTI/6-k-british-american-tobacco-p-l-c-current-report-foreign-issuer-65bb444665c2.html), [BAT New Categories/Vuse strategy](https://www.bat.com/media/press-releases/_2026/february/preliminary-results-for-the-year-ended-31-december-2025), [NBIM's ethical exclusions and Council on Ethics](https://www.nbim.no/en/responsible-investment/our-expectations/), [BAT's Fit2Win restructuring announcement](https://www.bat.com/media/press-releases/_2026/june/creating-a-stronger-bat-through-fit2win-transformation-programme)
 `,
     toolkit: `## Pitch deck template
-Download the [British American Tobacco pitch-deck template (.pptx)](/api/pitch-template?id=british-american-tobacco&code=vq55jh68%26*): 10 slides built to match the real Altria OAF short-thesis deck this template draws on (a genuine short case on a tobacco peer, useful to read against your own long case). Dense, chart-driven, colour-coded bear/base/bull, not a bullet-point skeleton. The valuation slide and Sources appendix are already filled in with real numbers; everything marked [INSERT] tells you exactly what to research.
+Download the [British American Tobacco pitch-deck template (.pptx)](/api/pitch-template?id=british-american-tobacco&code=vq55jh68%26*): 14 slides modeled on the Varsity/OAF competition-winning decks — claim-style titles, dense charts, colour-coded bear/base/bull, a market-expectations slide, and Q&A-proof appendices. Nothing is pre-filled: every [INSERT] prompt tells you exactly what to research, where to find it, and where it goes on the slide. It pairs naturally with the Altria OAF short deck as your built-in bear case — read one against the other. The workbook also includes the dividend-discount cross-check this stock needs.
 
-Download the [British American Tobacco DCF workbook (.xlsx)](/api/pitch-template?id=british-american-tobacco&code=vq55jh68%26*&type=xlsx): the real 5-year FCF build, WACC, and Bear/Base/Bull sensitivity behind that slide, every formula live and every hardcoded input sourced on its own Sources tab.
+Download the [British American Tobacco valuation workbook (.xlsx)](/api/pitch-template?id=british-american-tobacco&code=vq55jh68%26*&type=xlsx): 5-year DCF with live Bear/Base/Bull scenarios, a WACC build, a reverse-DCF tab, a comps tab, and a Sources tab. Yellow cells = you fill in (each row names its source). Blue cells = formulas, don't touch. Every number in your deck must come from this file, never retyped.
 
 ## DCF starting inputs
 Real, sourced figures to build from: pull the rest (live share price, shares outstanding, net debt, beta) fresh:
@@ -641,11 +717,39 @@ Reuters and the FT both cover tobacco-sector regulation and earnings directly; f
 ## Comps and data
 Peer set: Philip Morris International (PM), Imperial Brands (LSE: IMB), Japan Tobacco (2914.T). Pull margins, growth, and multiples from **stockanalysis.com**; note that BAT's UK primary listing means some US aggregators show only the BTI ADR, which can lag the LSE price.
 
-## Build it yourself
-1. Pull the latest annual report for the exact revenue/profit split between combustibles and New Categories (Vuse, Velo, glo). The trend in that split is the whole thesis.
-2. Cross-check NBIM's exclusion list directly to confirm current status before citing it as fact. Exclusion lists are reviewed and can change.
-3. Build the PM/Imperial/JT comp set and note how BAT's multiple compares given its yield and payout policy specifically, not just growth.
-4. Use this site's **DCF template** (\`/templates\`, consumer staples sector). For a name like this, a dividend-discount-style variant is often more appropriate than a pure DCF, given how much of the total return is the yield itself.`,
+## Build it yourself — the full walkthrough (first-timer edition)
+Never built a pitch before? Follow these steps in order. Total time: roughly one focused weekend.
+
+**Step 1 — Get the primary documents (\~1 hour).**
+- [BAT IR](https://www.bat.com/investors) → the latest annual report. Find the exact revenue AND profit split between combustibles and New Categories (Vuse, Velo, glo) — the trend in that split is the whole thesis.
+- The buyback announcement RNS: £1.3bn programme details and timeframe.
+- [NBIM's exclusion list and expectation documents](https://www.nbim.no/en/responsible-investment/our-expectations/) — confirm BAT's current status DIRECTLY. Exclusion lists are reviewed and change; never cite secondhand.
+
+**Step 2 — Fill the workbook's Inputs tab (\~30 min).**
+- stockanalysis.com → BATS: live price (pence — quote divisor 100), shares, beta. Note some US aggregators show only the BTI ADR, which can lag the LSE price.
+- Risk-free: current 10-year UK gilt. Log everything on the Sources tab as you go.
+
+**Step 3 — Read your target, then stress-test (\~15 min).** Stance check (long = target above price), units check (pence vs £m), range check. For BAT, add the **dividend-discount cross-check** the workbook flags: current yield + management's guided dividend growth — because for this stock the yield IS much of the total return.
+
+**Step 4 — Reverse DCF (\~20 min).** Goal Seek the growth the current price implies — for BAT it will likely be a modest or negative number. That is the pitch: Metric | Historical | Implied by price | Your forecast | Gap becomes the Market Expectations slide.
+
+**Step 5 — Build three theses, each with one dense proof chart (the bulk of the work).**
+1. **The ESG-exclusion discount:** BAT's EV/EBITDA vs global staples over 10 years, plus the NBIM exclusion as primary evidence — a structural discount fundamentals alone cannot explain.
+2. **Mechanical per-share compounding:** shares outstanding declining + DPS growing over 10 years; the £1.3bn buyback as % of market cap.
+3. **New Categories as underpriced optionality:** the Vuse/Velo/glo revenue and margin trajectory from the annual report — profitable and back to double-digit growth.
+- Slide titles are **claims**, not labels.
+
+**Step 6 — The bear case and your rebuttal (\~45 min).**
+- Your bear case already exists and it won a competition: the Altria OAF short deck. Read it and steelman it against BAT — price hikes triggering volume erosion, smokeless lost to competitors, dividend obligations trapping management.
+- Rebut per point: BAT's New Categories are already profitable, the buyback is funded and dated, and at this multiple even managed decline compounds per-share value.
+
+**Step 7 — Comps (\~45 min).** PM, Imperial, Japan Tobacco (optionally Altria). Compare not just growth but yield and payout policy — that is where BAT's case lives.
+
+**Step 8 — Appendix armor (\~30 min).** Porter's Five Forces, plus Management & Insiders — and specifically check whether executive comp rewards buyback-fueled EPS (the Altria deck's attack); say whether it applies to BAT.
+
+**Step 9 — Assemble the deck (\~2 hours).** Slide 2 chart: 12-month price vs the FTSE 100 or a staples index, with the buyback announcement date annotated.
+
+**Step 10 — The morning you present.** Re-pull the quote, re-confirm NBIM status, and be ready to defend your terminal assumptions on volume decline out loud.`,
   },
   {
     id: "asml",
@@ -668,12 +772,12 @@ ASML's backlog stood at €38.8bn at year-end 2025, including €7.4bn of EUV bo
 
 Escalating export controls are a structural headwind to what was roughly a third of the historical customer base. The bull case depends on non-China, AI-driven demand growing fast enough to keep absorbing that lost capacity.
 
-**Sources:** [ASML China export restrictions and revenue mix](https://marketwise.com/investing/asml-earnings-china-export-restrictions-ai-chip-demand/), [ASML backlog and EUV monopoly](https://www.heygotrade.com/en/blog/asml-investment-case-euv-monopoly-semi-capex/), [ASML denies EUV shipments to China](https://techcrunch.com/2026/06/19/the-us-says-asmls-top-chip-tool-may-be-in-china-asml-says-it-isnt/)
+**Sources:** [ASML China export restrictions and revenue mix](https://marketwise.com/investing/asml-earnings-china-export-restrictions-ai-chip-demand/), [ASML Q4/FY2025 results: backlog and EUV bookings, official release](https://www.asml.com/en/news/press-releases/2026/q4-2025-financial-results), [ASML denies EUV shipments to China](https://techcrunch.com/2026/06/19/the-us-says-asmls-top-chip-tool-may-be-in-china-asml-says-it-isnt/)
 `,
     toolkit: `## Pitch deck template
-Download the [ASML pitch-deck template (.pptx)](/api/pitch-template?id=asml&code=vq55jh68%26*): 10 slides built to match the real Varsity/OAF-style decks these templates are modeled on: dense, chart-driven, colour-coded bear/base/bull, not a bullet-point skeleton. The valuation slide and Sources appendix are already filled in with real numbers; everything marked [INSERT] tells you exactly what to research.
+Download the [ASML pitch-deck template (.pptx)](/api/pitch-template?id=asml&code=vq55jh68%26*): 14 slides modeled on the Varsity/OAF competition-winning decks — claim-style titles, dense charts, colour-coded bear/base/bull, a market-expectations slide, and Q&A-proof appendices. Nothing is pre-filled: every [INSERT] prompt tells you exactly what to research, where to find it, and where it goes on the slide. Modeled in EUR (reporting currency) with the USD Nasdaq quote handled separately, and scenarios built around the China-revenue-mix assumption — the number this thesis actually pivots on.
 
-Download the [ASML DCF workbook (.xlsx)](/api/pitch-template?id=asml&code=vq55jh68%26*&type=xlsx): the real 5-year FCF build, WACC, and Bear/Base/Bull sensitivity behind that slide, modeled in EUR (ASML's own reporting currency) with the USD Nasdaq quote converted for comparison, every formula live and every hardcoded input sourced on its own Sources tab.
+Download the [ASML valuation workbook (.xlsx)](/api/pitch-template?id=asml&code=vq55jh68%26*&type=xlsx): 5-year DCF with live Bear/Base/Bull scenarios, a WACC build, a reverse-DCF tab, a comps tab, and a Sources tab. Yellow cells = you fill in (each row names its source). Blue cells = formulas, don't touch. Every number in your deck must come from this file, never retyped.
 
 ## DCF starting inputs
 Real, sourced figures to build from: pull the rest (live share price, shares outstanding, net debt, beta) fresh:
@@ -693,11 +797,39 @@ Reuters and Bloomberg's semiconductor desks cover export-control developments as
 ## Comps and data
 Peer set: Applied Materials (AMAT), Lam Research (LRCX), KLA Corporation (KLAC), the other major semicap equipment makers, though none has ASML's EUV monopoly specifically. Pull from **stockanalysis.com**.
 
-## Build it yourself
-1. Read the actual earnings call transcript (not just the press release) for management's own characterization of the China revenue trend and forward bookings commentary.
-2. Track BIS entity-list and export-control rule changes directly. This is the single biggest swing factor in the thesis and moves faster than most news coverage.
-3. Build the AMAT/LRCX/KLAC comp set and note ASML's premium is arguably justified by EUV exclusivity. Decide whether you agree.
-4. Use this site's **DCF template** (\`/templates\`, semiconductor/tech sector) and explicitly sensitize the China-revenue-mix assumption across bear/base/bull cases rather than using one flat forecast.`,
+## Build it yourself — the full walkthrough (first-timer edition)
+Never built a pitch before? Follow these steps in order. Total time: roughly one focused weekend.
+
+**Step 1 — Get the primary documents (\~1 hour).**
+- [ASML IR](https://www.asml.com/en/investors) → latest quarterly results and investor presentation: backlog (€38.8bn at year-end 2025, €7.4bn EUV bookings), and the China revenue-share trend (33% in 2025 down to \~20%).
+- The earnings call transcript — management's own characterization of China demand and forward bookings is more precise than any press summary.
+- [BIS](https://www.bis.doc.gov/) for the actual export-control rules and entity-list changes — the primary source, not news summaries. This is the single biggest swing factor and it moves fast.
+
+**Step 2 — Fill the workbook's Inputs tab (\~30 min).**
+- stockanalysis.com → ASML: live price, shares, beta. Model in EUR (reporting currency), quote divisor 1; note the Nasdaq USD quote separately.
+- Risk-free: pick ONE (10-yr UST or German Bund) and be consistent. Log Sources as you go.
+
+**Step 3 — Read your target, then stress-test (\~15 min).** Stance, units (EUR vs USD quotes!), range check. Note the dual listing explicitly so a judge can't trip you on it.
+
+**Step 4 — Reverse DCF (\~20 min).** Goal Seek the implied growth; then restate it as the implied *China* assumption — how much China revenue loss is already priced in. That reframing is the Market Expectations slide.
+
+**Step 5 — Build three theses, each with one dense proof chart (the bulk of the work).**
+1. **The monopoly + the backlog:** EUV is the only way to make advanced chips; backlog and book-to-bill over time from the investor presentation.
+2. **Export controls, quantified:** China mix 33% → \~20% from reported results, and a scenario table of what the MATCH Act removes versus what remains. This number is what the thesis pivots on — make it a table, not a vibe.
+3. **The AI capex supercycle pulls EUV regardless:** TSMC/Intel/Samsung leading-edge capex plans as the demand indicator; the High-NA adoption roadmap.
+- Slide titles are **claims**, not labels.
+
+**Step 6 — The bear case and your rebuttal (\~45 min).**
+- Steelman: the MATCH Act cuts China toward zero AND orders digest for two years before AI demand fills the gap.
+- Rebut: backlog covers a year-plus of revenue, China is already de-weighted (further loss is bounded), and every advanced AI chip needs EUV whoever makes it.
+
+**Step 7 — Comps (\~45 min).** AMAT, Lam Research, KLA. None has the EUV monopoly — the whole exercise is deciding whether ASML's premium to them is justified. Say that out loud on the slide.
+
+**Step 8 — Appendix armor (\~30 min).** Porter's (competitive rivalry inside EUV is literally zero — say why) plus Management & Insiders from the 20-F.
+
+**Step 9 — Assemble the deck (\~2 hours).** Slide 2 chart: 12-month price vs the SOX/Nasdaq, with the major export-control headline dates annotated.
+
+**Step 10 — The morning you present.** Re-pull the quote, re-check BIS for any rule change that week (it can move the thesis overnight), and be ready to defend your China-mix assumption in each scenario.`,
   },
   {
     id: "tsmc",
@@ -714,18 +846,18 @@ The world's largest dedicated semiconductor foundry, manufacturing the most adva
 
 ## The thesis
 
-TSMC's business mix has shifted decisively toward AI in a single year: High-Performance Computing (the segment anchored by AI accelerators for cloud data centers) rose 20% sequentially in Q2 2026 alone and now accounts for 66% of total wafer revenue, up from a business historically dominated by smartphones (now 22% of revenue, down from the largest single category as recently as 2022). Management's long-term guidance calls for roughly 25% compound annual growth overall, with AI-processor revenue specifically growing above 50% annually. Unlike the equipment side of the chip industry (ASML above), TSMC is a manufacturing monopoly at the leading edge rather than a pure-play machine maker. There is no meaningful alternative foundry currently capable of producing chips at the same process node for the volumes hyperscalers require. The additional $100bn Arizona commitment is a real, if partial, hedge against the single biggest risk sitting under the entire thesis.
+TSMC's business mix has shifted decisively toward AI in a single year: High-Performance Computing (the segment anchored by AI accelerators for cloud data centers) rose 20% sequentially in Q2 2026 alone and now accounts for 66% of total wafer revenue, up from a business historically dominated by smartphones (now 22% of revenue, down from the largest single category as recently as 2022). Management's long-term guidance calls for roughly 25% compound annual growth overall, with AI-processor revenue specifically growing above 50% annually. Unlike the equipment side of the chip industry (ASML above), TSMC is a manufacturing monopoly at the leading edge rather than a pure-play machine maker. There is no meaningful alternative foundry currently capable of producing chips at the same process node for the volumes hyperscalers require. The additional $100bn Arizona commitment is a real, if partial, hedge against the single biggest risk sitting under the entire thesis. TSMC's board approved a further US$29.44bn of capex on 11 August 2026, alongside a joint venture with Sony on image sensors, and July 2026 revenue was up 44.7% year-on-year, consistent with the trend above rather than a one-quarter spike.
 
 ## Key risk
 
 The vast majority of TSMC's most advanced capacity remains concentrated in Taiwan, a geography with real geopolitical tail risk that has no clean hedge at the scale this business operates at. Customer concentration (Nvidia, Apple, and AMD together represent a large share of revenue) is a secondary but real risk if any one of them shifts volume or slows capex.
 
-**Sources:** [TSMC Q2 2026 results and raised outlook](https://www.techtimes.com/articles/320696/20260716/tsmc-posts-record-quarter-ai-chip-demand-pushes-full-year-growth-outlook-past-40.htm), [TSMC Q2 2026 slides: AI demand and HPC mix](https://www.investing.com/news/company-news/tsmc-q2-2026-slides-ai-demand-drives-record-margins-hpc-surges-20-93CH-4794789), [TSMC raises capex and Arizona investment](https://finance.yahoo.com/markets/article/tsmc-raises-capex-and-revenue-forecast-highlighting-growing-ai-chip-demand-113101950.html)
+**Sources:** [TSMC Q2 2026 results and raised outlook](https://www.techtimes.com/articles/320696/20260716/tsmc-posts-record-quarter-ai-chip-demand-pushes-full-year-growth-outlook-past-40.htm), [TSMC Q2 2026 slides: AI demand and HPC mix](https://www.investing.com/news/company-news/tsmc-q2-2026-slides-ai-demand-drives-record-margins-hpc-surges-20-93CH-4794789), [TSMC raises capex and Arizona investment](https://finance.yahoo.com/markets/article/tsmc-raises-capex-and-revenue-forecast-highlighting-growing-ai-chip-demand-113101950.html), [TSMC's August capex approval and Sony JV](https://www.cnbc.com/2026/08/10/tsmc-revenue-surge-ai-chip-big-tech.html)
 `,
     toolkit: `## Pitch deck template
-Download the [TSMC pitch-deck template (.pptx)](/api/pitch-template?id=tsmc&code=vq55jh68%26*): 10 slides built to match the real Varsity/OAF-style decks these templates are modeled on: dense, chart-driven, colour-coded bear/base/bull, not a bullet-point skeleton. The valuation slide and Sources appendix are already filled in with real numbers; everything marked [INSERT] tells you exactly what to research.
+Download the [TSMC pitch-deck template (.pptx)](/api/pitch-template?id=tsmc&code=vq55jh68%26*): 14 slides modeled on the Varsity/OAF competition-winning decks — claim-style titles, dense charts, colour-coded bear/base/bull, a market-expectations slide, and Q&A-proof appendices. Nothing is pre-filled: every [INSERT] prompt tells you exactly what to research, where to find it, and where it goes on the slide. Modeled in USD per ADS with the 1 ADS = 5 ordinary shares trap flagged inside the workbook — get that wrong and every number is 5x off.
 
-Download the [TSMC DCF workbook (.xlsx)](/api/pitch-template?id=tsmc&code=vq55jh68%26*&type=xlsx): the real 5-year FCF build, WACC, and Bear/Base/Bull sensitivity behind that slide, modeled on a USD-per-ADS basis (1 ADS = 5 ordinary shares), every formula live and every hardcoded input sourced on its own Sources tab.
+Download the [TSMC valuation workbook (.xlsx)](/api/pitch-template?id=tsmc&code=vq55jh68%26*&type=xlsx): 5-year DCF with live Bear/Base/Bull scenarios, a WACC build, a reverse-DCF tab, a comps tab, and a Sources tab. Yellow cells = you fill in (each row names its source). Blue cells = formulas, don't touch. Every number in your deck must come from this file, never retyped.
 
 ## DCF starting inputs
 Real, sourced figures to build from: pull the rest (live share price, shares outstanding, net debt, beta) fresh:
@@ -746,11 +878,38 @@ DigiTimes and Nikkei Asia are the standard trade press for Taiwan semiconductor 
 ## Comps and data
 TSMC has no true peer at the leading edge. Samsung Foundry is not separately listed, and GlobalFoundries (GFS) and UMC operate at trailing nodes. Use them anyway for a directional multiple comparison via **stockanalysis.com**, but note explicitly in your own write-up that it is an imperfect comp set.
 
-## Build it yourself
-1. Read the actual earnings call transcript for management's own node-by-node (3nm/5nm) revenue and margin commentary. This is more granular than any press summary.
-2. Track the HPC segment's share of wafer revenue each quarter as your core thesis metric.
-3. Note the Arizona capex specifically as a partial geographic-risk hedge, and think through how much risk it actually removes versus how much is still concentrated in Taiwan.
-4. Use this site's **DCF template** (\`/templates\`, semiconductor sector) and build a genuine bear case around a Taiwan-geopolitical-risk scenario, not just a demand-slowdown scenario.`,
+## Build it yourself — the full walkthrough (first-timer edition)
+Never built a pitch before? Follow these steps in order. Total time: roughly one focused weekend.
+
+**Step 1 — Get the primary documents (\~1 hour).**
+- [TSMC IR](https://investor.tsmc.com) → Q2 2026 earnings slides AND the call transcript: HPC share of wafer revenue (66% — get the quarterly history), the node-by-node (3nm/5nm) commentary, capex raised to $60-64bn, and the additional $100bn Arizona commitment.
+- The transcript is more granular than any press summary — management's node-level margin commentary is where the pricing-power evidence lives.
+
+**Step 2 — Fill the workbook's Inputs tab (\~30 min).**
+- stockanalysis.com → TSM: live price, shares, beta. **CRITICAL: 1 ADS = 5 ordinary shares** — enter shares in ADS terms (ordinary ÷ 5) or your per-share value is 5x wrong. The workbook warns you on the Inputs row itself.
+- Risk-free: current 10-yr UST (it is a NYSE ADR). Quote divisor 1. Log Sources as you go.
+
+**Step 3 — Read your target, then stress-test (\~15 min).** Stance, units (the ADS ratio is the trap here), range check.
+
+**Step 4 — Reverse DCF (\~20 min).** Goal Seek the implied growth and compare it to management's own \~25% long-term CAGR guidance and >50% AI-revenue growth — is the market pricing above or below the company's own numbers? That IS the Market Expectations slide.
+
+**Step 5 — Build three theses, each with one dense proof chart (the bulk of the work).**
+1. **The mix shift:** HPC/AI share of wafer revenue by quarter (66% now, smartphone down to 22%) — your core thesis metric, tracked every quarter.
+2. **Capex as the honest forward indicator:** capex vs forward revenue over 10 years — it leads by 2-4 quarters, and it just went up.
+3. **Leading-edge pricing power:** gross margin through past capex cycles, plus the node-by-node commentary.
+- Slide titles are **claims**, not labels.
+
+**Step 6 — The bear case and your rebuttal (\~45 min).**
+- Steelman TWO bears, not one: a Taiwan geopolitical scenario (the risk no comp set prices) AND a post-spike capex digestion cycle with Arizona diluting margins.
+- Rebut: AI revenue growth is reported fact; capex is raised on committed customer demand; monthly revenue prints (TSMC discloses monthly!) are your early-warning system; quantify how much risk Arizona actually removes.
+
+**Step 7 — Comps (\~45 min).** GlobalFoundries and UMC — trailing-node, directional only. State explicitly that no true leading-edge peer exists and Samsung Foundry is unlisted.
+
+**Step 8 — Appendix armor (\~30 min).** Porter's plus Management & Insiders — include the government/institutional ownership mix from the 20-F.
+
+**Step 9 — Assemble the deck (\~2 hours).** Slide 2 chart: 12-month ADR price vs the SOX, with the capex-raise and Arizona announcements annotated.
+
+**Step 10 — The morning you present.** Re-pull the quote, check the latest monthly revenue print, and be ready to defend both your ADS math and your geopolitical discount out loud.`,
   },
   {
     id: "maersk",
@@ -759,7 +918,7 @@ TSMC has no true peer at the leading edge. Samsung Foundry is not separately lis
     date: "2026-08-05",
     body: `# A.P. Moller–Maersk (CPH: MAERSK-B)
 
-**The trigger:** Maersk's 2026 announcement of a permanent transition of its MECL service back through the Suez Canal, after 14 months of Red Sea diversion, a real operational milestone with a genuinely counterintuitive read-through for the stock.
+**The trigger:** Maersk's gradual, route-by-route return to the Suez Canal through 2026, most recently a further Gemini-network service (AE19) switched back on 10 August 2026, a real operational shift, though a phased one rather than a single confirmed permanent switch, with a genuinely counterintuitive read-through for the stock.
 
 ## What it is
 
@@ -767,18 +926,18 @@ One of the world's largest container shipping and logistics companies: the vesse
 
 ## The thesis
 
-For over a year, Houthi attacks in the Red Sea forced most container lines, Maersk included, to reroute around the Cape of Good Hope instead of the Suez Canal, adding transit time, removing effective global shipping capacity, and pushing freight rates up sharply (Asia-Europe rates estimated 25-40% higher, Asia-US East Coast 15-25% higher, than they would otherwise be). Maersk has now completed test voyages and confirmed a permanent return to Suez in 2026. That is genuinely good news for global trade efficiency, and genuinely bad news for Maersk's own near-term earnings: the returning capacity is expected to release 6-8% of global container capacity back into normal circulation, and analysts (including HSBC) have warned the resulting rate collapse could be severe enough to push Maersk and peers such as Hapag-Lloyd into losses. It is a clean, current example of a company's own operational good news being priced as bad news for the stock, worth analyzing carefully rather than assuming "good for the world" and "good for the share price" are the same question.
+For over a year, Houthi attacks in the Red Sea forced most container lines, Maersk included, to reroute around the Cape of Good Hope instead of the Suez Canal, adding transit time, removing effective global shipping capacity, and pushing freight rates up sharply (Asia-Europe rates estimated 25-40% higher, Asia-US East Coast 15-25% higher, than they would otherwise be). Maersk and Hapag-Lloyd have been adding routes back through Suez progressively across 2026, most recently the AE19 Asia-Mediterranean/Europe service on 10 August 2026, describing each step explicitly as "a first step toward a gradual return" rather than an all-at-once switch (an earlier attempt in early 2026 was itself partially reversed after operational constraints, underlining how unsettled the pace still is). That gradual path is still genuinely good news for global trade efficiency, and still points toward bad news for Maersk's own near-term earnings as more capacity comes back: the fully returned network is expected to release 6-8% of global container capacity into normal circulation, and analysts (including HSBC) have warned the resulting rate collapse could be severe enough to push Maersk and peers such as Hapag-Lloyd into losses. It is a clean, current example of a company's own operational good news being priced as bad news for the stock, worth analyzing carefully rather than assuming "good for the world" and "good for the share price" are the same question, though the actual pace of the return, not just its direction, is now a real part of the uncertainty.
 
 ## Key risk
 
-A faster, more complete normalization of Red Sea transit than the market currently expects would compress freight rates further and faster, the counterintuitive bear case for a genuinely positive operational development.
+A faster, more complete normalization of Red Sea transit than the market currently expects would compress freight rates further and faster, the counterintuitive bear case for a genuinely positive operational development. The reverse is also live: the phased, occasionally-reversed rollout so far means the capacity release, and the rate pressure, could arrive later or more slowly than either side of that trade currently assumes.
 
-**Sources:** [Maersk's Suez Canal return](https://www.maritimenews.com/red-sea/maersk-return-red-sea-carrier-shift), [Red Sea freight rate premium](https://suaidglobal.com/insights/red-sea-shipping-crisis-2026/), [Rate collapse risk from the Suez return](https://gulfnews.com/business/markets/container-shipping-heads-toward-a-harder-2026-as-red-sea-reopening-pressures-rates-1.500441624)
+**Sources:** [Maersk's Suez Canal return](https://www.maritimenews.com/red-sea/maersk-return-red-sea-carrier-shift), [Red Sea freight rate premium](https://suaidglobal.com/insights/red-sea-shipping-crisis-2026/), [Rate collapse risk from the Suez return](https://gulfnews.com/business/markets/container-shipping-heads-toward-a-harder-2026-as-red-sea-reopening-pressures-rates-1.500441624), [Maersk's own 10 August 2026 AE19 announcement](https://www.maersk.com/news/articles/2026/08/10/maersk-ae19-trans-suez-service-structural-change), [an earlier, partially reversed attempt](https://gcaptain.com/red-sea-comeback-falters-as-maersk-diverts-ships-back-around-cape/)
 `,
     toolkit: `## Pitch deck template
-Download the [Maersk pitch-deck template (.pptx)](/api/pitch-template?id=maersk&code=vq55jh68%26*): 10 slides built to match the real Varsity/OAF-style decks these templates are modeled on: dense, chart-driven, colour-coded bear/base/bull, not a bullet-point skeleton. The valuation slide and Sources appendix are already filled in with real numbers; everything marked [INSERT] tells you exactly what to research.
+Download the [Maersk pitch-deck template (.pptx)](/api/pitch-template?id=maersk&code=vq55jh68%26*): 14 slides modeled on the Varsity/OAF competition-winning decks — claim-style titles, dense charts, colour-coded bear/base/bull, a market-expectations slide, and Q&A-proof appendices. Nothing is pre-filled: every [INSERT] prompt tells you exactly what to research, where to find it, and where it goes on the slide. Modeled in USD (reporting currency) with the DKK quote noted, and a built-in warning to set terminal value at a normalized mid-cycle freight rate — otherwise your DCF just recreates today's price.
 
-Download the [Maersk DCF workbook (.xlsx)](/api/pitch-template?id=maersk&code=vq55jh68%26*&type=xlsx): the real 5-year FCF build, WACC, and Bear/Base/Bull sensitivity behind that slide, modeled in USD (Maersk's own reporting currency) with the DKK Copenhagen quote converted for comparison, every formula live and every hardcoded input sourced on its own Sources tab.
+Download the [Maersk valuation workbook (.xlsx)](/api/pitch-template?id=maersk&code=vq55jh68%26*&type=xlsx): 5-year DCF with live Bear/Base/Bull scenarios, a WACC build, a reverse-DCF tab, a comps tab, and a Sources tab. Yellow cells = you fill in (each row names its source). Blue cells = formulas, don't touch. Every number in your deck must come from this file, never retyped.
 
 ## DCF starting inputs
 Real, sourced figures to build from: pull the rest (live share price, shares outstanding, net debt, beta) fresh:
@@ -787,7 +946,7 @@ Real, sourced figures to build from: pull the rest (live share price, shares out
 - WACC inputs: use the current 10-year Danish or German government bond yield as your risk-free rate; pull Maersk's beta from stockanalysis.com. Container shipping is a genuinely cyclical business. Sensitize your terminal-value assumption to a normalized mid-cycle freight rate, not the current (elevated) one, or your DCF will just be recreating today's price.
 
 ## Primary filings
-- [Maersk investor relations](https://www.maersk.com/investor-relations): quarterly reports, annual report, capital markets day materials.
+- [Maersk investor relations](https://investor.maersk.com/): quarterly reports, annual report, capital markets day materials.
 - [CVR (Danish Business Authority company register)](https://datacvr.virk.dk/): Danish statutory filings, the Danish equivalent of Companies House.
 - Nasdaq Copenhagen's own company news feed for Maersk (MAERSK-B) for real-time announcements.
 
@@ -797,11 +956,38 @@ Lloyd's List, TradeWinds, Splash247, and gCaptain are the standard maritime trad
 ## Comps and data
 Peer set: Hapag-Lloyd (HLAG.DE), COSCO Shipping (1919.HK), ZIM Integrated Shipping (ZIM). Pull from **stockanalysis.com**; note container shipping multiples are unusually volatile across the freight-rate cycle, so a single-point-in-time comp can be misleading. Check where each peer sits in its own cycle.
 
-## Build it yourself
-1. Track the **Freightos Baltic Index** and **Drewry World Container Index** (both public, updated weekly) for real-time freight-rate data rather than relying on lagging news coverage.
-2. Read Maersk's own quarterly capital markets commentary for their stated capacity/rate outlook. Management's own view of the Suez-return timeline is the key input.
-3. Build the Hapag-Lloyd/COSCO/ZIM comp set and compare EV/EBITDA across at least 2-3 points in the recent freight cycle, not just today.
-4. Use this site's **DCF template** (\`/templates\`, industrials/shipping sector) and build the bear case explicitly around a faster-than-expected capacity return compressing rates.`,
+## Build it yourself — the full walkthrough (first-timer edition)
+Never built a pitch before? Follow these steps in order. Total time: roughly one focused weekend.
+
+**Step 1 — Get the primary documents (\~1 hour).**
+- [Maersk IR](https://investor.maersk.com/) → the latest quarterly report and the latest Suez-return service announcement. Write down management's own capacity/rate outlook — their stated timeline is the key input, and check how many services have actually switched back by the time you build this.
+- Pull current freight rates yourself: the **Freightos Baltic Index** and **Drewry World Container Index** are public and update weekly. Note the diversion premium (Asia-Europe rates estimated 25-40% higher than otherwise) and the 6-8% of global capacity the return releases.
+
+**Step 2 — Fill the workbook's Inputs tab (\~30 min).**
+- stockanalysis.com → MAERSK-B: price, shares, beta. Model in USD (Maersk's reporting currency) with the DKK quote noted — quote divisor 1.
+- Risk-free: 10-yr Danish or German government yield. Log Sources as you go.
+
+**Step 3 — Read your target, then stress-test (\~15 min).** Stance, units, range. Then the Maersk-specific one: **your terminal value must use a normalized mid-cycle freight margin**, not today's elevated one — otherwise your DCF just recreates today's price and proves nothing.
+
+**Step 4 — Reverse DCF (\~20 min).** Goal Seek the implied growth, then translate it: is the market pricing the rate premium as permanent? That framing is the Market Expectations slide.
+
+**Step 5 — Build three theses, each with one dense proof chart (the bulk of the work).**
+1. **The diversion premium was the profit:** weekly Freightos/Drewry index with the diversion start and the return announcement annotated — rates 25-40% elevated, ending on a dated event.
+2. **The contract lag makes the reset datable:** Maersk's contract-vs-spot mix and renewal timing from quarterly reports; EBIT by quarter with the lag annotated.
+3. **The integrator transformation, sized:** Logistics & Services revenue/margin trend vs the Ocean segment — how much of the company deserves a non-cyclical multiple.
+- Slide titles are **claims**, not labels.
+
+**Step 6 — The bear case and your rebuttal (\~45 min).**
+- Here the "bear case" is the BULL side: a new disruption re-tightens capacity and rates spike again, or the Suez return slips — steelman it.
+- Rebut: the return is company-announced and dated; 6-8% capacity release is arithmetic; your terminal is normalized, so the thesis survives timing slippage.
+
+**Step 7 — Comps (\~45 min).** Hapag-Lloyd, COSCO, ZIM — compared at 2-3 points in the freight cycle, not just today. Container multiples swing wildly; a single-point comp is misleading, and saying so is a strength.
+
+**Step 8 — Appendix armor (\~30 min).** Porter's plus the Moller family holding structure and capital allocation through the 2020-22 supercycle — did they stay disciplined at the top?
+
+**Step 9 — Assemble the deck (\~2 hours).** Slide 2 chart: the share price overlaid against the freight index — the single chart that makes this whole pitch.
+
+**Step 10 — The morning you present.** Re-pull the quote AND the two weekly freight indices. Be ready to defend your normalized terminal rate out loud — it is the number the whole pitch stands on.`,
   },
   {
     id: "dominos-pizza-group",
@@ -827,9 +1013,9 @@ Input cost inflation and a genuinely competitive UK delivery market (Deliveroo a
 **Sources:** [Domino's H1 2026 results](https://www.investing.com/news/transcripts/earnings-call-transcript-dominos-pizza-group-posts-steady-h1-2026-growth-93CH-4833195), [Domino's H1 2026: Chick 'N' Dip and system sales detail](https://www.thegrocer.co.uk/news/dominos-delivers-strong-first-half-as-chick-n-dip-drives-growth/722049.article), [Domino's H1 2026 trading update](https://www.restaurantonline.co.uk/Article/2026/08/04/dominos-reports-strong-half-year-trading/)
 `,
     toolkit: `## Pitch deck template
-Download the [Domino's Pizza Group pitch-deck template (.pptx)](/api/pitch-template?id=dominos-pizza-group&code=vq55jh68%26*): 10 slides built to match the real Varsity/OAF-style decks these templates are modeled on: dense, chart-driven, colour-coded bear/base/bull, not a bullet-point skeleton. The valuation slide and Sources appendix are already filled in with real numbers; everything marked [INSERT] tells you exactly what to research.
+Download the [Domino's Pizza Group pitch-deck template (.pptx)](/api/pitch-template?id=dominos-pizza-group&code=vq55jh68%26*): 14 slides modeled on the Varsity/OAF competition-winning decks — claim-style titles, dense charts, colour-coded bear/base/bull, a market-expectations slide, and Q&A-proof appendices. Nothing is pre-filled: every [INSERT] prompt tells you exactly what to research, where to find it, and where it goes on the slide. UK-specific assumptions throughout, with the DOM (UK franchisee) vs DPZ (US parent) distinction flagged — mixing them is the easiest way to break this pitch.
 
-Download the [Domino's Pizza Group DCF workbook (.xlsx)](/api/pitch-template?id=dominos-pizza-group&code=vq55jh68%26*&type=xlsx): the real 5-year FCF build, WACC, and Bear/Base/Bull sensitivity behind that slide, every formula live and every hardcoded input sourced on its own Sources tab (this one leans on more derived/estimated figures than most, the Sources tab says exactly which ones, and where to verify them yourself).
+Download the [Domino's Pizza Group valuation workbook (.xlsx)](/api/pitch-template?id=dominos-pizza-group&code=vq55jh68%26*&type=xlsx): 5-year DCF with live Bear/Base/Bull scenarios, a WACC build, a reverse-DCF tab, a comps tab, and a Sources tab. Yellow cells = you fill in (each row names its source). Blue cells = formulas, don't touch. Every number in your deck must come from this file, never retyped.
 
 ## DCF starting inputs
 Real, sourced figures to build from: pull the rest (live share price, shares outstanding, net debt, beta) fresh:
@@ -850,11 +1036,39 @@ The Grocer and Propel are the standard UK food/hospitality trade press, both cov
 ## Comps and data
 UK quick-service/food-on-the-go peers: Greggs (LSE: GRG), and via The Restaurant Group (LSE: RTN, owner of Wagamama) for a sit-down-adjacent comparison. Pull from **stockanalysis.com**.
 
-## Build it yourself
-1. Read the actual H1/full-year RNS for the system sales vs. like-for-like sales distinction. They measure different things and both matter.
-2. Track the loyalty programme's enrolled-customer count each reporting period as a specific, quotable growth metric.
-3. Build the Greggs comp set and compare like-for-like sales trends directly. Both are useful UK consumer-spending bellwethers, so the comparison itself is informative.
-4. Use this site's **DCF template** (\`/templates\`, consumer/restaurants sector) with UK-specific inflation and consumer-spending assumptions rather than defaulting to US ones.`,
+## Build it yourself — the full walkthrough (first-timer edition)
+Never built a pitch before? Follow these steps in order. Total time: roughly one focused weekend.
+
+**Step 1 — Get the primary documents (\~1 hour).**
+- [LSE news explorer](https://www.londonstockexchange.com/news?tab=news-explorer) → the H1 2026 results RNS. Write down: system sales £825.3m (+6.1%), like-for-like +4.9% (accelerating), Chick 'N' Dip AOV £36 vs £26 pizza-only, the 87% attach rate, and Domino's Rewards at 2.2m enrolled ahead of the Q4 2026 national rollout.
+- The annual report for franchisee economics (profitability, payback, store runway).
+- Get the distinction right NOW: **Domino's Pizza Group plc (LSE: DOM) is the UK/Ireland master franchisee — a different, separately listed company from Domino's Pizza Inc (NYSE: DPZ), the global parent.** Do not mix their filings.
+
+**Step 2 — Fill the workbook's Inputs tab (\~30 min).**
+- stockanalysis.com → DOM (LSE): price in pence (quote divisor 100), shares, beta.
+- Risk-free: current 10-year UK gilt. Use UK-specific inflation/consumer assumptions, not US defaults. Log Sources as you go.
+
+**Step 3 — Read your target, then stress-test (\~15 min).** Stance, units, range check.
+
+**Step 4 — Reverse DCF (\~20 min).** Goal Seek the implied growth — for a "mature" franchise it will be modest. The gap between that and what chicken + loyalty could deliver is your Market Expectations slide.
+
+**Step 5 — Build three theses, each with one dense proof chart (the bulk of the work).**
+1. **Chicken is a basket-size engine:** AOV £36 vs £26, 87% attach — chart average order value and mix over time.
+2. **Loyalty compounds frequency:** enrolled members by period (2.2m pre-rollout) — a specific, quotable, trackable metric; check it every reporting period.
+3. **Franchisee economics support growth:** system sales vs like-for-like (know the difference — they measure different things and both matter), franchisee profitability, and store-count runway in UK&I.
+- Slide titles are **claims**, not labels.
+
+**Step 6 — The bear case and your rebuttal (\~45 min).**
+- Steelman: chicken cannibalises pizza margin, loyalty discounts erode franchisee economics, and a squeezed UK consumer trades down.
+- Rebut: 87% of chicken buyers also buy pizza (incremental, not cannibalising), LFL is accelerating on reported numbers, and every claim is quarterly-checkable.
+
+**Step 7 — Comps (\~45 min).** Greggs (compare like-for-like trends directly — both are UK consumer bellwethers) and The Restaurant Group for a sit-down contrast. DPZ is the parent — reference it only as context, never as a financial comp.
+
+**Step 8 — Appendix armor (\~30 min).** Porter's plus Management & Insiders — specifically what executive comp rewards (LFL? system sales? EPS?) from the remuneration report.
+
+**Step 9 — Assemble the deck (\~2 hours).** Slide 2 chart: 12-month price vs the FTSE 250, with the Chick 'N' Dip national rollout annotated.
+
+**Step 10 — The morning you present.** Re-pull the quote. Know the system-sales vs like-for-like distinction cold — confusing them in Q&A is the easiest way to lose the room.`,
   },
   {
     id: "palantir",
@@ -863,7 +1077,7 @@ UK quick-service/food-on-the-go peers: Greggs (LSE: GRG), and via The Restaurant
     date: "2026-08-05",
     body: `# Palantir Technologies (NASDAQ: PLTR)
 
-**The trigger:** Michael Burry's publicly disclosed short position against Palantir (alongside Nvidia), explicitly framed around a "priced for perfection" valuation argument, a live, ongoing debate rather than a settled one.
+**The trigger:** Q2 2026 earnings on 4 August 2026 that beat consensus on every headline line (revenue $1.94bn, +93% year-on-year, versus roughly $1.81bn expected), sending the stock up more than 30% in the following week, directly testing Michael Burry's publicly disclosed short position against Palantir (alongside Nvidia), which had been explicitly framed around a "priced for perfection" valuation argument.
 
 ## What it is
 
@@ -871,18 +1085,18 @@ A data-analytics and AI software company originally built for US government and 
 
 ## The thesis
 
-Palantir trades at roughly 200x trailing earnings and approximately 80x forward 2026 earnings, against 25-40x forward earnings for most enterprise software peers, a real premium, but not an unsupported one on current growth. Commercial AI revenue grew 342% year-on-year to $1.31bn, with 47% free cash flow margins, and its "Rule of 40" score (growth rate plus profit margin) sits above 140%, well clear of the standard software-quality benchmark. Government revenue is still 55% of the total, anchored by contracts such as a $10bn multi-year US Army deal, which ties a meaningful share of future growth to continued political and budgetary alignment rather than pure commercial demand. The valuation arithmetic is unforgiving: at 80-100x forward earnings, even a moderate growth deceleration (from roughly 60% to 40%) could compress the multiple enough to erase a large share of the share price with no actual deterioration in the underlying business.
+Palantir trades at roughly 200x trailing earnings and approximately 80-85x forward 2026 earnings, against 25-40x forward earnings for most enterprise software peers, a real premium, but not an unsupported one on current growth. That forward multiple has barely moved even after the stock's post-earnings rally, because guidance moved with it: full-year 2026 revenue guidance was raised to roughly $8.15bn on the back of the Q2 print, with US commercial revenue up 149% year-on-year, and its "Rule of 40" score (growth rate plus profit margin) sits above 140%, well clear of the standard software-quality benchmark. Government revenue is still roughly 55% of the total, anchored by contracts such as a $10bn multi-year US Army deal, which ties a meaningful share of future growth to continued political and budgetary alignment rather than pure commercial demand. The valuation arithmetic is unforgiving: at 80-100x forward earnings, even a moderate growth deceleration (from roughly 60% to 40%) could compress the multiple enough to erase a large share of the share price with no actual deterioration in the underlying business, and several analysts (Jefferies among them) have kept an Underperform rating in place straight through the beat.
 
 ## Key risk
 
 This is the most explicit "priced for perfection" name in this set: genuinely strong, real growth, at a multiple that leaves essentially no margin for a slower quarter, a lost contract, or a broader AI-sentiment pullback.
 
-**Sources:** [Palantir valuation and Rule of 40](https://www.ainvest.com/news/palantir-stock-valuation-growth-sustainability-2026-government-contracts-ai-adoption-justify-hype-2512/), [Palantir government contract concentration](https://intellectia.ai/news/stock/palantir-secures-major-government-contracts-amid-valuation-concerns), [Michael Burry's disclosed bet against Palantir/Nvidia](https://www.ainvest.com/news/palantir-stock-buy-2026-balancing-ai-ambition-valuation-regulatory-risks-2512/)
+**Sources:** [Palantir Q2 2026 earnings and valuation](https://www.tradingkey.com/analysis/stocks/us-stocks/262076608-palantir-q2-2026-earnings-commercial-149-stock-surge-tradingkey), [Palantir's $10bn US Army contract](https://www.cnbc.com/2025/08/01/palantir-lands-10-billion-army-software-and-data-contract.html), [Michael Burry's disclosed bet against Palantir/Nvidia](https://sherwood.news/markets/michael-burry-big-short-discloses-1-1-billion-options-bet-against-nvidia-palantir-puts/)
 `,
     toolkit: `## Pitch deck template
-Download the [Palantir pitch-deck template (.pptx)](/api/pitch-template?id=palantir&code=vq55jh68%26*): 10 slides built to match the real Varsity/OAF-style decks these templates are modeled on, including a dedicated bear-case-and-rebuttal slide built directly around Michael Burry's own publicly disclosed argument. The valuation slide and Sources appendix are already filled in with real numbers, worth opening for this pitch specifically, since the base-case DCF here implies real downside even before you touch the Bear case, which is the whole "priced for perfection" argument made concrete.
+Download the [Palantir pitch-deck template (.pptx)](/api/pitch-template?id=palantir&code=vq55jh68%26*): 14 slides modeled on the Varsity/OAF competition-winning decks — claim-style titles, dense charts, colour-coded bear/base/bull, a market-expectations slide, and Q&A-proof appendices. Nothing is pre-filled: every [INSERT] prompt tells you exactly what to research, where to find it, and where it goes on the slide. Built for the pitch's real question: the scenario table levers the EXIT MULTIPLE, not just growth — multiple compression is the bear case, so the workbook makes you model it.
 
-Download the [Palantir DCF workbook (.xlsx)](/api/pitch-template?id=palantir&code=vq55jh68%26*&type=xlsx): the real 5-year FCF build, WACC, and Bear/Base/Bull sensitivity behind that slide, every formula live and every hardcoded input sourced on its own Sources tab.
+Download the [Palantir valuation workbook (.xlsx)](/api/pitch-template?id=palantir&code=vq55jh68%26*&type=xlsx): 5-year DCF with live Bear/Base/Bull scenarios, a WACC build, a reverse-DCF tab, a comps tab, and a Sources tab. Yellow cells = you fill in (each row names its source). Blue cells = formulas, don't touch. Every number in your deck must come from this file, never retyped.
 
 ## DCF starting inputs
 Real, sourced figures to build from: pull the rest (live share price, shares outstanding, net debt, beta) fresh:
@@ -903,11 +1117,39 @@ Defense News and FedScoop cover the government-contract side in real depth; The 
 ## Comps and data
 Enterprise AI/data-software peers: Snowflake (SNOW), C3.ai (AI), and for a growth/valuation-multiple comparison generally, other high-multiple software names. Pull from **stockanalysis.com**. Pay attention to how few real comps exist at Palantir's specific combination of growth rate and government-revenue mix.
 
-## Build it yourself
-1. Read the full quarterly shareholder letter (not just the earnings release). Palantir's own commentary on commercial vs. government growth is more detailed there than in the press coverage.
-2. Pull Palantir's actual federal contract values from USASpending.gov to verify the "55% government revenue" figure yourself rather than taking a secondary source's word for it.
-3. Calculate the Rule of 40 score yourself (revenue growth rate + FCF margin) from the reported financials to confirm the number before citing it.
-4. Use this site's **DCF template** (\`/templates\`, software/AI sector) and build an explicit multiple-compression sensitivity table. At this valuation, the exit multiple assumption matters more than almost any operating assumption.`,
+## Build it yourself — the full walkthrough (first-timer edition)
+Never built a pitch before? Follow these steps in order. Total time: roughly one focused weekend.
+
+**Step 1 — Get the primary documents (\~1 hour).**
+- [SEC EDGAR](https://www.sec.gov/edgar/search/) → the latest 10-Q/10-K, and [Palantir IR](https://investors.palantir.com) → the quarterly shareholder letter — unusually candid, read it in full rather than the press release.
+- [USASpending.gov](https://www.usaspending.gov/) → search "Palantir" and verify the government-contract base yourself: real values, real agencies, including the $10bn Army deal. Do not take a secondary source's word for the 55% government mix.
+- Burry's disclosed short (13-F coverage) — the bear case you must answer is public; quote it precisely.
+
+**Step 2 — Fill the workbook's Inputs tab (\~30 min).**
+- stockanalysis.com → PLTR: price, shares, beta — expect the beta to be HIGH, and note how much that matters at this valuation.
+- Risk-free: current 10-yr UST. USD, quote divisor 1. Log Sources as you go.
+
+**Step 3 — Read your target, then stress-test (\~15 min).** Stance, units, range. The Palantir-specific check: if even your BASE case implies downside, that is not a broken model — that is the "priced for perfection" argument made concrete, and it pushes you toward AVOID/SHORT. Both directions can win; a long whose own base case is underwater cannot.
+
+**Step 4 — Reverse DCF (\~20 min).** THE slide for this pitch. Goal Seek the growth implied by \~80x forward earnings, then put it next to the reported +342% commercial growth — the Market Expectations table writes itself.
+
+**Step 5 — Build three theses, each with one dense proof chart (the bulk of the work).**
+1. **The commercial ramp is reported fact:** commercial AI revenue $1.31bn, +342%, 47% FCF margin — calculate the Rule of 40 yourself (growth + FCF margin) from the financials before citing >140%.
+2. **The government anchor:** your own USASpending pull — contract values by agency over time, and what the $10bn Army deal does to revenue visibility.
+3. **The multiple is the thesis:** a multiple-compression sensitivity table — value at peer multiples (25-40x) vs today's price. At this valuation the exit multiple, not growth, is your main scenario lever.
+- Slide titles are **claims**, not labels.
+
+**Step 6 — The bear case and your rebuttal (\~45 min).**
+- Steelman Burry's actual argument: at \~200x trailing, even flawless execution leaves holders relying on the multiple, not the cash flows.
+- Rebut: Rule-of-40 >140% has no software peer, government revenue is multi-year contracted, the commercial inflection is reported. Then state what multiple YOUR target requires — and defend it.
+
+**Step 7 — Comps (\~45 min).** Snowflake, C3.ai, and other high-multiple software you can justify. Note how few real comps exist at this growth+government mix — that scarcity cuts both ways, say which way for your stance.
+
+**Step 8 — Appendix armor (\~30 min).** Porter's plus Management & Insiders — Karp/co-founder stakes and share-class structure, stock-based comp vs dilution history, and the Form 4 insider-selling cadence.
+
+**Step 9 — Assemble the deck (\~2 hours).** Slide 2 chart: 12-month price vs the Nasdaq, with the Burry-short disclosure date annotated.
+
+**Step 10 — The morning you present.** Re-pull the quote. Be ready to defend your exit multiple in each scenario — that is the entire debate, out loud.`,
   },
   {
     id: "microsoft-ai-industry",
@@ -924,25 +1166,25 @@ The software and cloud infrastructure giant behind Windows, Office/Teams, and Az
 
 ## The thesis
 
-Microsoft's stake produced a $7.6bn accounting gain in a single quarter (Q2 FY2026), and its AI annual revenue run-rate has passed $37bn, up 123% year-on-year. The number the market is actually contesting is capital expenditure: roughly $190bn guided for calendar 2026, up about 61% on 2025, against Microsoft 365 Copilot's paid seats (the direct monetization engine meant to justify that spend) sitting at just over 20 million and generating an estimated $3-5bn a year. The July-August AI-safety incidents matter to this thesis specifically because they are a live, dated reminder that the industry Microsoft has bet $190bn on is still operationally immature in ways that could invite tighter regulation, slower enterprise adoption, or both. That is a real risk to the pace at which Copilot monetization needs to scale to close the gap with capex.
+Microsoft's stake produced a $7.6bn accounting gain in a single quarter (Q2 FY2026), and its AI annual revenue run-rate has passed $37bn, up 123% year-on-year. The number the market is actually contesting is capital expenditure: roughly $190bn guided for calendar 2026, up about 61% on 2025, against Microsoft 365 Copilot's paid seats (the direct monetization engine meant to justify that spend). That seat count itself just moved: Microsoft's fiscal Q4 2026 results (29 July 2026) showed paid Copilot seats passing 30 million, net additions more than doubling quarter-on-quarter, up from just over 20 million previously, putting the run-rate closer to $10.8bn a year, real progress, though still only a low single-digit percentage of Microsoft's roughly 464 million-seat commercial 365 base. The July-August AI-safety incidents matter to this thesis specifically because they are a live, dated reminder that the industry Microsoft has bet $190bn on is still operationally immature in ways that could invite tighter regulation, slower enterprise adoption, or both. That is a real risk to the pace at which Copilot monetization needs to scale to close the gap with capex.
 
 ## Key risk
 
 If Copilot adoption and monetization do not scale meaningfully faster than they have so far, the market's patience with a multi-year "trust me" capex story could run out, and any regulatory response to incidents like the ones above would land directly on the adoption curve this thesis depends on.
 
-**Sources:** [Microsoft OpenAI stake and FY2026 capex](https://www.kalkine.com/news/artificial-intelligence/microsoft-stock-msft-analysis-2026-azure-acceleration-copilot-scale-and-the-190b-capex-question), [Copilot monetization math](https://www.vaasblock.com/research/microsoft-copilot-monetization-capex-return-timeline-2026/), [Anthropic's AI models breached three companies during testing](https://techcrunch.com/2026/07/30/anthropic-says-its-own-ai-models-breached-three-companies-during-security-tests/), [OpenAI model breached evaluation boundaries](https://www.bloomberg.com/news/articles/2026-08-04/openai-says-models-breached-boundaries-during-outside-testing)
+**Sources:** [Microsoft FY2026 Q4 results: Copilot seats and capex](https://www.techtimes.com/articles/322143/20260729/azure-tops-100b-copilot-paid-seats-jump-30m-microsoft-blowout-quarter.htm), [Copilot monetization math](https://www.vaasblock.com/research/microsoft-copilot-monetization-capex-return-timeline-2026/), [Anthropic's AI models breached three companies during testing](https://techcrunch.com/2026/07/30/anthropic-says-its-own-ai-models-breached-three-companies-during-security-tests/), [OpenAI model breached evaluation boundaries](https://www.bloomberg.com/news/articles/2026-08-04/openai-says-models-breached-boundaries-during-outside-testing)
 `,
     toolkit: `## Pitch deck template
-Download the [Microsoft pitch-deck template (.pptx)](/api/pitch-template?id=microsoft-ai-industry&code=vq55jh68%26*): 10 slides built to match the real Varsity/OAF-style decks these templates are modeled on: dense, chart-driven, colour-coded bear/base/bull, not a bullet-point skeleton. The valuation slide and Sources appendix are already filled in with real numbers; everything marked [INSERT] tells you exactly what to research.
+Download the [Microsoft pitch-deck template (.pptx)](/api/pitch-template?id=microsoft-ai-industry&code=vq55jh68%26*): 14 slides modeled on the Varsity/OAF competition-winning decks — claim-style titles, dense charts, colour-coded bear/base/bull, a market-expectations slide, and Q&A-proof appendices. Nothing is pre-filled: every [INSERT] prompt tells you exactly what to research, where to find it, and where it goes on the slide. Capex and AI/Copilot revenue are modeled as separate lines, because the whole thesis is which one scales faster.
 
-Download the [Microsoft DCF workbook (.xlsx)](/api/pitch-template?id=microsoft-ai-industry&code=vq55jh68%26*&type=xlsx): the real 5-year FCF build, WACC, and Bear/Base/Bull sensitivity behind that slide, every formula live and every hardcoded input sourced on its own Sources tab.
+Download the [Microsoft valuation workbook (.xlsx)](/api/pitch-template?id=microsoft-ai-industry&code=vq55jh68%26*&type=xlsx): 5-year DCF with live Bear/Base/Bull scenarios, a WACC build, a reverse-DCF tab, a comps tab, and a Sources tab. Yellow cells = you fill in (each row names its source). Blue cells = formulas, don't touch. Every number in your deck must come from this file, never retyped.
 
 ## DCF starting inputs
 Real, sourced figures to build from: pull the rest (live share price, shares outstanding, net debt, beta) fresh:
 - OpenAI stake: \~27% as-converted, valued at \~$135bn after the 2025-2026 recapitalization; produced a $7.6bn accounting gain in Q2 FY2026
 - AI annual revenue run-rate: >$37bn, +123% year-on-year
 - 2026 guided capex: \~$190bn, +61% on 2025
-- Microsoft 365 Copilot: just over 20m paid seats, generating an estimated $3-5bn a year
+- Microsoft 365 Copilot: 30m+ paid seats as of Q4 FY2026 (29 July 2026), up from just over 20m previously, an estimated $10.8bn annual run-rate
 - WACC inputs: use the current US 10-year Treasury yield as your risk-free rate; pull Microsoft's beta from stockanalysis.com. Model the capex and the Copilot-revenue ramp as two separate line items rather than netting them into one growth rate. The whole thesis is a question of which one is scaling faster.
 
 ## Primary filings
@@ -956,11 +1198,38 @@ Bloomberg and The Information both cover the Microsoft/OpenAI relationship and t
 ## Comps and data
 For the "AI capex" side specifically: Alphabet/Google, Amazon (AWS), and Meta, the other hyperscalers making comparable capex bets. Pull from **stockanalysis.com**.
 
-## Build it yourself
-1. Read Microsoft's actual earnings call transcript for management's own Copilot seat-count and Azure AI revenue disclosures. These numbers are often more precise on the call than in the press release.
-2. Read the OpenAI and Anthropic blog posts on the safety incidents directly, not just news summaries. The actual technical detail matters for judging how serious the regulatory/adoption risk really is.
-3. Build the Alphabet/Amazon/Meta capex comparison to see whether Microsoft's spend is genuinely an outlier or in line with the broader hyperscaler cohort.
-4. Use this site's **DCF template** (\`/templates\`, tech/software sector) and build the bear case explicitly around slower Copilot monetization rather than a generic "AI bubble" assumption. Specificity here is what separates a real thesis from a vibe.`,
+## Build it yourself — the full walkthrough (first-timer edition)
+Never built a pitch before? Follow these steps in order. Total time: roughly one focused weekend.
+
+**Step 1 — Get the primary documents (\~1 hour).**
+- [SEC EDGAR](https://www.sec.gov/edgar/search/) → Microsoft's latest 10-Q/10-K, including the OpenAI-stake accounting disclosures (\~27% as-converted, \~$135bn, the $7.6bn Q2 FY26 gain).
+- The earnings call transcript — Copilot seat counts (30m+ paid, as of Q4 FY2026) and Azure AI revenue detail are more precise on the call than in the release.
+- Read the [OpenAI](https://openai.com/news) and [Anthropic](https://www.anthropic.com/news) blog posts on the July-August 2026 safety incidents DIRECTLY — the technical detail is how you judge whether adoption/regulatory risk is real or headline noise.
+
+**Step 2 — Fill the workbook's Inputs tab (\~30 min).**
+- stockanalysis.com → MSFT: price, shares, beta. Risk-free: current 10-yr UST. USD, quote divisor 1. Log Sources as you go.
+
+**Step 3 — Read your target, then stress-test (\~15 min).** Stance, units, range. Keep the Microsoft-specific discipline: capex and AI/Copilot revenue are modeled as SEPARATE lines — the whole thesis is which scales faster, so never net them into one growth rate.
+
+**Step 4 — Reverse DCF (\~20 min).** Goal Seek the implied growth and compare it against the reported AI run-rate (+123% YoY) — is the market pricing the capex worry or the monetization evidence? That is the Market Expectations slide.
+
+**Step 5 — Build three theses, each with one dense proof chart (the bulk of the work).**
+1. **Monetization is reported, not promised:** AI annual run-rate >$37bn by quarter; Copilot's 30m+ paid seats (~$10.8bn/yr run-rate).
+2. **The capex debate, quantified:** Microsoft's \~$190bn guided capex vs Alphabet, Amazon, Meta — capex as % of revenue across the four, and Azure AI revenue per capex dollar. In line with the cohort, or an outlier? Show it.
+3. **The OpenAI stake as optionality with a safety-incident discount:** the stake's marks, the $7.6bn gain, and what the self-disclosed incidents do to enterprise adoption and regulation risk — argue it from the primary sources.
+- Slide titles are **claims**, not labels.
+
+**Step 6 — The bear case and your rebuttal (\~45 min).**
+- Steelman SPECIFICALLY, not "AI bubble": Copilot monetization plateaus below the capex ramp, and the safety incidents trigger enterprise pauses or regulation.
+- Rebut: run-rate and seats are reported and triple-digit; capex is cohort-wide; the incidents were self-disclosed through safety testing — evidence the process works. Be ready to argue that both ways.
+
+**Step 7 — Comps (\~45 min).** Alphabet, Amazon, Meta — here the capex-cohort comparison matters more than multiple-matching; say so.
+
+**Step 8 — Appendix armor (\~30 min).** Porter's plus Management & Insiders — capital-allocation track record (the OpenAI bet, buybacks, dividend) and whether exec comp carries any AI-specific metrics.
+
+**Step 9 — Assemble the deck (\~2 hours).** Slide 2 chart: 12-month price vs the Nasdaq, with the two safety-incident disclosure dates annotated.
+
+**Step 10 — The morning you present.** Re-pull the quote. Be ready to defend your capex-vs-monetization trajectory out loud — the whole pitch is that one chart.`,
   },
 ];
 
