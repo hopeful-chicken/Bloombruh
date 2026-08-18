@@ -85,10 +85,10 @@ export const modules: ModuleInfo[] = [
   {
     name: "Simulations",
     slug: "/simulations",
-    status: "beta",
-    tagline: "Run a trading book, then stress-test a portfolio, the actual job not just the data",
+    status: "live",
+    tagline: "Value a company before the call, run a trading book, answer to a client — the actual job",
     description:
-      "Two simulations, two seats: a Market Maker game (quote a spread against a randomly generated price feed, manage inventory risk and mark-to-market P&L, get forcibly hedged if you breach the risk limit) and a Portfolio Risk Simulator (build a portfolio across 10 asset classes and run a real 500-path Monte Carlo simulation for a full 1-year distribution, VaR, CVaR, and Sharpe ratio). Generated data, real mechanics, clearly labeled throughout.",
+      "Three simulations, three seats: the Valuation Desk (an IB/research seat — pick a real brief from Diploma PLC, Palantir, or Intel, triage your prep under a time budget, build a quick DCF range on real sourced figures, then survive the desk head's grill: terminal smuggling, terminal dependence, growth honesty, and a reverse-DCF that shows what the price already believes); a Market Maker game (an S&T seat — quote a spread against a generated price feed with informed flow and vol storms, manage inventory and mark-to-market P&L, get graded at the close); and a Portfolio Risk Simulator (an AM/risk seat — take a real client mandate with hard constraints and run a 500-path Monte Carlo to see if your portfolio actually meets it). Real sourced data for the Valuation Desk, generated data elsewhere, labeled plainly per seat.",
   },
   {
     name: "Test Prep",
