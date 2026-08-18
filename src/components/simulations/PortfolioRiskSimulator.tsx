@@ -1,13 +1,14 @@
 "use client";
 
 // A real Monte Carlo simulation (single-factor / market-model, 500 paths
-// x 1 trading year), run entirely client-side. The user builds a
-// portfolio from 10 asset classes, and the sim projects a full
-// distribution of 1-year outcomes — a fan chart, VaR, CVaR, Sharpe —
-// exactly the kind of output a risk or portfolio-management analyst
-// produces. The return/vol/beta inputs are illustrative long-run
-// assumptions (see src/data/simulations.ts), not live data — stated
-// plainly in the UI, not just in a footnote.
+// x 1 trading year), run entirely client-side — but framed the way the
+// job actually works: you are not optimizing a portfolio in a vacuum,
+// you are building one for a SPECIFIC client with a written mandate.
+// Pick a client, build their portfolio, run the sim, then sit through
+// the client call where every mandate constraint is checked with the
+// numbers on the table. The return/vol/beta inputs are illustrative
+// long-run assumptions (see src/data/simulations.ts), not live data —
+// stated plainly in the UI, not just in a footnote.
 
 import { useMemo, useState } from "react";
 import {
@@ -20,23 +21,42 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { ASSET_CLASSES, runMonteCarlo, RISK_FREE_RATE, type MonteCarloResult } from "@/data/simulations";
+import {
+  ASSET_CLASSES,
+  CLIENT_BRIEFS,
+  evaluateMandate,
+  runMonteCarlo,
+  RISK_FREE_RATE,
+  type ClientBrief,
+  type MonteCarloResult,
+  type MandateResult,
+} from "@/data/simulations";
 
 const STARTING_VALUE = 100000;
 
 export default function PortfolioRiskSimulator() {
+  const [brief, setBrief] = useState<ClientBrief>(CLIENT_BRIEFS[1]); // default: the endowment
   const [weights, setWeights] = useState<Record<string, number>>({
     "us-large": 50,
     "ig-bonds": 30,
     "intl-dev": 20,
   });
   const [result, setResult] = useState<MonteCarloResult | null>(null);
+  const [mandate, setMandate] = useState<MandateResult[] | null>(null);
   const [running, setRunning] = useState(false);
 
   const totalWeight = Object.values(weights).reduce((s, w) => s + w, 0);
 
   function setWeight(id: string, value: number) {
     setWeights((w) => ({ ...w, [id]: value }));
+    // Changing the portfolio after a run invalidates the client call —
+    // the numbers on the table must match the portfolio being discussed.
+    setMandate(null);
+  }
+
+  function pickBrief(b: ClientBrief) {
+    setBrief(b);
+    setMandate(null);
   }
 
   function run() {
@@ -45,12 +65,15 @@ export default function PortfolioRiskSimulator() {
     // Let the "Running..." state paint before the (synchronous, but
     // real) computation blocks the main thread for a moment.
     setTimeout(() => {
-      const weightedAssets = ASSET_CLASSES.filter((a) => (weights[a.id] ?? 0) > 0).map((a) => ({
+      const normalized: Record<string, number> = {};
+      for (const a of ASSET_CLASSES) normalized[a.id] = (weights[a.id] ?? 0) / totalWeight;
+      const weightedAssets = ASSET_CLASSES.filter((a) => (normalized[a.id] ?? 0) > 0).map((a) => ({
         asset: a,
-        weight: (weights[a.id] ?? 0) / totalWeight,
+        weight: normalized[a.id],
       }));
       const r = runMonteCarlo(weightedAssets, STARTING_VALUE);
       setResult(r);
+      setMandate(evaluateMandate(brief, normalized, r));
       setRunning(false);
     }, 30);
   }
@@ -67,10 +90,51 @@ export default function PortfolioRiskSimulator() {
       }));
   }, [result]);
 
+  const passes = mandate?.filter((m) => m.pass).length ?? 0;
+  const allPass = mandate !== null && passes === mandate.length;
+
   return (
     <div className="rounded-sm border border-border bg-surface/40 p-5">
+      {/* The client, first — the mandate defines the job before any slider moves */}
       <p className="text-xs text-muted">
-        Starting portfolio: <span className="font-mono text-foreground">${STARTING_VALUE.toLocaleString()}</span>.
+        First, whose money is it? Each client hands you a written mandate — hard constraints your
+        portfolio must satisfy <span className="text-foreground">all at once</span>.
+      </p>
+      <div className="mt-3 grid gap-2 sm:grid-cols-3">
+        {CLIENT_BRIEFS.map((b) => (
+          <button
+            key={b.id}
+            onClick={() => pickBrief(b)}
+            className={`rounded-lg border p-3 text-left ${
+              brief.id === b.id
+                ? "border-accent bg-accent/5"
+                : "border-border bg-background/40 hover:border-accent/60"
+            }`}
+          >
+            <p className="text-sm font-medium text-foreground">
+              {b.client} <span className="text-xs font-normal text-muted">· {b.role}</span>
+            </p>
+            <p className="mt-1 text-[11px] leading-relaxed text-muted">{b.story}</p>
+          </button>
+        ))}
+      </div>
+
+      {/* The mandate, in writing */}
+      <div className="mt-3 rounded-lg border border-accent/30 bg-accent/5 px-4 py-3">
+        <p className="text-[10px] uppercase tracking-widest text-accent">
+          {brefName(brief)}&apos;s mandate
+        </p>
+        <ul className="mt-1 space-y-0.5">
+          {brief.constraintLabels.map((l) => (
+            <li key={l} className="text-xs text-foreground">
+              · {l}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <p className="mt-4 text-xs text-muted">
+        Portfolio: <span className="font-mono text-foreground">${STARTING_VALUE.toLocaleString()}</span>.
         Set weights below (they will be normalized to 100% automatically), then run 500 simulated
         1-year paths.
       </p>
@@ -112,7 +176,7 @@ export default function PortfolioRiskSimulator() {
         disabled={totalWeight <= 0 || running}
         className="mt-3 rounded-md bg-accent px-4 py-2 text-sm font-medium text-background hover:opacity-90 disabled:opacity-40"
       >
-        {running ? "Running 500 simulated paths…" : "Run Monte Carlo simulation"}
+        {running ? "Running 500 simulated paths…" : `Run the sim & take the client call`}
       </button>
 
       {result && (
@@ -129,6 +193,47 @@ export default function PortfolioRiskSimulator() {
             the average loss across that worst 5% (a fuller picture of tail risk than VaR alone).
             Sharpe uses an assumed {(RISK_FREE_RATE * 100).toFixed(0)}% risk-free rate.
           </p>
+
+          {/* The client call — the whole point of the seat */}
+          {mandate && (
+            <div
+              className={`mt-5 rounded-lg border p-4 ${
+                allPass
+                  ? "border-[var(--color-positive)]/50 bg-[var(--color-positive)]/5"
+                  : "border-[var(--color-negative)]/50 bg-[var(--color-negative)]/5"
+              }`}
+            >
+              <p className="text-[10px] uppercase tracking-widest text-muted/70">
+                The client call — {brief.client}&apos;s reaction
+              </p>
+              <ul className="mt-2 space-y-1.5">
+                {mandate.map((m) => (
+                  <li key={m.label} className="flex items-start gap-2 text-xs">
+                    <span
+                      className={`mt-0.5 font-mono ${
+                        m.pass ? "text-[var(--color-positive)]" : "text-[var(--color-negative)]"
+                      }`}
+                    >
+                      {m.pass ? "✓" : "✗"}
+                    </span>
+                    <span className="text-foreground">
+                      {m.label}{" "}
+                      <span className="text-muted">— {m.detail}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-3 border-t border-border/60 pt-2 text-sm font-medium text-foreground">
+                {allPass ? brief.signOff : brief.pushBack}
+              </p>
+              {!allPass && (
+                <p className="mt-1 text-xs text-muted">
+                  {passes} of {mandate.length} constraints met. Adjust the weights and run it again —
+                  every answer is in the trade-off, not in any single slider.
+                </p>
+              )}
+            </div>
+          )}
 
           <p className="mt-5 mb-2 text-xs uppercase tracking-widest text-muted/70">
             Simulated value over 1 year: median, 25th-75th percentile band, 5th-95th percentile band
@@ -166,6 +271,10 @@ export default function PortfolioRiskSimulator() {
       )}
     </div>
   );
+}
+
+function brefName(b: ClientBrief): string {
+  return b.client;
 }
 
 function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {

@@ -44,6 +44,176 @@ export const RISK_FREE_RATE = 0.04;
 const MARKET_VOL = 0.16; // annualized vol of the common factor (matches US Large-Cap)
 const TRADING_DAYS = 252;
 
+// ---------------------------------------------------------------------------
+// Client briefs — what turns the simulator from a calculator into a seat.
+// A real risk/PM analyst never optimizes a portfolio in a vacuum: the
+// client hands you a mandate with hard constraints, and your job is to get
+// inside ALL of them at once. Return vs. tail risk is the obvious
+// trade-off; the subtler ones (concentration limits, banned assets,
+// minimum diversification) are where first-timers actually fail.
+// ---------------------------------------------------------------------------
+
+export type MandateConstraint =
+  | { kind: "minReturn"; value: number } // expected 1yr return, decimal
+  | { kind: "maxCvar"; value: number } // 95% CVaR, decimal (positive = loss)
+  | { kind: "maxSingleWeight"; value: number } // any one asset class, decimal
+  | { kind: "bannedAsset"; assetId: string } // weight must be ~zero
+  | { kind: "capAsset"; assetId: string; value: number } // one specific asset, decimal
+  | { kind: "minDiversified"; count: number; minWeight: number }; // at least N assets >= minWeight
+
+export type ClientBrief = {
+  id: string;
+  client: string;
+  role: string;
+  story: string;
+  constraints: MandateConstraint[];
+  constraintLabels: string[]; // human-readable, in the same order
+  signOff: string; // what the client says if you pass everything
+  pushBack: string; // what they lead with if you don't
+};
+
+export const CLIENT_BRIEFS: ClientBrief[] = [
+  {
+    id: "pension",
+    client: "Ruth",
+    role: "pension trustee",
+    story:
+      "Ruth looks after a defined-benefit pension's reserve sleeve. Retirees' payments come out of this money. She is not interested in what happens in a good year. She wants to know what happens in a bad one, and she has a board to answer to.",
+    constraints: [
+      { kind: "minReturn", value: 0.05 },
+      { kind: "maxCvar", value: 0.12 },
+      { kind: "bannedAsset", assetId: "crypto" },
+      { kind: "maxSingleWeight", value: 0.4 },
+    ],
+    constraintLabels: [
+      "Expected 1-year return of at least 5%",
+      "95% CVaR no worse than −12% (the average bad year)",
+      "No crypto — the board won't allow it",
+      "No single asset class above 40%",
+    ],
+    signOff:
+      "This I can take to the board. You've told me what the bad year looks like, and it's one we survive.",
+    pushBack:
+      "My board doesn't ask about expected returns. They ask about the worst year. Come back when the downside is something I can defend.",
+  },
+  {
+    id: "endowment",
+    client: "Marcus",
+    role: "university endowment CIO",
+    story:
+      "Marcus runs a mid-size university endowment: perpetual horizon, annual spending needs, and an investment committee that once watched a peer school concentrate in one theme and spend a decade recovering. Growth matters, but so does not being the next cautionary tale.",
+    constraints: [
+      { kind: "minReturn", value: 0.065 },
+      { kind: "maxCvar", value: 0.18 },
+      { kind: "minDiversified", count: 4, minWeight: 0.05 },
+      { kind: "maxSingleWeight", value: 0.5 },
+    ],
+    constraintLabels: [
+      "Expected 1-year return of at least 6.5%",
+      "95% CVaR no worse than −18%",
+      "At least 4 asset classes with 5%+ each (real diversification)",
+      "No single asset class above 50%",
+    ],
+    signOff:
+      "Growth with genuine diversification. This is what perpetual capital is supposed to look like. Send the memo.",
+    pushBack:
+      "I've seen this movie: great expected return, fragile construction. My committee will ask which single bet sinks us. Have a better answer.",
+  },
+  {
+    id: "young",
+    client: "Chloe",
+    role: "first-job saver, 24",
+    story:
+      "Chloe just started her first job and wants her savings to work hard. She has decades ahead of her and keeps saying she can handle risk. Your job is to get her real growth, while making sure the first big drawdown of her life doesn't scare her out of the market forever.",
+    constraints: [
+      { kind: "minReturn", value: 0.09 },
+      { kind: "maxCvar", value: 0.35 },
+      { kind: "capAsset", assetId: "cash", value: 0.1 },
+    ],
+    constraintLabels: [
+      "Expected 1-year return of at least 9%",
+      "95% CVaR no worse than −35% (she says she can take it, test that)",
+      "Cash no more than 10% (she wants the money working)",
+    ],
+    signOff:
+      "Aggressive but honest about what a bad year feels like. She stays invested through it. That's the whole plan.",
+    pushBack:
+      "If the honest bad year is one she can't sit through, she'll sell at the bottom and this was all worse than a savings account.",
+  },
+];
+
+export type MandateResult = { label: string; pass: boolean; detail: string };
+
+// Checks a portfolio (normalized weights + its Monte Carlo output) against
+// every constraint in the client's mandate. Each check returns the numbers
+// behind the verdict — a real client conversation is about specifics, not
+// vibes.
+export function evaluateMandate(
+  brief: ClientBrief,
+  weights: Record<string, number>, // normalized (sums to 1)
+  result: MonteCarloResult
+): MandateResult[] {
+  return brief.constraints.map((c, i) => {
+    const label = brief.constraintLabels[i];
+    switch (c.kind) {
+      case "minReturn": {
+        const pass = result.expectedReturn >= c.value;
+        return {
+          label,
+          pass,
+          detail: `expected ${(result.expectedReturn * 100).toFixed(1)}% vs ${(c.value * 100).toFixed(0)}% required`,
+        };
+      }
+      case "maxCvar": {
+        const pass = result.cvar95 <= c.value;
+        return {
+          label,
+          pass,
+          detail: `CVaR −${(result.cvar95 * 100).toFixed(1)}% vs −${(c.value * 100).toFixed(0)}% limit`,
+        };
+      }
+      case "maxSingleWeight": {
+        const worst = Math.max(...Object.values(weights));
+        const worstName = ASSET_CLASSES.find((a) => weights[a.id] === worst)?.name ?? "";
+        const pass = worst <= c.value + 1e-9;
+        return {
+          label,
+          pass,
+          detail: `largest is ${worstName} at ${(worst * 100).toFixed(0)}% vs ${(c.value * 100).toFixed(0)}% cap`,
+        };
+      }
+      case "bannedAsset": {
+        const w = weights[c.assetId] ?? 0;
+        const pass = w < 0.005;
+        return {
+          label,
+          pass,
+          detail: w < 0.005 ? "none held" : `you hold ${(w * 100).toFixed(0)}% — outside the mandate`,
+        };
+      }
+      case "capAsset": {
+        const w = weights[c.assetId] ?? 0;
+        const name = ASSET_CLASSES.find((a) => a.id === c.assetId)?.name ?? c.assetId;
+        const pass = w <= c.value + 1e-9;
+        return {
+          label,
+          pass,
+          detail: `${name} at ${(w * 100).toFixed(0)}% vs ${(c.value * 100).toFixed(0)}% cap`,
+        };
+      }
+      case "minDiversified": {
+        const n = Object.values(weights).filter((w) => w >= c.minWeight).length;
+        const pass = n >= c.count;
+        return {
+          label,
+          pass,
+          detail: `${n} asset classes at ≥${(c.minWeight * 100).toFixed(0)}% vs ${c.count} required`,
+        };
+      }
+    }
+  });
+}
+
 // Box-Muller transform — standard normal random draw.
 function randNormal(): number {
   let u = 0;
