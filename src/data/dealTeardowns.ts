@@ -50,7 +50,7 @@ export const DEAL_TEARDOWNS: DealTeardown[] = [
     ],
     body: `## The deal
 
-Diploma — the UK technical-distribution compounder — announced the acquisition of Peerless Aerospace Fastener, a US distributor of aerospace fasteners, for £236m on 27 March 2024, completing that May. Management's announcement stated the deal should add roughly 8% to group EPS in its first year, with a targeted year-one return on capital around 15%. This is not a fresh deal: it is now nearly two and a half years old, which means the original bet is no longer a prediction, it is a checkable fact, and Diploma has kept making bolt-ons since (most recently PAR Group and CDM in 2026).
+Diploma — the UK technical-distribution compounder — announced the acquisition of Peerless Aerospace Fastener, a US distributor of aerospace fasteners, for £236m on 27 March 2024, completing that May. Management's announcement stated the deal should add roughly 8% to group EPS in its first year, with a targeted year-one return on capital around 15%. This is not a fresh deal: it is now nearly two and a half years old, which means the original bet is no longer a prediction, it is a checkable fact, and Diploma has kept making bolt-ons since, most recently CDM, a US interconnect business completed in June 2026.
 
 ## Why Diploma did it
 
