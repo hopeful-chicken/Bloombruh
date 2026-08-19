@@ -3,16 +3,8 @@
 // strictly source-grounded recap — never asked to add outside knowledge or
 // invent detail beyond what the headlines/dates/sources say.
 
-import Anthropic from "@anthropic-ai/sdk";
+import { getAiClient, AI_MODEL } from "../aiClient";
 import type { NewsItem } from "./news";
-
-function getClient(): Anthropic {
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) {
-    throw new Error("ANTHROPIC_API_KEY is not set. Copy .env.local.example to .env.local and add a key.");
-  }
-  return new Anthropic({ apiKey: key });
-}
 
 const SYSTEM_PROMPT = `You summarize a list of real, dated headlines about a company for a finance-focused reader.
 
@@ -35,7 +27,7 @@ export async function summarizeItems(params: {
     throw new Error("No items available to summarize.");
   }
 
-  const client = getClient();
+  const client = getAiClient();
 
   const lines = params.items
     .map((it, i) => `${i + 1}. "${it.title}" — ${it.source || "unknown source"}, ${it.publishedAt.slice(0, 10)}`)
@@ -48,7 +40,8 @@ ${lines}
 Recap what these say.`;
 
   const message = await client.messages.create({
-    model: "claude-sonnet-4-6",
+    model: AI_MODEL,
+    thinking: { type: "disabled" },
     max_tokens: 500,
     system: SYSTEM_PROMPT,
     messages: [{ role: "user", content: userPrompt }],

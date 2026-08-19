@@ -8,18 +8,8 @@
 // a live feed. That's intentional, not an oversight: every pitch on this
 // site already says as much about its own numbers.
 
-import Anthropic from "@anthropic-ai/sdk";
+import { getAiClient, AI_MODEL } from "./aiClient";
 import type { NewsArticle } from "./news";
-
-function getClient(): Anthropic {
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) {
-    throw new Error(
-      "ANTHROPIC_API_KEY is not set. AI-generated pitch news summaries need the same key as the AI report grader."
-    );
-  }
-  return new Anthropic({ apiKey: key });
-}
 
 function articleContext(articles: NewsArticle[]): string {
   return articles
@@ -60,9 +50,10 @@ export async function explainPitchNews(params: {
 
   let result: { narrative: string | null; narrativeError: string | null };
   try {
-    const client = getClient();
+    const client = getAiClient();
     const message = await client.messages.create({
-      model: "claude-sonnet-4-6",
+      model: AI_MODEL,
+      thinking: { type: "disabled" },
       max_tokens: 300,
       system: SYSTEM_PROMPT,
       messages: [

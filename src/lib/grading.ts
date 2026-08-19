@@ -11,21 +11,11 @@
 // free: it costs a small amount per grading request on the student's own
 // Anthropic API key. See docs/DATA_SOURCES.md for the full story.
 
-import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { z } from "zod";
+import { getAiClient, AI_MODEL } from "./aiClient";
 import type { Block } from "./reportBlocks";
 import type { StatEntry } from "./reportBlocks";
-
-function getClient(): Anthropic {
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) {
-    throw new Error(
-      "ANTHROPIC_API_KEY is not set. Copy .env.local.example to .env.local and add your own key from https://console.anthropic.com. AI grading is a paid Pro feature, unlike the rest of this site's free data sources."
-    );
-  }
-  return new Anthropic({ apiKey: key });
-}
 
 const SectionFeedbackSchema = z.object({
   blockTitle: z.string().describe("The exact title of the block being reviewed"),
@@ -123,7 +113,7 @@ export async function gradeReport(params: {
   availableStats: StatEntry[];
   blocks: Block[];
 }): Promise<GradeResult> {
-  const client = getClient();
+  const client = getAiClient();
 
   const sections = params.blocks
     .map((b) => {
@@ -146,9 +136,15 @@ export async function gradeReport(params: {
   const userPrompt = `${dataContext}\n\n${ratingLine}\n\nThe student's written report sections:\n\n${sections.join("\n\n")}\n\nGrade this report.`;
 
   const stream = client.messages.stream({
-    model: "claude-opus-4-6",
+    model: AI_MODEL,
+    // Kimi's "adaptive" thinking still spends the token budget on hidden
+    // reasoning before writing the real output (confirmed empirically —
+    // see aiClient.ts), the same failure mode that left every narrative
+    // on the site returning "did not return a narrative" until this was
+    // set to disabled everywhere. Real Claude (the ANTHROPIC_API_KEY
+    // fallback) is unaffected either way since thinking defaults to off.
     max_tokens: 8000,
-    thinking: { type: "adaptive" },
+    thinking: { type: "disabled" },
     system: SYSTEM_PROMPT,
     messages: [{ role: "user", content: userPrompt }],
     output_config: {

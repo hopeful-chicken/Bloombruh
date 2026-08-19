@@ -15,18 +15,8 @@
 // handler so the same segment+period isn't re-generated (and re-charged)
 // on every view.
 
-import Anthropic from "@anthropic-ai/sdk";
+import { getAiClient, AI_MODEL } from "./aiClient";
 import type { NewsArticle } from "./news";
-
-function getClient(): Anthropic {
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) {
-    throw new Error(
-      "ANTHROPIC_API_KEY is not set. AI-generated market narratives need the same key as the AI report grader."
-    );
-  }
-  return new Anthropic({ apiKey: key });
-}
 
 const SYSTEM_PROMPT = `You are a concise financial analyst explaining how one part of the market is doing to a finance student.
 
@@ -51,7 +41,7 @@ export async function explainMarketSegment(params: {
     throw new Error("No source articles available to ground a narrative.");
   }
 
-  const client = getClient();
+  const client = getAiClient();
 
   const articleContext = params.articles
     .map((a, i) => `${i + 1}. "${a.title}" (${a.source ?? "unknown source"}, ${a.pubDate})`)
@@ -71,7 +61,8 @@ ${articleContext}
 Explain how this segment has been doing and any notable recent developments, grounded only in the figure and coverage above.`;
 
   const message = await client.messages.create({
-    model: "claude-sonnet-4-6",
+    model: AI_MODEL,
+    thinking: { type: "disabled" },
     max_tokens: 400,
     system: SYSTEM_PROMPT,
     messages: [{ role: "user", content: userPrompt }],

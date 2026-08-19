@@ -418,8 +418,8 @@ export const VALUATION_CASES: ValuationCase[] = [
     currencySymbol: "£",
     priceNow: 7590,
     priceAsOf: "mid-Aug 2026 (52-week range 4,970p–7,663p)",
-    fyLabel: "LTM to Mar 2026 (derived — see data pack)",
-    revenue0: 1650,
+    fyLabel: "LTM to 31 Mar 2026 (derived exactly — see data pack)",
+    revenue0: 1647,
     ebitMargin0: 0.245,
     taxRate: 0.25,
     daPct: 0.027,
@@ -437,7 +437,8 @@ export const VALUATION_CASES: ValuationCase[] = [
     erp: 0.05,
     dataPack: [
       { label: "Share price", value: "7,590p", source: "Pitch (13 Aug 2026), citing Yahoo Finance quote — re-pull live before real work" },
-      { label: "Revenue (LTM proxy)", value: "≈ £1,650m", source: "Derived: H1 26 £851.1m actual + H2 25 estimated from H1 25 £728m. Pull the exact FY25 figure from the annual report for real work" },
+      { label: "Revenue (LTM to Mar 2026)", value: "£1,647m", source: "Derived exactly: FY2025 £1,524.5m (audited, per H1 26 report) − H1 25 £728.5m + H1 26 £851.1m" },
+      { label: "FY26 consensus adj. op profit", value: "£428m", source: "Analyst consensus as at 18 May 2026, disclosed in the H1 26 report itself (note 3) — the street anchor for your reverse-DCF" },
       { label: "Operating margin (H1 26)", value: "24.5%", source: "Diploma H1 2026 results, 19 May 2026" },
       { label: "Net debt", value: "£343.9m", source: "Diploma H1 2026 results (31 Mar 2026); leverage 0.8x vs <2.0x policy" },
       { label: "Shares (weighted avg)", value: "134.2m", source: "Diploma H1 2026 results" },
@@ -482,7 +483,7 @@ export const VALUATION_CASES: ValuationCase[] = [
     ],
     compMetric: "EV/EBITDA",
     compNote:
-      "Computed from SEC EDGAR FY2025 filings + Twelve Data prices (17-18 Aug 2026). Diploma's own EV/EBITDA at 7,590p is roughly 23x on the LTM proxy — inside this set, and rich versus its own history. Bunzl (LSE) is the natural third comp but isn't covered by our free data.",
+      "Computed from SEC EDGAR FY2025 filings + Twelve Data prices (17-18 Aug 2026). Diploma's own EV/EBITDA at 7,590p is roughly 25x on LTM figures (EV ≈ £10.5bn / LTM EBITDA ≈ £427m) — between Grainger and Fastenal, and rich versus its own history. Bunzl (LSE) is the natural third comp but isn't covered by our free data.",
     riskFlags:
       "Roll-up overpay risk (multiple paid has ticked from 8x toward 9x); Peerless moderation flagged by management itself; a premium multiple that leaves no room for a disappointing update.",
     thirdCheck: { kind: "growthVsGuidance", guidedGrowth: 0.14 },

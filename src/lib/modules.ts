@@ -99,6 +99,15 @@ export const modules: ModuleInfo[] = [
       "Recruiting-process breakdowns for bulge bracket and boutique IB, asset management, and MBB/other consulting; a filterable technical and case question bank (accounting, valuation, deals); all 12 real Pymetrics games explained, with a playable Balloon Game; and a write-and-time practice tool for real HireVue-style prompts, saved locally in your browser.",
   },
   {
+    name: "Deal Teardowns",
+    slug: "/deals",
+    status: "beta",
+    tagline: "Real M&A deals taken apart: price, financing, accretion, verdict",
+    description:
+      "Announced M&A deals dissected one at a time: the price and multiple paid, the financing mix, the accretion/dilution math rebuilt from the filing, and a verdict with dated, checkable milestones. Deliberately separate from the stock pitches — a pitch asks whether to own the stock, a teardown asks whether the deal itself made sense. Each teardown includes the first-timer walkthrough for building your own.",
+    note: "new section",
+  },
+  {
     name: "My Analysis",
     slug: "/analysis",
     status: "live",

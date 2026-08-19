@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ModuleInfo } from "@/lib/modules";
+import { MagneticCard } from "@/components/MagneticCard";
 
 const BADGE_LABEL: Record<ModuleInfo["status"], string> = {
   live: "Live",
@@ -28,6 +29,13 @@ const ACCENT_RAIL: Record<NonNullable<ModuleInfo["accentColor"]>, string> = {
   macro: "bg-module-macro",
   pokemon: "bg-module-pokemon",
   analysis: "bg-module-analysis",
+};
+// Raw CSS values (not Tailwind classes) for MagneticCard's cursor-follow
+// glow, which needs an actual color to build a radial-gradient string.
+const ACCENT_VAR: Record<NonNullable<ModuleInfo["accentColor"]>, string> = {
+  macro: "var(--module-macro)",
+  pokemon: "var(--module-pokemon)",
+  analysis: "var(--module-analysis)",
 };
 
 export default function ModuleGrid({ modules }: { modules: ModuleInfo[] }) {
@@ -68,9 +76,16 @@ export default function ModuleGrid({ modules }: { modules: ModuleInfo[] }) {
         );
 
         return isClickable ? (
-          <Link key={m.slug} href={m.slug} className="block h-full">
-            {card}
-          </Link>
+          <MagneticCard
+            key={m.slug}
+            accent={m.accentColor ? ACCENT_VAR[m.accentColor] : "var(--accent)"}
+            maxTilt={6}
+            className="h-full"
+          >
+            <Link href={m.slug} className="block h-full">
+              {card}
+            </Link>
+          </MagneticCard>
         ) : (
           <div key={m.slug} className="h-full cursor-not-allowed">
             {card}

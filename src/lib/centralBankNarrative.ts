@@ -20,19 +20,9 @@
 //    (no database — see CLAUDE.md), just placed here instead of in a route
 //    since there is no route in front of this call site.
 
-import Anthropic from "@anthropic-ai/sdk";
+import { getAiClient, AI_MODEL } from "./aiClient";
 import type { CentralBankId } from "./centralBanks";
 import type { NewsArticle } from "./news";
-
-function getClient(): Anthropic {
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) {
-    throw new Error(
-      "ANTHROPIC_API_KEY is not set. AI-generated central bank narratives need the same key as the AI report grader."
-    );
-  }
-  return new Anthropic({ apiKey: key });
-}
 
 function articleContext(articles: NewsArticle[]): string {
   return articles
@@ -65,7 +55,7 @@ export async function explainGlobalRateSituation(params: {
     throw new Error("No source articles available to ground a narrative.");
   }
 
-  const client = getClient();
+  const client = getAiClient();
 
   const bankLines = params.summaries
     .map(
@@ -85,7 +75,8 @@ ${articleContext(params.articles)}
 Explain the current global central bank rate situation, grounded only in the figures and coverage above.`;
 
   const message = await client.messages.create({
-    model: "claude-sonnet-4-6",
+    model: AI_MODEL,
+    thinking: { type: "disabled" },
     max_tokens: 500,
     system: GLOBAL_SYSTEM_PROMPT,
     messages: [{ role: "user", content: userPrompt }],
@@ -137,7 +128,7 @@ export async function explainRegionalEconomy(params: {
 
   let result: { narrative: string | null; narrativeError: string | null };
   try {
-    const client = getClient();
+    const client = getAiClient();
 
     const rateLine =
       params.currentRate === null
@@ -156,7 +147,8 @@ ${articleContext(params.articles)}
 Give simple, short economic context for this region right now and how it's been evolving, grounded only in the coverage above.`;
 
     const message = await client.messages.create({
-      model: "claude-sonnet-4-6",
+      model: AI_MODEL,
+      thinking: { type: "disabled" },
       max_tokens: 350,
       system: REGIONAL_SYSTEM_PROMPT,
       messages: [{ role: "user", content: userPrompt }],
@@ -213,7 +205,7 @@ export async function explainCountrySituation(params: {
     throw new Error("No source articles available to ground a narrative.");
   }
 
-  const client = getClient();
+  const client = getAiClient();
 
   const indexLine =
     params.indexChangePercent === null
@@ -236,7 +228,8 @@ ${articleContext(params.articles)}
 Explain this country's economic and stock-market situation over ${params.periodPhrase}, grounded only in the figure and coverage above. Be honest about whether the rate and market relationship is actually visible in this window.`;
 
   const message = await client.messages.create({
-    model: "claude-sonnet-4-6",
+    model: AI_MODEL,
+    thinking: { type: "disabled" },
     max_tokens: 500,
     system: COUNTRY_SITUATION_SYSTEM_PROMPT,
     messages: [{ role: "user", content: userPrompt }],

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Fraunces, Caveat } from "next/font/google";
 import "./globals.css";
 import TerminalNav from "@/components/TerminalNav";
 import TerminalFooter from "@/components/TerminalFooter";
+import MarketTicker from "@/components/MarketTicker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -111,6 +112,7 @@ export default function RootLayout({
       </head>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <TerminalNav />
+        <MarketTicker />
         <main className="flex-1">{children}</main>
         <TerminalFooter />
       </body>

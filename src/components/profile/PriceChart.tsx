@@ -52,6 +52,11 @@ export default function PriceChart({
   const [points, setPoints] = useState<ChartPoint[]>(data);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  // Big headline readout that follows the cursor across the chart, like a
+  // real terminal's crosshair. Falls back to the latest close when the
+  // pointer isn't over the chart. Reads straight off Recharts' own mouse
+  // event, no separate chart implementation needed.
+  const [hover, setHover] = useState<{ date: string; value: number } | null>(null);
 
   // For "1D", the real baseline is yesterday's close, not today's first
   // bar — prepend it as a genuine data point so the chart's own line (not
@@ -64,9 +69,14 @@ export default function PriceChart({
   const baseline = chartPoints.length > 0 ? chartPoints[0].close : 0;
   const splitData = splitAtBaseline(chartPoints, baseline);
 
+  const latest = chartPoints[chartPoints.length - 1];
+  const shown = hover ?? (latest ? { date: latest.date, value: latest.close } : null);
+  const shownIsUp = shown != null && shown.value >= baseline;
+
   async function handleRangeChange(next: Range) {
     if (next === range) return;
     setRange(next);
+    setHover(null);
     setLoading(true);
     setError(false);
     try {
@@ -83,8 +93,36 @@ export default function PriceChart({
     }
   }
 
+  // Recharts v3 only hands back the hovered x-axis category (activeLabel),
+  // not the row itself — look the matching row up in splitData, whose
+  // value is whichever of above/below isn't null.
+  function handleChartMouseMove(state: { activeLabel?: string | number }) {
+    if (state.activeLabel == null) return;
+    const row = splitData.find((r) => r.date === state.activeLabel);
+    if (!row) return;
+    const value = row.above ?? row.below;
+    if (value == null) return;
+    setHover({ date: row.date, value });
+  }
+
   return (
     <div>
+      {shown && (
+        <div className="mb-2 flex items-baseline gap-2.5">
+          <span
+            className={`font-mono text-3xl font-semibold tabular-nums sm:text-4xl ${
+              shownIsUp ? "text-positive" : "text-negative"
+            }`}
+          >
+            {currency === "USD" ? "$" : ""}
+            {shown.value.toFixed(2)}
+          </span>
+          <span className="pb-0.5 font-mono text-[11px] uppercase tracking-widest text-muted">
+            {shown.date}
+          </span>
+        </div>
+      )}
+
       <div className="mb-3 flex items-center justify-between">
         <div className="flex gap-1">
           {RANGES.map((r) => (
@@ -110,7 +148,12 @@ export default function PriceChart({
 
       <div className="h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart data={splitData} margin={{ left: 0, right: 8, top: 8, bottom: 0 }}>
+          <ComposedChart
+            data={splitData}
+            margin={{ left: 0, right: 8, top: 8, bottom: 0 }}
+            onMouseMove={handleChartMouseMove}
+            onMouseLeave={() => setHover(null)}
+          >
             <defs>
               <linearGradient id="priceFillUp" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={UP_COLOR} stopOpacity={0.25} />
@@ -137,15 +180,12 @@ export default function PriceChart({
               width={56}
               tickFormatter={(v) => `${currency === "USD" ? "$" : ""}${v}`}
             />
+            {/* The tooltip box itself is suppressed (content=null) — the big
+                crosshair readout above the chart now does that job. Only
+                its vertical cursor line is kept. */}
             <Tooltip
-              contentStyle={{
-                background: "#f3f1ea",
-                border: "1px solid #e3e0d3",
-                borderRadius: 6,
-                fontSize: 12,
-              }}
-              labelStyle={{ color: "#26241f" }}
-              formatter={(value) => (value == null ? ["", ""] : [`${value}`, "Close"])}
+              content={() => null}
+              cursor={{ stroke: "#26241f", strokeOpacity: 0.25, strokeWidth: 1 }}
             />
             <Area
               type="monotone"

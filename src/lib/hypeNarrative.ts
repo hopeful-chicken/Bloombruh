@@ -22,19 +22,9 @@
 //    either way would be exactly the kind of unearned confidence this
 //    project's "never invent" rule exists to prevent.
 
-import Anthropic from "@anthropic-ai/sdk";
+import { getAiClient, AI_MODEL } from "./aiClient";
 import type { NewsArticle } from "./news";
 import type { HypeCaseId } from "./hypeCases";
-
-function getClient(): Anthropic {
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) {
-    throw new Error(
-      "ANTHROPIC_API_KEY is not set. AI-generated hype/fundamentals narratives need the same key as the AI report grader."
-    );
-  }
-  return new Anthropic({ apiKey: key });
-}
 
 function articleContext(articles: NewsArticle[]): string {
   return articles
@@ -67,7 +57,7 @@ export async function explainHistoricalCase(params: {
     throw new Error("No source articles available to ground a narrative.");
   }
 
-  const client = getClient();
+  const client = getAiClient();
 
   const statsLines = params.tickerSummaries
     .map((t) => {
@@ -91,7 +81,8 @@ ${articleContext(params.articles)}
 Explain this case — what drove it and how it resolved — grounded only in the figures and coverage above.`;
 
   const message = await client.messages.create({
-    model: "claude-sonnet-4-6",
+    model: AI_MODEL,
+    thinking: { type: "disabled" },
     max_tokens: 500,
     system: HISTORICAL_SYSTEM_PROMPT,
     messages: [{ role: "user", content: userPrompt }],
@@ -163,7 +154,7 @@ export async function explainCurrentHypeTheme(params: {
     throw new Error("No source articles available to ground a narrative.");
   }
 
-  const client = getClient();
+  const client = getAiClient();
 
   const statsLines = params.tickerSummaries
     .map((t) => {
@@ -190,7 +181,8 @@ ${articleContext(params.articles)}
 Present the real evidence on both sides of whether price action has run ahead of fundamentals here, grounded only in the figures and coverage above. Do not render a verdict.`;
 
   const message = await client.messages.create({
-    model: "claude-sonnet-4-6",
+    model: AI_MODEL,
+    thinking: { type: "disabled" },
     max_tokens: 500,
     system: CURRENT_THEME_SYSTEM_PROMPT,
     messages: [{ role: "user", content: userPrompt }],
