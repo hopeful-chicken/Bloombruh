@@ -85,7 +85,7 @@ The original bet worked: bought at a disciplined multiple, delivered above its o
 ## Sources
 
 - Diploma acquisition announcement RNS, 27 March 2024 (via [LSE news explorer](https://www.londonstockexchange.com/news?tab=news-explorer) — search "Diploma"): price, target financials, financing, stated accretion
-- [Diploma H1 2026 results and investor presentation](https://www.diplomaplc.com/investors/financial-presentations/) (19 May 2026): LTM deal multiples (\~8x / \~9x), leverage, Peerless tracking commentary, acquisition pipeline, guided H2 moderation
+- [Diploma H1 2026 results and investor presentation](https://www.diplomaplc.com/investors/results-reports-and-presentations/) (19 May 2026): LTM deal multiples (\~8x / \~9x), leverage, Peerless tracking commentary, acquisition pipeline, guided H2 moderation
 - [Diploma plc investor relations](https://www.diplomaplc.com/investors): FY2025 results (year-one Peerless outcome) and results calendar (next full-year results 17 November 2026)`,
     walkthrough: `## Build your own teardown — the walkthrough
 
