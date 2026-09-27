@@ -48,7 +48,7 @@ export const ANALYSIS_ENTRIES: AnalysisEntry[] = [
     id: "pokemon-cards-as-an-asset-class",
     title: "Are Pokemon Cards an Asset Class?",
     tagline: "Robert Greer's 1997 asset-class framework, a 3,821% index number that falls apart once you see how it is built, and PSA population data that quietly undercuts the \"vintage is scarce\" argument",
-    date: "2026-08-08",
+    date: "2026-08-25",
     body: `# Are Pokemon cards an asset class?
 
 Pokemon cards are having a real moment right now. New sets (themed card collections the company releases every few months, the way a card game keeps putting out new expansions) keep landing: the Chaos Rising and Mega Evolution series launched in May 2026, on top of Prismatic Evolutions and the 151 reprint set before it. The headlines keep getting bigger too. In February 2026 a single card, the Pikachu Illustrator (an ultra-rare 1998 promotional card long considered the rarest Pokemon card in existence), sold at auction for $16.49m, becoming the most expensive trading card ever sold in any category, a record certified by Guinness. Buyers spent an estimated $450m on Pokemon cards in the first quarter of 2026 alone, and PSA, the company that authenticates and grades cards, is now processing roughly 90,000 cards a day, up from about 15,000 a day back in 2021.
@@ -237,7 +237,7 @@ But I would not treat that as a permanent rule, and this is the part most people
     id: "sk-hynix-nasdaq-kospi-volatility",
     title: "Korea's Leverage Crash: SK Hynix, the KOSPI, and What Actually Broke",
     tagline: "A record Nasdaq listing, a '35% crash' every headline ran with, 1.2 million margin calls, and a president's approval rating cracking 50%. The real chain of events, and the one headline number that does not hold up.",
-    date: "2026-08-07",
+    date: "2026-08-18",
     body: `# Korea's leverage crash: SK Hynix, the KOSPI, and what actually broke
 
 I wrote the first version of this piece after four days of a story that looked done. It was not close to done. What started as a record Nasdaq listing turned, over the following four weeks, into South Korea's single worst month for equities on record (worse, by some measures, than any single month of the 1997 Asian Financial Crisis or 2008), with 1.2 million retail accounts hit by margin calls, a president's disapproval rating cracking 50% for the first time, and a market still whipsawing violently as of this week. This is the full version: the real timeline, the mechanics of how a brand-new financial product turned a normal correction into a crisis, and a check on the headline number itself. Every outlet covering this cites some version of a large SK Hynix drawdown (30%, 35%, or worse). None of them are fabricating anything; the underlying reporting on the leverage and the margin calls is solid. But a headline reaches for the biggest number you can still justify, not necessarily the most accurate one. Once I checked SK Hynix's own Nasdaq-listed stock against an honest starting point, rather than the one that produces the biggest number, the real figure turned out to be smaller, and more interesting, than what has been reported. It is also not the only place this story does not quite line up with how it has been told: almost every account of this crash, including my own first draft, starts the clock on 14 July. The index itself says otherwise.
@@ -439,39 +439,6 @@ What I do not think fades: the multiple. Even once the forced selling is fully d
       ],
     },
   },
-  {
-    id: "ai-hedge-fund-analyst-roles",
-    title: "What AI Is Actually Doing to Hedge Fund and Bank Analyst Roles",
-    tagline: "Goldman and Morgan Stanley's own 2026 labor-market studies, and what they actually found for analyst roles",
-    date: "2026-08-05",
-    body: `# What AI is actually doing to hedge fund and bank analyst roles
-
-The "AI is coming for analyst jobs" headline is everywhere. I wanted to check what the actual labor-market data says, rather than just repeat the headline, so this pulls together what Goldman's and Morgan Stanley's own 2026 studies found.
-
-## What Goldman Sachs and Morgan Stanley's own research actually found
-
-Both banks published labor-market studies in 2026 that scored occupations by how exposed they are to AI, separating jobs that can be largely *substituted* by AI (their example: proofreader) from jobs that are *complemented* by it (their example: doctor, work that leans on judgment, accountability, and interpersonal interaction AI cannot replace).
-
-Goldman's finding: AI exposure has genuinely moved the unemployment rate in both directions at once, a **0.16 percentage point rise** in unemployment in easily-substituted occupations, versus a **0.06 point fall** in unemployment in AI-augmented occupations. Morgan Stanley ran a similar analysis and reached a similar order of magnitude: AI has added **at most 10 basis points** to the overall unemployment rate so far. Small in aggregate, but not nothing, and clearly uneven across job types.
-
-## Where that leaves research and analyst roles specifically
-
-Within banking itself, Goldman, Morgan Stanley, and JPMorgan have all said publicly that AI is augmenting analysts rather than replacing them so far. The way it shows up is banks getting more output per person, not cutting headcount outright. Two concrete, more specific data points sit underneath that:
-
-- Some firms have reportedly trimmed their entry-level analyst class sizes by an estimated **10-20%**, a real, if modest, effect on the number of junior seats available, even without wholesale replacement of existing analysts.
-- Routine, well-defined tasks (pitch-book drafting, first-pass document review) are the parts genuinely being automated first. That tracks with the substitutable-vs-augmented framing above: the more standardized a task, the more exposed it is.
-
-## The honest caveat on the more dramatic claims
-
-Some industry commentary (mostly from AI-research-tool vendors themselves) makes bigger claims. One vendor blog I found while researching this cited hedge funds using generative AI achieving "3-5% higher annualized returns" than non-adopters. I am not including that as a fact here: a company selling AI research tools has an obvious commercial interest in that framing, and I could not find it corroborated by an independent source. Worth remembering that "AI and finance" content is itself a hype-prone category, exactly the kind of gap between what is promised and what is shown that this site's own Hype vs Fundamentals module is built to flag.
-
-## My actual read
-
-For someone starting out in this industry, the useful question is which parts of the job are shrinking and which are not: the standardized parts (pitch-book drafting, first-pass document review) are the ones going first, and the judgment, interpretation, and client-facing parts are where the value, and the entry-level seats, will concentrate.
-
-**Sources:** [AI's impact on the job market is starting to show up in the data — Axios](https://www.axios.com/2026/04/07/ai-jobs-goldman-sach-morgan-stanley), [Can AI Replace Wall Street Analysts in 2026? — Impact Wealth](https://impactwealth.org/ai-replace-wall-street-analysts/), [AI in Hedge Funds: Use Cases, Risks, and Best Practices — AlphaSense](https://www.alpha-sense.com/blog/trends/generative-ai-in-hedge-funds/)
-`,
-  },
 ];
 
 // Stock pitches — a curated subset of what used to be one long "10 Stock
@@ -506,6 +473,8 @@ Diploma is a textbook "quality compounder": a business that does not sound excit
 
 Two honest complications before the bull case. First, the growth is less broad-based than the headline suggests: management itself discloses that the portfolio excluding Peerless grew organic revenue at a high single-digit rate in H1, well ahead of the 5% model but well below the 15% headline, and it has guided to "some moderation in Peerless performance towards more typical growth rates" in H2. One hot acquisition is doing real work in the standout number. Second, the price already believes a lot. At 7,335p the market cap is about £9.8bn, roughly 24x LTM EBITDA, and my own quick DCF arithmetic (9% cost of equity, 2.5% terminal growth) needs year-1 growth of around 22-24% to justify it, against guidance of 14%. The pitch is not "is this a good business," it plainly is. The pitch is whether the compounding can stay far enough above what is already priced in.
 
+The Street itself is split on exactly that question, which is the best evidence the debate is real rather than one-sided. JPMorgan raised Diploma to Overweight with a December 2027 price target of 8,250p (up from a prior December 2026 target of 5,760p); Jefferies, reading the same filings, raised its own target to 7,000p but kept a Hold. A roughly 15% gap between two banks looking at identical numbers is not a disagreement about what happened, it is a disagreement about how much further durability to underwrite, which is precisely the judgment call this pitch is asking you to make.
+
 ## The evidence in their own numbers (H1 2026 filings)
 
 The H1 2026 results and investor presentation (six months to 31 March 2026, published 19 May 2026) document the compounding machine directly, and they are the best primary evidence for each leg of the thesis. The FY2025 exacts are now disclosed: revenue £1,524.5m, adjusted operating profit £342.7m (a 22.5% margin), adjusted EPS 176.0p, which makes LTM revenue to March £1,647m. The street anchor is disclosed by the company itself: analyst consensus for FY26 adjusted operating profit was £428m as at 18 May 2026, and the upgraded guidance (operating profit growth of over 30%) sits about 6% above it.
@@ -538,6 +507,16 @@ Read the multiples as a ladder: 8x average across the LTM, \~9x on the seven mos
 
 Two honest costs of the machine, straight from the accounts. Acquisition-related charges were £43.8m this half (versus £17.5m a year ago): £32.4m of intangible amortisation, £7.4m of deal costs and a £4.0m unwind of inventory fair-value adjustments; and the discount unwind and remeasurement of acquisition liabilities (deferred consideration, earnouts) jumped to £11.3m from £1.7m. That is why adjusted EPS grew 36% while basic statutory EPS grew 4% (74.7p). The adjustments are standard for a serial acquirer, but at some point a sceptic asks whether amortisation of acquisitions is simply a recurring cost of this business model, and the answer has to be prepared, not improvised. And on the balance sheet: goodwill plus acquisition intangibles now stand at £1,104.6m against £1,052.2m of shareholders' funds, so tangible book value is negative. Fine while deals perform; it is the entire impairment tail-risk if a big one does not.
 
+## Ownership, competition, and the synergy model
+
+Three questions worth asking of any roll-up, answered from the filings rather than assumed:
+
+**Full ownership, not passive stakes.** Diploma buys control, not minority positions: every deal in the table above is a majority-to-full acquisition, and the founders/management team is retained to keep running the business day-to-day rather than being folded into a combined operating unit. Abbey Seals (Ireland, April 2026) is the one deal structured as a 90% stake rather than 100%, and it is the exception that proves the rule, Diploma's own disclosure treats it as a controlling acquisition like every other deal, not a joint venture or a passive holding. Peerless itself illustrates the same discipline in the payment structure: roughly £228m of the £236m was paid in cash upfront, with the remaining 3.5% held back as an earnout tied to Peerless's own FY2027 financial performance, an incentive that keeps the acquired management economically invested in hitting the numbers Diploma underwrote.
+
+**Real competitors exist; the edge is depth, not an absence of rivals.** It would be a mistake to pitch this as a business with no competition. Seals and fluid-power distribution has real scaled rivals (ERIKS, Motion Industries, Applied Industrial Technologies); industrial components and MRO more broadly has RS Group, Wesco/Anixter, Fastenal, and MSC. None of them run Diploma's specific model, though: buying the smallest, most specialized niche distributors (a nuclear-grade seals supplier, an aerospace fastener distributor, an in-vitro diagnostics business) and leaving each one operationally intact rather than folding it into a generalist catalogue. The moat is niche-within-niche specialization and long-standing customer relationships at the individual-business level, not a lack of competition at the market level, worth saying explicitly rather than implying it.
+
+**The synergies are platform-level, not product cross-selling.** A fair reading of the portfolio, industrial seals, electronic interconnects, medtech diagnostics, is that these businesses do not sell to each other's customers or share products: a hospital buying in-vitro diagnostics from the Life Sciences division has no reason to also buy aerospace fasteners from Controls. The real synergy Diploma extracts sits one level up, in the group platform layered underneath every acquisition: shared procurement (better terms from suppliers at group scale), shared logistics and digital-commerce infrastructure, and shared data and analytics on inventory and customer behaviour. That is a genuine, checkable synergy, it shows up directly in the margin expansion and ROATCE numbers above, but it is an operating-efficiency synergy rather than a revenue cross-sell synergy, and the pitch should not overclaim the latter.
+
 ## What the economy is doing to this stock
 
 The results read like a map of the current economy, and the pitch should say so:
@@ -553,7 +532,7 @@ The results read like a map of the current economy, and the pitch should say so:
 
 The model depends on continuing to find and integrate acquisitions at sensible prices. It is, structurally, a roll-up, and roll-ups deteriorate when they overpay, integrate poorly, or run out of good targets. The warning signs to watch are specific, not generic: the average multiple paid has ticked from 8x (LTM) to \~9x (most recent seven) to c.11x on CDM; the gap between the 15% organic headline and the high-single-digit ex-Peerless figure implies a large share, plausibly approaching half, of the group's organic growth traces to one acquisition that management itself says will moderate; the gap between adjusted and statutory profit is widening with each deal (£43.8m of acquisition charges this half); and goodwill now exceeds shareholders' funds, so a serious deal failure would hit an intangible-heavy balance sheet directly. After this latest re-rating to \~24x EV/EBITDA, the premium valuation prices in continued execution on all of it. The dated, checkable tests: Peerless's guided H2 moderation, CDM's integration against its 11x price, the multiple paid on each newly announced deal, and whether H2 organic growth holds double digits once Peerless cools.
 
-**Sources:** [Diploma Q3 FY2026 trading update](https://www.tradingview.com/news/reuters.com,2026-07-16:newsml_RSP5243Ma:0), [Diploma H1 2026 results and investor presentation](https://www.diplomaplc.com/investors/results-reports-and-presentations/) (19 May 2026 — multiples, ROATCE, divisional detail, financial model), [Diploma share price and 52-week range](https://finance.yahoo.com/quote/DPLM.L/), [Peerless Aerospace Fastener acquisition, official RNS announcement](https://www.investegate.co.uk/announcement/rns/diploma--dplm/acquisition/8108565) (27 March 2024)
+**Sources:** [Diploma Q3 FY2026 trading update](https://www.tradingview.com/news/reuters.com,2026-07-16:newsml_RSP5243Ma:0), [Diploma H1 2026 results and investor presentation](https://www.diplomaplc.com/investors/results-reports-and-presentations/) (19 May 2026 — multiples, ROATCE, divisional detail, financial model), [Diploma share price and 52-week range](https://finance.yahoo.com/quote/DPLM.L/), [Peerless Aerospace Fastener acquisition, official RNS announcement](https://www.investegate.co.uk/announcement/rns/diploma--dplm/acquisition/8108565) (27 March 2024, consideration structure and earnout), [JPMorgan upgrade to Overweight, 8,250p target](https://www.sharecast.com/news/broker-recommendations/jpmorgan-upgrades-diploma-to-overweight-hikes-price-target--23352872.html), [Jefferies Hold rating, 7,000p target](https://www.dailypolitical.com/2026/05/29/diploma-londplm-receives-hold-rating-from-jefferies-financial-group.html)
 `,
     toolkit: `## Pitch deck template
 Download the [Diploma PLC pitch-deck template (.pptx)](/api/pitch-template?id=diploma-plc&code=vq55jh68%26*): 14 slides modeled on the Varsity/OAF competition-winning decks — claim-style titles, dense charts, colour-coded bear/base/bull, a market-expectations slide, and Q&A-proof appendices. Nothing is pre-filled: every [INSERT] prompt tells you exactly what to research, where to find it, and where it goes on the slide.
@@ -566,6 +545,7 @@ Real, sourced figures to build from — pull the rest (live share price, beta) f
 - H1 FY2026 (six months to 31 March 2026): revenue £851.1m (+17%, +15% organic); adjusted operating profit £208.9m (margin 24.5%); adjusted EPS 109.2p (+36%); free cash flow £110.7m (76% conversion)
 - FY2025 (year ended 30 September 2025, audited, per the H1 26 report): revenue £1,524.5m; adjusted operating profit £342.7m (22.5% margin); adjusted EPS 176.0p. LTM revenue to March 2026: £1,647m
 - **Street anchor:** analyst consensus FY26 adjusted operating profit **£454m** (as at 15 July 2026, disclosed in the Q3 update itself; it was £428m at the H1 results in May) — upgraded guidance of c.42% growth implies ~£485m. This is the comparison for your reverse-DCF
+- **The analyst split, as a sanity check on your own target:** JPMorgan Overweight, December 2027 price target 8,250p (up from 5,760p); Jefferies Hold, price target 7,000p. If your own DCF lands well outside that ~7,000-8,250p range, understand why before you present it
 - **Net debt: £343.9m** (31 March 2026; leverage 0.8x vs a <2.0x policy)
 - **Weighted average shares: 134.2m; effective tax rate 25.0%** (H1 2026)
 - **ROATCE: 22.7%** — compare against your computed WACC for the capital-allocation thesis (note the definition is conservative: capital employed includes historic goodwill)
@@ -573,7 +553,7 @@ Real, sourced figures to build from — pull the rest (live share price, beta) f
 - Nine months to 30 June 2026: Q3 organic revenue growth +15%; FY26 guidance raised to c.42% operating profit growth, with acquisitions announced to date adding a further 6 points to reported growth
 - FY2026 guidance (raised in the Q3 update): organic revenue growth 14% (from 12%), operating margin circa 26.5% (from circa 25%), operating profit growth c.42% (a further c.7% above the £454m consensus)
 - CDM acquisition completed 25 June 2026: strengthens US interconnect operations, defense-market tilt
-- Peerless Aerospace Fastener acquisition: announced March 2024, £236m, \~+8% EPS accretion targeted for year one and already delivered per FY2025 results; H1 FY2026 commentary, nearly two years in: "continued outstanding performance," now guided to moderate
+- Peerless Aerospace Fastener acquisition: announced March 2024, £236m (\~£228m cash upfront + 3.5% earnout tied to Peerless's own FY2027 performance), \~+8% EPS accretion targeted for year one and already delivered per FY2025 results; H1 FY2026 commentary, nearly two years in: "continued outstanding performance," now guided to moderate
 - Next scheduled catalyst: full-year results, 17 November 2026
 - WACC inputs: use the current 10-year UK gilt yield as your risk-free rate; pull Diploma's beta from stockanalysis.com or a data terminal. Do not guess a beta.
 
@@ -586,7 +566,7 @@ Real, sourced figures to build from — pull the rest (live share price, beta) f
 Financial Times (UK mid-cap coverage), Investors' Chronicle, Proactive Investors, and Sharecast all cover UK-listed industrials like Diploma regularly and are free or have generous free previews.
 
 ## Comps and data
-Diploma has no direct UK-listed pure-play peer. Build your comp set from Bunzl (LSE: BNZL, another UK distribution "compounder") and US names like Fastenal (NASDAQ: FAST) and W.W. Grainger (NYSE: GWW). Pull multiples from **stockanalysis.com** or **macrotrends.net** (both free, no login).
+Diploma has no direct UK-listed pure-play peer for a stock-multiple comp set. Build that set from Bunzl (LSE: BNZL, another UK distribution "compounder") and US names like Fastenal (NASDAQ: FAST) and W.W. Grainger (NYSE: GWW). Pull multiples from **stockanalysis.com** or **macrotrends.net** (both free, no login). That is a different list from Diploma's real operational competitors, ERIKS, Motion Industries, and Applied Industrial Technologies in seals/fluid power; RS Group, Wesco/Anixter, Fastenal, and MSC in industrial components more broadly, none of which are useful stock comps (mostly private, or not comparable business mixes), but worth naming in your deck's competitive-landscape slide so you are not pitching a company with "no competitors."
 
 ## Build it yourself — the full walkthrough (first-timer edition)
 Never built a pitch before? Follow these steps in order. Total time: roughly one focused weekend.
@@ -616,10 +596,11 @@ Never built a pitch before? Follow these steps in order. Total time: roughly one
 1. **The M&A engine:** from past annual reports, count acquisitions per year and plot revenue and EPS over 10-20 years — or build a table of Diploma's own past deals (year / target / price / multiple / accretion) from the RNS archive. A roll-up's own deal history is the strongest evidence that exists.
 2. **Aerospace/defense expansion:** the Peerless deal economics from Step 1, plus a defense-spending trend chart (NATO, UK MoD, or Statista) showing the tailwind the deal buys into.
 3. **Capital allocation:** chart ROIC vs WACC over 10 years (ROIC ≈ NOPAT ÷ (equity + debt − cash), computed per year from annual reports), plus an organic-vs-acquired revenue split from results statements — proves the engine isn't only acquisitions.
+- A judge will ask about competition and synergies whether or not you build it as a numbered thesis: have one slide's worth of answer ready — name the real operational competitors (ERIKS, Motion Industries, Applied Industrial Technologies; RS Group, Wesco/Anixter, Fastenal, MSC) and explain the moat as niche depth, not their absence; and be precise that the group's synergy is procurement/logistics/data at the platform level, not product cross-selling between unrelated niches.
 - Slide titles are **claims**, not labels: "A 20-year bolt-on engine that has never overpaid through a cycle", not "Thesis 1".
 
 **Step 6 — The bear case and your rebuttal (\~45 min).**
-- Find the strongest bearish argument you can (search for Diploma valuation concerns; check the P/E against its own history). Write it as convincingly as you can — steelman, don't strawman.
+- Find the strongest bearish argument you can (search for Diploma valuation concerns; check the P/E against its own history). Write it as convincingly as you can — steelman, don't strawman. The gap between JPMorgan's Overweight (8,250p target) and Jefferies' Hold (7,000p target) is a real, live version of this exact debate, worth citing directly rather than inventing a synthetic bear case.
 - Rebut with numbered points, each tied to a *checkable fact* or a *dated future event* — e.g. whether Peerless's growth actually moderates as guided is testable at the next trading update, and CDM's integration against its ~11x price is a live, unresolved test.
 
 **Step 7 — Comps (\~45 min).**
@@ -1281,6 +1262,44 @@ Never built a pitch before? Follow these steps in order. Total time: roughly one
 **Step 9 — Assemble the deck (\~2 hours).** Slide 2 chart: 12-month price vs the Nasdaq, with the two safety-incident disclosure dates annotated.
 
 **Step 10 — The morning you present.** Re-pull the quote. Be ready to defend your capex-vs-monetization trajectory out loud — the whole pitch is that one chart.`,
+  },
+  {
+    id: "costain-group",
+    title: "Costain Group",
+    tagline: "LSE: COST: my Bloomsbury Capital team's stock pitch, straight from the deck",
+    date: "2026-09-27",
+    body: `# Costain Group (LSE: COST)
+
+I have not been very active on this page these past few days, but I am back, and this is overdue. Costain is a stock pitch I built with my team during the Bloomsbury Capital summer bootcamp, my first real group project pulling together a full valuation from scratch: an order book and industry analysis, a bear/base/bull DCF, a trading comps set, risks, and catalysts. I learned a genuine amount doing it, how to actually build a scenario-based valuation rather than just talk about one, how to read a company's own numbers for evidence instead of assuming a story is true, and how much of a pitch is really about defending your assumptions, not just stating a target price.
+
+The team was Bryan, Joao, Kanz, Trisha, and me, Group 4. Below is the deck exactly as we presented it, unedited, slide by slide.
+
+![Slide 1](/data/analysis/costain-slides/slide-01.png)
+
+![Slide 2](/data/analysis/costain-slides/slide-02.png)
+
+![Slide 3](/data/analysis/costain-slides/slide-03.png)
+
+![Slide 4](/data/analysis/costain-slides/slide-04.png)
+
+![Slide 5](/data/analysis/costain-slides/slide-05.png)
+
+![Slide 6](/data/analysis/costain-slides/slide-06.png)
+
+![Slide 7](/data/analysis/costain-slides/slide-07.png)
+
+![Slide 8](/data/analysis/costain-slides/slide-08.png)
+
+![Slide 9](/data/analysis/costain-slides/slide-09.png)
+
+![Slide 10](/data/analysis/costain-slides/slide-10.png)
+
+![Slide 11](/data/analysis/costain-slides/slide-11.png)
+
+![Slide 12](/data/analysis/costain-slides/slide-12.png)
+
+![Slide 13](/data/analysis/costain-slides/slide-13.png)
+`,
   },
 ];
 

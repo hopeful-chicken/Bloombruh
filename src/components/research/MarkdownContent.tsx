@@ -60,6 +60,17 @@ export default function MarkdownContent({ markdown }: { markdown: string }) {
           ol: ({ children }) => <ol className="list-decimal space-y-1 pl-5">{children}</ol>,
           li: ({ children }) => <li className="text-foreground/90">{children}</li>,
           hr: () => <hr className="my-8 border-border" />,
+          // eslint-disable-next-line @next/next/no-img-element -- these are
+          // full-resolution rasterized slide images served from /public,
+          // not something next/image's optimizer needs to touch.
+          img: ({ src, alt }) => (
+            <img
+              src={typeof src === "string" ? src : undefined}
+              alt={alt ?? ""}
+              className="my-4 w-full rounded-lg border border-border"
+              loading="lazy"
+            />
+          ),
           code: ({ children }) => (
             <code className="rounded bg-surface px-1 py-0.5 font-mono text-xs text-accent">{children}</code>
           ),

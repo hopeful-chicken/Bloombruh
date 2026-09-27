@@ -40,7 +40,7 @@ export const DEAL_TEARDOWNS: DealTeardown[] = [
     target: "Peerless Aerospace Fastener (US aerospace fastener distribution)",
     stance: "The original bet already paid off — H1 2026 evidence shows group-level discipline (avg 8x multiple paid) and Peerless still outperforming, nearly two years in",
     facts: [
-      { label: "Consideration", value: "£236m", note: "announced 27 March 2024, completed 1 May 2024" },
+      { label: "Consideration", value: "£236m (~£228m cash upfront + 3.5% earnout)", note: "announced 27 March 2024, completed 1 May 2024; earnout tied to Peerless's own FY2027 performance" },
       { label: "Stated year-one target", value: "~+8% group EPS accretion", note: "management's original figure at announcement — since delivered, see below" },
       { label: "Actual year-one result", value: "Exceeded expectations", note: "per FY2025 results — year-one ROATCE over 20%, well ahead of the ~15% target at announcement" },
       { label: "Multiple discipline (group evidence)", value: "avg ~8x EBIT across the 15 LTM deals (~9x on the 7 most recent)", note: "H1 2026 results, 19 May 2026 — vs Diploma's own far higher trading multiple" },
@@ -61,7 +61,7 @@ Diploma's model is serial acquisition of small, founder-owned distributors at se
 Management said ~+8% year-one EPS accretion at announcement. That is no longer a claim to test forward, it is a result: FY2025 results confirmed Peerless exceeded expectations, with year-one ROATCE over 20%, well ahead of the ~15% target. The real, still-open question by H1 2026 is different: what happens once the initial growth surge normalizes.
 
 1. **What Peerless delivered.** The deal-level financials sit in the original 2024 RNS — pull them yourself if you want the exact multiple paid. What the H1 2026 results add is group-level discipline evidence around it: **15 deals in the last twelve months for c.£310m at an average ~8x EBIT multiple** (the 7 most recent at ~9x), expected to add c.£40m of annualised operating profit. Diploma's own multiple is far higher — the arbitrage is intact, though the uptick from 8x to ~9x is worth watching.
-2. **How it was financed, and the balance sheet since.** Leverage stood at **0.8x at 31 March 2026 (net debt £343.9m)** — deep inside Diploma's <2.0x policy even mid-buying-spree, so financing strain was never really the risk here. The original cash/debt/equity mix for this specific deal is in the 2024 RNS.
+2. **How it was financed, and the balance sheet since.** Leverage stood at **0.8x at 31 March 2026 (net debt £343.9m)** — deep inside Diploma's <2.0x policy even mid-buying-spree, so financing strain was never really the risk here. Of the total £236m, roughly £228m was paid in cash upfront, with the remaining 3.5% structured as an earnout tied to Peerless's own FY2027 gross income — a small but deliberate slice of the price left conditional on the target's own performance, which is Diploma's standard discipline (buy control, but keep some skin in the game on the seller's side) rather than a one-off feature of this deal.
 3. **What's live now.** H1 2026 tracking: the Controls sector review singles out Peerless for "continued outstanding performance" with double-digit organic growth, nearly two years in, but management itself flags that growth will moderate "towards more typical growth rates" in H2. That guidance, not the original accretion target, is the actual open test.
 
 | Step | Figure | Where from |
