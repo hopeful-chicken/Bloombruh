@@ -439,6 +439,44 @@ What I do not think fades: the multiple. Even once the forced selling is fully d
       ],
     },
   },
+  {
+    id: "costain-group",
+    title: "Costain Group",
+    tagline: "LSE: COST: my Bloomsbury Capital team's stock pitch, straight from the deck",
+    date: "2026-09-18",
+    body: `# Costain Group (LSE: COST)
+
+I have not been very active on this page these past few days, but I am back, and this is overdue. Costain is a stock pitch I built with my team during the Bloomsbury Capital summer bootcamp, my first real group project pulling together a full valuation from scratch: an order book and industry analysis, a bear/base/bull DCF, a trading comps set, risks, and catalysts. I learned a genuine amount doing it, how to actually build a scenario-based valuation rather than just talk about one, how to read a company's own numbers for evidence instead of assuming a story is true, and how much of a pitch is really about defending your assumptions, not just stating a target price.
+
+The team was Bryan, Joao, Kanz, Trisha, and me, Group 4. Below is the deck exactly as we presented it, unedited, slide by slide.
+
+![Slide 1](/data/analysis/costain-slides/slide-01.png)
+
+![Slide 2](/data/analysis/costain-slides/slide-02.png)
+
+![Slide 3](/data/analysis/costain-slides/slide-03.png)
+
+![Slide 4](/data/analysis/costain-slides/slide-04.png)
+
+![Slide 5](/data/analysis/costain-slides/slide-05.png)
+
+![Slide 6](/data/analysis/costain-slides/slide-06.png)
+
+![Slide 7](/data/analysis/costain-slides/slide-07.png)
+
+![Slide 8](/data/analysis/costain-slides/slide-08.png)
+
+![Slide 9](/data/analysis/costain-slides/slide-09.png)
+
+![Slide 10](/data/analysis/costain-slides/slide-10.png)
+
+![Slide 11](/data/analysis/costain-slides/slide-11.png)
+
+![Slide 12](/data/analysis/costain-slides/slide-12.png)
+
+![Slide 13](/data/analysis/costain-slides/slide-13.png)
+`,
+  },
 ];
 
 // Stock pitches — a curated subset of what used to be one long "10 Stock
@@ -1262,44 +1300,6 @@ Never built a pitch before? Follow these steps in order. Total time: roughly one
 **Step 9 — Assemble the deck (\~2 hours).** Slide 2 chart: 12-month price vs the Nasdaq, with the two safety-incident disclosure dates annotated.
 
 **Step 10 — The morning you present.** Re-pull the quote. Be ready to defend your capex-vs-monetization trajectory out loud — the whole pitch is that one chart.`,
-  },
-  {
-    id: "costain-group",
-    title: "Costain Group",
-    tagline: "LSE: COST: my Bloomsbury Capital team's stock pitch, straight from the deck",
-    date: "2026-09-27",
-    body: `# Costain Group (LSE: COST)
-
-I have not been very active on this page these past few days, but I am back, and this is overdue. Costain is a stock pitch I built with my team during the Bloomsbury Capital summer bootcamp, my first real group project pulling together a full valuation from scratch: an order book and industry analysis, a bear/base/bull DCF, a trading comps set, risks, and catalysts. I learned a genuine amount doing it, how to actually build a scenario-based valuation rather than just talk about one, how to read a company's own numbers for evidence instead of assuming a story is true, and how much of a pitch is really about defending your assumptions, not just stating a target price.
-
-The team was Bryan, Joao, Kanz, Trisha, and me, Group 4. Below is the deck exactly as we presented it, unedited, slide by slide.
-
-![Slide 1](/data/analysis/costain-slides/slide-01.png)
-
-![Slide 2](/data/analysis/costain-slides/slide-02.png)
-
-![Slide 3](/data/analysis/costain-slides/slide-03.png)
-
-![Slide 4](/data/analysis/costain-slides/slide-04.png)
-
-![Slide 5](/data/analysis/costain-slides/slide-05.png)
-
-![Slide 6](/data/analysis/costain-slides/slide-06.png)
-
-![Slide 7](/data/analysis/costain-slides/slide-07.png)
-
-![Slide 8](/data/analysis/costain-slides/slide-08.png)
-
-![Slide 9](/data/analysis/costain-slides/slide-09.png)
-
-![Slide 10](/data/analysis/costain-slides/slide-10.png)
-
-![Slide 11](/data/analysis/costain-slides/slide-11.png)
-
-![Slide 12](/data/analysis/costain-slides/slide-12.png)
-
-![Slide 13](/data/analysis/costain-slides/slide-13.png)
-`,
   },
 ];
 
