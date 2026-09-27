@@ -14,11 +14,6 @@ export default function AnalysisPage() {
       <h1 className="font-display mt-1 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
         The Feed
       </h1>
-      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
-        Most of what actually reaches me is not a newspaper. It is my feed: a clip, a
-        headline, a 20-second video between everything else on Instagram. I scroll past almost
-        all of it. This is what I stopped on, the ones I went and actually worked out properly.
-      </p>
 
       <section className="mt-10">
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">Write-Ups</h2>
