@@ -45,6 +45,44 @@ export type AnalysisEntry = {
 
 export const ANALYSIS_ENTRIES: AnalysisEntry[] = [
   {
+    id: "costain-group",
+    title: "Costain Group",
+    tagline: "LSE: COST: my Bloomsbury Capital team's stock pitch, straight from the deck",
+    date: "2026-09-18",
+    body: `# Costain Group (LSE: COST)
+
+I have recently had the opportunity to attend the Bloomsbury Summer Analyst Bootcamp, during which I had the opportunity to work as a team, and we pitched Costain, a UK construction company.
+
+The team was Bryan, Joao, Kanz, Trisha, and me, Group 4. Below is the deck exactly as we presented it, slide by slide.
+
+![Slide 1](/data/analysis/costain-slides/slide-01.png)
+
+![Slide 2](/data/analysis/costain-slides/slide-02.png)
+
+![Slide 3](/data/analysis/costain-slides/slide-03.png)
+
+![Slide 4](/data/analysis/costain-slides/slide-04.png)
+
+![Slide 5](/data/analysis/costain-slides/slide-05.png)
+
+![Slide 6](/data/analysis/costain-slides/slide-06.png)
+
+![Slide 7](/data/analysis/costain-slides/slide-07.png)
+
+![Slide 8](/data/analysis/costain-slides/slide-08.png)
+
+![Slide 9](/data/analysis/costain-slides/slide-09.png)
+
+![Slide 10](/data/analysis/costain-slides/slide-10.png)
+
+![Slide 11](/data/analysis/costain-slides/slide-11.png)
+
+![Slide 12](/data/analysis/costain-slides/slide-12.png)
+
+![Slide 13](/data/analysis/costain-slides/slide-13.png)
+`,
+  },
+  {
     id: "pokemon-cards-as-an-asset-class",
     title: "Are Pokemon Cards an Asset Class?",
     tagline: "Robert Greer's 1997 asset-class framework, a 3,821% index number that falls apart once you see how it is built, and PSA population data that quietly undercuts the \"vintage is scarce\" argument",
@@ -438,42 +476,6 @@ What I do not think fades: the multiple. Even once the forced selling is fully d
         { date: "2026-08-06", label: "Fresh selloff tracking a broad Wall Street tech pullback" },
       ],
     },
-  },
-  {
-    id: "costain-group",
-    title: "Costain Group",
-    tagline: "LSE: COST: my Bloomsbury Capital team's stock pitch, straight from the deck",
-    date: "2026-09-18",
-    body: `# Costain Group (LSE: COST)
-
-A stock pitch I built with my Bloomsbury Capital team, Bryan, Joao, Kanz, Trisha, and me, Group 4, during the summer bootcamp. Below is the deck exactly as we presented it, slide by slide.
-
-![Slide 1](/data/analysis/costain-slides/slide-01.png)
-
-![Slide 2](/data/analysis/costain-slides/slide-02.png)
-
-![Slide 3](/data/analysis/costain-slides/slide-03.png)
-
-![Slide 4](/data/analysis/costain-slides/slide-04.png)
-
-![Slide 5](/data/analysis/costain-slides/slide-05.png)
-
-![Slide 6](/data/analysis/costain-slides/slide-06.png)
-
-![Slide 7](/data/analysis/costain-slides/slide-07.png)
-
-![Slide 8](/data/analysis/costain-slides/slide-08.png)
-
-![Slide 9](/data/analysis/costain-slides/slide-09.png)
-
-![Slide 10](/data/analysis/costain-slides/slide-10.png)
-
-![Slide 11](/data/analysis/costain-slides/slide-11.png)
-
-![Slide 12](/data/analysis/costain-slides/slide-12.png)
-
-![Slide 13](/data/analysis/costain-slides/slide-13.png)
-`,
   },
 ];
 
