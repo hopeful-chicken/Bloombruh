@@ -47,7 +47,7 @@ export const ANALYSIS_ENTRIES: AnalysisEntry[] = [
   {
     id: "costain-group",
     title: "Costain Group",
-    tagline: "LSE: COST: my Bloomsbury Capital team's stock pitch, straight from the deck",
+    tagline: "LSE: COST — Long",
     date: "2026-09-18",
     body: `# Costain Group (LSE: COST)
 
@@ -85,7 +85,7 @@ The team was Bryan, Joao, Kanz, Trisha, and me, Group 4. Below is the deck exact
   {
     id: "pokemon-cards-as-an-asset-class",
     title: "Are Pokemon Cards an Asset Class?",
-    tagline: "Robert Greer's 1997 asset-class framework, a 3,821% index number that falls apart once you see how it is built, and PSA population data that quietly undercuts the \"vintage is scarce\" argument",
+    tagline: "Asset-class check",
     date: "2026-08-25",
     body: `# Are Pokemon cards an asset class?
 
@@ -274,11 +274,11 @@ But I would not treat that as a permanent rule, and this is the part most people
   {
     id: "sk-hynix-nasdaq-kospi-volatility",
     title: "Korea's Leverage Crash: SK Hynix, the KOSPI, and What Actually Broke",
-    tagline: "A record Nasdaq listing, a '35% crash' every headline ran with, 1.2 million margin calls, and a president's approval rating cracking 50%. The real chain of events, and the one headline number that does not hold up.",
+    tagline: "Timeline and number check",
     date: "2026-08-18",
     body: `# Korea's leverage crash: SK Hynix, the KOSPI, and what actually broke
 
-I wrote the first version of this piece after four days of a story that looked done. It was not close to done. What started as a record Nasdaq listing turned, over the following four weeks, into South Korea's single worst month for equities on record (worse, by some measures, than any single month of the 1997 Asian Financial Crisis or 2008), with 1.2 million retail accounts hit by margin calls, a president's disapproval rating cracking 50% for the first time, and a market still whipsawing violently as of this week. This is the full version: the real timeline, the mechanics of how a brand-new financial product turned a normal correction into a crisis, and a check on the headline number itself. Every outlet covering this cites some version of a large SK Hynix drawdown (30%, 35%, or worse). None of them are fabricating anything; the underlying reporting on the leverage and the margin calls is solid. But a headline reaches for the biggest number you can still justify, not necessarily the most accurate one. Once I checked SK Hynix's own Nasdaq-listed stock against an honest starting point, rather than the one that produces the biggest number, the real figure turned out to be smaller, and more interesting, than what has been reported. It is also not the only place this story does not quite line up with how it has been told: almost every account of this crash, including my own first draft, starts the clock on 14 July. The index itself says otherwise.
+I kept seeing South Korea's market all over the news and got curious, so I started digging into what was actually going on. Four days in, I thought I had the story basically done. I did not, not even close. What started as a record Nasdaq listing turned into South Korea's worst month for stocks on record, worse by some measures than any single month of the 1997 Asian Financial Crisis or 2008, with 1.2 million retail accounts hit by margin calls, the president's disapproval rating cracking 50% for the first time, and the market still swinging wildly as of this week. So here is the full version: the real timeline, how a brand new financial product turned a normal correction into an actual crisis, and a check on the headline number everyone keeps using. Every outlet covering this quotes some version of a huge SK Hynix drawdown, 30%, 35%, or worse. Nobody is making that up, the reporting on the leverage and the margin calls is solid. But a headline grabs the biggest number it can still defend, not necessarily the most accurate one. When I checked SK Hynix's own Nasdaq stock against a fair starting point instead of the one that gives the biggest number, the real drop turned out smaller, and honestly more interesting, than what has been reported. That is not the only place this story does not quite match how it has been told either: almost everyone, including my own first draft, starts the clock on 14 July. The index itself says otherwise.
 
 ## Timeline
 
@@ -495,7 +495,7 @@ export const STOCK_PITCHES: AnalysisEntry[] = [
   {
     id: "diploma-plc",
     title: "Diploma PLC",
-    tagline: "LSE: DPLM: a quality compounder that just guided to a ~42% full-year operating-profit jump",
+    tagline: "LSE: DPLM",
     date: "2026-08-19",
     body: `# Diploma PLC (LSE: DPLM)
 
@@ -660,7 +660,7 @@ Never built a pitch before? Follow these steps in order. Total time: roughly one
   {
     id: "nintendo",
     title: "Nintendo",
-    tagline: "TYO: 7974: record results, a 53% drawdown, and a real hype-vs-fundamentals gap running in reverse",
+    tagline: "TYO: 7974",
     date: "2026-08-05",
     body: `# Nintendo (TYO: 7974)
 
@@ -743,7 +743,7 @@ Never built a pitch before? Follow these steps in order. Total time: roughly one
   {
     id: "british-american-tobacco",
     title: "British American Tobacco",
-    tagline: "LSE: BATS: a live ESG-exclusion case study, freshly backed by a £1.3bn buyback",
+    tagline: "LSE: BATS",
     date: "2026-08-05",
     body: `# British American Tobacco (LSE: BATS / NYSE: BTI)
 
@@ -824,7 +824,7 @@ Never built a pitch before? Follow these steps in order. Total time: roughly one
   {
     id: "asml",
     title: "ASML",
-    tagline: "NASDAQ/AEX: ASML: the EUV monopoly, now visibly reshaped by export controls",
+    tagline: "NASDAQ/AEX: ASML",
     date: "2026-08-05",
     body: `# ASML (NASDAQ/AEX: ASML)
 
@@ -904,7 +904,7 @@ Never built a pitch before? Follow these steps in order. Total time: roughly one
   {
     id: "tsmc",
     title: "TSMC",
-    tagline: "NYSE: TSM: AI has become 66% of wafer revenue, and capex just went up again",
+    tagline: "NYSE: TSM",
     date: "2026-08-05",
     body: `# Taiwan Semiconductor Manufacturing Company (NYSE: TSM)
 
@@ -984,7 +984,7 @@ Never built a pitch before? Follow these steps in order. Total time: roughly one
   {
     id: "maersk",
     title: "Maersk",
-    tagline: "CPH: MAERSK-B: a rare case where a company's own good news (a safer route home) is bad news for its stock",
+    tagline: "CPH: MAERSK-B",
     date: "2026-08-05",
     body: `# A.P. Moller–Maersk (CPH: MAERSK-B)
 
@@ -1062,7 +1062,7 @@ Never built a pitch before? Follow these steps in order. Total time: roughly one
   {
     id: "dominos-pizza-group",
     title: "Domino's Pizza Group",
-    tagline: "LSE: DOM: the UK's quick-service bellwether, freshly re-accelerating on chicken and loyalty",
+    tagline: "LSE: DOM",
     date: "2026-08-05",
     body: `# Domino's Pizza Group plc (LSE: DOM)
 
@@ -1143,7 +1143,7 @@ Never built a pitch before? Follow these steps in order. Total time: roughly one
   {
     id: "palantir",
     title: "Palantir Technologies",
-    tagline: "NASDAQ: PLTR: real 342% commercial AI growth, priced at a multiple that leaves no room for error",
+    tagline: "NASDAQ: PLTR",
     date: "2026-08-05",
     body: `# Palantir Technologies (NASDAQ: PLTR)
 
@@ -1224,7 +1224,7 @@ Never built a pitch before? Follow these steps in order. Total time: roughly one
   {
     id: "microsoft-ai-industry",
     title: "Microsoft: a Way Into the AI Industry",
-    tagline: "NASDAQ: MSFT: the AI capex debate, tested in real time by the industry's own safety incidents",
+    tagline: "NASDAQ: MSFT",
     date: "2026-08-05",
     body: `# Microsoft (NASDAQ: MSFT): a way into the AI industry
 
